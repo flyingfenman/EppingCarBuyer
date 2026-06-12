@@ -46,7 +46,7 @@ export function AreasWeCover() {
                 <div className="text-sm text-muted-foreground">Miles Coverage</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-primary">11</div>
+                <div className="text-4xl font-bold text-primary">{areas.length}</div>
                 <div className="text-sm text-muted-foreground">Major Areas</div>
               </div>
             </div>
