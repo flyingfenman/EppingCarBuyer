@@ -42,7 +42,7 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent>
               <Button asChild variant="default" className="w-full" size="lg">
-                <a href="mailto:henry@stamfordcarbuyer.com">
+                <a href="mailto:henry@eppingcarbuyer.com">
                   <Mail className="mr-2 h-5 w-5" />
                   Email Henry
                 </a>
@@ -83,7 +83,7 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground">
-                Within 50 miles of Stamford including Peterborough, Grantham, and surrounding areas
+                Within 50 miles of Epping including Loughton, Chigwell, Harlow, and surrounding areas
               </p>
             </CardContent>
           </Card>

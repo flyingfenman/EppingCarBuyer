@@ -1,4 +1,4 @@
-# Stamford Car Buyer - Next.js Website
+# Epping Car Buyer - Next.js Website
 
 A modern, fast, and SEO-friendly car buying website built with Next.js 15, TypeScript, and Tailwind CSS.
 
@@ -146,4 +146,4 @@ This is a standard Next.js application and can be deployed to any platform that 
 
 ## License
 
-© 2025 Stamford Car Buyer. All rights reserved.
+© 2025 Epping Car Buyer. All rights reserved.

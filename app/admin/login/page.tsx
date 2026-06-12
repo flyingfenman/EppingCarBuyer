@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="admin@stamfordcarbuyer.com"
+                  placeholder="admin@eppingcarbuyer.com"
                   required
                 />
               </div>

@@ -7,7 +7,7 @@ import { SellForMeComparison } from "@/components/sell-for-me/comparison"
 import { SellForMeCta } from "@/components/sell-for-me/cta"
 
 export const metadata: Metadata = {
-  title: "Sell It For Me - Stamford Car Buyer",
+  title: "Sell It For Me - Epping Car Buyer",
   description:
     "Let us sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
 }

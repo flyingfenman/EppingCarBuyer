@@ -16,9 +16,9 @@ const charlesWright = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Stamford Car Buyer - We Pay More",
+  title: "Epping Car Buyer - We Pay More",
   description:
-    "Sell your car quickly and easily in Stamford. Get instant quotes and fast cash for your vehicle in any condition.",
+    "Sell your car quickly and easily in Epping. Get instant quotes and fast cash for your vehicle in any condition.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",

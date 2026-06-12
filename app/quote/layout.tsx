@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Get Your Free Car Valuation | Stamford Car Buyer",
+  title: "Get Your Free Car Valuation | Epping Car Buyer",
   description: "Get an instant, free car valuation. We buy any car, any condition. Fast payment within 24 hours.",
 }
 

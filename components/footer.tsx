@@ -26,9 +26,9 @@ export function Footer() {
             </Link>
           </nav>
           <p className="text-sm text-muted-foreground">
-            Stamford Car Buyer offers the best prices for your vehicle with a hassle-free process.
+            Epping Car Buyer offers the best prices for your vehicle with a hassle-free process.
           </p>
-          <p className="text-sm text-muted-foreground">© 2025 Stamford Car Buyer. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© 2025 Epping Car Buyer. All rights reserved.</p>
         </div>
       </div>
     </footer>

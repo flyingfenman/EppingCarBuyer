@@ -13,11 +13,11 @@ interface Activity {
 }
 
 const SAMPLE_ACTIVITIES: Activity[] = [
-  { id: 1, location: "Stamford", vehicle: "BMW 3 Series", amount: "£8,500", timeAgo: "2 mins ago" },
-  { id: 2, location: "Peterborough", vehicle: "Audi A4", amount: "£12,300", timeAgo: "5 mins ago" },
-  { id: 3, location: "Grantham", vehicle: "VW Golf", amount: "£6,750", timeAgo: "8 mins ago" },
-  { id: 4, location: "Lincoln", vehicle: "Ford Focus", amount: "£5,200", timeAgo: "12 mins ago" },
-  { id: 5, location: "Boston", vehicle: "Mercedes C-Class", amount: "£14,800", timeAgo: "15 mins ago" },
+  { id: 1, location: "Epping", vehicle: "BMW 3 Series", amount: "£8,500", timeAgo: "2 mins ago" },
+  { id: 2, location: "Loughton", vehicle: "Audi A4", amount: "£12,300", timeAgo: "5 mins ago" },
+  { id: 3, location: "Chigwell", vehicle: "VW Golf", amount: "£6,750", timeAgo: "8 mins ago" },
+  { id: 4, location: "Harlow", vehicle: "Ford Focus", amount: "£5,200", timeAgo: "12 mins ago" },
+  { id: 5, location: "Brentwood", vehicle: "Mercedes C-Class", amount: "£14,800", timeAgo: "15 mins ago" },
 ]
 
 export function LiveActivityFeed() {

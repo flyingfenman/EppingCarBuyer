@@ -7,7 +7,7 @@ export function CarTrailerSection() {
         <div className="max-w-6xl mx-auto">
           <Image
             src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/car-trailer.jpeg"
-            alt="Car and Trailer - Stamford Car Buyer"
+            alt="Car and Trailer - Epping Car Buyer"
             width={1920}
             height={1080}
             className="w-full h-auto rounded-lg shadow-lg"

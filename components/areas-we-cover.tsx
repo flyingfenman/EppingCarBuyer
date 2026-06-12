@@ -4,17 +4,17 @@ import { MapPin, CheckCircle } from "lucide-react"
 import { useState } from "react"
 
 const areas = [
-  "Boston",
-  "Grantham",
-  "Bourne",
-  "Huntingdon",
-  "Kettering",
-  "Melton Mowbray",
-  "Spalding",
-  "Stamford",
-  "Corby",
-  "Wellingborough",
-  "Peterborough",
+  "Epping",
+  "Loughton",
+  "Chigwell",
+  "Buckhurst Hill",
+  "Waltham Abbey",
+  "Harlow",
+  "Ongar",
+  "Brentwood",
+  "Romford",
+  "Ilford",
+  "Chelmsford",
 ]
 
 export function AreasWeCover() {
@@ -37,8 +37,8 @@ export function AreasWeCover() {
               Where Do We <span className="text-primary">Cover?</span>
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We serve customers across the East Midlands and surrounding areas. Professional car buying service within
-              a 50-mile radius of Stamford.
+              We serve customers across Epping and the surrounding areas. Professional car buying service within
+              a 50-mile radius of Epping.
             </p>
             <div className="flex gap-8 pt-4">
               <div>
