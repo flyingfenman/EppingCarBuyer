@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stamford Car Buyer</title>
+
+  <!-- Added favicon links -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="stylesheet" href="styles/mobile.css" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  /* Only apply these styles on mobile devices */
+  @media (max-width: 768px) {
+    .container, .section, .hero-container, .video-section, .form-container,
+    .how-it-works, .work-steps, .trailer-section, .areas-we-cover,
+    .valuation-container, .contact-section, .contact-options, .contact-card,
+    .bottom-form-container, .slideshow-container, .footer, .footer-content {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      box-sizing: border-box;
+    }
+
+    h1, h2, h3, p, div {
+      text-align: center;
+    }
+
+    /* Fix video positioning */
+    .video-section, .bordered-video {
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .video-placeholder {
+      margin: 0 auto;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Fix the How It Works boxes */
+    .work-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 auto;
+      padding: 0 5px;
+      width: 100%;
+      max-width: 100%;
+      justify-content: center;
+    }
+
+    .step-box {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .how-it-works {
+      padding: 0 5px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-container, .bottom-form-container {
+      margin: 20px auto;
+    }
+
+    .contact-card {
+      margin: 15px auto;
+    }
+
+    /* Remove any right padding/margin that might be pushing content right */
+    .hero-container, .video-section, .how-it-works, .work-steps {
+      padding-right: 0;
+      margin-right: auto;
+    }
+
+    /* Add padding to registration input */
+    .enter-reg-input {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Section / Header -->
+  <div class="top-section">
+    <a href="/">Stamford Car Buyer</a>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links">
+      <a href="/contact.html">Contact Us</a>
+    </div>
+    <div class="overlay"></div>
+  </div>
+
+<!-- Hero Container - Video and Form Side by Side -->
+<div class="hero-container">
+  <!-- Video Section -->
+  <div class="video-section">
+    <div class="video-placeholder">
+      <video controls class="bordered-video" width="100%" preload="metadata"
+        poster="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/intro-thumbnail.jpg">
+        <source src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/intro-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <!-- Form Section - Now side by side with video -->
+  <div class="form-container">
+    <input
+      type="text"
+      id="regInput"
+      class="enter-reg-input"
+      placeholder="ENTER YOUR REG"
+      onkeydown="handleEnter(event)"
+    />
+    <button class="value-car" onclick="fetchVehicleData()">Value My Car</button>
+    <div class="action-description">
+      Enter your reg and receive a free quote
+    </div>
+  </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="how-it-works" id="how-it-works">
+  <h2>How It Works</h2>
+  <div class="work-steps">
+    <!-- Step 1 -->
+    <div class="step-box">
+      <img src="images/valuation-step.jpg" alt="Step 1 - Get Valuation">
+      <h3>Get A Free Valuation</h3>
+      <p>Enter your reg and receive a free quote.</p>
+    </div>
+    <!-- Step 2 -->
+    <div class="step-box">
+      <img src="images/appointment-step.jpg" alt="Step 2 - Arrange Appointment">
+      <h3>Arrange An Appointment</h3>
+      <p>Agree a time over phone or email for us to come and view your car.</p>
+    </div>
+    <!-- Step 3 -->
+    <div class="step-box">
+      <img src="images/sell-step.jpg" alt="Step 3 - Sell Car">
+      <h3>Sell Your Car</h3>
+      <p>Simple vehicle appraisal, test drive, and price confirmed.</p>
+    </div>
+    <!-- Step 4 -->
+    <div class="step-box">
+      <img src="images/payment-step.jpg" alt="Step 4 - Receive Payment">
+      <h3>Receive An Instant Payment</h3>
+      <p>Immediate payment via cash or bank transfer.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Trailer Section -->
+<div class="trailer-section">
+  <img src="images/car-trailer.jpg" alt="Car and Trailer">
+</div>
+
+<!-- Areas We Cover Section -->
+<div class="areas-we-cover" id="areas">
+  <div class="areas-left">
+    <h2>Where Do We Cover?</h2>
+  </div>
+  <div class="areas-right">
+    <p>Anywhere within a 50 mile radius of Stamford. This includes but isn't limited to:</p>
+    <ul>
+      <li>Boston</li>
+      <li>Grantham</li>
+      <li>Bourne</li>
+      <li>Huntingdon</li>
+      <li>Kettering</li>
+      <li>Melton Mowbray</li>
+      <li>Spalding</li>
+      <li>Stamford</li>
+      <li>Corby</li>
+      <li>Wellingborough</li>
+      <li>Peterborough</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Bottom Registration Form with Slideshow - Side by Side -->
+<div class="valuation-container">
+  <!-- Form on the left -->
+  <div class="bottom-form-container">
+    <h2>Get Your Free Valuation Now</h2>
+    <div class="bottom-form">
+      <input
+        type="text"
+        id="regInputBottom"
+        class="enter-reg-input"
+        placeholder="ENTER YOUR REG"
+        onkeydown="handleEnterBottom(event)"
+      />
+      <button class="value-car" onclick="fetchVehicleDataBottom()">Value My Car</button>
+      <div class="action-description">
+        Enter your reg and receive a free quote
+      </div>
+    </div>
+  </div>
+
+  <!-- Slideshow on the right -->
+  <div class="slideshow-container">
+    <img class="slide active" src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/slide1.JPG" alt="Car image 1">
+    <img class="slide" src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/slide2.jpg" alt="Car image 2">
+    <img class="slide" src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/slide3.jpg" alt="Car image 3">
+    <img class="slide" src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/slide4.jpg" alt="Car image 4">
+    <img class="slide" src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/slide5.jpg" alt="Car image 5">
+    <img class="slide" src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/slide6.jpg" alt="Car image 6">
+
+    <!-- Slideshow navigation -->
+    <div class="slideshow-nav">
+      <div class="slideshow-dot active" data-index="0"></div>
+      <div class="slideshow-dot" data-index="1"></div>
+      <div class="slideshow-dot" data-index="2"></div>
+      <div class="slideshow-dot" data-index="3"></div>
+      <div class="slideshow-dot" data-index="4"></div>
+      <div class="slideshow-dot" data-index="5"></div>
+    </div>
+
+    <!-- Slideshow arrows -->
+    <div class="slideshow-arrow prev">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    <div class="slideshow-arrow next">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Us Section -->
+<div class="contact-section" id="contact">
+  <h2>Contact Us</h2>
+  <div class="contact-options">
+    <!-- Phone Contact -->
+    <div class="contact-card">
+      <i class="fas fa-phone-alt contact-icon"></i>
+      <h3>Call Us</h3>
+      <p>Speak directly with Henry for an immediate response and quick valuation.</p>
+      <a href="tel:07376624097" class="contact-button phone-button">
+        <i class="fas fa-phone"></i> 07740 080073
+      </a>
+    </div>
+
+    <!-- WhatsApp Contact -->
+    <div class="contact-card">
+      <i class="fab fa-whatsapp contact-icon" style="color: #25D366;"></i>
+      <h3>WhatsApp</h3>
+      <p>Send us photos and details of your vehicle for a quick response.</p>
+      <a href="https://wa.me/447740080073" class="contact-button whatsapp-button">
+        <i class="fab fa-whatsapp"></i> Message on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Results panel: hidden until data is fetched -->
+<div id="resultPanel" class="result-panel" style="display:none;">
+  <h2>Vehicle Details</h2>
+  <div id="vehicleInfo"></div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#areas">Areas We Cover</a>
+      <a href="/contact.html">Contact Us</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </div>
+    <p>Stamford Car Buyer offers the best prices for your vehicle with a hassle-free process.</p>
+    <p class="copyright">© 2025 Stamford Car Buyer. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // API Endpoint for fetching vehicle data
+  const API_ENDPOINT = "/api/vehicle";
+
+  // Handle Enter key press to trigger fetch
+  function handleEnter(event) {
+    if (event.key === "Enter") {
+      fetchVehicleData();
+    }
+  }
+
+  // Main function to fetch vehicle data or redirect
+  async function fetchVehicleData() {
+    const reg = document.getElementById("regInput").value.trim();
+
+    if (!reg) {
+      alert("Please enter a valid registration number.");
+      return;
+    }
+
+    // Redirect to the vehicle details page with the registration number in the URL
+    window.location.href = `/vehicle-details.html?reg=${encodeURIComponent(reg)}`;
+  }
+
+  // Handle Enter key press for bottom form
+  function handleEnterBottom(event) {
+    if (event.key === "Enter") {
+      fetchVehicleDataBottom();
+    }
+  }
+
+  // Function for bottom registration form
+  function fetchVehicleDataBottom() {
+    const reg = document.getElementById("regInputBottom").value.trim();
+
+    if (!reg) {
+      alert("Please enter a valid registration number.");
+      return;
+    }
+
+    // Redirect to the vehicle details page with the registration number in the URL
+    window.location.href = `/vehicle-details.html?reg=${encodeURIComponent(reg)}`;
+  }
+
+  // Slideshow functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slideshow-dot');
+    const prevArrow = document.querySelector('.slideshow-arrow.prev');
+    const nextArrow = document.querySelector('.slideshow-arrow.next');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Function to show a specific slide
+    function showSlide(index) {
+      // Hide all slides
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      // Deactivate all dots
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+      });
+
+      // Show the current slide and activate its dot
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+
+      // Update current slide index
+      currentSlide = index;
+    }
+
+    // Function to show the next slide
+    function nextSlide() {
+      let next = currentSlide + 1;
+      if (next >= slides.length) {
+        next = 0;
+      }
+      showSlide(next);
+    }
+
+    // Function to show the previous slide
+    function prevSlide() {
+      let prev = currentSlide - 1;
+      if (prev < 0) {
+        prev = slides.length - 1;
+      }
+      showSlide(prev);
+    }
+
+    // Set up automatic slideshow
+    function startSlideshow() {
+      slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+
+    // Stop the slideshow when user interacts
+    function stopSlideshow() {
+      clearInterval(slideInterval);
+    }
+
+    // Event listeners for dots
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        stopSlideshow();
+        const slideIndex = parseInt(this.getAttribute('data-index'));
+        showSlide(slideIndex);
+        startSlideshow();
+      });
+    });
+
+    // Event listeners for arrows
+    if (prevArrow) {
+      prevArrow.addEventListener('click', function() {
+        stopSlideshow();
+        prevSlide();
+        startSlideshow();
+      });
+    }
+
+    if (nextArrow) {
+      nextArrow.addEventListener('click', function() {
+        stopSlideshow();
+        nextSlide();
+        startSlideshow();
+      });
+    }
+
+    // Start the slideshow
+    startSlideshow();
+  });
+</script>
+<script src="public/js/mobile-menu.js"></script>
+</body>
+</html>
