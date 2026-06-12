@@ -8,10 +8,10 @@ const CLIENT_SECRET = process.env.DVSA_CLIENT_SECRET || ""
 const SCOPE = "https://tapi.dvsa.gov.uk/.default"
 const TOKEN_URL = "https://login.microsoftonline.com/a455b827-244f-4c97-b5b4-ce5d13b4d00c/oauth2/v2.0/token"
 
-const allowedOrigins = ["https://www.stamfordcarbuyer.com", "http://localhost:3000", "http://localhost:3001"]
+const allowedOrigins = ["https://www.eppingcarbuyer.com", "http://localhost:3000", "http://localhost:3001"]
 
 function getCorsHeaders(origin: string | null) {
-  const corsOrigin = origin && allowedOrigins.includes(origin) ? origin : "https://www.stamfordcarbuyer.com"
+  const corsOrigin = origin && allowedOrigins.includes(origin) ? origin : "https://www.eppingcarbuyer.com"
 
   return {
     "Access-Control-Allow-Origin": corsOrigin,

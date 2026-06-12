@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard - Stamford Car Buyer',
+  title: 'Admin Dashboard - Epping Car Buyer',
   description: 'Manage dealers, cars, and bids',
 }
 

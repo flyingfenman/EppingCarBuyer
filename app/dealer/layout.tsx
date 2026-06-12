@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Dealer Portal - Stamford Car Buyer',
+  title: 'Dealer Portal - Epping Car Buyer',
   description: 'View available cars and make offers',
 }
 

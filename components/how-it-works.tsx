@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, type MouseEvent } from "react"
 
 /**
- * Stamford Car Buyer - How It Works section (v7)
+ * Epping Car Buyer - How It Works section (v7)
  *  - Static wheels (no spinning)
  *  - SCB1 reg plate
  *  - Phone car icon matches scene 3 simple car style
@@ -159,7 +159,7 @@ const Scene2 = () => (
       <circle cx="190" cy="61" r="3" fill="#10b981" />
       <path d="M 188 61 L 189.5 62.5 L 192 59.5" stroke="#ffffff" strokeWidth="0.8" fill="none" strokeLinecap="round" />
       <text x="196" y="59" fontSize="3" fontWeight="500" fill="#1f1147">Wed 21 May</text>
-      <text x="196" y="64" fontSize="2.5" fill="#7c3aed">2:30 PM, Stamford</text>
+      <text x="196" y="64" fontSize="2.5" fill="#7c3aed">2:30 PM, Epping</text>
       <text x="196" y="69" fontSize="2.3" fill="#10b981">we come to you</text>
     </g>
     <g className="animate-[floatUp_3s_ease-in-out_-1.2s_infinite]" transform="translate(40 90)">
@@ -230,7 +230,7 @@ const Scene4 = () => (
         <circle cx="80" cy="100" r="5" fill="#ffffff" />
         <path d="M 78 99 L 80 102 L 84 95" stroke="#10b981" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         <text x="90" y="98" fontSize="3.5" fontWeight="500" fill="#ffffff">Payment received</text>
-        <text x="90" y="103" fontSize="2.8" fill="#bbf7d0">From: Stamford Car Buyer</text>
+        <text x="90" y="103" fontSize="2.8" fill="#bbf7d0">From: Epping Car Buyer</text>
         <text x="90" y="108" fontSize="5" fontWeight="500" fill="#ffffff">+ £8,450.00</text>
         <text x="90" y="115" fontSize="2.5" fill="#bbf7d0">Faster Payments • just now</text>
         <g className="animate-[lightning_1.5s_ease-in-out_infinite] origin-center" transform="translate(160 99)">
@@ -281,7 +281,7 @@ const Scene4 = () => (
   </svg>
 )
 
-const StamfordSkyline = () => (
+const EppingSkyline = () => (
   <svg className="absolute bottom-0 left-0 right-0 h-[38%] opacity-[0.18] pointer-events-none" viewBox="0 0 600 100" preserveAspectRatio="xMidYEnd meet" xmlns="http://www.w3.org/2000/svg">
     <path d="M 0 100 L 0 70 L 30 70 L 30 60 L 50 60 L 50 70 L 80 70 L 80 50 L 95 50 L 95 30 L 100 18 L 105 30 L 105 50 L 130 50 L 130 65 L 165 65 L 165 55 L 180 55 L 180 65 L 220 65 L 220 45 L 235 45 L 235 28 L 245 12 L 255 28 L 255 45 L 290 45 L 290 60 L 320 60 L 320 50 L 360 50 L 360 38 L 372 38 L 372 22 L 380 8 L 388 22 L 388 38 L 410 38 L 410 55 L 450 55 L 450 65 L 490 65 L 490 50 L 505 50 L 505 30 L 515 14 L 525 30 L 525 50 L 555 50 L 555 70 L 600 70 L 600 100 Z" fill="#ffffff" />
   </svg>
@@ -358,7 +358,7 @@ export function HowItWorks() {
         <div className="absolute -top-20 -left-16 w-60 h-60 rounded-full bg-violet-300 opacity-[0.35] blur-3xl pointer-events-none" />
         <div className="absolute -top-10 -right-10 w-52 h-52 rounded-full bg-amber-400 opacity-[0.25] blur-3xl pointer-events-none" />
 
-        <StamfordSkyline />
+        <EppingSkyline />
 
         <div className="absolute top-4 left-5 text-[11px] font-medium text-white/75 tracking-widest z-10">STEP {String(current).padStart(2, "0")} OF 04</div>
         <div className="absolute top-4 right-5 text-sm font-medium text-amber-400 z-10">{String(current).padStart(2, "0")} / 04</div>

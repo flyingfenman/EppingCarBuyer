@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p>
-              Stamford Car Buyer ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy
+              Epping Car Buyer ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy
               explains how we collect, use, and safeguard your personal information when you use our website and
               services.
             </p>

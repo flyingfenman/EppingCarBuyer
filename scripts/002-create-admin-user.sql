@@ -16,4 +16,4 @@ SET raw_user_meta_data = jsonb_set(
   '{is_admin}',
   'true'::jsonb
 )
-WHERE email = 'henry@stamfordcarbuyer.com';
+WHERE email = 'henry@eppingcarbuyer.com';

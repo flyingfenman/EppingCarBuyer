@@ -12,7 +12,7 @@ export default function TermsOfServicePage() {
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p>
-              Welcome to Stamford Car Buyer. These Terms of Service ("Terms") govern your use of our website and
+              Welcome to Epping Car Buyer. These Terms of Service ("Terms") govern your use of our website and
               services. By using our website or services, you agree to be bound by these Terms. If you do not agree to
               these Terms, please do not use our services.
             </p>
@@ -24,7 +24,7 @@ export default function TermsOfServicePage() {
             <CardTitle>Our Services</CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
-            <p>Stamford Car Buyer provides the following services:</p>
+            <p>Epping Car Buyer provides the following services:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Vehicle valuation and quotation services</li>
               <li>Purchase of vehicles from private sellers</li>
@@ -106,7 +106,7 @@ export default function TermsOfServicePage() {
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p>
-              To the fullest extent permitted by law, Stamford Car Buyer shall not be liable for any indirect,
+              To the fullest extent permitted by law, Epping Car Buyer shall not be liable for any indirect,
               incidental, special, or consequential damages arising from your use of our services. Our total liability
               shall not exceed the purchase price of any vehicle involved in the transaction.
             </p>
@@ -119,7 +119,7 @@ export default function TermsOfServicePage() {
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p>
-              All content on this website, including text, graphics, logos, and images, is the property of Stamford Car
+              All content on this website, including text, graphics, logos, and images, is the property of Epping Car
               Buyer and is protected by copyright and other intellectual property laws. You may not reproduce,
               distribute, or use any content without our prior written consent.
             </p>
