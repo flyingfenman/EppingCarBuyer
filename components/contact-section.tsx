@@ -51,9 +51,9 @@ export function ContactSection() {
                 className="w-full h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
                 size="lg"
               >
-                <a href="tel:01205212339">
+                <a href="tel:+441992367909">
                   <Phone className="mr-2 h-5 w-5" />
-                  01205 212339
+                  01992 367909
                 </a>
               </Button>
             </CardContent>

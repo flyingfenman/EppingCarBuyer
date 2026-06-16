@@ -25,9 +25,9 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent>
               <Button asChild variant="default" className="w-full" size="lg">
-                <a href="tel:01205212339">
+                <a href="tel:+441992367909">
                   <Phone className="mr-2 h-5 w-5" />
-                  01205 212339
+                  01992 367909
                 </a>
               </Button>
             </CardContent>

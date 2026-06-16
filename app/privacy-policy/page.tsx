@@ -141,8 +141,8 @@ export default function PrivacyPolicyPage() {
             <ul className="list-none space-y-2">
               <li>
                 <strong>Phone:</strong>{" "}
-                <a href="tel:01205212339" className="text-primary hover:underline">
-                  01205 212339
+                <a href="tel:+441992367909" className="text-primary hover:underline">
+                  01992 367909
                 </a>
               </li>
               <li>
