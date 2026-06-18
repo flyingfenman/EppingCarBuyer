@@ -66,7 +66,7 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent>
               <Button asChild variant="default" className="w-full bg-[#25D366] hover:bg-[#1da851]" size="lg">
-                <a href="https://wa.me/441205212339" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer">
                   Message on WhatsApp
                 </a>
               </Button>
