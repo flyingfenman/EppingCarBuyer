@@ -50,18 +50,16 @@ export function HeroSection() {
 
   return (
     <div className="relative bg-white">
-      <div className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-[4fr_2fr] gap-12 lg:gap-8 items-center">
+      <div className="container mx-auto px-4 py-10 lg:py-16">
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
           {/* Content Section */}
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-sm font-semibold text-primary mb-4">
                 Trusted by 300+ customers
               </div>
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-balance">
-                Sell Your Car
-                <br />
-                <span className="text-primary">In Minutes</span>
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight whitespace-nowrap">
+                Sell Your Car <span className="text-primary">In Minutes</span>
               </h1>
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
                 Get an instant online valuation. We buy any car, any condition. Payment within 24 hours.
