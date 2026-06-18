@@ -51,7 +51,7 @@ export function HeroSection() {
   return (
     <div className="relative bg-white">
       <div className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-8 items-center">
           {/* Content Section */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -107,22 +107,20 @@ export function HeroSection() {
           </div>
 
           {/* Photo Section */}
-          <div className="relative flex justify-center">
-            {/* Photo panel that drops in on load */}
+          <div className="relative flex justify-center px-10">
+            {/* Photo that drops in on load */}
             <div
-              className={`relative w-full max-w-sm overflow-hidden rounded-3xl bg-gradient-to-b from-primary/15 via-neutral-950 to-black shadow-2xl transition-all duration-1000 ease-out ${
+              className={`relative w-full max-w-xs mx-auto transition-all duration-1000 ease-out ${
                 mounted ? "translate-y-0 opacity-100" : "-translate-y-16 opacity-0"
               }`}
             >
-              {/* Soft brand glow behind the subject */}
-              <div className="pointer-events-none absolute inset-x-0 top-1/4 mx-auto h-2/3 w-2/3 rounded-full bg-primary/30 blur-3xl" />
               <Image
                 src="/henry.png"
                 alt="Henry from Epping Car Buyer"
                 width={1500}
                 height={2000}
                 priority
-                className="relative z-10 h-auto w-full object-contain"
+                className="h-auto w-full object-contain"
               />
             </div>
 
