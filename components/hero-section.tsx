@@ -58,10 +58,8 @@ export function HeroSection() {
               <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-sm font-semibold text-primary mb-4">
                 Trusted by 300+ customers
               </div>
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-balance">
-                Sell Your Car
-                <br />
-                <span className="text-primary">In Minutes</span>
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight whitespace-nowrap">
+                Sell Your Car <span className="text-primary">In Minutes</span>
               </h1>
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
                 Get an instant online valuation. We buy any car, any condition. Payment within 24 hours.
