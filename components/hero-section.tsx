@@ -51,7 +51,7 @@ export function HeroSection() {
   return (
     <div className="relative bg-white">
       <div className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-[4fr_2fr] gap-12 lg:gap-8 items-center">
           {/* Content Section */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -63,12 +63,12 @@ export function HeroSection() {
                 <br />
                 <span className="text-primary">In Minutes</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-lg text-pretty leading-relaxed">
+              <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
                 Get an instant online valuation. We buy any car, any condition. Payment within 24 hours.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <Input
                 type="text"
                 value={registration}
