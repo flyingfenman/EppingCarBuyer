@@ -19,7 +19,7 @@ export function SellForMeCta() {
               size="lg"
               className="h-14 px-8 text-lg bg-[#25D366] hover:bg-[#1da851] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
             >
-              <a href="https://wa.me/441205212339" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer">
                 <MessageSquare className="mr-2 h-5 w-5" />
                 WhatsApp Us
               </a>
@@ -31,9 +31,9 @@ export function SellForMeCta() {
               variant="outline"
               className="h-14 px-8 text-lg border-2 hover:bg-muted/50 transition-all duration-300"
             >
-              <a href="tel:01205212339">
+              <a href="tel:+441992367909">
                 <Phone className="mr-2 h-5 w-5" />
-                01205 212339
+                01992 367909
               </a>
             </Button>
           </div>

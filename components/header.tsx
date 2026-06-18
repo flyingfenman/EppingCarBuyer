@@ -34,7 +34,7 @@ export function Header() {
                 Contact Us
               </Button>
             </Link>
-            <a href="tel:01205212339">
+            <a href="tel:+441992367909">
               <Button size="lg" className="bg-primary hover:bg-primary/90">
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
@@ -59,7 +59,7 @@ export function Header() {
                 Contact Us
               </Button>
             </Link>
-            <a href="tel:01205212339">
+            <a href="tel:+441992367909">
               <Button className="w-full" size="lg">
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
