@@ -172,6 +172,21 @@
     animation: fade-in 0.5s ease-out;
   }
 
+  /* Gentle floating motion for the hero trust badges */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
   /* Smooth, professional transitions throughout */
   html {
     scroll-behavior: smooth;
