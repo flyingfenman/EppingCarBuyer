@@ -1,17 +1,45 @@
 "use client"
 
 import type React from "react"
-import { useState, useRef } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, Play } from "lucide-react"
+import { ArrowRight, Zap, ShieldCheck, Handshake } from "lucide-react"
+
+const trustBadges = [
+  {
+    icon: Zap,
+    label: "Instant Payment",
+    // top-left of the photo
+    position: "top-6 -left-3 sm:left-0 lg:-left-6",
+    delay: 500,
+  },
+  {
+    icon: ShieldCheck,
+    label: "Reliable",
+    // right side, mid height
+    position: "top-1/3 -right-3 sm:right-0 lg:-right-6",
+    delay: 700,
+  },
+  {
+    icon: Handshake,
+    label: "Honest",
+    // bottom-left of the photo
+    position: "bottom-16 -left-3 sm:left-2 lg:-left-6",
+    delay: 900,
+  },
+]
 
 export function HeroSection() {
   const [registration, setRegistration] = useState("")
-  const [isPlaying, setIsPlaying] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,17 +48,10 @@ export function HeroSection() {
     }
   }
 
-  const handlePlayVideo = () => {
-    if (videoRef.current) {
-      videoRef.current.play()
-      setIsPlaying(true)
-    }
-  }
-
   return (
     <div className="relative bg-white">
       <div className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[4fr_2fr] gap-12 lg:gap-8 items-center">
           {/* Content Section */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -42,12 +63,12 @@ export function HeroSection() {
                 <br />
                 <span className="text-primary">In Minutes</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-lg text-pretty leading-relaxed">
+              <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
                 Get an instant online valuation. We buy any car, any condition. Payment within 24 hours.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <Input
                 type="text"
                 value={registration}
@@ -85,32 +106,43 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Video Section */}
-          <div className="relative">
-            <video
-              ref={videoRef}
-              controls={isPlaying}
-              className="w-full rounded-2xl shadow-2xl"
-              preload="none"
-              poster="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/intro-thumbnail.jpg"
-              onEnded={() => setIsPlaying(false)}
+          {/* Photo Section */}
+          <div className="relative flex justify-center px-10">
+            {/* Photo that drops in on load */}
+            <div
+              className={`relative w-full max-w-xs mx-auto transition-all duration-1000 ease-out ${
+                mounted ? "translate-y-0 opacity-100" : "-translate-y-16 opacity-0"
+              }`}
             >
-              <source src="https://pub-a2f7152982044499ae235745de78c2df.r2.dev/intro-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            
-            {/* Custom Play Button Overlay */}
-            {!isPlaying && (
-              <button
-                onClick={handlePlayVideo}
-                className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-colors duration-200 rounded-2xl cursor-pointer group"
-                aria-label="Play video"
+              <Image
+                src="/henry.png"
+                alt="Henry from Epping Car Buyer"
+                width={1500}
+                height={2000}
+                priority
+                className="h-auto w-full object-contain"
+              />
+            </div>
+
+            {/* Floating trust badges dotted around the photo */}
+            {trustBadges.map(({ icon: Icon, label, position, delay }) => (
+              <div
+                key={label}
+                className={`absolute z-20 ${position} transition-all duration-700 ease-out ${
+                  mounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-90 opacity-0"
+                }`}
+                style={{ transitionDelay: `${delay}ms` }}
               >
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                  <Play className="w-8 h-8 text-primary fill-primary ml-1" />
+                <div className="animate-float" style={{ animationDelay: `${delay}ms` }}>
+                  <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-xl ring-1 ring-black/5">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                      <Icon className="h-4 w-4 text-primary" />
+                    </span>
+                    <span className="whitespace-nowrap text-sm font-semibold text-foreground">{label}</span>
+                  </div>
                 </div>
-              </button>
-            )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
