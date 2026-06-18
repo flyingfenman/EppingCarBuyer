@@ -50,7 +50,7 @@ export function HeroSection() {
 
   return (
     <div className="relative bg-white">
-      <div className="container mx-auto px-4 py-20 lg:py-32">
+      <div className="container mx-auto px-4 py-10 lg:py-16">
         <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
           {/* Content Section */}
           <div className="space-y-8">
