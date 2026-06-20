@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 
 // Pages that should NOT have the standard header/footer
-const MINIMAL_LAYOUT_PATHS = ["/quote"]
+const MINIMAL_LAYOUT_PATHS = ["/quote", "/fb"]
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
