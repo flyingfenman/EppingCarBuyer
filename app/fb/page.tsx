@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,8 +16,8 @@ import {
   CheckCircle2,
   Sparkles,
   MessageCircle,
-  Phone,
   Star,
+  Phone,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -107,7 +106,9 @@ export default function FBLeadForm() {
         return
       }
       if (vehicleInfo?.lastMotMileage && parseInt(formData.mileage) < vehicleInfo.lastMotMileage) {
-        setError(`Your previous MOT shows ${vehicleInfo.lastMotMileage.toLocaleString()} miles. Please enter a higher mileage.`)
+        setError(
+          `Your previous MOT shows ${vehicleInfo.lastMotMileage.toLocaleString()} miles. Please enter a higher mileage.`
+        )
         return
       }
     }
@@ -149,7 +150,7 @@ export default function FBLeadForm() {
       if (response.ok) {
         setIsSubmitted(true)
         if (typeof window !== "undefined" && (window as unknown as { fbq?: (a: string, e: string) => void }).fbq) {
-          (window as unknown as { fbq: (a: string, e: string) => void }).fbq("track", "Lead")
+          ;(window as unknown as { fbq: (a: string, e: string) => void }).fbq("track", "Lead")
         }
       } else {
         setError("Something went wrong. Please try again.")
@@ -171,85 +172,96 @@ export default function FBLeadForm() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f1117] flex flex-col font-sans">
-      {/* Hero Banner */}
-      <div className="relative w-full h-48 md:h-64 overflow-hidden">
-        <Image
-          src="/images/fb-hero-car.png"
-          alt="Sell your car for the best price"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1117]/60 via-[#0f1117]/30 to-[#0f1117]" />
-
-        {/* Logo overlay */}
-        <div className="absolute top-4 left-0 right-0 flex justify-center">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full bg-[#e8a020] flex items-center justify-center shadow-lg">
-              <Car className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-gradient-to-b from-secondary to-background flex flex-col font-sans">
+      {/* Header */}
+      <header className="py-5 px-4 bg-white/80 backdrop-blur-sm border-b border-border sticky top-0 z-50">
+        <div className="container mx-auto flex items-center justify-center max-w-2xl">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <Car className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-white font-bold text-lg tracking-tight drop-shadow">Epping Car Buyer</span>
-          </div>
+            <span className="font-bold text-foreground text-lg">Epping Car Buyer</span>
+          </Link>
         </div>
+      </header>
 
-        {/* Hero headline */}
-        <div className="absolute bottom-6 left-0 right-0 text-center px-4">
-          <p className="text-[#e8a020] text-sm font-semibold uppercase tracking-widest mb-1">
-            🚗 Facebook Exclusive
-          </p>
-          <h1 className="text-white text-2xl md:text-3xl font-bold text-balance drop-shadow-lg">
+      {/* Hero headline */}
+      <div className="bg-primary px-4 py-6 text-center">
+        <div className="max-w-lg mx-auto space-y-2">
+          <div className="inline-flex items-center gap-2 bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            Facebook Exclusive Offer
+          </div>
+          <h1 className="text-white text-2xl md:text-3xl font-bold text-balance">
             Get a Free Instant Car Valuation
           </h1>
+          <p className="text-white/80 text-sm">
+            Find out what your car is worth — takes less than 2 minutes
+          </p>
         </div>
       </div>
 
       {/* Trust bar */}
-      <div className="bg-[#1a1d27] border-b border-white/5 px-4 py-3">
+      <div className="bg-white border-b border-border px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center justify-around">
-          <TrustBadge icon={<Clock className="w-4 h-4 text-[#e8a020]" />} text="Same Day Payment" />
-          <div className="w-px h-6 bg-white/10" />
-          <TrustBadge icon={<Banknote className="w-4 h-4 text-[#e8a020]" />} text="Best Prices Paid" />
-          <div className="w-px h-6 bg-white/10" />
-          <TrustBadge icon={<Shield className="w-4 h-4 text-[#e8a020]" />} text="Safe & Secure" />
+          <TrustBadge icon={<Clock className="w-4 h-4 text-primary" />} text="Same Day Payment" />
+          <div className="w-px h-6 bg-border" />
+          <TrustBadge icon={<Banknote className="w-4 h-4 text-primary" />} text="Best Prices Paid" />
+          <div className="w-px h-6 bg-border" />
+          <TrustBadge icon={<Shield className="w-4 h-4 text-primary" />} text="Safe & Secure" />
         </div>
       </div>
 
-      {/* Step Progress */}
-      <div className="bg-[#0f1117] px-4 pt-5 pb-2 max-w-lg mx-auto w-full">
-        <div className="flex items-center gap-2">
-          {["Your Car", "Details", "Contact"].map((label, i) => {
-            const step = i + 1
-            const isActive = step === currentStep
-            const isDone = step < currentStep
-            return (
-              <div key={label} className="flex items-center flex-1 gap-2">
-                <div className="flex flex-col items-center gap-1 flex-1">
+      {/* Progress bar */}
+      <div className="w-full bg-secondary border-b border-border">
+        <div className="container mx-auto max-w-lg px-4">
+          <div className="flex items-center gap-2 py-3">
+            {[1, 2, 3].map((step) => (
+              <div key={step} className="flex-1 flex items-center gap-2">
+                <div
+                  className={cn(
+                    "h-2 flex-1 rounded-full transition-all duration-500",
+                    step <= currentStep ? "bg-primary" : "bg-muted"
+                  )}
+                />
+                {step < 3 && (
                   <div
                     className={cn(
-                      "h-1.5 w-full rounded-full transition-all duration-500",
-                      isDone ? "bg-[#e8a020]" : isActive ? "bg-[#e8a020]/70" : "bg-white/10"
+                      "w-2 h-2 rounded-full",
+                      step < currentStep ? "bg-primary" : "bg-muted"
                     )}
                   />
-                  <span
-                    className={cn(
-                      "text-[10px] font-medium transition-colors",
-                      isActive ? "text-[#e8a020]" : isDone ? "text-[#e8a020]/60" : "text-white/20"
-                    )}
-                  >
-                    {isDone ? <Check className="w-3 h-3 inline" /> : null} {label}
-                  </span>
-                </div>
+                )}
               </div>
-            )
-          })}
+            ))}
+          </div>
+          {/* Step labels */}
+          <div className="flex justify-between pb-2 -mt-1">
+            {["Your Car", "Details", "Contact"].map((label, index) => (
+              <div
+                key={label}
+                className={cn(
+                  "text-xs font-medium transition-colors",
+                  index + 1 === currentStep
+                    ? "text-primary"
+                    : index + 1 < currentStep
+                    ? "text-primary/60"
+                    : "text-muted-foreground/40"
+                )}
+              >
+                {index + 1 < currentStep && <Check className="w-3 h-3 inline mr-0.5" />}
+                {label}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Form card */}
-      <main className="flex-1 px-4 pb-8 max-w-lg mx-auto w-full">
-        <div className="bg-[#1a1d27] rounded-2xl border border-white/8 shadow-2xl overflow-hidden">
-          <div className="p-6 md:p-8">
+      {/* Form area */}
+      <main className="flex-1 flex flex-col">
+        <div className="container mx-auto px-4 py-8 flex-1 flex flex-col max-w-lg">
+          {/* Form steps */}
+          <div className="flex-1 flex flex-col justify-center">
             {currentStep === 1 && (
               <StepOne
                 registration={formData.registration}
@@ -283,69 +295,77 @@ export default function FBLeadForm() {
                 vehicleInfo={vehicleInfo}
               />
             )}
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col gap-3 mt-8">
-              {currentStep < TOTAL_STEPS ? (
-                <Button
-                  onClick={handleNext}
-                  className="w-full h-14 text-lg font-bold bg-[#e8a020] hover:bg-[#d4911a] text-white rounded-xl shadow-lg shadow-[#e8a020]/20 transition-all duration-200 hover:-translate-y-0.5"
-                >
-                  Continue
-                  <ArrowRight className="w-5 h-5" data-icon="inline-end" />
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="w-full h-14 text-lg font-bold bg-[#e8a020] hover:bg-[#d4911a] text-white rounded-xl shadow-lg shadow-[#e8a020]/20 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-70"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" data-icon="inline-start" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-5 h-5" data-icon="inline-start" />
-                      Get My Free Valuation
-                    </>
-                  )}
-                </Button>
-              )}
-
-              {currentStep > 1 && (
-                <Button
-                  onClick={handleBack}
-                  variant="ghost"
-                  className="w-full h-11 text-white/40 hover:text-white/70 hover:bg-white/5 rounded-xl"
-                >
-                  <ArrowLeft className="w-4 h-4" data-icon="inline-start" />
-                  Back
-                </Button>
-              )}
-            </div>
           </div>
 
-          {/* Social proof footer */}
-          <div className="border-t border-white/8 bg-[#0f1117]/60 px-6 py-4 flex items-center justify-between gap-4">
+          {/* Navigation buttons */}
+          <div className="space-y-3 pt-8">
+            {currentStep < TOTAL_STEPS ? (
+              <Button
+                onClick={handleNext}
+                className="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
+              >
+                Continue
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-5 h-5 mr-2" />
+                    Get My Free Valuation
+                  </>
+                )}
+              </Button>
+            )}
+
+            {currentStep > 1 && (
+              <Button
+                onClick={handleBack}
+                variant="ghost"
+                className="w-full h-12 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            )}
+          </div>
+
+          {/* Social proof */}
+          <div className="mt-8 bg-white rounded-2xl border border-border p-4 flex items-center justify-between gap-4">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#e8a020] text-[#e8a020]" />
+                <Star key={i} className="w-4 h-4 fill-primary text-primary" />
               ))}
             </div>
-            <p className="text-white/40 text-xs text-right">
-              Rated <strong className="text-white/60">5 stars</strong> · 200+ cars bought locally
+            <p className="text-muted-foreground text-xs text-right">
+              Rated <strong className="text-foreground">5 stars</strong> · 200+ cars bought locally
             </p>
           </div>
-        </div>
 
-        {/* Disclaimer */}
-        <p className="text-white/20 text-[11px] text-center mt-4 px-4 leading-relaxed">
-          By submitting you agree to our{" "}
-          <Link href="/privacy-policy" className="underline hover:text-white/40">privacy policy</Link>.
-          {" "}We will never share your data with third parties.
-        </p>
+          {/* Trust badges */}
+          <div className="flex justify-center gap-4 pt-6 pb-2">
+            <TrustBadge icon={<Clock className="w-4 h-4 text-primary" />} text="24hr Payment" />
+            <TrustBadge icon={<Banknote className="w-4 h-4 text-primary" />} text="Best Prices" />
+            <TrustBadge icon={<Shield className="w-4 h-4 text-primary" />} text="Safe & Secure" />
+          </div>
+
+          <p className="text-muted-foreground text-[11px] text-center mt-3 leading-relaxed">
+            By submitting you agree to our{" "}
+            <Link href="/privacy-policy" className="underline hover:text-foreground">
+              privacy policy
+            </Link>
+            . We will never share your data with third parties.
+          </p>
+        </div>
       </main>
     </div>
   )
@@ -368,17 +388,24 @@ function StepOne({
 }) {
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <p className="text-[#e8a020] text-xs font-semibold uppercase tracking-widest">Step 1 of 3</p>
-        <h2 className="text-white text-2xl font-bold text-balance">What&apos;s your reg number?</h2>
-        <p className="text-white/50 text-sm">We&apos;ll instantly look up your car details for you.</p>
+      <div className="text-center space-y-3">
+        <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+          <Sparkles className="w-4 h-4" />
+          Instant Valuation
+        </div>
+        <h2 className="text-3xl font-bold text-foreground text-balance">
+          What&apos;s your reg number?
+        </h2>
+        <p className="text-muted-foreground">
+          We&apos;ll instantly look up your car details for you
+        </p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {/* UK number plate style input */}
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-10 bg-[#003399] rounded-l-xl flex items-center justify-center">
-            <span className="text-white text-[8px] font-bold rotate-0 tracking-tight text-center leading-tight">
+          <div className="absolute left-0 top-0 bottom-0 w-10 bg-[#003399] rounded-l-2xl flex items-center justify-center z-10">
+            <span className="text-white text-[8px] font-bold tracking-tight text-center leading-tight">
               GB
             </span>
           </div>
@@ -388,32 +415,32 @@ function StepOne({
             onChange={(e) => onChange(e.target.value.toUpperCase().replace(/[^A-Z0-9 ]/g, ""))}
             placeholder="AB12 CDE"
             maxLength={8}
-            className="w-full pl-12 pr-4 h-16 text-2xl font-bold tracking-[0.2em] text-center uppercase bg-[#ffd500] text-black border-2 border-black/20 rounded-xl placeholder:text-black/30 focus:outline-none focus:border-black/40 focus:ring-2 focus:ring-[#ffd500]/50 shadow-lg"
+            className="w-full pl-12 pr-4 h-20 text-2xl font-bold tracking-[0.2em] text-center uppercase bg-[#ffd500] text-black border-2 border-black/10 rounded-2xl placeholder:text-black/30 focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/20 shadow-lg"
             style={{ fontFamily: "var(--font-charles-wright, monospace)" }}
           />
         </div>
 
         {error && (
-          <p className="text-red-400 text-sm text-center font-medium">{error}</p>
+          <p className="text-destructive text-sm text-center font-medium">{error}</p>
         )}
 
         {isLoading && (
-          <div className="flex items-center justify-center gap-2 text-white/50">
-            <Loader2 className="w-4 h-4 animate-spin text-[#e8a020]" />
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+            <Loader2 className="w-5 h-5 animate-spin text-primary" />
             <span className="text-sm">Looking up your car...</span>
           </div>
         )}
 
         {vehicleInfo && !isLoading && (
-          <div className="bg-white/5 border border-[#e8a020]/30 rounded-xl p-4 animate-in slide-in-from-bottom-3 duration-300">
-            <div className="flex items-center gap-2 text-[#e8a020] mb-3">
-              <CheckCircle2 className="w-4 h-4" />
-              <span className="text-xs font-semibold uppercase tracking-wider">Vehicle Found</span>
+          <div className="bg-primary/5 rounded-2xl p-5 border-2 border-primary/20 animate-in slide-in-from-bottom-4 duration-300">
+            <div className="flex items-center gap-2 text-primary mb-3">
+              <CheckCircle2 className="w-5 h-5" />
+              <span className="text-sm font-semibold">Vehicle Found</span>
             </div>
-            <p className="text-white font-bold text-xl">
+            <p className="font-bold text-xl text-foreground">
               {vehicleInfo.make} {vehicleInfo.model}
             </p>
-            <div className="grid grid-cols-3 gap-2 mt-3">
+            <div className="grid grid-cols-3 gap-2 mt-3 text-sm">
               <VehicleChip label="Year" value={String(vehicleInfo.yearOfManufacture)} />
               <VehicleChip label="Colour" value={vehicleInfo.colour} />
               <VehicleChip label="Fuel" value={vehicleInfo.fuelType} />
@@ -439,9 +466,9 @@ function StepOne({
 
 function VehicleChip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white/5 rounded-lg px-3 py-2">
-      <p className="text-white/40 text-[10px] uppercase tracking-wider">{label}</p>
-      <p className="text-white text-sm font-medium mt-0.5 truncate">{value}</p>
+    <div className="bg-background/60 rounded-lg px-3 py-2">
+      <p className="text-muted-foreground text-[10px] uppercase tracking-wider">{label}</p>
+      <p className="text-foreground text-sm font-medium mt-0.5 truncate">{value}</p>
     </div>
   )
 }
@@ -478,11 +505,10 @@ function StepTwo({
 
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <p className="text-[#e8a020] text-xs font-semibold uppercase tracking-widest">Step 2 of 3</p>
-        <h2 className="text-white text-2xl font-bold text-balance">Tell us about your car</h2>
+      <div className="text-center space-y-3">
+        <h2 className="text-3xl font-bold text-foreground text-balance">Tell us about your car</h2>
         {vehicleInfo && (
-          <p className="text-white/50 text-sm">
+          <p className="text-primary font-medium">
             {vehicleInfo.yearOfManufacture} {vehicleInfo.make} {vehicleInfo.model}
           </p>
         )}
@@ -491,7 +517,7 @@ function StepTwo({
       <div className="space-y-5">
         {/* Mileage */}
         <div className="space-y-2">
-          <label className="text-white/70 text-sm font-medium">Current mileage</label>
+          <label className="text-sm font-medium text-foreground">Current mileage</label>
           <div className="relative">
             <Input
               type="text"
@@ -500,18 +526,18 @@ function StepTwo({
               onChange={(e) => onMileageChange(e.target.value.replace(/[^0-9]/g, ""))}
               placeholder="e.g. 45000"
               className={cn(
-                "h-13 bg-white/5 border text-white placeholder:text-white/25 rounded-xl pr-16 focus:ring-2 focus:ring-[#e8a020]/40 h-12",
+                "h-14 text-lg text-center bg-background border-2 text-foreground placeholder:text-muted-foreground focus:ring-4 focus:ring-primary/20 rounded-xl pr-16",
                 vehicleInfo?.lastMotMileage && mileage && parseInt(mileage) < vehicleInfo.lastMotMileage
-                  ? "border-red-500/60"
-                  : "border-white/10 focus:border-[#e8a020]/60"
+                  ? "border-destructive focus:border-destructive"
+                  : "border-border focus:border-primary"
               )}
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 text-sm">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">
               miles
             </span>
           </div>
           {vehicleInfo?.lastMotMileage && mileage && parseInt(mileage) < vehicleInfo.lastMotMileage && (
-            <p className="text-red-400 text-xs">
+            <p className="text-destructive text-xs font-medium">
               Previous MOT recorded {vehicleInfo.lastMotMileage.toLocaleString()} miles — please enter a higher value.
             </p>
           )}
@@ -519,7 +545,7 @@ function StepTwo({
 
         {/* Condition */}
         <div className="space-y-2">
-          <label className="text-white/70 text-sm font-medium">Overall condition</label>
+          <label className="text-sm font-medium text-foreground">Overall condition</label>
           <div className="grid grid-cols-2 gap-2">
             {conditionOptions.map((opt) => (
               <button
@@ -527,10 +553,10 @@ function StepTwo({
                 type="button"
                 onClick={() => onConditionChange(opt.value)}
                 className={cn(
-                  "flex flex-col items-start p-3 rounded-xl border text-left transition-all duration-150",
+                  "flex flex-col items-start p-3 rounded-xl border-2 text-left transition-all duration-150",
                   condition === opt.value
-                    ? "border-[#e8a020] bg-[#e8a020]/10 text-white"
-                    : "border-white/10 bg-white/5 text-white/50 hover:border-white/20 hover:text-white/70"
+                    ? "border-primary bg-primary/5 text-foreground"
+                    : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 )}
               >
                 <span className="font-semibold text-sm">{opt.label}</span>
@@ -542,7 +568,7 @@ function StepTwo({
 
         {/* Service History */}
         <div className="space-y-2">
-          <label className="text-white/70 text-sm font-medium">Service history</label>
+          <label className="text-sm font-medium text-foreground">Service history</label>
           <div className="flex gap-2">
             {historyOptions.map((opt) => (
               <button
@@ -550,10 +576,10 @@ function StepTwo({
                 type="button"
                 onClick={() => onServiceHistoryChange(opt)}
                 className={cn(
-                  "flex-1 py-2.5 rounded-xl text-sm font-medium border transition-all duration-150",
+                  "flex-1 py-3 rounded-xl text-sm font-medium border-2 transition-all duration-150",
                   serviceHistory === opt
-                    ? "border-[#e8a020] bg-[#e8a020]/10 text-white"
-                    : "border-white/10 bg-white/5 text-white/40 hover:border-white/20 hover:text-white/60"
+                    ? "border-primary bg-primary text-primary-foreground shadow-md"
+                    : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 )}
               >
                 {opt}
@@ -563,7 +589,7 @@ function StepTwo({
         </div>
 
         {error && (
-          <p className="text-red-400 text-sm text-center">{error}</p>
+          <p className="text-destructive text-sm text-center font-medium">{error}</p>
         )}
       </div>
     </div>
@@ -585,153 +611,153 @@ function StepThree({
 }) {
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <p className="text-[#e8a020] text-xs font-semibold uppercase tracking-widest">Step 3 of 3</p>
-        <h2 className="text-white text-2xl font-bold text-balance">Where do we send your offer?</h2>
-        <p className="text-white/50 text-sm">We&apos;ll be in touch within minutes.</p>
+      <div className="text-center space-y-3">
+        <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+          <CheckCircle2 className="w-4 h-4" />
+          Almost there!
+        </div>
+        <h2 className="text-3xl font-bold text-foreground text-balance">
+          Where should we send your quote?
+        </h2>
       </div>
 
-      {/* Car summary pill */}
+      {/* Vehicle summary */}
       {vehicleInfo && (
-        <div className="flex items-center gap-3 bg-white/5 border border-white/8 rounded-xl px-4 py-3">
-          <div className="w-9 h-9 rounded-full bg-[#e8a020]/15 flex items-center justify-center flex-shrink-0">
-            <Car className="w-4 h-4 text-[#e8a020]" />
+        <div className="bg-secondary rounded-xl p-4 flex items-center gap-4">
+          <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+            <Car className="w-6 h-6 text-primary" />
           </div>
-          <div className="min-w-0">
-            <p className="text-white font-semibold text-sm truncate">
+          <div>
+            <p className="font-semibold text-foreground">
               {vehicleInfo.make} {vehicleInfo.model}
             </p>
-            <p className="text-white/40 text-xs">
-              {formData.registration} &middot; {formData.mileage ? parseInt(formData.mileage).toLocaleString() : "–"} miles
+            <p className="text-sm text-muted-foreground">
+              {formData.registration} &bull; {parseInt(formData.mileage || "0").toLocaleString()} miles
             </p>
           </div>
-          <CheckCircle2 className="w-5 h-5 text-[#e8a020] flex-shrink-0 ml-auto" />
         </div>
       )}
 
       <div className="space-y-4">
-        <FormField label="Your full name" required>
+        <div className="space-y-1.5">
+          <label className="text-sm font-medium text-foreground">Full name *</label>
           <Input
             type="text"
             value={formData.name}
             onChange={(e) => updateField("name", e.target.value)}
             placeholder="John Smith"
-            className="h-12 bg-white/5 border border-white/10 text-white placeholder:text-white/25 rounded-xl focus:border-[#e8a020]/60 focus:ring-2 focus:ring-[#e8a020]/20"
+            className="h-12 bg-background border-2 border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/20 rounded-xl"
           />
-        </FormField>
+        </div>
 
-        <FormField label="Phone number" required>
-          <div className="relative">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
-            <Input
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => updateField("phone", e.target.value)}
-              placeholder="07123 456789"
-              className="h-12 bg-white/5 border border-white/10 text-white placeholder:text-white/25 rounded-xl pl-9 focus:border-[#e8a020]/60 focus:ring-2 focus:ring-[#e8a020]/20"
-            />
-          </div>
-        </FormField>
+        <div className="space-y-1.5">
+          <label className="text-sm font-medium text-foreground">Postcode *</label>
+          <Input
+            type="text"
+            value={formData.postcode}
+            onChange={(e) => updateField("postcode", e.target.value.toUpperCase())}
+            placeholder="e.g. CM16 4AB"
+            maxLength={8}
+            className="h-12 bg-background border-2 border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/20 rounded-xl uppercase"
+          />
+        </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <FormField label="Email address" required>
-            <Input
-              type="email"
-              value={formData.email}
-              onChange={(e) => updateField("email", e.target.value)}
-              placeholder="you@email.com"
-              className="h-12 bg-white/5 border border-white/10 text-white placeholder:text-white/25 rounded-xl focus:border-[#e8a020]/60 focus:ring-2 focus:ring-[#e8a020]/20"
-            />
-          </FormField>
-          <FormField label="Postcode" required>
-            <Input
-              type="text"
-              value={formData.postcode}
-              onChange={(e) => updateField("postcode", e.target.value.toUpperCase())}
-              placeholder="CM16 4EH"
-              maxLength={8}
-              className="h-12 bg-white/5 border border-white/10 text-white placeholder:text-white/25 rounded-xl uppercase focus:border-[#e8a020]/60 focus:ring-2 focus:ring-[#e8a020]/20"
-            />
-          </FormField>
+        <div className="space-y-1.5">
+          <label className="text-sm font-medium text-foreground">Email address *</label>
+          <Input
+            type="email"
+            value={formData.email}
+            onChange={(e) => updateField("email", e.target.value)}
+            placeholder="john@example.com"
+            className="h-12 bg-background border-2 border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/20 rounded-xl"
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="text-sm font-medium text-foreground">Phone number *</label>
+          <Input
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => updateField("phone", e.target.value)}
+            placeholder="07123 456789"
+            className="h-12 bg-background border-2 border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/20 rounded-xl"
+          />
         </div>
 
         {error && (
-          <p className="text-red-400 text-sm text-center">{error}</p>
+          <p className="text-destructive text-sm text-center font-medium">{error}</p>
         )}
       </div>
     </div>
   )
 }
 
-function FormField({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
-  return (
-    <div className="space-y-1.5">
-      <label className="text-white/60 text-xs font-medium uppercase tracking-wider">
-        {label}{required && <span className="text-[#e8a020] ml-0.5">*</span>}
-      </label>
-      {children}
-    </div>
-  )
-}
-
-// ─── Success Screen ───────────────────────────────────────────────────────────
+// ─── Success Screen ──────────────────────────────────────────────────────────
 
 function SuccessScreen({ name }: { name: string }) {
   return (
-    <div className="min-h-screen bg-[#0f1117] flex flex-col items-center justify-center px-4">
-      <div className="max-w-md w-full text-center space-y-8">
-        {/* Animated check */}
-        <div className="relative inline-flex items-center justify-center">
-          <div className="w-24 h-24 rounded-full bg-[#e8a020] flex items-center justify-center shadow-2xl shadow-[#e8a020]/30 animate-in zoom-in-50 duration-500">
-            <Check className="w-12 h-12 text-white" strokeWidth={3} />
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex flex-col font-sans">
+      <header className="py-5 px-4 bg-white/80 backdrop-blur-sm border-b border-border">
+        <div className="container mx-auto flex items-center justify-center max-w-2xl">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <Car className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-foreground">Epping Car Buyer</span>
+          </Link>
+        </div>
+      </header>
+
+      <main className="flex-1 flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center space-y-8">
+          <div className="relative inline-block">
+            <div className="w-24 h-24 rounded-full bg-primary flex items-center justify-center mx-auto shadow-lg shadow-primary/30">
+              <Check className="w-12 h-12 text-primary-foreground" />
+            </div>
+            <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
+              <Sparkles className="w-4 h-4 text-yellow-800" />
+            </div>
           </div>
-          <div className="absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center animate-bounce shadow">
-            <Sparkles className="w-4 h-4 text-[#e8a020]" />
+
+          <div className="space-y-3">
+            <h1 className="text-3xl font-bold text-foreground">
+              Thanks, {name.split(" ")[0]}!
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              We&apos;ll be in touch shortly with your free car valuation.
+            </p>
           </div>
-        </div>
 
-        <div className="space-y-3">
-          <h1 className="text-white text-3xl font-bold">
-            Thanks, {name.split(" ")[0]}! 🎉
-          </h1>
-          <p className="text-white/60 text-lg leading-relaxed">
-            We&apos;ve received your details and will be in touch <strong className="text-white">within the hour</strong> with your free valuation.
-          </p>
-        </div>
+          <div className="bg-card rounded-2xl p-6 border border-border shadow-sm">
+            <p className="text-muted-foreground mb-4">Want a faster response?</p>
+            <a
+              href="https://wa.me/441992367909"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full h-12 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold rounded-xl transition-colors"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Chat on WhatsApp
+            </a>
+          </div>
 
-        {/* WhatsApp CTA */}
-        <div className="bg-[#1a1d27] rounded-2xl border border-white/8 p-6 space-y-4">
-          <p className="text-white/50 text-sm">Want a faster response? Chat directly with us:</p>
-          <a
-            href="https://wa.me/441992367909"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2.5 w-full h-13 py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl transition-colors shadow-lg shadow-[#25D366]/20"
-          >
-            <MessageCircle className="w-5 h-5" />
-            Chat on WhatsApp
-          </a>
+          <Link href="/" className="inline-flex items-center text-primary hover:text-primary/80 font-medium">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to homepage
+          </Link>
         </div>
-
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 text-sm transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to homepage
-        </Link>
-      </div>
+      </main>
     </div>
   )
 }
 
-// ─── Trust Badge ─────────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function TrustBadge({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5 text-muted-foreground">
       {icon}
-      <span className="text-white/60 text-xs font-medium">{text}</span>
+      <span className="text-xs font-medium">{text}</span>
     </div>
   )
 }
