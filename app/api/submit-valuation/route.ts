@@ -38,7 +38,7 @@ Submitted: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
       },
       body: JSON.stringify({
         from: "Epping Car Buyer <noreply@eppingcarbuyer.com>",
-        to: ["henry@stamfordcarbuyer.com"],
+        to: ["henry@eppingcarbuyer.com"],
         subject: `New Valuation Request: ${registration}`,
         text: emailContent,
       }),
