@@ -188,16 +188,16 @@ export default function FBLeadForm() {
       {/* Hero headline */}
       <div className="bg-primary px-4 py-6 text-center">
         <div className="max-w-lg mx-auto space-y-2">
-          <div className="inline-flex items-center gap-2 bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
-            Facebook Exclusive Offer
-          </div>
           <h1 className="text-white text-2xl md:text-3xl font-bold text-balance">
             Get a Free Instant Car Valuation
           </h1>
           <p className="text-white/80 text-sm">
             Find out what your car is worth — takes less than 2 minutes
           </p>
+          <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold mt-1">
+            <Sparkles className="w-4 h-4 shrink-0" />
+            We will pay more if your car has been well looked after
+          </div>
         </div>
       </div>
 
