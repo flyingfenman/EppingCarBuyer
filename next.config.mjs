@@ -14,6 +14,15 @@ const nextConfig = {
       bodySizeLimit: '20mb',
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/sell-for-me',
+        destination: '/market-and-sell',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

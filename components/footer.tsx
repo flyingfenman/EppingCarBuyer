@@ -9,8 +9,8 @@ export function Footer() {
             <Link href="/quote" className="text-sm hover:underline">
               Get a Quote
             </Link>
-            <Link href="/sell-for-me" className="text-sm hover:underline">
-              Sell It For Me
+            <Link href="/market-and-sell" className="text-sm hover:underline">
+              Market &amp; Sell
             </Link>
             <Link href="/contact" className="text-sm hover:underline">
               Contact Us

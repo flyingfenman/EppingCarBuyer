@@ -1,5 +1,7 @@
 import { Metadata } from "next"
 import { SellForMeHero } from "@/components/sell-for-me/hero"
+import { SellForMeTwoPrices } from "@/components/sell-for-me/two-prices"
+import { SellForMeBuiltOnData } from "@/components/sell-for-me/built-on-data"
 import { SellForMeHowItWorks } from "@/components/sell-for-me/how-it-works"
 import { SellForMeWhatsIncluded } from "@/components/sell-for-me/whats-included"
 import { SellForMePricing } from "@/components/sell-for-me/pricing"
@@ -7,15 +9,17 @@ import { SellForMeComparison } from "@/components/sell-for-me/comparison"
 import { SellForMeCta } from "@/components/sell-for-me/cta"
 
 export const metadata: Metadata = {
-  title: "Sell It For Me - Epping Car Buyer",
+  title: "Market & Sell - Epping Car Buyer",
   description:
-    "Let us sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
+    "Let us market and sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
 }
 
-export default function SellForMePage() {
+export default function MarketAndSellPage() {
   return (
     <div className="min-h-screen">
       <SellForMeHero />
+      <SellForMeTwoPrices />
+      <SellForMeBuiltOnData />
       <SellForMeHowItWorks />
       <SellForMeWhatsIncluded />
       <SellForMePricing />

@@ -29,7 +29,7 @@ const comparisons = [
     verdict: "lowball",
   },
   {
-    name: "Sell It For Me",
+    name: "Market & Sell",
     tagline: "The sweet spot",
     pros: [
       "Closer to retail price",
