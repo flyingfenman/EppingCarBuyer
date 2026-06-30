@@ -18,265 +18,287 @@ type Step = {
   scene: () => JSX.Element
 }
 
+/* ---------------------------------------------------------------
+   Unified illustration system
+   - One car icon used across every slide
+   - White cards, coloured headers, 2px #1f1147 outlines
+   - Shared soft drop shadow
+   - Brand palette: purple #5b21b6, green #10b981, yellow #FFCC00
+---------------------------------------------------------------- */
+
+const INK = "#1f1147"
+
+const CarIcon = ({ accent = "#5b21b6", scale = 1 }: { accent?: string; scale?: number }) => (
+  <g transform={`scale(${scale})`}>
+    {/* body */}
+    <path
+      d="M -34 6 L -30 -4 Q -27 -10 -19 -11 L 8 -11 Q 16 -11 22 -5 L 31 1 Q 36 3 36 8 L 36 10 Q 36 13 33 13 L -32 13 Q -35 13 -35 10 L -35 8 Q -35 7 -34 6 Z"
+      fill="#ffffff"
+      stroke={INK}
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+    {/* windows */}
+    <path d="M -25 -6 Q -23 -9 -18 -9 L -7 -9 L -7 -1 L -28 -1 Q -27 -4 -25 -6 Z" fill={accent} fillOpacity="0.25" stroke={INK} strokeWidth="1.2" strokeLinejoin="round" />
+    <path d="M -3 -9 L 7 -9 Q 14 -9 19 -3 L 20 -1 L -3 -1 Z" fill={accent} fillOpacity="0.25" stroke={INK} strokeWidth="1.2" strokeLinejoin="round" />
+    <line x1="-5" y1="-1" x2="-5" y2="11" stroke={INK} strokeWidth="1" />
+    {/* headlight */}
+    <circle cx="34" cy="6" r="1.5" fill="#fbbf24" />
+    {/* wheels */}
+    <circle cx="-18" cy="13" r="7" fill={INK} />
+    <circle cx="-18" cy="13" r="2.8" fill="#ffffff" />
+    <circle cx="20" cy="13" r="7" fill={INK} />
+    <circle cx="20" cy="13" r="2.8" fill="#ffffff" />
+  </g>
+)
+
 const Scene1 = () => (
-  <svg viewBox="0 0 320 170" className="w-[92%] h-[90%]" xmlns="http://www.w3.org/2000/svg">
-    {/* Option 1: Cash Offer - Car with banknotes flying */}
-    <g className="animate-[floatUp_3s_ease-in-out_infinite]">
-      <rect x="15" y="15" width="135" height="140" rx="10" fill="#ffffff" stroke="#10b981" strokeWidth="2.5" />
-      <rect x="15" y="15" width="135" height="28" rx="10" fill="#10b981" />
-      <text x="82.5" y="34" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">Cash Offer</text>
-      
-      {/* Mini car */}
-      <g transform="translate(82.5 75)">
-        <rect x="-32" y="-2" width="64" height="14" rx="3" fill="#f0fdf4" stroke="#10b981" strokeWidth="1.5" />
-        <path d="M -22 -2 Q -20 -12, -12 -12 L 12 -12 Q 20 -12, 22 -2 Z" fill="#f0fdf4" stroke="#10b981" strokeWidth="1.5" />
-        <circle cx="-18" cy="12" r="5" fill="#10b981" />
-        <circle cx="18" cy="12" r="5" fill="#10b981" />
+  <svg viewBox="0 0 320 180" className="w-[94%] h-[92%]" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="s1shadow" x="-25%" y="-25%" width="150%" height="150%">
+        <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor={INK} floodOpacity="0.18" />
+      </filter>
+    </defs>
+
+    {/* Cash Offer card */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" filter="url(#s1shadow)">
+      <rect x="12" y="22" width="134" height="138" rx="12" fill="#ffffff" stroke={INK} strokeWidth="2" />
+      <path d="M 12 34 Q 12 22 24 22 L 134 22 Q 146 22 146 34 L 146 44 L 12 44 Z" fill="#10b981" />
+      <text x="79" y="38" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">Cash Offer</text>
+      <g transform="translate(79 78)"><CarIcon accent="#10b981" scale={1.05} /></g>
+      <g transform="translate(0 106)">
+        <g transform="translate(38 0)" className="animate-[lightning_1.5s_ease-in-out_infinite] origin-center">
+          <circle r="8" fill="#d1fae5" />
+          <path d="M 1 -4 L -3 1 L 0 1 L -1 4 L 3 -1 L 0 -1 Z" fill="#10b981" />
+        </g>
+        <text x="52" y="-1" fontSize="7" fontWeight="700" fill={INK}>Paid instantly</text>
+        <text x="52" y="8" fontSize="5.5" fill="#6b7280">Bank transfer, same day</text>
       </g>
-      
-      {/* Flying banknotes */}
-      <g className="animate-[popIn_2s_ease-in-out_infinite]" style={{ animationDelay: "-0.2s" }}>
-        <rect x="40" y="48" width="18" height="10" rx="1" fill="#10b981" stroke="#15803d" strokeWidth="0.5" transform="rotate(-15 49 53)" />
-        <text x="49" y="55" textAnchor="middle" fontSize="6" fontWeight="600" fill="#ffffff" transform="rotate(-15 49 53)">£</text>
-      </g>
-      <g className="animate-[popIn_2s_ease-in-out_infinite]" style={{ animationDelay: "-0.6s" }}>
-        <rect x="100" y="52" width="18" height="10" rx="1" fill="#10b981" stroke="#15803d" strokeWidth="0.5" transform="rotate(12 109 57)" />
-        <text x="109" y="59" textAnchor="middle" fontSize="6" fontWeight="600" fill="#ffffff" transform="rotate(12 109 57)">£</text>
-      </g>
-      <g className="animate-[popIn_2s_ease-in-out_infinite]" style={{ animationDelay: "-1s" }}>
-        <rect x="70" y="42" width="18" height="10" rx="1" fill="#10b981" stroke="#15803d" strokeWidth="0.5" transform="rotate(5 79 47)" />
-        <text x="79" y="49" textAnchor="middle" fontSize="6" fontWeight="600" fill="#ffffff" transform="rotate(5 79 47)">£</text>
-      </g>
-      
-      {/* Lightning bolt for instant */}
-      <g transform="translate(125 55)" className="animate-[lightning_1.5s_ease-in-out_infinite]">
-        <path d="M 0 -8 L -5 0 L -1 0 L -3 8 L 5 -2 L 1 -2 Z" fill="#fbbf24" stroke="#f59e0b" strokeWidth="0.5" />
-      </g>
-      
-      <text x="82.5" y="105" textAnchor="middle" fontSize="6" fill="#1f1147" fontWeight="500">Sell today, get paid</text>
-      <text x="82.5" y="115" textAnchor="middle" fontSize="6" fill="#1f1147" fontWeight="500">instantly via bank transfer</text>
-      
-      <rect x="37" y="125" width="91" height="22" rx="11" fill="#10b981" />
-      <text x="82.5" y="139" textAnchor="middle" fontSize="7" fontWeight="600" fill="#ffffff">Get Valuation</text>
+      <rect x="30" y="130" width="98" height="22" rx="11" fill="#10b981" />
+      <text x="79" y="144.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#ffffff">Get cash offer</text>
     </g>
-    
+
     {/* OR divider */}
     <g className="animate-[popIn_2.5s_ease-in-out_infinite] origin-center">
-      <circle cx="160" cy="85" r="16" fill="#5b21b6" />
-      <text x="160" y="90" textAnchor="middle" fontSize="10" fontWeight="700" fill="#ffffff">OR</text>
+      <circle cx="160" cy="90" r="15" fill="#5b21b6" stroke="#ffffff" strokeWidth="2.5" />
+      <text x="160" y="94.5" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">OR</text>
     </g>
-    
-    {/* Option 2: Sell It For Me - Car with camera/megaphone */}
-    <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.5s" }}>
-      <rect x="170" y="15" width="135" height="140" rx="10" fill="#ffffff" stroke="#FFCC00" strokeWidth="2.5" />
-      <rect x="170" y="15" width="135" height="28" rx="10" fill="#FFCC00" />
-      <text x="237.5" y="34" textAnchor="middle" fontSize="9" fontWeight="700" fill="#1f1147">Market &amp; Sell</text>
-      
-      {/* Mini car */}
-      <g transform="translate(237.5 80)">
-        <rect x="-32" y="-2" width="64" height="14" rx="3" fill="#fefce8" stroke="#FFCC00" strokeWidth="1.5" />
-        <path d="M -22 -2 Q -20 -12, -12 -12 L 12 -12 Q 20 -12, 22 -2 Z" fill="#fefce8" stroke="#FFCC00" strokeWidth="1.5" />
-        <circle cx="-18" cy="12" r="5" fill="#FFCC00" />
-        <circle cx="18" cy="12" r="5" fill="#FFCC00" />
-      </g>
-      
-      {/* Camera icon */}
-      <g transform="translate(200 55)" className="animate-[popIn_2s_ease-in-out_infinite]" style={{ animationDelay: "-0.3s" }}>
-        <rect x="-10" y="-6" width="20" height="14" rx="2" fill="#1f1147" />
-        <circle cx="0" cy="1" r="5" fill="#3b82f6" stroke="#1f1147" strokeWidth="1" />
-        <circle cx="0" cy="1" r="2" fill="#ffffff" />
-        <rect x="-4" y="-9" width="8" height="4" rx="1" fill="#1f1147" />
-      </g>
-      
-      {/* Megaphone icon */}
-      <g transform="translate(275 55)" className="animate-[popIn_2s_ease-in-out_infinite]" style={{ animationDelay: "-0.7s" }}>
-        <path d="M -8 -4 L 6 -10 L 6 10 L -8 4 Z" fill="#FFCC00" stroke="#ca8a04" strokeWidth="1" />
-        <rect x="-12" y="-4" width="5" height="8" rx="1" fill="#1f1147" />
-        <g className="animate-[tapRing_1.5s_ease-in-out_infinite]">
-          <path d="M 8 -6 Q 14 0, 8 6" fill="none" stroke="#ca8a04" strokeWidth="1.5" strokeLinecap="round" />
+
+    {/* Market & Sell card */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.6s" }} filter="url(#s1shadow)">
+      <rect x="174" y="22" width="134" height="138" rx="12" fill="#ffffff" stroke={INK} strokeWidth="2" />
+      <path d="M 174 34 Q 174 22 186 22 L 296 22 Q 308 22 308 34 L 308 44 L 174 44 Z" fill="#FFCC00" />
+      <text x="241" y="38" textAnchor="middle" fontSize="9" fontWeight="700" fill={INK}>Market &amp; Sell</text>
+      <g transform="translate(241 78)"><CarIcon accent="#ca8a04" scale={1.05} /></g>
+      <g transform="translate(186 106)">
+        {/* camera glyph */}
+        <g transform="translate(0 0)">
+          <circle r="8" fill="#fef9c3" />
+          <rect x="-4" y="-2.5" width="8" height="6" rx="1.4" fill="none" stroke={INK} strokeWidth="1.2" />
+          <circle cx="0" cy="0.5" r="1.8" fill="none" stroke={INK} strokeWidth="1.2" />
+          <rect x="-2.5" y="-4.2" width="5" height="2.2" rx="0.6" fill={INK} />
         </g>
-        <g className="animate-[tapRing_1.5s_ease-in-out_infinite]" style={{ animationDelay: "-0.5s" }}>
-          <path d="M 11 -9 Q 20 0, 11 9" fill="none" stroke="#ca8a04" strokeWidth="1" strokeLinecap="round" />
-        </g>
+        <text x="14" y="-1" fontSize="7" fontWeight="700" fill={INK}>We advertise it</text>
+        <text x="14" y="8" fontSize="5.5" fill="#6b7280">Photos, video &amp; listings</text>
       </g>
-      
-      {/* Upward arrow with £+ */}
-      <g transform="translate(237.5 55)" className="animate-[floatUp_2s_ease-in-out_infinite]">
-        <path d="M 0 8 L 0 -5 M -4 -1 L 0 -6 L 4 -1" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </g>
-      
-      <text x="237.5" y="108" textAnchor="middle" fontSize="6" fill="#1f1147" fontWeight="500">We advertise, show &amp; sell</text>
-      <text x="237.5" y="118" textAnchor="middle" fontSize="6" fill="#1f1147" fontWeight="500">your car for a higher price</text>
-      
-      <rect x="192" y="125" width="91" height="22" rx="11" fill="#FFCC00" />
-      <text x="237.5" y="139" textAnchor="middle" fontSize="7" fontWeight="600" fill="#1f1147">Learn More</text>
+      <rect x="192" y="130" width="98" height="22" rx="11" fill="#FFCC00" />
+      <text x="241" y="144.5" textAnchor="middle" fontSize="7" fontWeight="700" fill={INK}>Sell for more</text>
     </g>
   </svg>
 )
 
 const Scene2 = () => (
-  <svg viewBox="0 0 240 150" className="w-[92%] h-[90%]" xmlns="http://www.w3.org/2000/svg">
-    <g opacity="0.22">
-      <path d="M 12 130 L 12 100 L 16 100 L 16 90 L 22 78 L 28 90 L 28 100 L 36 100 L 36 130 Z" fill="#fef3c7" />
-      <rect x="18" y="105" width="4" height="6" fill="#7c3aed" />
-      <rect x="22" y="115" width="4" height="6" fill="#7c3aed" />
-      <path d="M 200 130 L 200 95 L 220 95 L 220 78 L 226 78 L 226 65 L 232 56 L 238 65 L 238 78 L 246 78 L 246 130 Z" fill="#fef3c7" />
-      <rect x="206" y="100" width="4" height="6" fill="#7c3aed" />
-      <rect x="214" y="100" width="4" height="6" fill="#7c3aed" />
-      <rect x="206" y="112" width="4" height="6" fill="#7c3aed" />
-      <rect x="214" y="112" width="4" height="6" fill="#7c3aed" />
-    </g>
-    <g className="animate-[floatUp_3s_ease-in-out_infinite]">
-      <rect x="62" y="32" width="116" height="92" rx="5" fill="#1f1147" />
-      <rect x="64" y="34" width="112" height="88" rx="4" fill="#ffffff" />
-      {[80, 100, 120, 140, 160].map(cx => (
-        <circle key={cx} cx={cx} cy="32" r="2.5" fill="#fbbf24" stroke="#3b0764" strokeWidth="0.5" />
-      ))}
-      <rect x="64" y="34" width="112" height="14" rx="2" fill="#5b21b6" />
-      <text x="120" y="44" textAnchor="middle" fontSize="6" fontWeight="500" fill="#ffffff">May 2026</text>
-      <g fontSize="4" fontWeight="500" fill="#7c3aed" textAnchor="middle">
-        <text x="76" y="56">M</text><text x="92" y="56">T</text><text x="108" y="56">W</text>
-        <text x="124" y="56">T</text><text x="140" y="56">F</text><text x="156" y="56">S</text><text x="172" y="56">S</text>
+  <svg viewBox="0 0 320 180" className="w-[94%] h-[92%]" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="s2shadow" x="-25%" y="-25%" width="150%" height="150%">
+        <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor={INK} floodOpacity="0.18" />
+      </filter>
+    </defs>
+
+    {/* Appointment confirmation card */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" filter="url(#s2shadow)">
+      <rect x="78" y="26" width="164" height="128" rx="14" fill="#ffffff" stroke={INK} strokeWidth="2" />
+      <path d="M 78 40 Q 78 26 92 26 L 228 26 Q 242 26 242 40 L 242 50 L 78 50 Z" fill="#5b21b6" />
+      <text x="160" y="43" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">Appointment booked</text>
+
+      {/* calendar tear-off */}
+      <g transform="translate(96 66)">
+        <rect x="0" y="0" width="44" height="48" rx="7" fill="#ffffff" stroke={INK} strokeWidth="2" />
+        <path d="M 0 9 Q 0 0 9 0 L 35 0 Q 44 0 44 9 L 44 13 L 0 13 Z" fill="#5b21b6" />
+        <rect x="10" y="-3" width="3" height="8" rx="1.5" fill={INK} />
+        <rect x="31" y="-3" width="3" height="8" rx="1.5" fill={INK} />
+        <text x="22" y="10" textAnchor="middle" fontSize="5.5" fontWeight="700" fill="#ffffff">MAY</text>
+        <text x="22" y="38" textAnchor="middle" fontSize="20" fontWeight="700" fill={INK}>21</text>
       </g>
-      <line x1="68" y1="60" x2="172" y2="60" stroke="#ede9fe" strokeWidth="0.5" />
-      <g fontSize="4.5" fill="#1f1147" textAnchor="middle">
-        <text x="76" y="70">5</text><text x="92" y="70">6</text><text x="108" y="70">7</text>
-        <text x="124" y="70">8</text><text x="140" y="70">9</text><text x="156" y="70">10</text><text x="172" y="70">11</text>
-        <text x="76" y="84">12</text><text x="92" y="84">13</text><text x="108" y="84">14</text>
-        <text x="124" y="84">15</text><text x="140" y="84">16</text><text x="156" y="84">17</text><text x="172" y="84">18</text>
-        <text x="76" y="98">19</text><text x="92" y="98">20</text>
-        <text x="124" y="98">22</text><text x="140" y="98">23</text><text x="156" y="98">24</text><text x="172" y="98">25</text>
-        <text x="76" y="112">26</text><text x="92" y="112">27</text><text x="108" y="112">28</text>
-        <text x="124" y="112">29</text><text x="140" y="112">30</text><text x="156" y="112">31</text>
+
+      {/* details */}
+      <text x="152" y="73" fontSize="8" fontWeight="700" fill={INK}>Wednesday 21 May</text>
+      <g transform="translate(152 82)">
+        <circle cx="4" cy="4" r="4.5" fill="none" stroke="#7c3aed" strokeWidth="1.6" />
+        <path d="M 4 1.5 L 4 4 L 6 5.6" stroke="#7c3aed" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+        <text x="14" y="7" fontSize="7" fill="#374151">2:30 PM</text>
       </g>
-      <circle cx="108" cy="96" r="7" fill="#5b21b6" />
-      <text x="108" y="98.5" textAnchor="middle" fontSize="4.5" fontWeight="500" fill="#ffffff">21</text>
-      <circle className="animate-[tapRing_2s_ease-in-out_infinite] origin-center" cx="108" cy="96" r="7" fill="none" stroke="#fbbf24" strokeWidth="1.2" />
-      <circle className="animate-[tapRing_2s_ease-in-out_infinite] origin-center" cx="108" cy="96" r="7" fill="none" stroke="#fbbf24" strokeWidth="1.2" style={{ animationDelay: "0.6s" }} />
+      <g transform="translate(152 96)">
+        <path d="M 4 0 Q 9 0 9 5 Q 9 9 4 13 Q -1 9 -1 5 Q -1 0 4 0 Z" fill="#10b981" />
+        <circle cx="4" cy="5" r="2" fill="#ffffff" />
+        <text x="14" y="9" fontSize="7" fill="#374151">We come to you</text>
+      </g>
+
+      {/* confirmed pill */}
+      <rect x="90" y="126" width="140" height="20" rx="10" fill="#d1fae5" />
+      <g transform="translate(108 136)">
+        <circle r="6" fill="#10b981" />
+        <path d="M -2.6 0 L -0.6 2 L 2.6 -2.2" stroke="#ffffff" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <text x="120" y="139" fontSize="7" fontWeight="700" fill="#047857">Confirmed</text>
     </g>
-    <g className="animate-[popIn_2.5s_ease-in-out_infinite] origin-center">
-      <rect x="184" y="50" width="46" height="22" rx="3" fill="#ffffff" stroke="#5b21b6" strokeWidth="1" />
-      <circle cx="190" cy="61" r="3" fill="#10b981" />
-      <path d="M 188 61 L 189.5 62.5 L 192 59.5" stroke="#ffffff" strokeWidth="0.8" fill="none" strokeLinecap="round" />
-      <text x="196" y="59" fontSize="3" fontWeight="500" fill="#1f1147">Wed 21 May</text>
-      <text x="196" y="64" fontSize="2.5" fill="#7c3aed">2:30 PM, Epping</text>
-      <text x="196" y="69" fontSize="2.3" fill="#10b981">we come to you</text>
-    </g>
-    <g className="animate-[floatUp_3s_ease-in-out_-1.2s_infinite]" transform="translate(40 90)">
-      <circle cx="0" cy="0" r="10" fill="#fbbf24" />
-      <circle cx="0" cy="0" r="8" fill="none" stroke="#78350f" strokeWidth="0.5" />
-      <line x1="0" y1="0" x2="0" y2="-5" stroke="#78350f" strokeWidth="1" strokeLinecap="round" />
-      <line x1="0" y1="0" x2="4" y2="0" stroke="#78350f" strokeWidth="1" strokeLinecap="round" />
-      <circle cx="0" cy="0" r="0.8" fill="#78350f" />
+
+    {/* floating tick badge */}
+    <g className="animate-[popIn_2.5s_ease-in-out_infinite] origin-center" transform="translate(234 58)">
+      <circle r="13" fill="#10b981" stroke="#ffffff" strokeWidth="2.5" />
+      <path d="M -5 0 L -1.5 3.5 L 5 -4.5" stroke="#ffffff" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </g>
   </svg>
 )
 
-const StaticWheel = ({ x, y }: { x: number; y: number }) => (
-  <g transform={`translate(${x} ${y})`}>
-    <circle r="18" fill="#1f1147" />
-    <circle r="13" fill="#0a0518" />
-    <rect x="-1.5" y="-12" width="3" height="24" rx="1" fill="#c4b5fd" />
-    <rect x="-1.5" y="-12" width="3" height="24" rx="1" fill="#c4b5fd" transform="rotate(45)" />
-    <rect x="-1.5" y="-12" width="3" height="24" rx="1" fill="#c4b5fd" transform="rotate(90)" />
-    <rect x="-1.5" y="-12" width="3" height="24" rx="1" fill="#c4b5fd" transform="rotate(135)" />
-    <circle r="3.5" fill="#fbbf24" stroke="#1f1147" strokeWidth="1.5" />
-  </g>
-)
-
 const Scene3 = () => (
-  <svg viewBox="0 0 320 180" className="w-[92%] h-[90%]" xmlns="http://www.w3.org/2000/svg">
-    <line x1="20" y1="148" x2="300" y2="148" stroke="#ffffff" strokeWidth="1" opacity="0.4" strokeDasharray="4 6" />
+  <svg viewBox="0 0 320 180" className="w-[94%] h-[92%]" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="s3shadow" x="-25%" y="-25%" width="150%" height="150%">
+        <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor={INK} floodOpacity="0.18" />
+      </filter>
+    </defs>
 
-    <g className="animate-[motionDash_1.2s_linear_infinite]"><line x1="30" y1="110" x2="55" y2="110" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" /></g>
-    <g className="animate-[motionDash_1.2s_linear_infinite]" style={{ animationDelay: "-0.3s" }}><line x1="22" y1="125" x2="52" y2="125" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.55" /></g>
-    <g className="animate-[motionDash_1.2s_linear_infinite]" style={{ animationDelay: "-0.6s" }}><line x1="32" y1="140" x2="58" y2="140" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.4" /></g>
+    {/* ground shadow */}
+    <ellipse cx="138" cy="148" rx="92" ry="10" fill={INK} opacity="0.15" />
 
-    <g className="animate-[driveIn_4.5s_ease-in-out_infinite]">
-      <rect x="80" y="105" width="160" height="35" rx="8" fill="#ffffff" stroke="#1f1147" strokeWidth="3" />
-      <path d="M 110 105 Q 115 78, 140 78 L 195 78 Q 215 78, 220 105 Z" fill="#ffffff" stroke="#1f1147" strokeWidth="3" strokeLinejoin="round" />
-      <path d="M 118 102 Q 122 84, 142 84 L 162 84 L 162 102 Z" fill="#3b82f6" stroke="#1f1147" strokeWidth="2" />
-      <path d="M 168 84 L 192 84 Q 210 84, 214 102 L 168 102 Z" fill="#3b82f6" stroke="#1f1147" strokeWidth="2" />
-      <rect x="150" y="120" width="10" height="2.5" rx="1" fill="#1f1147" />
-      <circle cx="232" cy="118" r="4" fill="#fbbf24" stroke="#1f1147" strokeWidth="2" />
-      <rect x="84" y="115" width="6" height="6" rx="1.5" fill="#dc2626" stroke="#1f1147" strokeWidth="2" />
-      <StaticWheel x={115} y={140} />
-      <StaticWheel x={205} y={140} />
+    {/* car under inspection */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" transform="translate(138 110)">
+      <CarIcon accent="#5b21b6" scale={2} />
     </g>
+
+    {/* magnifying glass scanning over the car */}
+    <g className="animate-[scan_3.5s_ease-in-out_infinite]">
+      <g transform="translate(138 92)">
+        <circle r="16" fill="#7c3aed" fillOpacity="0.14" stroke="#5b21b6" strokeWidth="2.5" />
+        <circle r="16" fill="none" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
+        <line x1="11" y1="11" x2="23" y2="23" stroke="#5b21b6" strokeWidth="4.5" strokeLinecap="round" />
+        <line x1="11" y1="11" x2="23" y2="23" stroke={INK} strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M -7 -7 Q -2 -10 4 -8" stroke="#ffffff" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.7" />
+      </g>
+    </g>
+
+    {/* checklist chips */}
+    {[
+      { y: 30, label: "Tyres & brakes" },
+      { y: 70, label: "Service history" },
+      { y: 110, label: "OBD health scan" },
+    ].map((c, i) => (
+      <g
+        key={c.label}
+        className="animate-[floatUp_3s_ease-in-out_infinite]"
+        style={{ animationDelay: `${-0.4 * i}s` }}
+        filter="url(#s3shadow)"
+      >
+        <rect x="226" y={c.y} width="90" height="28" rx="14" fill="#ffffff" stroke={INK} strokeWidth="1.8" />
+        <g transform={`translate(241 ${c.y + 14})`}>
+          <circle r="8" fill="#10b981" />
+          <path d="M -3 0 L -0.6 2.4 L 3.4 -2.6" stroke="#ffffff" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        <text x="254" y={c.y + 17} fontSize="7" fontWeight="600" fill={INK}>{c.label}</text>
+      </g>
+    ))}
   </svg>
 )
 
 const Scene4 = () => (
-  <svg viewBox="0 0 240 150" className="w-[92%] h-[90%]" xmlns="http://www.w3.org/2000/svg">
-    {/* Bank/Phone mockup in center */}
-    <g className="animate-[floatUp_3s_ease-in-out_infinite]">
-      <rect x="62" y="14" width="116" height="124" rx="11" fill="#1f1147" />
-      <rect x="64" y="16" width="112" height="120" rx="9" fill="#f5f3ff" />
-      <rect x="178" y="38" width="2" height="14" rx="1" fill="#3b0764" />
-      <rect x="60" y="42" width="2" height="10" rx="1" fill="#3b0764" />
-      <rect x="60" y="56" width="2" height="14" rx="1" fill="#3b0764" />
-      <rect x="108" y="18" width="24" height="3.5" rx="1.5" fill="#1f1147" />
-      <text x="70" y="30" fontSize="3.5" fill="#1f1147" fontWeight="500">9:41</text>
-      <rect x="160" y="27" width="8" height="3" rx="0.5" fill="#1f1147" />
-      <rect x="64" y="34" width="112" height="14" fill="#5b21b6" />
-      <text x="120" y="43.5" textAnchor="middle" fontSize="4.5" fontWeight="500" fill="#ffffff">Your Bank</text>
-      <text x="78" y="58" fontSize="3" fill="#7c3aed" fontWeight="500">CURRENT ACCOUNT</text>
+  <svg viewBox="0 0 320 180" className="w-[94%] h-[92%]" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="s4shadow" x="-25%" y="-25%" width="150%" height="150%">
+        <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor={INK} floodOpacity="0.2" />
+      </filter>
+    </defs>
+
+    {/* OR at top */}
+    <g className="animate-[popIn_2.5s_ease-in-out_infinite] origin-center">
+      <circle cx="160" cy="12" r="9" fill="#5b21b6" stroke="#ffffff" strokeWidth="2" />
+      <text x="160" y="15.5" textAnchor="middle" fontSize="6" fontWeight="700" fill="#ffffff">OR</text>
+    </g>
+
+    {/* Phone / bank mockup (centre) */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" transform="translate(40 18)" filter="url(#s4shadow)">
+      <rect x="62" y="14" width="116" height="124" rx="13" fill={INK} />
+      <rect x="64" y="16" width="112" height="120" rx="11" fill="#f5f3ff" />
+      <rect x="108" y="18" width="24" height="3.5" rx="1.75" fill={INK} />
+      <text x="70" y="30" fontSize="3.5" fill={INK} fontWeight="500">9:41</text>
+      <rect x="160" y="27" width="8" height="3" rx="0.5" fill={INK} />
+      <path d="M 64 47 L 64 27 Q 64 16 75 16 L 165 16 Q 176 16 176 27 L 176 47 Z" fill="#5b21b6" />
+      <text x="120" y="42" textAnchor="middle" fontSize="5" fontWeight="700" fill="#ffffff">Your Bank</text>
+      <text x="78" y="58" fontSize="3" fill="#7c3aed" fontWeight="600">CURRENT ACCOUNT</text>
       <text x="78" y="68" fontSize="3" fill="#7c3aed">Available balance</text>
-      <text x="78" y="79" fontSize="9" fill="#1f1147" fontWeight="500">£12,450.00</text>
+      <text x="78" y="79" fontSize="9" fill={INK} fontWeight="700">£12,450.00</text>
       <line x1="72" y1="85" x2="168" y2="85" stroke="#ede9fe" strokeWidth="0.6" />
       <g className="animate-[slideInDown_4s_ease-in-out_infinite]">
-        <rect x="70" y="90" width="100" height="32" rx="4" fill="#10b981" />
-        <rect x="70" y="90" width="100" height="32" rx="4" fill="none" stroke="#15803d" strokeWidth="0.4" />
+        <rect x="70" y="90" width="100" height="32" rx="5" fill="#10b981" />
         <circle cx="80" cy="100" r="5" fill="#ffffff" />
         <path d="M 78 99 L 80 102 L 84 95" stroke="#10b981" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="90" y="98" fontSize="3.5" fontWeight="500" fill="#ffffff">Payment received</text>
+        <text x="90" y="98" fontSize="3.5" fontWeight="600" fill="#ffffff">Payment received</text>
         <text x="90" y="103" fontSize="2.8" fill="#bbf7d0">From: Epping Car Buyer</text>
-        <text x="90" y="108" fontSize="5" fontWeight="500" fill="#ffffff">+ £8,450.00</text>
+        <text x="90" y="108.5" fontSize="5" fontWeight="700" fill="#ffffff">+ £8,450.00</text>
         <text x="90" y="115" fontSize="2.5" fill="#bbf7d0">Faster Payments • just now</text>
         <g className="animate-[lightning_1.5s_ease-in-out_infinite] origin-center" transform="translate(160 99)">
           <path d="M 0 -6 L -3 0 L -1 0 L -2 6 L 3 -1 L 1 -1 Z" fill="#fbbf24" stroke="#78350f" strokeWidth="0.4" />
         </g>
       </g>
       <rect x="72" y="126" width="44" height="6" rx="3" fill="#5b21b6" />
-      <text x="94" y="130.2" textAnchor="middle" fontSize="3" fontWeight="500" fill="#ffffff">View transaction</text>
+      <text x="94" y="130.2" textAnchor="middle" fontSize="3" fontWeight="600" fill="#ffffff">View transaction</text>
       <rect x="120" y="126" width="44" height="6" rx="3" fill="#ffffff" stroke="#5b21b6" strokeWidth="0.5" />
-      <text x="142" y="130.2" textAnchor="middle" fontSize="3" fontWeight="500" fill="#5b21b6">Done</text>
+      <text x="142" y="130.2" textAnchor="middle" fontSize="3" fontWeight="600" fill="#5b21b6">Done</text>
     </g>
-    
-    {/* Left side - Cash Offer badge */}
-    <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.3s" }}>
-      <rect x="6" y="50" width="50" height="50" rx="6" fill="#10b981" />
-      <text x="31" y="68" textAnchor="middle" fontSize="4" fontWeight="600" fill="#ffffff">CASH</text>
-      <text x="31" y="76" textAnchor="middle" fontSize="4" fontWeight="600" fill="#ffffff">OFFER</text>
-      <g className="animate-[lightning_1.5s_ease-in-out_infinite] origin-center" transform="translate(31 90)">
-        <path d="M 0 -5 L -3 0 L -1 0 L -2 5 L 3 -1 L 1 -1 Z" fill="#ffffff" stroke="#15803d" strokeWidth="0.3" />
+
+    {/* Left card — instant cash */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.3s" }} filter="url(#s4shadow)">
+      <rect x="6" y="58" width="92" height="70" rx="11" fill="#ffffff" stroke={INK} strokeWidth="2" />
+      <path d="M 6 70 Q 6 58 18 58 L 86 58 Q 98 58 98 70 L 98 74 L 6 74 Z" fill="#10b981" />
+      <text x="52" y="69.5" textAnchor="middle" fontSize="6" fontWeight="700" fill="#ffffff">CASH OFFER</text>
+      <g transform="translate(20 92)" className="animate-[lightning_1.5s_ease-in-out_infinite] origin-center">
+        <circle r="7" fill="#d1fae5" />
+        <path d="M 1 -3.5 L -2.5 1 L 0 1 L -1 3.5 L 2.5 -1 L 0 -1 Z" fill="#10b981" />
       </g>
-      <text x="31" y="106" textAnchor="middle" fontSize="3.5" fontWeight="500" fill="#ffffff">Instant</text>
+      <text x="31" y="89" fontSize="9" fontWeight="700" fill={INK}>£8,450</text>
+      <text x="14" y="106" fontSize="5.5" fill="#6b7280">Paid same day</text>
+      <g transform="translate(16 116)">
+        <circle r="5" fill="#10b981" />
+        <path d="M -2.2 0 L -0.5 1.8 L 2.4 -2" stroke="#ffffff" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <text x="25" y="118.5" fontSize="6" fontWeight="600" fill="#047857">Done in minutes</text>
     </g>
-    
-    {/* Right side - Sell It For Me badge */}
-    <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.6s" }}>
-      <rect x="184" y="50" width="50" height="50" rx="6" fill="#FFCC00" />
-      <text x="209" y="65" textAnchor="middle" fontSize="4" fontWeight="600" fill="#1f1147">MARKET</text>
-      <text x="209" y="73" textAnchor="middle" fontSize="4" fontWeight="600" fill="#1f1147">&amp; SELL</text>
-      <text x="209" y="88" textAnchor="middle" fontSize="10" fontWeight="700" fill="#1f1147">7</text>
-      <text x="209" y="106" textAnchor="middle" fontSize="3.5" fontWeight="500" fill="#1f1147">Days</text>
+
+    {/* Right card — sold for more */}
+    <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.6s" }} filter="url(#s4shadow)">
+      <rect x="222" y="58" width="92" height="70" rx="11" fill="#ffffff" stroke={INK} strokeWidth="2" />
+      <path d="M 222 70 Q 222 58 234 58 L 302 58 Q 314 58 314 70 L 314 74 L 222 74 Z" fill="#FFCC00" />
+      <text x="268" y="69.5" textAnchor="middle" fontSize="6" fontWeight="700" fill={INK}>MARKET &amp; SELL</text>
+      {/* SOLD stamp */}
+      <g transform="translate(285 88) rotate(-8)">
+        <rect x="-20" y="-7.5" width="40" height="15" rx="3" fill="none" stroke="#10b981" strokeWidth="2" />
+        <text x="0" y="4" textAnchor="middle" fontSize="8" fontWeight="700" fill="#10b981" letterSpacing="1">SOLD</text>
+      </g>
+      <text x="231" y="90" fontSize="9" fontWeight="700" fill={INK}>£11,200</text>
+      {/* progress bar */}
+      <rect x="232" y="106" width="72" height="6" rx="3" fill="#f3f4f6" />
+      <rect x="232" y="106" width="72" height="6" rx="3" fill="#10b981" style={{ transformOrigin: "232px 109px", animation: "barGrow 3.5s ease-in-out infinite" }} />
+      <text x="232" y="124" fontSize="5.5" fontWeight="600" fill="#6b7280">Sold within 7 days</text>
     </g>
-    
-    {/* Arrows pointing to phone */}
-    <g className="animate-[arrowFlow_2s_ease-in-out_infinite]" transform="translate(48 75)">
-      <line x1="0" y1="0" x2="12" y2="0" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
-      <path d="M 9 -3 L 14 0 L 9 3" stroke="#10b981" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Arrows pointing inward to the phone */}
+    <g className="animate-[arrowFlow_2s_ease-in-out_infinite]" transform="translate(100 92)">
+      <line x1="0" y1="0" x2="12" y2="0" stroke="#10b981" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M 9 -3 L 14 0 L 9 3" stroke="#10b981" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </g>
-    <g className="animate-[arrowFlow_2s_ease-in-out_infinite]" transform="translate(172 75)" style={{ animationDelay: "-0.6s" }}>
-      <line x1="12" y1="0" x2="0" y2="0" stroke="#FFCC00" strokeWidth="2" strokeLinecap="round" />
-      <path d="M 3 -3 L -2 0 L 3 3" stroke="#FFCC00" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-    </g>
-    
-    {/* OR text at top */}
-    <g className="animate-[popIn_2.5s_ease-in-out_infinite] origin-center">
-      <circle cx="120" cy="8" r="8" fill="#5b21b6" />
-      <text x="120" y="11" textAnchor="middle" fontSize="5" fontWeight="600" fill="#ffffff">OR</text>
+    <g className="animate-[arrowFlow_2s_ease-in-out_infinite]" transform="translate(208 92)" style={{ animationDelay: "-0.6s" }}>
+      <line x1="14" y1="0" x2="2" y2="0" stroke="#ca8a04" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M 5 -3 L 0 0 L 5 3" stroke="#ca8a04" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </g>
   </svg>
 )
@@ -334,8 +356,8 @@ export function HowItWorks() {
         @keyframes floatUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes popIn { 0%, 30% { opacity: 0; transform: scale(0.3); } 45%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1); } }
         @keyframes tapRing { 0% { opacity: 0.8; transform: scale(0.5); } 100% { opacity: 0; transform: scale(1.6); } }
-        @keyframes driveIn { 0% { transform: translateX(-120px); opacity: 0; } 18%, 100% { transform: translateX(0); opacity: 1; } }
-        @keyframes motionDash { 0% { transform: translateX(15px); opacity: 0; } 30% { opacity: 0.8; } 100% { transform: translateX(-25px); opacity: 0; } }
+        @keyframes scan { 0%, 100% { transform: translateX(-26px); } 50% { transform: translateX(26px); } }
+        @keyframes barGrow { 0% { transform: scaleX(0); } 60%, 100% { transform: scaleX(1); } }
         @keyframes lightning { 0%, 60%, 100% { opacity: 0.6; transform: scale(1); } 70%, 80% { opacity: 1; transform: scale(1.15); } }
         @keyframes slideInDown { 0%, 30% { opacity: 0; transform: translateY(-20px); } 45%, 95% { opacity: 1; transform: translateY(0); } }
         @keyframes arrowFlow { 0% { opacity: 0; transform: translateX(20px); } 30%, 70% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; transform: translateX(-20px); } }
