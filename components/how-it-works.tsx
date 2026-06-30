@@ -70,7 +70,7 @@ const Scene1 = () => (
     <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.5s" }}>
       <rect x="170" y="15" width="135" height="140" rx="10" fill="#ffffff" stroke="#FFCC00" strokeWidth="2.5" />
       <rect x="170" y="15" width="135" height="28" rx="10" fill="#FFCC00" />
-      <text x="237.5" y="34" textAnchor="middle" fontSize="9" fontWeight="700" fill="#1f1147">Sell It For Me</text>
+      <text x="237.5" y="34" textAnchor="middle" fontSize="9" fontWeight="700" fill="#1f1147">Market &amp; Sell</text>
       
       {/* Mini car */}
       <g transform="translate(237.5 80)">
@@ -257,8 +257,8 @@ const Scene4 = () => (
     {/* Right side - Sell It For Me badge */}
     <g className="animate-[floatUp_3s_ease-in-out_infinite]" style={{ animationDelay: "-0.6s" }}>
       <rect x="184" y="50" width="50" height="50" rx="6" fill="#FFCC00" />
-      <text x="209" y="65" textAnchor="middle" fontSize="4" fontWeight="600" fill="#1f1147">SELL IT</text>
-      <text x="209" y="73" textAnchor="middle" fontSize="4" fontWeight="600" fill="#1f1147">FOR ME</text>
+      <text x="209" y="65" textAnchor="middle" fontSize="4" fontWeight="600" fill="#1f1147">MARKET</text>
+      <text x="209" y="73" textAnchor="middle" fontSize="4" fontWeight="600" fill="#1f1147">&amp; SELL</text>
       <text x="209" y="88" textAnchor="middle" fontSize="10" fontWeight="700" fill="#1f1147">7</text>
       <text x="209" y="106" textAnchor="middle" fontSize="3.5" fontWeight="500" fill="#1f1147">Days</text>
     </g>
