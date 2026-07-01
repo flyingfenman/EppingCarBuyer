@@ -30,7 +30,7 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Optional Hander Protect warranty",
+    title: "Optional warranty",
     description: "Offer the buyer a warranty to sweeten the deal",
   },
   {
