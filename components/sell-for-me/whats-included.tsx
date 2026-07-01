@@ -16,7 +16,7 @@ const features = [
   {
     icon: MessageCircle,
     title: "All enquiries handled",
-    description: "We respond to every message so you don&apos;t have to",
+    description: "We respond to every message so you don't have to",
   },
   {
     icon: CalendarCheck,
