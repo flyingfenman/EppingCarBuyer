@@ -1,22 +1,22 @@
 "use client"
 
-import { Gauge, CalendarClock, BadgeCheck } from "lucide-react"
+import { CalendarClock, BadgeCheck, ShieldCheck } from "lucide-react"
 
 const stats = [
   {
-    icon: Gauge,
-    value: "93/100",
-    label: "Retail Rating",
-  },
-  {
     icon: CalendarClock,
-    value: "28 Days",
+    value: "14 Days",
     label: "Average Time To Sell",
   },
   {
+    icon: ShieldCheck,
+    value: "Trade Price Fallback",
+    label: "Not happy? Our competitive trade offer is always there",
+  },
+  {
     icon: BadgeCheck,
-    value: "Independently valued",
-    label: "Not guessed",
+    value: "Real-Time Data",
+    label: "Priced against live market, not guesswork",
   },
 ]
 
