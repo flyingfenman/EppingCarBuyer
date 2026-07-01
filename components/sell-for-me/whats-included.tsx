@@ -16,7 +16,7 @@ const features = [
   {
     icon: MessageCircle,
     title: "All enquiries handled",
-    description: "We respond to every message so you don&apos;t have to",
+    description: "We respond to every message so you don't have to",
   },
   {
     icon: CalendarCheck,
@@ -30,7 +30,7 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Optional Hander Protect warranty",
+    title: "Optional warranty",
     description: "Offer the buyer a warranty to sweeten the deal",
   },
   {
