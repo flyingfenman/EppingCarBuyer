@@ -20,7 +20,7 @@ const steps = [
     number: "03",
     icon: UserCheck,
     title: "Serious buyers only",
-    description: "We filter out the time-wasters so you don&apos;t have to deal with no-shows and lowballers.",
+    description: "We filter out the time-wasters so you don't have to deal with no-shows and lowballers.",
   },
   {
     number: "04",
