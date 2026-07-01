@@ -9,8 +9,7 @@ export function SellForMeTwoPrices() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-bold text-balance">Every Car Has Two Prices</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-            A trade price and a retail price. The gap between them covers a dealership&apos;s overheads, not the car&apos;s
-            actual condition.
+            A trade price and a retail price. The gap between them pays for dealership forecourts, auction fees, buying company margins, and advertising — not the condition of your car.
           </p>
         </div>
 
@@ -40,8 +39,8 @@ export function SellForMeTwoPrices() {
             </div>
 
             <p className="mt-8 text-center text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty">
-              That gap covers a dealership&apos;s yard, staff, advertising and overheads. If your car is in good
-              condition, you shouldn&apos;t have to pay for things it doesn&apos;t need.
+              That gap funds a dealership&apos;s forecourt, an auction house&apos;s fees, or a buying company&apos;s
+              profit margin. If your car is in good condition, you shouldn&apos;t have to subsidise any of them.
             </p>
           </div>
         </div>
