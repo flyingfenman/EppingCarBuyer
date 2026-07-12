@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Fredoka } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
     generator: 'v0.app'
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 const GA_TRACKING_ID = "G-0VZ6KTHLBW"
