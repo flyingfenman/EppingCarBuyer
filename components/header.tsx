@@ -49,18 +49,18 @@ export function Header() {
 
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 space-y-2">
-            <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)}>
-              <Button className="w-full justify-start font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
+            <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)} className="block">
+              <Button className="w-full font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
                 Market &amp; Sell
               </Button>
             </Link>
-            <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
-              <Button className="w-full bg-[#6711a4] hover:bg-[#6711a4]/90" size="lg">
+            <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block">
+              <Button className="w-full bg-[#6711a4] text-white hover:bg-[#6711a4]/90" size="lg">
                 Contact Us
               </Button>
             </Link>
-            <a href="tel:+441992367909">
-              <Button className="w-full" size="lg">
+            <a href="tel:+441992367909" className="block">
+              <Button className="w-full bg-primary hover:bg-primary/90" size="lg">
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </Button>

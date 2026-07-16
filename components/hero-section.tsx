@@ -49,7 +49,7 @@ export function HeroSection() {
   }
 
   return (
-    <div className="relative bg-white">
+    <div className="relative bg-white overflow-x-hidden">
       <div className="container mx-auto px-4 py-10 lg:py-16">
         <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
           {/* Content Section */}
@@ -58,7 +58,7 @@ export function HeroSection() {
               <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-sm font-semibold text-primary mb-4">
                 Trusted by 300+ customers
               </div>
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight whitespace-nowrap">
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-tight text-balance whitespace-normal lg:whitespace-nowrap">
                 Sell Your Car <span className="text-primary">In Minutes</span>
               </h1>
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
@@ -72,8 +72,8 @@ export function HeroSection() {
                 value={registration}
                 onChange={(e) => setRegistration(e.target.value.toUpperCase())}
                 placeholder="ENTER YOUR REG"
-                className="text-center text-6xl h-24 font-bold uppercase tracking-[0.15em] !bg-[#ffd500] !text-black !border-0 placeholder:!text-black placeholder:!opacity-100 focus:!bg-[#ffd500] focus:!border-0 focus:!ring-4 focus:!ring-primary/20 rounded-xl transition-all duration-200"
-                style={{ fontFamily: "var(--font-charles-wright), monospace", fontSize: "2.55rem" }}
+                className="text-center h-20 sm:h-24 font-bold uppercase tracking-[0.08em] sm:tracking-[0.15em] !bg-[#ffd500] !text-black !border-0 placeholder:!text-black placeholder:!opacity-100 focus:!bg-[#ffd500] focus:!border-0 focus:!ring-4 focus:!ring-primary/20 rounded-xl transition-all duration-200"
+                style={{ fontFamily: "var(--font-charles-wright), monospace", fontSize: "clamp(1.4rem, 7vw, 2.55rem)" }}
               />
 
               <Button
@@ -105,7 +105,7 @@ export function HeroSection() {
           </div>
 
           {/* Photo Section */}
-          <div className="relative flex justify-center px-10">
+          <div className="relative flex justify-center px-6 sm:px-10">
             {/* Photo that drops in on load */}
             <div
               className={`relative w-full max-w-xs mx-auto transition-all duration-1000 ease-out ${
