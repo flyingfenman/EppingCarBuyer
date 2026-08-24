@@ -25,6 +25,14 @@ export function Header() {
                 Market &amp; Sell
               </Button>
             </Link>
+            <Link href="/vehicle-inspections">
+              <Button
+                size="lg"
+                className="text-base font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70] border-2 border-[#0b7a70] shadow-md"
+              >
+                Inspections
+              </Button>
+            </Link>
             <Link href="/contact">
               <Button
                 variant="outline"
@@ -52,6 +60,11 @@ export function Header() {
             <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)} className="block">
               <Button className="w-full font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
                 Market &amp; Sell
+              </Button>
+            </Link>
+            <Link href="/vehicle-inspections" onClick={() => setIsMenuOpen(false)} className="block">
+              <Button className="w-full font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70]" size="lg">
+                Inspections
               </Button>
             </Link>
             <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block">

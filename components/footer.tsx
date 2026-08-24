@@ -12,6 +12,9 @@ export function Footer() {
             <Link href="/market-and-sell" className="text-sm hover:underline">
               Market &amp; Sell
             </Link>
+            <Link href="/vehicle-inspections" className="text-sm hover:underline">
+              Vehicle Inspections
+            </Link>
             <Link href="/contact" className="text-sm hover:underline">
               Contact Us
             </Link>
