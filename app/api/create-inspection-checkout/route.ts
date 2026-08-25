@@ -18,12 +18,18 @@ function isPackageKey(value: unknown): value is PackageKey {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { packageKey, slotStart, slotEnd, registration, location, name, phone, email, notes } = body as {
+    const {
+      packageKey, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
+      name, phone, email, notes,
+    } = body as {
       packageKey: unknown
       slotStart: string
       slotEnd: string
       registration: string
       location: string
+      sellerName?: string
+      sellerPhone?: string
+      advertUrl?: string
       name: string
       phone: string
       email: string
@@ -88,6 +94,9 @@ export async function POST(request: NextRequest) {
         slotEnd,
         registration,
         location,
+        sellerName: (sellerName || "").slice(0, 200),
+        sellerPhone: (sellerPhone || "").slice(0, 50),
+        advertUrl: (advertUrl || "").slice(0, 400),
         customerName: name,
         customerPhone: phone,
         customerEmail: email,

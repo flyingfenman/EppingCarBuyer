@@ -113,7 +113,7 @@ export function InspectionsWhatWeInspect() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+        <div className="flex items-start justify-center gap-10 sm:gap-20 mb-14">
           {order.map((key) => {
             const category = categories[key]
             const isActive = key === active
@@ -121,14 +121,24 @@ export function InspectionsWhatWeInspect() {
               <button
                 key={key}
                 onClick={() => setActive(key)}
-                className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border ${
-                  isActive
-                    ? "bg-primary text-white border-primary shadow-lg shadow-primary/30"
-                    : "bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:text-white"
-                }`}
+                className="group flex flex-col items-center"
               >
-                <category.icon className="w-5 h-5" />
-                {category.label}
+                <category.icon
+                  strokeWidth={1.25}
+                  className={`w-12 h-12 sm:w-14 sm:h-14 mb-3 transition-all duration-200 ${
+                    isActive ? "text-primary scale-110" : "text-white/35 group-hover:text-white/70"
+                  }`}
+                />
+                <div className={`w-px h-6 transition-colors duration-200 ${isActive ? "bg-primary" : "bg-white/20"}`} />
+                <span
+                  className={`mt-0 px-5 py-2 rounded-lg border text-sm font-bold whitespace-nowrap transition-all duration-200 ${
+                    isActive
+                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/30"
+                      : "bg-white/5 text-white/60 border-white/15 group-hover:border-white/30 group-hover:text-white"
+                  }`}
+                >
+                  {category.label}
+                </span>
               </button>
             )
           })}
@@ -148,12 +158,12 @@ export function InspectionsWhatWeInspect() {
             {current.items.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-200"
+                className="flex items-center gap-3.5 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 hover:-translate-y-0.5 transition-all duration-200"
               >
-                <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-white flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-primary" />
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center">
+                  <item.icon strokeWidth={1.75} className="w-6 h-6 text-primary" />
                 </div>
-                <span className="text-sm font-medium text-white/90">{item.label}</span>
+                <span className="text-sm font-medium text-white/90 leading-snug">{item.label}</span>
               </div>
             ))}
           </div>

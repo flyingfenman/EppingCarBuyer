@@ -45,7 +45,10 @@ export function InspectionsBookingCalendar() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
   const [viewDate, setViewDate] = useState(() => { const d = new Date(); return { year: d.getFullYear(), month: d.getMonth() } })
-  const [form, setForm] = useState({ registration: "", location: "", name: "", phone: "", email: "", notes: "" })
+  const [form, setForm] = useState({
+    registration: "", location: "", sellerName: "", sellerPhone: "", advertUrl: "",
+    name: "", phone: "", email: "", notes: "",
+  })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
 
@@ -125,31 +128,60 @@ export function InspectionsBookingCalendar() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="registration">Registration *</Label>
-              <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required className="uk-numberplate text-center tracking-widest" />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* The car & seller */}
+          <div>
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">1</span>
+              The Car
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="registration">Registration *</Label>
+                <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required className="uk-numberplate text-center tracking-widest" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="location">Where is the car? *</Label>
+                <Input id="location" value={form.location} onChange={set("location")} placeholder="Postcode or dealer name" required />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="sellerName">Seller&apos;s Name</Label>
+                <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership name" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="sellerPhone">Seller&apos;s Contact Number</Label>
+                <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" />
+              </div>
+              <div className="sm:col-span-2 space-y-1.5">
+                <Label htmlFor="advertUrl">Link to the Advert</Label>
+                <Input id="advertUrl" type="url" value={form.advertUrl} onChange={set("advertUrl")} placeholder="Link to AutoTrader, eBay, Facebook Marketplace, etc." />
+              </div>
             </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="location">Where is the car? *</Label>
-              <Input id="location" value={form.location} onChange={set("location")} placeholder="Postcode or dealer name" required />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="name">Full Name *</Label>
-              <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="phone">Phone Number *</Label>
-              <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required />
-            </div>
-            <div className="sm:col-span-2 space-y-1.5">
-              <Label htmlFor="email">Email Address *</Label>
-              <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
-            </div>
-            <div className="sm:col-span-2 space-y-1.5">
-              <Label htmlFor="notes">Anything else we should know?</Label>
-              <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Access details, anything you're already concerned about..." rows={2} maxLength={400} />
+          </div>
+
+          {/* Customer details */}
+          <div>
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">2</span>
+              Your Details
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="name">Full Name *</Label>
+                <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="phone">Phone Number *</Label>
+                <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required />
+              </div>
+              <div className="sm:col-span-2 space-y-1.5">
+                <Label htmlFor="email">Email Address *</Label>
+                <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
+              </div>
+              <div className="sm:col-span-2 space-y-1.5">
+                <Label htmlFor="notes">Anything else we should know?</Label>
+                <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Access details, anything you're already concerned about..." rows={2} maxLength={400} />
+              </div>
             </div>
           </div>
 

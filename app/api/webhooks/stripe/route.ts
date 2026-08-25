@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     if (session.metadata?.type === "inspection_booking") {
       const {
-        packageName, slotStart, slotEnd, registration, location,
+        packageName, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
         customerName, customerPhone, customerEmail, notes,
       } = session.metadata
 
@@ -39,6 +39,9 @@ Slot: ${new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London",
 Vehicle Details:
 - Registration: ${registration}
 - Where the car is: ${location}
+- Seller name: ${sellerName || "Not provided"}
+- Seller contact number: ${sellerPhone || "Not provided"}
+- Advert link: ${advertUrl || "Not provided"}
 
 Customer Details:
 - Name: ${customerName}
