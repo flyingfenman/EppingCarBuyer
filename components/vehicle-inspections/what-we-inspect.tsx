@@ -120,13 +120,13 @@ export function InspectionsWhatWeInspect() {
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto mb-10">
-          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-muted/30">
+        <div className="max-w-3xl mx-auto mb-6">
+          <div className="relative aspect-[1600/629] rounded-2xl overflow-hidden bg-muted/30">
             <Image
               src="/images/inspection-car.jpg"
               alt="Example vehicle"
               fill
-              className="object-contain p-6"
+              className="object-contain p-2"
               sizes="(min-width: 1024px) 768px, 95vw"
               priority
             />
