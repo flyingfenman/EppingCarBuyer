@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { Check, FileText, ArrowRight } from "lucide-react"
+import { Check, FileText, ArrowRight, Clock } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 const packages = [
   {
     name: "Standard Inspection",
     price: "£135",
+    duration: "40–60 minutes on site",
     description: "A thorough mechanical and visual check, plus the history check that matters most.",
     features: [
       "Full visual condition check — exterior, interior, engine bay, underbody, tyres",
@@ -22,13 +23,14 @@ const packages = [
   {
     name: "Premium Inspection",
     price: "£180",
+    duration: "70–90 minutes on site",
     description: "Everything in Standard, plus a deeper look at bodywork and history for extra peace of mind.",
     popular: true,
     features: [
       "Everything in the Standard Inspection",
       "Full video walkaround — interior, exterior, and engine running",
       "Paint depth readings across every panel, to flag a respray or accident repair you can't see with the eye",
-      "Full vehicle history report — previous keepers, service history cross-check, import/export status",
+      "Full vehicle history report — previous keepers, previous sale information, service history cross-check, import/export status",
       "Priority booking — inspected within 24–48 hours",
     ],
   },
@@ -65,6 +67,10 @@ export function InspectionsPackages() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground text-center">{pkg.description}</p>
+                <div className="flex items-center justify-center gap-1.5 text-sm font-medium text-primary">
+                  <Clock className="w-4 h-4" />
+                  {pkg.duration}
+                </div>
                 <ul className="space-y-3">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2.5">
