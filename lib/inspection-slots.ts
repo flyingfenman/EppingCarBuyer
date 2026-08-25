@@ -11,7 +11,7 @@ export type PackageKey = keyof typeof PACKAGE_DURATIONS_MIN
 
 const BUSINESS_START_HOUR = 9
 const BUSINESS_END_HOUR = 18
-const LOOKAHEAD_DAYS = 14
+const LOOKAHEAD_DAYS = 30
 const LONDON_TZ = "Europe/London"
 
 export interface Slot {
