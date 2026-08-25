@@ -1,14 +1,20 @@
 import Image from "next/image"
-import { Images, Camera } from "lucide-react"
+import { Images } from "lucide-react"
 
-const placeholderTiles = [
-  "Rear exterior",
-  "Interior & dashboard",
-  "Engine bay",
-  "Underbody & suspension",
-  "Front tyre tread",
-  "OBD diagnostic scan",
-  "Road test",
+const photos = [
+  { file: "rk22ucj-ins-2.jpg", label: "Front exterior" },
+  { file: "rk22ucj-ins-3.jpg", label: "Side profile" },
+  { file: "rk22ucj-ins-12.jpg", label: "Front three-quarter view" },
+  { file: "rk22ucj-ins-13.jpg", label: "Front detail — lights & bumper" },
+  { file: "rk22ucj-ins-1.jpg", label: "Front wing & wheel arch" },
+  { file: "rk22ucj-ins-4.jpg", label: "Front tyre tread" },
+  { file: "rk22ucj-ins-5.jpg", label: "Front wheel condition" },
+  { file: "rk22ucj-ins-6.jpg", label: "Wheel & tyre condition" },
+  { file: "rk22ucj-ins-7.jpg", label: "Rear tyre tread" },
+  { file: "rk22ucj-ins-8.jpg", label: "Interior & dashboard" },
+  { file: "rk22ucj-ins-9.jpg", label: "Driver's seat & footwell" },
+  { file: "rk22ucj-ins-10.jpg", label: "Steering column controls" },
+  { file: "rk22ucj-ins-11.jpg", label: "Digital instrument cluster" },
 ]
 
 export function ReportPhotoGallery() {
@@ -18,32 +24,27 @@ export function ReportPhotoGallery() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-bold">Sample Photo Report</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Every inspection comes with a full photo report — this is a mock-up of the layout
+            Real photos from one of our own inspections, showing the kind of coverage every report includes
           </p>
         </div>
 
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md border border-border">
-              <Image
-                src="/images/fb-hero-car.png"
-                alt="Example exterior photo used for illustration — not a real inspection photo of a fictional demo vehicle"
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-black/60 px-3 py-2">
-                <p className="text-xs font-semibold text-white">Front exterior</p>
-              </div>
-            </div>
-
-            {placeholderTiles.map((label) => (
+            {photos.map((photo) => (
               <div
-                key={label}
-                className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-dashed border-border bg-muted/40 flex flex-col items-center justify-center gap-2 text-center px-3"
+                key={photo.file}
+                className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md border border-border"
               >
-                <Camera className="w-6 h-6 text-muted-foreground/60" />
-                <p className="text-xs font-medium text-muted-foreground">{label}</p>
+                <Image
+                  src={`/images/sample-report/${photo.file}`}
+                  alt={photo.label}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-black/60 px-3 py-2">
+                  <p className="text-xs font-semibold text-white">{photo.label}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -51,8 +52,7 @@ export function ReportPhotoGallery() {
           <div className="mt-8 flex items-center justify-center gap-2 text-center">
             <Images className="w-5 h-5 text-primary flex-shrink-0" />
             <p className="text-sm text-muted-foreground">
-              Full inspections include 30–40+ real photos covering every area of the vehicle — this sample just
-              shows the layout.
+              Full inspections include 30–40+ photos like these, covering every area of the vehicle.
             </p>
           </div>
         </div>
