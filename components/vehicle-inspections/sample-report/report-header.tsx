@@ -1,8 +1,8 @@
 import { FlaskConical, ShieldCheck, CalendarDays, Gauge, UserRound, PackageCheck, Ban } from "lucide-react"
 
 const keyFacts = [
-  { icon: ShieldCheck, label: "Registration", value: "AB12 CDE" },
-  { icon: Gauge, label: "Mileage", value: "34,210 miles" },
+  { icon: ShieldCheck, label: "Registration", value: "HY22 EVX" },
+  { icon: Gauge, label: "Mileage", value: "28,340 miles" },
   { icon: UserRound, label: "Inspector", value: "Henry" },
   { icon: PackageCheck, label: "Package", value: "Premium Inspection" },
 ]
@@ -21,7 +21,7 @@ export function ReportHeader() {
 
           <div className="space-y-3">
             <h1 className="text-4xl lg:text-5xl font-bold text-white text-balance">
-              2020 Volkswagen Golf GTI
+              2022 Hyundai Ioniq 5 Premium
             </h1>
             <p className="text-white/80 text-lg">
               This is a made-up example report so you can see exactly what you get — not a real customer&apos;s vehicle.

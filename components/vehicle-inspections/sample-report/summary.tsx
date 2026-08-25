@@ -1,4 +1,4 @@
-import { CheckCircle2, MessageSquareText, ShieldCheck } from "lucide-react"
+import { MessageSquareText } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
 const ratingGuide = [
@@ -28,13 +28,6 @@ const ratingGuide = [
   },
 ]
 
-const historyChecks = [
-  "No write-off recorded",
-  "No outstanding finance",
-  "Not recorded stolen",
-  "No mileage discrepancy flagged",
-]
-
 export function ReportSummary() {
   return (
     <section className="py-20 bg-muted/30">
@@ -42,7 +35,7 @@ export function ReportSummary() {
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-bold">Inspector&apos;s Summary</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            The overall verdict on this sample Golf GTI, in the inspector&apos;s own words
+            The overall verdict on this sample Ioniq 5, in the inspector&apos;s own words
           </p>
         </div>
 
@@ -76,33 +69,19 @@ export function ReportSummary() {
                 </div>
               </div>
               <p className="text-foreground leading-relaxed">
-                &ldquo;This Golf drove well on the road test and there&apos;s nothing here that should stop you
-                buying it, but it's not a car without things to know about. The front tyres and brake pads are
-                getting into replacement territory, the front dampers are starting to show their age, and there&apos;s
-                a wind noise from the driver&apos;s door seal worth getting looked at. We also found two historic
-                fault codes cleared a few months back, and some paint depth variance on the rear wing suggesting a
-                minor repair at some point — nothing structural, but worth asking the seller about. None of this is
-                a dealbreaker on its own, but it&apos;s exactly the kind of detail that&apos;s easy to miss without
-                a proper inspection — and useful to know before you agree a price.&rdquo;
+                &ldquo;This Ioniq drove well on the road test and there&apos;s nothing here that should stop you
+                buying it, but it's not a car without things to know about. The traction battery itself checked out
+                well — 97% state of health with no signs of degradation — but the rear dampers are starting to show
+                their age, the rear discs have some light surface corrosion (common on EVs that lean heavily on
+                regenerative braking, not a safety concern), and there&apos;s a wind noise from the driver&apos;s door
+                seal worth getting looked at. We also found one historic charging-system fault code that cleared and
+                hasn&apos;t come back during testing, front tyres down to around 3mm, a small stone chip in the
+                windscreen, and some paint depth variance on the rear wing suggesting a minor repair at some point —
+                nothing structural, but worth asking the seller about. None of this is a dealbreaker on its own, but
+                it&apos;s exactly the kind of detail that&apos;s easy to miss without a proper inspection — and
+                useful to know before you agree a price.&rdquo;
               </p>
               <p className="text-sm font-bold text-foreground">— Henry</p>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl border shadow-md">
-            <CardContent>
-              <div className="flex items-center gap-2.5 mb-4">
-                <ShieldCheck className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-bold text-foreground">Vehicle History Check</h3>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {historyChecks.map((item) => (
-                  <div key={item} className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                    <span className="text-sm text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
             </CardContent>
           </Card>
         </div>

@@ -1,7 +1,7 @@
 import { Cog, Car, Armchair } from "lucide-react"
 
 const categories = [
-  { name: "Mechanical", icon: Cog, score: 78 },
+  { name: "Mechanical", icon: Cog, score: 82 },
   { name: "Body & Chassis", icon: Car, score: 76 },
   { name: "Interior", icon: Armchair, score: 85 },
 ]
@@ -19,7 +19,7 @@ export function CategoryScores() {
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-bold">Category Scores</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            How this sample Golf GTI scored across each area we inspect
+            How this sample Ioniq 5 scored across each area we inspect
           </p>
         </div>
 
