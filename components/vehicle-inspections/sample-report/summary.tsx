@@ -65,23 +65,26 @@ export function ReportSummary() {
                 </div>
                 <div>
                   <p className="font-bold text-foreground">Inspector&apos;s Notes</p>
-                  <p className="text-xs text-muted-foreground">Henry · 14 August 2026</p>
+                  <p className="text-xs text-muted-foreground">Inspector · 14 August 2026</p>
                 </div>
               </div>
               <p className="text-foreground leading-relaxed">
                 &ldquo;This Ioniq drove well on the road test and there&apos;s nothing here that should stop you
                 buying it, but it's not a car without things to know about. The traction battery itself checked out
-                well — 97% state of health with no signs of degradation — but the rear dampers are starting to show
-                their age, the rear discs have some light surface corrosion (common on EVs that lean heavily on
-                regenerative braking, not a safety concern), and there&apos;s a wind noise from the driver&apos;s door
-                seal worth getting looked at. We also found one historic charging-system fault code that cleared and
-                hasn&apos;t come back during testing, front tyres down to around 3mm, a small stone chip in the
-                windscreen, and some paint depth variance on the rear wing suggesting a minor repair at some point —
-                nothing structural, but worth asking the seller about. None of this is a dealbreaker on its own, but
-                it&apos;s exactly the kind of detail that&apos;s easy to miss without a proper inspection — and
-                useful to know before you agree a price.&rdquo;
+                well — 97% state of health with no signs of degradation — and we&apos;ve confirmed directly with
+                Hyundai that the service history is accurate and the manufacturer warranty is still upheld. That
+                said, the rear dampers are starting to show their age, the rear discs have some light surface
+                corrosion (common on EVs that lean heavily on regenerative braking, not a safety concern), and
+                there&apos;s a wind noise from the driver&apos;s door seal worth getting looked at. We also found one
+                historic charging-system fault code that cleared and hasn&apos;t come back during testing, a small
+                stone chip in the windscreen, and some paint depth variance on the rear wing suggesting a minor
+                repair at some point — nothing structural, but worth asking the seller about. The front tyres are
+                down to around 3mm — they&apos;re still the originals, so four years old now, and worth budgeting
+                for soon regardless of tread depth. None of this is a dealbreaker on its own, but it&apos;s exactly
+                the kind of detail that&apos;s easy to miss without a proper inspection — and useful to know before
+                you agree a price.&rdquo;
               </p>
-              <p className="text-sm font-bold text-foreground">— Henry</p>
+              <p className="text-sm font-bold text-foreground">— The Inspector</p>
             </CardContent>
           </Card>
         </div>
