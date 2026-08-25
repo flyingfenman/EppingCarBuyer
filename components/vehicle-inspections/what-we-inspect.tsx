@@ -1,14 +1,27 @@
 "use client"
 
 import { useState } from "react"
-import { Cog, Car, Sofa, Check, ImageIcon, type LucideIcon } from "lucide-react"
+import Image from "next/image"
+import {
+  Cog, Car, Sofa, type LucideIcon,
+  Droplet, Thermometer, Cable, BatteryCharging, Zap, Wind, Settings2, Droplets,
+  RotateCw, Link, Waves, ArrowUpDown, CircleDot, Cylinder, Compass, Disc, Disc2,
+  ParkingCircle, ScanLine, Gauge, CircleStop, Navigation, Volume2,
+  Palette, SprayCan, ShieldAlert, Lightbulb, CarFront, DoorOpen,
+  TriangleAlert, Radio, ShieldCheck,
+} from "lucide-react"
 
 type CategoryKey = "mechanical" | "body" | "interior"
+
+interface ChecklistItem {
+  label: string
+  icon: LucideIcon
+}
 
 interface Category {
   label: string
   icon: LucideIcon
-  items: string[]
+  items: ChecklistItem[]
 }
 
 const categories: Record<CategoryKey, Category> = {
@@ -16,56 +29,56 @@ const categories: Record<CategoryKey, Category> = {
     label: "Mechanical",
     icon: Cog,
     items: [
-      "Oil condition & level",
-      "Coolant condition & level",
-      "Drive belts & hoses",
-      "Battery condition & charging system",
-      "Alternator output",
-      "Exhaust system & emissions",
-      "Engine & gearbox mounts",
-      "Fluid leaks — oil, coolant, power steering, transmission",
-      "CV joints & driveshafts",
-      "Timing chain/belt noise check",
-      "Front & rear suspension components",
-      "Shock absorbers / struts",
-      "Ball joints & tie rod ends",
-      "Suspension bushings",
-      "Steering rack & power steering",
-      "Brake pads & discs, front and rear",
-      "Brake calipers & lines",
-      "Handbrake operation",
-      "OBD fault code scan — stored and cleared history",
-      "Engine performance under load",
-      "Gearbox / clutch operation",
-      "Braking response",
-      "Steering & handling",
-      "Noise, vibration & harshness check",
+      { label: "Oil condition & level", icon: Droplet },
+      { label: "Coolant condition & level", icon: Thermometer },
+      { label: "Drive belts & hoses", icon: Cable },
+      { label: "Battery condition & charging system", icon: BatteryCharging },
+      { label: "Alternator output", icon: Zap },
+      { label: "Exhaust system & emissions", icon: Wind },
+      { label: "Engine & gearbox mounts", icon: Settings2 },
+      { label: "Fluid leaks — oil, coolant, power steering, transmission", icon: Droplets },
+      { label: "CV joints & driveshafts", icon: RotateCw },
+      { label: "Timing chain/belt noise check", icon: Link },
+      { label: "Front & rear suspension components", icon: Waves },
+      { label: "Shock absorbers / struts", icon: ArrowUpDown },
+      { label: "Ball joints & tie rod ends", icon: CircleDot },
+      { label: "Suspension bushings", icon: Cylinder },
+      { label: "Steering rack & power steering", icon: Compass },
+      { label: "Brake pads & discs, front and rear", icon: Disc },
+      { label: "Brake calipers & lines", icon: Disc2 },
+      { label: "Handbrake operation", icon: ParkingCircle },
+      { label: "OBD fault code scan — stored and cleared history", icon: ScanLine },
+      { label: "Engine performance under load", icon: Gauge },
+      { label: "Gearbox / clutch operation", icon: Cog },
+      { label: "Braking response", icon: CircleStop },
+      { label: "Steering & handling", icon: Navigation },
+      { label: "Noise, vibration & harshness check", icon: Volume2 },
     ],
   },
   body: {
     label: "Body & Chassis",
     icon: Car,
     items: [
-      "Paint condition & panel gaps",
-      "Evidence of accident repair or respray",
-      "Rust & corrosion check",
-      "All lights — head, tail, fog, indicators, reverse, number plate",
-      "Glass & windscreen condition",
-      "Doors, boot & bonnet operation",
-      "Wheels & tyre condition, including tread depth",
+      { label: "Paint condition & panel gaps", icon: Palette },
+      { label: "Evidence of accident repair or respray", icon: SprayCan },
+      { label: "Rust & corrosion check", icon: ShieldAlert },
+      { label: "All lights — head, tail, fog, indicators, reverse, number plate", icon: Lightbulb },
+      { label: "Glass & windscreen condition", icon: CarFront },
+      { label: "Doors, boot & bonnet operation", icon: DoorOpen },
+      { label: "Wheels & tyre condition, including tread depth", icon: Disc },
     ],
   },
   interior: {
     label: "Interior",
     icon: Sofa,
     items: [
-      "Dashboard warning lights",
-      "Electric windows & mirrors",
-      "Air conditioning & heating",
-      "Infotainment & electrics",
-      "Seatbelts",
-      "Horn, wipers & washers",
-      "General interior condition & wear",
+      { label: "Dashboard warning lights", icon: TriangleAlert },
+      { label: "Electric windows & mirrors", icon: ArrowUpDown },
+      { label: "Air conditioning & heating", icon: Zap },
+      { label: "Infotainment & electrics", icon: Radio },
+      { label: "Seatbelts", icon: ShieldCheck },
+      { label: "Horn, wipers & washers", icon: Volume2 },
+      { label: "General interior condition & wear", icon: Sofa },
     ],
   },
 }
@@ -87,9 +100,15 @@ export function InspectionsWhatWeInspect() {
         </div>
 
         <div className="max-w-lg mx-auto mb-10">
-          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-white/5 border border-dashed border-white/20 flex flex-col items-center justify-center gap-2">
-            <ImageIcon className="w-8 h-8 text-white/30" />
-            <p className="text-sm text-white/40">Car photo goes here</p>
+          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-white">
+            <Image
+              src="/images/inspection-car.jpg"
+              alt="Example vehicle"
+              fill
+              className="object-contain p-4"
+              sizes="(min-width: 1024px) 512px, 90vw"
+              priority
+            />
           </div>
         </div>
 
@@ -114,22 +133,32 @@ export function InspectionsWhatWeInspect() {
           })}
         </div>
 
-        <div className="max-w-2xl mx-auto bg-white/5 rounded-2xl p-6 md:p-8 border border-white/10">
-          <div className="flex items-center justify-between mb-5">
-            <h3 className="text-lg font-bold text-white">{current.label} checks</h3>
-            <span className="text-sm text-white/50">{current.items.length} checks</span>
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-primary rounded-xl px-6 py-4 mb-6 flex items-center justify-between shadow-lg shadow-primary/20">
+            <h3 className="text-white font-bold text-base md:text-lg">
+              Key points covered in our {current.label} inspection
+            </h3>
+            <span className="text-white/80 text-sm font-medium flex-shrink-0 ml-4">
+              {current.items.length} checks
+            </span>
           </div>
-          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {current.items.map((item) => (
-              <li key={item} className="flex items-start gap-2.5 text-sm text-white/90">
-                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span>{item}</span>
-              </li>
+              <div
+                key={item.label}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-200"
+              >
+                <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-white flex items-center justify-center">
+                  <item.icon className="w-5 h-5 text-primary" />
+                </div>
+                <span className="text-sm font-medium text-white/90">{item.label}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
-        <p className="text-center text-sm text-white/50 max-w-xl mx-auto mt-8">
+        <p className="text-center text-sm text-white/50 max-w-xl mx-auto mt-10">
           Every inspection also includes a full outstanding finance, write-off, stolen and mileage history check.
         </p>
       </div>
