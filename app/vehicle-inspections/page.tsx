@@ -9,7 +9,7 @@ import { InspectionsCta } from "@/components/vehicle-inspections/cta"
 export const metadata: Metadata = {
   title: "Vehicle Inspections - Epping Car Buyer",
   description:
-    "Independent pre-purchase vehicle inspections across Epping, Essex, and Greater London. Full diagnostic scan, road test and history check before you buy — from £135.",
+    "Independent pre-purchase vehicle inspections across Essex, Hertfordshire, Cambridgeshire, Greater London and more. Full diagnostic scan, road test and history check before you buy — from £135.",
 }
 
 export default function VehicleInspectionsPage() {

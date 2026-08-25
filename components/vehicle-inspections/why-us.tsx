@@ -17,7 +17,7 @@ const points = [
   {
     icon: MapPin,
     title: "Local and hands-on",
-    description: "Based in Waltham Abbey, covering Epping, Essex, and all of Greater London — we come to the car.",
+    description: "Based in Waltham Abbey, covering Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk — we come to the car.",
   },
   {
     icon: FileWarning,

@@ -39,7 +39,7 @@ export function InspectionsHero() {
 
           <p className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground">
             <MapPin className="w-4 h-4" />
-            Covering Epping, Essex &amp; all of Greater London
+            Covering Essex, Hertfordshire, Cambridgeshire &amp; Greater London
           </p>
         </div>
       </div>

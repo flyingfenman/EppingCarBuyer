@@ -13,7 +13,7 @@ const steps = [
     number: "02",
     icon: MapPin,
     title: "We come to the car",
-    description: "Our inspector attends wherever it's being sold — across Epping, Essex, and all of Greater London.",
+    description: "Our inspector attends wherever it's being sold — across Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk.",
   },
   {
     number: "03",

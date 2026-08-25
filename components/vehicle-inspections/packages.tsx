@@ -13,7 +13,6 @@ const packages = [
     features: [
       "Full visual condition check — exterior, interior, engine bay, underbody, tyres",
       "OBD diagnostic scan, including stored and recently cleared fault codes",
-      "EV & hybrid battery health check, where applicable",
       "Road test to assess how the car actually drives",
       "Outstanding finance, write-off, stolen and mileage history check",
       "Photo report covering all key areas",
@@ -29,6 +28,7 @@ const packages = [
     popular: true,
     features: [
       "Everything in the Standard Inspection",
+      "EV & hybrid battery health check, where applicable",
       "Full video walkaround — interior, exterior, and engine running",
       "Paint depth readings across every panel, to flag a respray or accident repair you can't see with the eye",
       "Full vehicle history report — previous keepers, previous sale information, service history cross-check, import/export status",
