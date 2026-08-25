@@ -13,6 +13,7 @@ const packages = [
     features: [
       "Full visual condition check — exterior, interior, engine bay, underbody, tyres",
       "OBD diagnostic scan, including stored and recently cleared fault codes",
+      "EV & hybrid battery health check, where applicable",
       "Road test to assess how the car actually drives",
       "Outstanding finance, write-off, stolen and mileage history check",
       "Photo report covering all key areas",

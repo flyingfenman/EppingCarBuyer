@@ -4,7 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import {
   Cog, Car, Sofa, type LucideIcon,
-  Droplet, Thermometer, Cable, BatteryCharging, Zap, Wind, Settings2, Droplets,
+  Droplet, Thermometer, Cable, BatteryCharging, BatteryFull, Zap, Wind, Settings2, Droplets,
   RotateCw, Link, Waves, ArrowUpDown, CircleDot, Cylinder, Compass, Disc, Disc2,
   ParkingCircle, ScanLine, Gauge, CircleStop, Navigation, Volume2,
   Palette, SprayCan, ShieldAlert, Lightbulb, CarFront, DoorOpen,
@@ -33,6 +33,7 @@ const categories: Record<CategoryKey, Category> = {
       { label: "Coolant condition & level", icon: Thermometer },
       { label: "Drive belts & hoses", icon: Cable },
       { label: "Battery condition & charging system", icon: BatteryCharging },
+      { label: "EV & hybrid traction battery health check", icon: BatteryFull },
       { label: "Alternator output", icon: Zap },
       { label: "Exhaust system & emissions", icon: Wind },
       { label: "Engine & gearbox mounts", icon: Settings2 },

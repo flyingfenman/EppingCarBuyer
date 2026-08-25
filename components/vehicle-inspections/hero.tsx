@@ -24,7 +24,8 @@ export function InspectionsHero() {
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
             We&apos;ll inspect any car, anywhere it&apos;s being sold, before you hand over a penny. Full visual
-            check, diagnostic scan and road test — the same checks we run before we buy a car ourselves.
+            check, diagnostic scan and road test — the same checks we run before we buy a car ourselves. Petrol,
+            diesel, hybrid or electric — including EV battery health checks.
           </p>
 
           <Button
