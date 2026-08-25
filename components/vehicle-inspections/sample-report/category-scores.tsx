@@ -1,12 +1,9 @@
-import { Car, Sofa, Wrench, Gauge, ScanSearch, Route } from "lucide-react"
+import { Cog, Car, Armchair } from "lucide-react"
 
 const categories = [
-  { name: "Exterior", icon: Car, score: 94 },
-  { name: "Interior", icon: Sofa, score: 96 },
-  { name: "Engine Bay", icon: Wrench, score: 90 },
-  { name: "Underbody & Suspension", icon: Gauge, score: 92 },
-  { name: "Diagnostics (OBD Scan)", icon: ScanSearch, score: 88 },
-  { name: "Road Test", icon: Route, score: 95 },
+  { name: "Mechanical", icon: Cog, score: 92 },
+  { name: "Body & Chassis", icon: Car, score: 94 },
+  { name: "Interior", icon: Armchair, score: 98 },
 ]
 
 function scoreColor(score: number) {
