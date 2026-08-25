@@ -11,12 +11,12 @@ export function InspectionsCta() {
   const [tab, setTab] = useState<Tab>("calendar")
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-10 space-y-3">
-            <h2 className="text-4xl lg:text-5xl font-bold">Book an Inspection</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Book an Inspection</h2>
             <p className="text-xl text-muted-foreground">
               Pick a time that works for you and pay securely online.
             </p>

@@ -22,10 +22,10 @@ const stats = [
 
 export function SellForMeBuiltOnData() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold text-balance">Built On Real Data</h2>
+        <div className="text-center mb-8 sm:mb-10 lg:mb-12 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-balance">Built On Real Data</h2>
         </div>
 
         <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -45,7 +45,7 @@ export function SellForMeBuiltOnData() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty">
+        <p className="mt-6 sm:mt-8 lg:mt-10 text-center text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty">
           We use the same market data the trade uses, so you know exactly where your car sits before we list it.
         </p>
       </div>

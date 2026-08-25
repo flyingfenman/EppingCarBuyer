@@ -24,10 +24,10 @@ const tiers = [
 
 export function SellForMePricing() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">Simple Pricing</h2>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Simple Pricing</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Our fee depends on your car&apos;s value. That&apos;s it.
           </p>

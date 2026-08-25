@@ -31,7 +31,7 @@ export function ValuationSection() {
   }
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
       </div>
@@ -43,7 +43,7 @@ export function ValuationSection() {
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-3">
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
-                <h2 className="text-4xl lg:text-5xl font-bold">Get Your Free Valuation</h2>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Get Your Free Valuation</h2>
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
               </div>
               <p className="text-lg text-muted-foreground">No obligation. Instant results.</p>

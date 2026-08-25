@@ -70,12 +70,12 @@ export function SellForMeCta() {
   }
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-10 space-y-3">
-            <h2 className="text-4xl lg:text-5xl font-bold">Ready to get started?</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Ready to get started?</h2>
             <p className="text-xl text-muted-foreground">
               Get in touch and we&apos;ll take it from here. No pressure, no obligation.
             </p>

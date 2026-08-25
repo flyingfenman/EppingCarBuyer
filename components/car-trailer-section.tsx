@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function CarTrailerSection() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-10 sm:py-12 lg:py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <Image

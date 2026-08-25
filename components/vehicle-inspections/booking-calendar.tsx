@@ -9,7 +9,7 @@ import { Loader2, ChevronRight, ChevronLeft, Clock } from "lucide-react"
 import type { PackageKey, Slot } from "@/lib/inspection-slots"
 
 const PACKAGES: { key: PackageKey; name: string; price: string }[] = [
-  { key: "standard", name: "Standard", price: "£135" },
+  { key: "standard", name: "Standard", price: "£130" },
   { key: "premium", name: "Premium", price: "£180" },
 ]
 

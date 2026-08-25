@@ -9,9 +9,9 @@ const keyFacts = [
 
 export function ReportHeader() {
   return (
-    <section className="bg-primary py-16 lg:py-20">
+    <section className="bg-primary py-10 sm:py-14 lg:py-20">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
+        <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white rounded-full shadow-lg border-2 border-white">
             <FlaskConical className="w-5 h-5 text-primary" />
             <span className="text-sm font-extrabold tracking-wide text-primary uppercase">
@@ -20,7 +20,7 @@ export function ReportHeader() {
           </div>
 
           <div className="space-y-3">
-            <h1 className="text-4xl lg:text-5xl font-bold text-white text-balance">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white text-balance">
               2022 Hyundai Ioniq 5 Premium
             </h1>
             <p className="text-white/80 text-lg">
@@ -40,8 +40,8 @@ export function ReportHeader() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto mt-10 bg-white rounded-2xl shadow-lg p-6 lg:p-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <div className="max-w-4xl mx-auto mt-6 sm:mt-8 lg:mt-10 bg-white rounded-2xl shadow-lg p-5 sm:p-6 lg:p-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {keyFacts.map((fact) => (
               <div key={fact.label} className="flex flex-col items-center text-center gap-2">
                 <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center">

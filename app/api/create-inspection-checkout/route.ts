@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 const LOOKBACK_DAYS = 15
 
 const PACKAGE_INFO: Record<PackageKey, { name: string; amountPence: number }> = {
-  standard: { name: "Standard Inspection", amountPence: 13500 },
+  standard: { name: "Standard Inspection", amountPence: 13000 },
   premium: { name: "Premium Inspection", amountPence: 18000 },
 }
 

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 const packages = [
   {
     name: "Standard Inspection",
-    price: "£135",
+    price: "£130",
     pointCheck: "90-Point Check",
     duration: "40–60 minutes on site",
     description: "A thorough mechanical and visual check, plus the history check that matters most.",
@@ -41,10 +41,10 @@ const packages = [
 
 export function InspectionsPackages() {
   return (
-    <section id="packages" className="py-20 bg-white">
+    <section id="packages" className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">Packages &amp; Pricing</h2>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Packages &amp; Pricing</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             One flat fee. No hidden extras. Pay only for the inspection.
           </p>
@@ -91,7 +91,7 @@ export function InspectionsPackages() {
           ))}
         </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-6 sm:mt-8 lg:mt-10">
           <Link
             href="/vehicle-inspections/sample-report"
             className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"

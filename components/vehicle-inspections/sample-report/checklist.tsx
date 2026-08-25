@@ -123,18 +123,18 @@ function RatingBadge({ rating }: { rating: Rating }) {
 
 export function ReportChecklist() {
   return (
-    <section id="checklist" className="py-20 bg-muted/30">
+    <section id="checklist" className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">The Detailed Checklist</h2>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">The Detailed Checklist</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Every area we inspect, with a clear rating for every single item
           </p>
         </div>
 
-        <div className="space-y-8 max-w-4xl mx-auto">
+        <div className="space-y-5 sm:space-y-6 lg:space-y-8 max-w-4xl mx-auto">
           {categories.map((category) => (
-            <Card key={category.name} className="border shadow-md">
+            <Card key={category.name} className="border shadow-md py-4 gap-4 sm:py-6 sm:gap-6">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -151,7 +151,7 @@ export function ReportChecklist() {
                   {category.items.map((item) => (
                     <li
                       key={item.label}
-                      className="flex items-start justify-between gap-3 py-2.5 border-b border-border/60"
+                      className="flex items-start justify-between gap-3 py-2 border-b border-border/60"
                     >
                       <div>
                         <p className="text-sm font-medium text-foreground">{item.label}</p>

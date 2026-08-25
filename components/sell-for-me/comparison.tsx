@@ -46,10 +46,10 @@ const comparisons = [
 
 export function SellForMeComparison() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">Why Choose Us?</h2>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Why Choose Us?</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             We sit in the sweet spot between hassle and lowball offers
           </p>

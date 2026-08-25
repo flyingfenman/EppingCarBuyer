@@ -9,13 +9,13 @@ export function ContactSection() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   return (
-    <section id="contact" className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden">
+    <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
       </div>
 
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
           <h2 className="text-5xl font-bold">Get In Touch</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Ready to sell? Contact us today for a free, no-obligation valuation

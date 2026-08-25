@@ -30,17 +30,17 @@ const ratingGuide = [
 
 export function ReportSummary() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">Inspector&apos;s Summary</h2>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Inspector&apos;s Summary</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             The overall verdict on this sample Ioniq 5, in the inspector&apos;s own words
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          <Card className="rounded-2xl border shadow-md">
+        <div className="max-w-4xl mx-auto space-y-5 sm:space-y-6 lg:space-y-8">
+          <Card className="rounded-2xl border shadow-md py-4 gap-4 sm:py-6 sm:gap-6">
             <CardContent>
               <h3 className="text-lg font-bold text-foreground mb-4">Rating Guide</h3>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
@@ -57,7 +57,7 @@ export function ReportSummary() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-2 border-primary/20 bg-primary/5 shadow-lg">
+          <Card className="rounded-2xl border-2 border-primary/20 bg-primary/5 shadow-lg py-4 gap-4 sm:py-6 sm:gap-6">
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">

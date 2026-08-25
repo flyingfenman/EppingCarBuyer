@@ -21,7 +21,7 @@ export function AreasWeCover() {
   const [hoveredArea, setHoveredArea] = useState<string | null>(null)
 
   return (
-    <section id="areas" className="py-20 px-4 relative overflow-hidden">
+    <section id="areas" className="py-12 sm:py-16 lg:py-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       </div>

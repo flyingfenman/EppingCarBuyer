@@ -111,10 +111,10 @@ export function InspectionsWhatWeInspect() {
   const current = categories[active]
 
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-12 sm:py-16 lg:py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10 space-y-4">
-          <h2 className="text-4xl lg:text-6xl font-bold">What We Inspect</h2>
+        <div className="text-center mb-6 sm:mb-8 lg:mb-10 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold">What We Inspect</h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Tap a category below to see exactly what's covered in every inspection.
           </p>
@@ -133,7 +133,7 @@ export function InspectionsWhatWeInspect() {
           </div>
         </div>
 
-        <div className="flex items-start justify-center gap-10 sm:gap-20 mb-14">
+        <div className="flex items-start justify-center gap-6 sm:gap-20 mb-8 sm:mb-10 lg:mb-14">
           {order.map((key) => {
             const category = categories[key]
             const isActive = key === active
@@ -174,22 +174,22 @@ export function InspectionsWhatWeInspect() {
             </span>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
             {current.items.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3.5 p-4 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 hover:-translate-y-0.5 transition-all duration-200"
+                className="flex items-center gap-2 sm:gap-3.5 p-2.5 sm:p-4 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 hover:-translate-y-0.5 transition-all duration-200"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center">
-                  <item.icon strokeWidth={1.75} className="w-6 h-6 text-primary" />
+                <div className="flex-shrink-0 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white shadow-md flex items-center justify-center">
+                  <item.icon strokeWidth={1.75} className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
                 </div>
-                <span className="text-sm font-medium text-foreground leading-snug">{item.label}</span>
+                <span className="text-xs sm:text-sm font-medium text-foreground leading-snug">{item.label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto mt-10">
+        <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto mt-6 sm:mt-8 lg:mt-10">
           Every inspection also includes a full outstanding finance, write-off, stolen and mileage history check.
         </p>
       </div>

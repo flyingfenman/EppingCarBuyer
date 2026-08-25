@@ -54,18 +54,18 @@ const motHistory: MotHistoryEntry[] = [
 
 export function VehicleCheckReport() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">Vehicle Check Report</h2>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Vehicle Check Report</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Every Epping Car Buyer inspection includes a full AutoTrader-verified vehicle history check as
             standard — it&apos;s the very first thing you&apos;ll find in your report.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 bg-emerald-600 text-white rounded-2xl shadow-lg py-6 px-6 text-center sm:text-left">
+        <div className="max-w-4xl mx-auto space-y-5 sm:space-y-6 lg:space-y-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 bg-emerald-600 text-white rounded-2xl shadow-lg py-4 px-5 sm:py-6 sm:px-6 text-center sm:text-left">
             <ShieldCheck className="w-10 h-10 flex-shrink-0" />
             <div>
               <p className="text-2xl font-extrabold tracking-wide uppercase">All Checks Passed</p>
@@ -73,7 +73,7 @@ export function VehicleCheckReport() {
             </div>
           </div>
 
-          <Card className="border shadow-md">
+          <Card className="border shadow-md py-4 gap-4 sm:py-6 sm:gap-6">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -94,7 +94,7 @@ export function VehicleCheckReport() {
             </CardContent>
           </Card>
 
-          <Card className="border shadow-md">
+          <Card className="border shadow-md py-4 gap-4 sm:py-6 sm:gap-6">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -122,7 +122,7 @@ export function VehicleCheckReport() {
             </CardContent>
           </Card>
 
-          <Card className="border shadow-md">
+          <Card className="border shadow-md py-4 gap-4 sm:py-6 sm:gap-6">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -169,7 +169,7 @@ export function VehicleCheckReport() {
             </span>
           </div>
 
-          <Card className="rounded-2xl border-2 border-primary/20 bg-primary/5 shadow-lg">
+          <Card className="rounded-2xl border-2 border-primary/20 bg-primary/5 shadow-lg py-4 gap-4 sm:py-6 sm:gap-6">
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">

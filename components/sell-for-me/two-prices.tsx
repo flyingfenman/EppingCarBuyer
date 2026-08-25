@@ -4,10 +4,10 @@ import { ArrowRight } from "lucide-react"
 
 export function SellForMeTwoPrices() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold text-balance">Every Car Has Two Prices</h2>
+        <div className="text-center mb-8 sm:mb-10 lg:mb-12 space-y-3 sm:space-y-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-balance">Every Car Has Two Prices</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
             A trade price and a retail price. The gap between them pays for dealership forecourts, auction fees, buying company margins, and advertising — not the condition of your car.
           </p>
@@ -18,7 +18,7 @@ export function SellForMeTwoPrices() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center">
               <div className="text-center space-y-1">
                 <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Part Ex Value</p>
-                <p className="text-4xl lg:text-5xl font-bold text-foreground">£16,366</p>
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">£16,366</p>
               </div>
 
               <div className="hidden lg:flex items-center justify-center">
@@ -29,7 +29,7 @@ export function SellForMeTwoPrices() {
 
               <div className="text-center space-y-1">
                 <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Retail Value</p>
-                <p className="text-4xl lg:text-5xl font-bold text-foreground">£19,857</p>
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">£19,857</p>
               </div>
             </div>
 

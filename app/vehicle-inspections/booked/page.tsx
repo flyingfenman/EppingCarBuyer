@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export default function InspectionBookedPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center py-20 px-4">
+    <div className="min-h-screen flex items-center justify-center py-12 sm:py-16 lg:py-20 px-4">
       <div className="max-w-md mx-auto text-center space-y-6">
         <CheckCircle2 className="w-16 h-16 text-primary mx-auto" />
         <h1 className="text-3xl font-bold">You&apos;re booked in!</h1>
