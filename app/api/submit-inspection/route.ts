@@ -43,7 +43,7 @@ Submitted: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
       body: JSON.stringify({
         from: "Epping Car Buyer <noreply@eppingcarbuyer.com>",
         to: ["henry@eppingcarbuyer.com"],
-        subject: `New Inspection Booking (${packageName}): ${registration}`,
+        subject: `Vehicle inspection request — ${registration} (${packageName})`,
         text: emailContent,
       }),
     })

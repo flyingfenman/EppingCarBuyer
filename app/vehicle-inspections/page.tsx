@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { InspectionsHero } from "@/components/vehicle-inspections/hero"
 import { InspectionsHowItWorks } from "@/components/vehicle-inspections/how-it-works"
-import { InspectionsWhatWeCheck } from "@/components/vehicle-inspections/what-we-check"
+import { InspectionsWhatWeInspect } from "@/components/vehicle-inspections/what-we-inspect"
 import { InspectionsPackages } from "@/components/vehicle-inspections/packages"
 import { InspectionsWhyUs } from "@/components/vehicle-inspections/why-us"
 import { InspectionsCta } from "@/components/vehicle-inspections/cta"
@@ -17,7 +17,7 @@ export default function VehicleInspectionsPage() {
     <div className="min-h-screen">
       <InspectionsHero />
       <InspectionsHowItWorks />
-      <InspectionsWhatWeCheck />
+      <InspectionsWhatWeInspect />
       <InspectionsPackages />
       <InspectionsWhyUs />
       <InspectionsCta />
