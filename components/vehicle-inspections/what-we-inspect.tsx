@@ -13,7 +13,7 @@ import {
 
 // lucide-react has no car-seat icon (Sofa/Armchair read as living-room furniture), so this is a small
 // custom outline icon built to match lucide's own visual weight (24x24, currentColor, rounded strokes).
-function CarSeatIcon({ className, strokeWidth = 1.75 }: { className?: string; strokeWidth?: number }) {
+function CarSeatIcon({ className, strokeWidth = 1.5 }: { className?: string; strokeWidth?: number }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -24,10 +24,9 @@ function CarSeatIcon({ className, strokeWidth = 1.75 }: { className?: string; st
       strokeLinejoin="round"
       className={className}
     >
-      <rect x="8" y="2" width="8" height="7" rx="2.5" />
-      <path d="M8 9v4a4 4 0 0 0 4 4h6" />
-      <path d="M18 9v10" />
-      <path d="M4 19h4" />
+      <path d="M7 3h6a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V5a2 2 0 0 1 1-2Z" />
+      <path d="M6 17v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" />
+      <path d="M6 17h12" />
     </svg>
   )
 }
@@ -122,7 +121,7 @@ export function InspectionsWhatWeInspect() {
         </div>
 
         <div className="max-w-3xl mx-auto mb-10">
-          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-muted/30 border border-border">
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-muted/30">
             <Image
               src="/images/inspection-car.jpg"
               alt="Example vehicle"

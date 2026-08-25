@@ -76,11 +76,14 @@ export function ReportSummary() {
                 </div>
               </div>
               <p className="text-foreground leading-relaxed">
-                &ldquo;Overall this Golf presented in good condition for its age and mileage — no signs of
-                accident repair or structural damage, and it drove well on the road test. The only points worth
-                knowing about: the front tyres are down to around 3mm and will need replacing before too long,
-                and the diagnostic scan picked up two historic fault codes that were cleared a few months back —
-                worth asking the seller about, but not a dealbreaker on their own.&rdquo;
+                &ldquo;This Golf drove well on the road test and there&apos;s nothing here that should stop you
+                buying it, but it's not a car without things to know about. The front tyres and brake pads are
+                getting into replacement territory, the front dampers are starting to show their age, and there&apos;s
+                a wind noise from the driver&apos;s door seal worth getting looked at. We also found two historic
+                fault codes cleared a few months back, and some paint depth variance on the rear wing suggesting a
+                minor repair at some point — nothing structural, but worth asking the seller about. None of this is
+                a dealbreaker on its own, but it&apos;s exactly the kind of detail that&apos;s easy to miss without
+                a proper inspection — and useful to know before you agree a price.&rdquo;
               </p>
               <p className="text-sm font-bold text-foreground">— Henry</p>
             </CardContent>

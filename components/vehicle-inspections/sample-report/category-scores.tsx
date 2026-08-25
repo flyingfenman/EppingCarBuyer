@@ -1,9 +1,9 @@
 import { Cog, Car, Armchair } from "lucide-react"
 
 const categories = [
-  { name: "Mechanical", icon: Cog, score: 92 },
-  { name: "Body & Chassis", icon: Car, score: 94 },
-  { name: "Interior", icon: Armchair, score: 98 },
+  { name: "Mechanical", icon: Cog, score: 78 },
+  { name: "Body & Chassis", icon: Car, score: 76 },
+  { name: "Interior", icon: Armchair, score: 85 },
 ]
 
 function scoreColor(score: number) {
