@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { Check, FileText, ArrowRight, Clock } from "lucide-react"
+import { Check, FileText, ArrowRight, Clock, ListChecks } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 const packages = [
   {
     name: "Standard Inspection",
     price: "£135",
+    pointCheck: "90-Point Check",
     duration: "40–60 minutes on site",
     description: "A thorough mechanical and visual check, plus the history check that matters most.",
     features: [
@@ -23,6 +24,7 @@ const packages = [
   {
     name: "Premium Inspection",
     price: "£180",
+    pointCheck: "140-Point Check",
     duration: "70–90 minutes on site",
     description: "Everything in Standard, plus a deeper look at bodywork and history for extra peace of mind.",
     popular: true,
@@ -65,6 +67,10 @@ export function InspectionsPackages() {
                 <p className="text-lg font-semibold text-muted-foreground">{pkg.name}</p>
                 <p className="text-5xl font-bold text-foreground mt-2">{pkg.price}</p>
                 <p className="text-sm text-muted-foreground mt-1">per inspection</p>
+                <div className="inline-flex items-center gap-1.5 mt-3 px-3 py-1 bg-primary/10 text-primary text-sm font-bold rounded-full">
+                  <ListChecks className="w-4 h-4" />
+                  {pkg.pointCheck}
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground text-center">{pkg.description}</p>
