@@ -7,7 +7,7 @@ const vehicleDetails = [
   { label: "Body Type", value: "SUV" },
   { label: "Fuel Type", value: "Electric" },
   { label: "Transmission", value: "Automatic — single-speed reduction gear" },
-  { label: "Registration (VRM)", value: "HY22 EVX" },
+  { label: "Registration (VRM)", value: "RK22 UCJ" },
   { label: "VIN", value: "KMHLN81CXNU214477" },
   { label: "Colour", value: "Cyberspace Grey" },
   { label: "Date First Registered", value: "15 March 2022" },
@@ -39,13 +39,13 @@ interface MotHistoryEntry {
 
 const motHistory: MotHistoryEntry[] = [
   {
-    mileage: "14,200 mi",
+    mileage: "9,120 mi",
     date: "08 March 2025",
     result: "Pass",
     advisory: "Nearside rear tyre worn close to the legal limit",
   },
   {
-    mileage: "27,850 mi",
+    mileage: "19,860 mi",
     date: "22 February 2026",
     result: "Pass",
     advisory: null,
@@ -134,7 +134,7 @@ export function VehicleCheckReport() {
             <CardContent className="space-y-5">
               <div className="flex items-center justify-between rounded-lg bg-primary/5 px-4 py-3">
                 <span className="text-sm font-medium text-foreground">Mileage at inspection</span>
-                <span className="text-sm font-bold text-primary">28,340 miles</span>
+                <span className="text-sm font-bold text-primary">23,499 miles</span>
               </div>
 
               <div>

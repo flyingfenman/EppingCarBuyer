@@ -1,8 +1,8 @@
 import { FlaskConical, ShieldCheck, CalendarDays, Gauge, UserRound, PackageCheck, Ban } from "lucide-react"
 
 const keyFacts = [
-  { icon: ShieldCheck, label: "Registration", value: "HY22 EVX" },
-  { icon: Gauge, label: "Mileage", value: "28,340 miles" },
+  { icon: ShieldCheck, label: "Registration", value: "RK22 UCJ" },
+  { icon: Gauge, label: "Mileage", value: "23,499 miles" },
   { icon: UserRound, label: "Inspector", value: "Henry" },
   { icon: PackageCheck, label: "Package", value: "Premium Inspection" },
 ]
