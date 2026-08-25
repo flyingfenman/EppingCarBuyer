@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, X, Phone } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function Header() {
@@ -42,12 +42,6 @@ export function Header() {
                 Contact Us
               </Button>
             </Link>
-            <a href="tel:+441992367909">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                <Phone className="w-4 h-4 mr-2" />
-                Call Now
-              </Button>
-            </a>
           </nav>
 
           <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
@@ -72,12 +66,6 @@ export function Header() {
                 Contact Us
               </Button>
             </Link>
-            <a href="tel:+441992367909" className="block">
-              <Button className="w-full bg-primary hover:bg-primary/90" size="lg">
-                <Phone className="w-4 h-4 mr-2" />
-                Call Now
-              </Button>
-            </a>
           </nav>
         )}
       </div>
