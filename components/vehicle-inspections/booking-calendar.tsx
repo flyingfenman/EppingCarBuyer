@@ -154,7 +154,7 @@ export function InspectionsBookingCalendar() {
               </div>
               <div className="sm:col-span-2 space-y-1.5">
                 <Label htmlFor="advertUrl">Link to the Advert</Label>
-                <Input id="advertUrl" type="url" value={form.advertUrl} onChange={set("advertUrl")} placeholder="Link to AutoTrader, eBay, Facebook Marketplace, etc." />
+                <Input id="advertUrl" type="text" value={form.advertUrl} onChange={set("advertUrl")} placeholder="Link to AutoTrader, eBay, Facebook Marketplace, etc." />
               </div>
             </div>
           </div>
