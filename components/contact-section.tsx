@@ -1,6 +1,6 @@
 "use client"
 
-import { Phone, MessageSquare } from "lucide-react"
+import { MessageSquare } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
@@ -22,43 +22,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Phone Contact */}
-          <Card
-            className={`transition-all duration-500 hover:-translate-y-2 border-2 ${
-              hoveredCard === "phone" ? "shadow-2xl border-primary/50" : "shadow-lg"
-            }`}
-            onMouseEnter={() => setHoveredCard("phone")}
-            onMouseLeave={() => setHoveredCard(null)}
-          >
-            <CardHeader className="text-center space-y-4">
-              <div
-                className={`mx-auto w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  hoveredCard === "phone" ? "scale-110 bg-primary/20" : "scale-100"
-                }`}
-              >
-                <Phone className={`h-10 w-10 text-primary ${hoveredCard === "phone" ? "animate-pulse" : ""}`} />
-              </div>
-              <CardTitle className="text-2xl">Call Us</CardTitle>
-              <CardDescription className="text-base">
-                Speak directly with Henry for an immediate response and quick valuation.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                asChild
-                variant="default"
-                className="w-full h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-                size="lg"
-              >
-                <a href="tel:+441992367909">
-                  <Phone className="mr-2 h-5 w-5" />
-                  01992 367909
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
+        <div className="max-w-sm mx-auto">
           {/* WhatsApp Contact */}
           <Card
             className={`transition-all duration-500 hover:-translate-y-2 border-2 ${

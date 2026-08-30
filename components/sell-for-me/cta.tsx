@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { MessageSquare, Phone, CheckCircle2, Loader2, ChevronRight, Car } from "lucide-react"
+import { MessageSquare, CheckCircle2, Loader2, ChevronRight, Car } from "lucide-react"
 
 type Tab = "contact" | "form"
 
@@ -91,8 +91,8 @@ export function SellForMeCta() {
                   : "text-muted-foreground hover:bg-muted/60"
               }`}
             >
-              <Phone className="inline w-4 h-4 mr-2 mb-0.5" />
-              Call or WhatsApp
+              <MessageSquare className="inline w-4 h-4 mr-2 mb-0.5" />
+              WhatsApp Us
             </button>
             <button
               onClick={() => setTab("form")}
@@ -109,7 +109,7 @@ export function SellForMeCta() {
 
           {/* Contact tab */}
           {tab === "contact" && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex items-center justify-center">
               <Button
                 asChild
                 size="lg"
@@ -118,17 +118,6 @@ export function SellForMeCta() {
                 <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer">
                   <MessageSquare className="mr-2 h-5 w-5" />
                   WhatsApp Us
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto h-14 px-8 text-lg border-2 hover:bg-muted/50 transition-all duration-300"
-              >
-                <a href="tel:+441992367909">
-                  <Phone className="mr-2 h-5 w-5" />
-                  01992 367909
                 </a>
               </Button>
             </div>

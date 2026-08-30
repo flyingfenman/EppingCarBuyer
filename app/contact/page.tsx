@@ -1,4 +1,4 @@
-import { Phone, MapPin, Clock, Mail } from "lucide-react"
+import { MapPin, Clock, Phone, Mail } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
@@ -13,26 +13,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {/* Phone Contact */}
-          <Card>
-            <CardHeader className="text-center">
-              <Phone className="h-12 w-12 text-primary mx-auto mb-4" />
-              <CardTitle>Call Us</CardTitle>
-              <CardDescription>
-                Speak directly with Henry for an immediate response and quick valuation.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button asChild variant="default" className="w-full" size="lg">
-                <a href="tel:+441992367909">
-                  <Phone className="mr-2 h-5 w-5" />
-                  01992 367909
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
+        <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-2xl mx-auto">
           {/* Email Contact */}
           <Card>
             <CardHeader className="text-center">
