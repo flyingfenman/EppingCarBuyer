@@ -7,8 +7,7 @@ const steps = [
     number: "01",
     icon: ClipboardCheck,
     title: "We inspect your car",
-    description:
-      "We visit you, run an OBD health scan, take professional photos and video, and pull live market data to price your car accurately against the current trade and retail benchmarks.",
+    description: "We visit you, run a full inspection, and price your car against live market data.",
   },
   {
     number: "02",

@@ -7,18 +7,15 @@ const tiers = [
   {
     range: "Under £5,000",
     fee: "£395",
-    description: "For cars valued under £5,000",
   },
   {
     range: "£5,000 – £15,000",
     fee: "£595",
-    description: "For cars valued between £5,000 and £15,000",
     popular: true,
   },
   {
     range: "Over £15,000",
     fee: "£895",
-    description: "For cars valued over £15,000",
   },
 ]
 
@@ -52,7 +49,6 @@ export function SellForMePricing() {
                 <p className="text-sm text-muted-foreground mt-1">success fee</p>
               </CardHeader>
               <CardContent className="text-center space-y-4">
-                <p className="text-sm text-muted-foreground">{tier.description}</p>
                 <div className="flex items-center justify-center gap-2 text-emerald-600">
                   <Check className="w-5 h-5" />
                   <span className="font-medium">No sale, no fee</span>
