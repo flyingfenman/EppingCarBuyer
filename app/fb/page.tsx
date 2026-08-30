@@ -741,6 +741,21 @@ function SuccessScreen({ name }: { name: string }) {
             </a>
           </div>
 
+          <div className="bg-muted/40 rounded-2xl p-6 border border-dashed border-border text-left space-y-3">
+            <p className="font-semibold text-foreground">Not the number you were hoping for?</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              You don&apos;t have to accept our first offer. Our Market &amp; Sell service lists your car
+              for a price closer to retail — no upfront cost, no obligation.
+            </p>
+            <Link
+              href="/market-and-sell"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+            >
+              See how Market &amp; Sell works
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
           <Link href="/" className="inline-flex items-center text-primary hover:text-primary/80 font-medium">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to homepage

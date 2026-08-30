@@ -4,13 +4,14 @@ import type React from "react"
 
 import { Suspense, useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
+import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Loader2 } from "lucide-react"
+import { Loader2, Check, ArrowRight, MessageCircle } from "lucide-react"
 
 function ContinueContent() {
   const searchParams = useSearchParams()
@@ -30,10 +31,13 @@ function ContinueContent() {
   })
 
   const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
+    setError("")
 
     try {
       const response = await fetch("/api/submit-valuation", {
@@ -46,16 +50,67 @@ function ContinueContent() {
       })
 
       if (response.ok) {
-        alert("Thank you! We will contact you shortly with a valuation.")
-        router.push("/")
+        setSubmitted(true)
       } else {
-        alert("Something went wrong. Please try again or contact us directly.")
+        setError("Something went wrong. Please try again or contact us directly.")
       }
     } catch (error) {
-      alert("Something went wrong. Please try again or contact us directly.")
+      setError("Something went wrong. Please try again or contact us directly.")
     } finally {
       setSubmitting(false)
     }
+  }
+
+  if (submitted) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <Card className="max-w-2xl mx-auto">
+          <CardContent className="text-center space-y-8 py-10">
+            <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mx-auto shadow-lg shadow-primary/30">
+              <Check className="w-10 h-10 text-primary-foreground" />
+            </div>
+
+            <div className="space-y-3">
+              <h1 className="text-2xl font-bold text-foreground">
+                Thanks, {formData.name.split(" ")[0] || "there"}!
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                We will be in touch shortly with your free car valuation.
+              </p>
+            </div>
+
+            <div className="bg-muted/40 rounded-2xl p-6 border border-dashed border-border text-left space-y-3">
+              <p className="font-semibold text-foreground">Not the number you were hoping for?</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                You don&apos;t have to accept our first offer. Our Market &amp; Sell service lists your car
+                for a price closer to retail — no upfront cost, no obligation.
+              </p>
+              <Link
+                href="/market-and-sell"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+              >
+                See how Market &amp; Sell works
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <a
+              href="https://wa.me/441992367909"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full h-12 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold rounded-xl transition-colors"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Chat on WhatsApp for a faster response
+            </a>
+
+            <Button variant="ghost" onClick={() => router.push("/")}>
+              Back to homepage
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
@@ -193,6 +248,8 @@ function ContinueContent() {
                 />
               </div>
             </div>
+
+            {error && <p className="text-sm text-destructive bg-destructive/10 px-4 py-3 rounded-lg">{error}</p>}
 
             <Button type="submit" size="lg" className="w-full" disabled={submitting}>
               {submitting ? (

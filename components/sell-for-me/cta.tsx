@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -127,12 +128,29 @@ export function SellForMeCta() {
           {tab === "form" && (
             <div className="bg-background rounded-2xl border border-border p-6 md:p-8 shadow-sm">
               {submitted ? (
-                <div className="text-center py-10 space-y-4">
-                  <CheckCircle2 className="w-14 h-14 text-primary mx-auto" />
-                  <h3 className="text-2xl font-bold">Thanks, we&apos;ve got your details!</h3>
-                  <p className="text-muted-foreground max-w-sm mx-auto">
-                    Henry will be in touch shortly to discuss your car and arrange a viewing.
-                  </p>
+                <div className="text-center py-10 space-y-8">
+                  <div className="space-y-4">
+                    <CheckCircle2 className="w-14 h-14 text-primary mx-auto" />
+                    <h3 className="text-2xl font-bold">Thanks, we&apos;ve got your details!</h3>
+                    <p className="text-muted-foreground max-w-sm mx-auto">
+                      Henry will be in touch shortly to discuss your car and arrange a viewing.
+                    </p>
+                  </div>
+
+                  <div className="bg-muted/40 rounded-2xl p-6 border border-dashed border-border text-left max-w-sm mx-auto space-y-3">
+                    <p className="font-semibold text-foreground">Buying your next car?</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Buy with confidence — let us carry out a detailed independent inspection before you
+                      hand over any money.
+                    </p>
+                    <Link
+                      href="/vehicle-inspections"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                    >
+                      See our inspection packages
+                      <ChevronRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
