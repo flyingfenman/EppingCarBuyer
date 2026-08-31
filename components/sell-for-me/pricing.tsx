@@ -6,16 +6,16 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 const tiers = [
   {
     range: "Under £5,000",
-    fee: "£395",
+    fee: "£197.50",
   },
   {
     range: "£5,000 – £15,000",
-    fee: "£595",
+    fee: "£297.50",
     popular: true,
   },
   {
     range: "Over £15,000",
-    fee: "£895",
+    fee: "£447.50",
   },
 ]
 
