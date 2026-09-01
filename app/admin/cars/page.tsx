@@ -5,6 +5,7 @@ import { AdminNav } from '@/components/admin/admin-nav'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
@@ -18,6 +19,8 @@ type Car = {
   year: number
   mileage: number
   guide_price: number
+  retail_price: number | null
+  description: string | null
   status: 'available' | 'sold' | 'pending'
   notes: string | null
   photos: string[] | null
@@ -30,11 +33,15 @@ type CarForm = {
   year: string
   mileage: string
   guide_price: string
+  retail_price: string
+  description: string
   status: string
   notes: string
 }
 
-const emptyCarForm: CarForm = { make: '', model: '', year: '', mileage: '', guide_price: '', status: 'available', notes: '' }
+const emptyCarForm: CarForm = {
+  make: '', model: '', year: '', mileage: '', guide_price: '', retail_price: '', description: '', status: 'available', notes: '',
+}
 
 export default function AdminCarsPage() {
   const [cars, setCars] = useState<Car[]>([])
@@ -98,6 +105,8 @@ export default function AdminCarsPage() {
       year: car.year.toString(),
       mileage: car.mileage.toString(),
       guide_price: car.guide_price.toString(),
+      retail_price: car.retail_price?.toString() || '',
+      description: car.description || '',
       status: car.status,
       notes: car.notes || '',
     })
@@ -152,6 +161,8 @@ export default function AdminCarsPage() {
       year: parseInt(carForm.year),
       mileage: parseInt(carForm.mileage),
       guide_price: parseInt(carForm.guide_price),
+      retail_price: carForm.retail_price ? parseInt(carForm.retail_price) : null,
+      description: carForm.description || null,
       status: carForm.status,
       notes: carForm.notes || null,
       photos: photos.length > 0 ? photos : null,
@@ -291,6 +302,7 @@ export default function AdminCarsPage() {
                       value={carForm.guide_price}
                       onChange={(e) => setCarForm({ ...carForm, guide_price: e.target.value })}
                     />
+                    <p className="text-xs text-muted-foreground">Trade reference price — shown to dealers, never to the public.</p>
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="status">Status</Label>
@@ -309,11 +321,36 @@ export default function AdminCarsPage() {
                     </Select>
                   </div>
                 </div>
+                <div className="flex flex-col gap-2 rounded-lg border border-dashed p-3">
+                  <Label htmlFor="retail_price">Public Asking Price (£)</Label>
+                  <Input
+                    id="retail_price"
+                    type="number"
+                    min="0"
+                    placeholder="e.g. 10995"
+                    value={carForm.retail_price}
+                    onChange={(e) => setCarForm({ ...carForm, retail_price: e.target.value })}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Set this to list the car on the public &quot;Cars For Sale&quot; page. Leave blank to keep it
+                    off that page (it can still show to trade dealers for bidding).
+                  </p>
+                </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="notes">Notes</Label>
+                  <Label htmlFor="description">Public Description</Label>
+                  <Textarea
+                    id="description"
+                    placeholder="A short write-up for the public listing — condition, spec highlights, service history..."
+                    rows={3}
+                    value={carForm.description}
+                    onChange={(e) => setCarForm({ ...carForm, description: e.target.value })}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="notes">Internal Notes</Label>
                   <Input
                     id="notes"
-                    placeholder="Any additional notes..."
+                    placeholder="Any additional notes... (internal only)"
                     value={carForm.notes}
                     onChange={(e) => setCarForm({ ...carForm, notes: e.target.value })}
                   />
@@ -414,6 +451,7 @@ export default function AdminCarsPage() {
                       <th className="h-12 px-4 text-left font-medium">Year</th>
                       <th className="h-12 px-4 text-left font-medium">Mileage</th>
                       <th className="h-12 px-4 text-left font-medium">Guide Price</th>
+                      <th className="h-12 px-4 text-left font-medium">Public Price</th>
                       <th className="h-12 px-4 text-left font-medium">Status</th>
                       <th className="h-12 px-4 w-24"></th>
                     </tr>
@@ -435,6 +473,13 @@ export default function AdminCarsPage() {
                         <td className="p-4">{car.year}</td>
                         <td className="p-4">{car.mileage.toLocaleString()}</td>
                         <td className="p-4">£{car.guide_price.toLocaleString()}</td>
+                        <td className="p-4">
+                          {car.retail_price ? (
+                            `£${car.retail_price.toLocaleString()}`
+                          ) : (
+                            <span className="text-muted-foreground text-xs">Not listed</span>
+                          )}
+                        </td>
                         <td className="p-4">{getStatusBadge(car.status)}</td>
                         <td className="p-4">
                           <div className="flex gap-1">

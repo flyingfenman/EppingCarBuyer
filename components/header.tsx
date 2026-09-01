@@ -17,6 +17,14 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-4">
+            <Link href="/cars-for-sale">
+              <Button
+                size="lg"
+                className="text-base font-semibold bg-[#2563eb] text-white hover:bg-[#1d4ed8] border-2 border-[#1d4ed8] shadow-md"
+              >
+                Cars For Sale
+              </Button>
+            </Link>
             <Link href="/market-and-sell">
               <Button
                 size="lg"
@@ -51,6 +59,11 @@ export function Header() {
 
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 space-y-2">
+            <Link href="/cars-for-sale" onClick={() => setIsMenuOpen(false)} className="block">
+              <Button className="w-full font-semibold bg-[#2563eb] text-white hover:bg-[#1d4ed8]" size="lg">
+                Cars For Sale
+              </Button>
+            </Link>
             <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)} className="block">
               <Button className="w-full font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
                 Market &amp; Sell

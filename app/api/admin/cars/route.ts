@@ -61,11 +61,11 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { make, model, year, mileage, guide_price, status, notes, photos } = body
+    const { make, model, year, mileage, guide_price, retail_price, description, status, notes, photos } = body
 
     const { data, error } = await supabase
       .from('cars')
-      .insert({ make, model, year, mileage, guide_price, status, notes, photos })
+      .insert({ make, model, year, mileage, guide_price, retail_price, description, status, notes, photos })
       .select()
       .single()
 
@@ -86,11 +86,11 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json()
-    const { id, make, model, year, mileage, guide_price, status, notes, photos } = body
+    const { id, make, model, year, mileage, guide_price, retail_price, description, status, notes, photos } = body
 
     const { data, error } = await supabase
       .from('cars')
-      .update({ make, model, year, mileage, guide_price, status, notes, photos })
+      .update({ make, model, year, mileage, guide_price, retail_price, description, status, notes, photos })
       .eq('id', id)
       .select()
       .single()
