@@ -3,7 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, Calendar, Gauge, MessageCircle, ShieldCheck } from "lucide-react"
 import { getPublicCarById } from "@/lib/cars-public"
-import { CarPhotoGallery } from "@/components/cars-for-sale/photo-gallery"
+import { PhotoGallery } from "@/components/photo-gallery"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -41,7 +41,7 @@ export default async function CarDetailPage({ params }: Props) {
         </Link>
 
         <div className="grid lg:grid-cols-[3fr_2fr] gap-10 max-w-6xl mx-auto">
-          <CarPhotoGallery photos={car.photos || []} alt={`${car.year} ${car.make} ${car.model}`} />
+          <PhotoGallery photos={car.photos || []} alt={`${car.year} ${car.make} ${car.model}`} />
 
           <div className="space-y-6">
             <div>

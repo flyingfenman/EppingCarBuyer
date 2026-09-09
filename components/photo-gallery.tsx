@@ -2,15 +2,15 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Car } from "lucide-react"
+import { ImageOff } from "lucide-react"
 
-export function CarPhotoGallery({ photos, alt }: { photos: string[]; alt: string }) {
+export function PhotoGallery({ photos, alt }: { photos: string[]; alt: string }) {
   const [active, setActive] = useState(0)
 
   if (photos.length === 0) {
     return (
       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-muted/30 flex items-center justify-center">
-        <Car className="w-16 h-16 text-muted-foreground/40" />
+        <ImageOff className="w-16 h-16 text-muted-foreground/40" />
       </div>
     )
   }

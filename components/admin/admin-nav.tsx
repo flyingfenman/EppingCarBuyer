@@ -4,12 +4,13 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
-import { Car, Users, Banknote, MessageSquare, LayoutDashboard, LogOut } from 'lucide-react'
+import { Car, Users, Banknote, MessageSquare, LayoutDashboard, LogOut, Package } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/cars', label: 'Cars', icon: Car },
+  { href: '/admin/products', label: 'Shop Products', icon: Package },
   { href: '/admin/dealers', label: 'Dealers', icon: Users },
   { href: '/admin/bids', label: 'Bids', icon: Banknote },
   { href: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare },
