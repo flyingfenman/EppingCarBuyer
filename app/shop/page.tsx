@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { Package, ArrowRight } from "lucide-react"
 import { getPublicProducts } from "@/lib/products-public"
 
@@ -11,7 +12,13 @@ export const metadata: Metadata = {
 
 export const revalidate = 60
 
+// Shop is taken offline for now — nav link removed and this route redirects home.
+// Everything below is left in place so it's a one-line change to bring back.
+const SHOP_ENABLED = false
+
 export default async function ShopPage() {
+  if (!SHOP_ENABLED) redirect("/")
+
   const products = await getPublicProducts()
 
   return (

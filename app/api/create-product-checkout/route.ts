@@ -4,7 +4,14 @@ import { createClient } from "@/lib/supabase/server"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 
+// Shop is offline for now — see app/shop/page.tsx for the matching flag.
+const SHOP_ENABLED = false
+
 export async function POST(request: NextRequest) {
+  if (!SHOP_ENABLED) {
+    return NextResponse.json({ error: "The shop isn't available right now" }, { status: 404 })
+  }
+
   try {
     const body = await request.json()
     const productId = body?.productId

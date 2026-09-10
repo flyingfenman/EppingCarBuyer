@@ -1,10 +1,13 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { ArrowLeft, Truck } from "lucide-react"
 import { getPublicProductById } from "@/lib/products-public"
 import { PhotoGallery } from "@/components/photo-gallery"
 import { BuyButton } from "@/components/shop/buy-button"
+
+// Shop is taken offline for now — see app/shop/page.tsx for the matching flag.
+const SHOP_ENABLED = false
 
 interface Props {
   params: Promise<{ id: string }>
@@ -21,6 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
+  if (!SHOP_ENABLED) redirect("/")
+
   const { id } = await params
   const product = await getPublicProductById(id)
 
