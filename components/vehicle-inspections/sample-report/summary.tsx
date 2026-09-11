@@ -77,7 +77,7 @@ export function ReportSummary() {
                 corrosion (common on EVs that lean heavily on regenerative braking, not a safety concern), and
                 there&apos;s a wind noise from the driver&apos;s door seal worth getting looked at. We also found one
                 historic charging-system fault code that cleared and hasn&apos;t come back during testing, a small
-                stone chip in the windscreen, and some paint depth variance on the rear wing suggesting a minor
+                stone chip in the windscreen, and a slight colour mismatch on the rear wing suggesting a minor
                 repair at some point — nothing structural, but worth asking the seller about. The front tyres are
                 down to around 3mm — they&apos;re still the originals, so four years old now, and worth budgeting
                 for soon regardless of tread depth. None of this is a dealbreaker on its own, but it&apos;s exactly

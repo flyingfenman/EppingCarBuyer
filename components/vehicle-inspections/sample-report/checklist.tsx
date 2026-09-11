@@ -80,7 +80,7 @@ const categories: ChecklistCategory[] = [
       {
         label: "Evidence of accident repair or respray",
         rating: "Fair",
-        note: "Paint depth variance on the nearside rear wing, consistent with a minor repair — nothing structural",
+        note: "Slight colour and texture mismatch on the nearside rear wing, consistent with a minor repair — nothing structural",
       },
       { label: "Rust & corrosion check", rating: "Good" },
       { label: "All lights — head, tail, fog, indicators, reverse, number plate", rating: "Good" },

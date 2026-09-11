@@ -32,7 +32,6 @@ const packages = [
       "Everything in the Standard Inspection",
       "EV & hybrid battery health check, where applicable",
       "Full video walkaround — interior, exterior, and engine running",
-      "Paint depth readings — flags any hidden respray or repair",
       "Full vehicle history — keepers, service records, import/export status",
       "Priority booking — inspected within 24–48 hours",
     ],
