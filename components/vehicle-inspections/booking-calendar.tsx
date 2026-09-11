@@ -5,8 +5,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Loader2, ChevronRight, ChevronLeft, Clock } from "lucide-react"
+import { Loader2, ChevronRight, ChevronLeft, Clock, TriangleAlert, Phone, MessageCircle } from "lucide-react"
 import type { PackageKey, Slot } from "@/lib/inspection-slots"
+
+// UK-friendly best-effort conversion to the digits-only, country-code-prefixed format wa.me needs.
+function toWhatsAppNumber(phone: string): string {
+  const cleaned = phone.replace(/[^\d+]/g, "")
+  if (cleaned.startsWith("+")) return cleaned.slice(1)
+  if (cleaned.startsWith("0")) return "44" + cleaned.slice(1)
+  return cleaned
+}
 
 const PACKAGES: { key: PackageKey; name: string; price: string }[] = [
   { key: "standard", name: "Standard", price: "£130" },
@@ -120,12 +128,17 @@ export function InspectionsBookingCalendar() {
           ← Choose a different time
         </button>
 
-        <div className="flex items-center gap-2.5 mb-6 p-3 bg-primary/5 rounded-lg border border-primary/20">
-          <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-          <p className="text-sm font-semibold text-foreground">
-            {PACKAGES.find((p) => p.key === packageKey)?.name} Inspection —{" "}
-            {new Date(selectedSlot.start).toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: "Europe/London" })}
-          </p>
+        <div className="flex items-start gap-2.5 mb-6 p-3 bg-primary/5 rounded-lg border border-primary/20">
+          <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-foreground">
+              {PACKAGES.find((p) => p.key === packageKey)?.name} Inspection —{" "}
+              {new Date(selectedSlot.start).toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: "Europe/London" })}
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              This time is provisional — please confirm it works for the seller before you book.
+            </p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -152,6 +165,35 @@ export function InspectionsBookingCalendar() {
                 <Label htmlFor="sellerPhone">Seller&apos;s Contact Number</Label>
                 <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" />
               </div>
+              {form.sellerPhone.trim().length >= 10 && (
+                <div className="sm:col-span-2 flex flex-col sm:flex-row items-start sm:items-center gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200">
+                  <div className="flex items-start gap-2 flex-1">
+                    <TriangleAlert className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-amber-800">
+                      We don&apos;t know the seller&apos;s availability — worth confirming this time works for them
+                      before you pay.
+                    </p>
+                  </div>
+                  <div className="flex gap-2 flex-shrink-0 w-full sm:w-auto">
+                    <a
+                      href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`}
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 h-9 px-3 text-xs font-semibold rounded-lg border border-amber-300 bg-white text-amber-900 hover:bg-amber-100 transition-colors"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      Call Seller
+                    </a>
+                    <a
+                      href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 h-9 px-3 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#1da851] transition-colors"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      WhatsApp
+                    </a>
+                  </div>
+                </div>
+              )}
               <div className="sm:col-span-2 space-y-1.5">
                 <Label htmlFor="advertUrl">Link to the Advert</Label>
                 <Input id="advertUrl" type="text" value={form.advertUrl} onChange={set("advertUrl")} placeholder="Link to AutoTrader, eBay, Facebook Marketplace, etc." />
