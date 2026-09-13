@@ -15,6 +15,9 @@ export function Footer() {
             <Link href="/vehicle-inspections" className="text-sm hover:underline">
               Vehicle Inspections
             </Link>
+            <Link href="/ev-battery-health-check" className="text-sm hover:underline">
+              EV Battery Health Check
+            </Link>
             <Link href="/contact" className="text-sm hover:underline">
               Contact Us
             </Link>
@@ -29,9 +32,9 @@ export function Footer() {
             </Link>
           </nav>
           <p className="text-sm text-muted-foreground">
-            Epping Car Buyer offers the best prices for your vehicle with a hassle-free process.
+            Independent vehicle buying, selling and pre-purchase inspection services across Essex and surrounding areas.
           </p>
-          <p className="text-sm text-muted-foreground">© 2025 Epping Car Buyer. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© 2026 Epping Car Buyer. All rights reserved.</p>
         </div>
       </div>
     </footer>
