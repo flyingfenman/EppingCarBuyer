@@ -8,17 +8,22 @@ const faqs = [
   {
     question: "How much does a car inspection cost?",
     answer:
-      "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 140-point check). For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
+      "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 140-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
   },
   {
     question: "Is it worth paying for an inspection before buying a used car?",
     answer:
-      "Yes. You get an outstanding finance, write-off, stolen and mileage history check, a full OBD diagnostic scan, a road test and a detailed condition report — the checks that can uncover expensive problems before you hand over any money.",
+      "Yes. You get an outstanding finance, write-off, stolen and mileage history check, a full diagnostic scan, a road test and a detailed condition report — plus powertrain-specific checks appropriate to the vehicle. The aim is to uncover expensive problems before you hand over any money.",
+  },
+  {
+    question: "Do you properly inspect electric cars, or is the EV check only an add-on?",
+    answer:
+      "Electric cars receive a proper EV-focused pre-purchase inspection as standard. Alongside tyres, brakes, suspension, steering, bodywork, interior, road test and history checks, we assess relevant EV systems such as high-voltage and battery-management faults, charging-system faults, drive-motor or inverter faults, regenerative braking, battery thermal management and visible battery-pack or underbody damage where the vehicle supports those checks. The £49.99 State of Health add-on is a separate, deeper battery-health report — it is not the point where the EV inspection starts.",
   },
   {
     question: "Do you check the high-voltage battery on electric cars?",
     answer:
-      "Yes. On compatible fully electric vehicles, you can add an EV Battery State of Health (SOH) Report for £49.99. We use a CARA Approved® Autel EV Battery Health Test and provide the customer battery health report alongside your inspection.",
+      "Yes. Relevant high-voltage and battery-management diagnostic checks are part of the core EV inspection where supported. For compatible fully electric vehicles, you can also add an EV Battery State of Health (SOH) Report for £49.99 using the CARA Approved® Autel EV Battery Health Test, with the customer battery-health report supplied alongside your inspection.",
   },
   {
     question: "What does EV battery State of Health mean?",
@@ -38,12 +43,12 @@ const faqs = [
   {
     question: "How do I book, and how do I get in touch?",
     answer:
-      "Book online and pick a time slot, or message us on WhatsApp — it's the fastest way to reach Epping Car Buyer. If you want an EV battery report, select the £49.99 SOH add-on when booking.",
+      "Book online and pick a time slot, or message us on WhatsApp — it's the fastest way to reach Epping Car Buyer. If you want the dedicated EV battery State of Health report, select the £49.99 SOH add-on when booking.",
   },
   {
     question: "How long does it take and when do I get the report?",
     answer:
-      "Allow around 40–60 minutes on site for a Standard Inspection and 70–90 minutes for Premium. You'll get a digital inspection report the same day, plus a personal phone call to talk through the findings. EV customers who select the SOH add-on also receive the battery health report.",
+      "Allow around 40–60 minutes on site for a Standard Inspection and 70–90 minutes for Premium. You'll get a digital inspection report the same day, plus a personal phone call to talk through the findings. EV customers who select the SOH add-on also receive the separate battery-health report.",
   },
 ]
 

@@ -45,20 +45,11 @@ interface Category {
 
 const categories: Record<CategoryKey, Category> = {
   mechanical: {
-    label: "Mechanical",
+    label: "Mechanical & Powertrain",
     icon: Cog,
     items: [
-      { label: "Oil condition & level", icon: Droplet },
-      { label: "Coolant condition & level", icon: Thermometer },
-      { label: "Drive belts & hoses", icon: Cable },
+      { label: "Full-system diagnostic scan — faults, warnings & stored codes", icon: ScanLine },
       { label: "12V battery condition & charging system", icon: BatteryCharging },
-      { label: "EV high-voltage system diagnostic checks, where supported", icon: BatteryFull },
-      { label: "Alternator output", icon: Zap },
-      { label: "Exhaust system & emissions", icon: Wind },
-      { label: "Engine & gearbox mounts", icon: Settings2 },
-      { label: "Fluid leaks — oil, coolant, power steering, transmission", icon: Droplets },
-      { label: "CV joints & driveshafts", icon: RotateCw },
-      { label: "Timing chain/belt noise check", icon: LinkIcon },
       { label: "Front & rear suspension components", icon: Waves },
       { label: "Shock absorbers / struts", icon: ArrowUpDown },
       { label: "Ball joints & tie rod ends", icon: CircleDot },
@@ -66,13 +57,25 @@ const categories: Record<CategoryKey, Category> = {
       { label: "Steering rack & power steering", icon: Compass },
       { label: "Brake pads & discs, front and rear", icon: Disc },
       { label: "Brake calipers & lines", icon: Disc2 },
-      { label: "Handbrake operation", icon: ParkingCircle },
-      { label: "OBD fault code scan — stored and cleared history", icon: ScanLine },
-      { label: "Engine performance under load", icon: Gauge },
-      { label: "Gearbox / clutch operation", icon: Cog },
-      { label: "Braking response", icon: CircleStop },
+      { label: "Parking brake operation", icon: ParkingCircle },
+      { label: "Braking response, including regenerative braking where fitted", icon: CircleStop },
       { label: "Steering & handling", icon: Navigation },
       { label: "Noise, vibration & harshness check", icon: Volume2 },
+      { label: "CV joints & driveshafts", icon: RotateCw },
+      { label: "EV / hybrid high-voltage system diagnostic checks, where supported", icon: BatteryFull },
+      { label: "EV / hybrid battery-management faults & available live data", icon: BatteryCharging },
+      { label: "EV charging-system and charging-port condition checks", icon: Cable },
+      { label: "EV drive motor / inverter fault checks, where supported", icon: Zap },
+      { label: "EV battery thermal-management system checks, where supported", icon: Thermometer },
+      { label: "Visible high-voltage battery pack / underbody damage check", icon: ShieldAlert },
+      { label: "Petrol / diesel / hybrid oil condition & level", icon: Droplet },
+      { label: "Petrol / diesel / hybrid coolant, belts & hoses", icon: Thermometer },
+      { label: "Petrol / diesel / hybrid fluid leaks", icon: Droplets },
+      { label: "Petrol / diesel exhaust system & emissions condition", icon: Wind },
+      { label: "Petrol / diesel / hybrid engine & gearbox mounts", icon: Settings2 },
+      { label: "Petrol / diesel timing chain / belt noise check", icon: LinkIcon },
+      { label: "Petrol / diesel engine performance under load", icon: Gauge },
+      { label: "Gearbox / clutch operation where fitted", icon: Cog },
     ],
   },
   body: {
@@ -114,8 +117,14 @@ export function InspectionsWhatWeInspect() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-6 sm:mb-8 lg:mb-10 space-y-3 sm:space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold">What We Inspect</h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Tap a category below to see exactly what&apos;s covered in every inspection.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Petrol, diesel, hybrid or electric — the inspection is tailored to the vehicle&apos;s powertrain as well as its condition, chassis, interior and road behaviour.
+          </p>
+        </div>
+
+        <div className="mx-auto mb-6 max-w-3xl rounded-2xl border border-primary/15 bg-primary/5 px-5 py-4 text-center">
+          <p className="text-sm font-semibold text-foreground">
+            EVs are not treated as a petrol or diesel inspection with a battery add-on. Relevant high-voltage, charging, drivetrain and battery-management checks are part of the core inspection where the vehicle supports them.
           </p>
         </div>
 
@@ -150,7 +159,7 @@ export function InspectionsWhatWeInspect() {
                 />
                 <div className={`w-px h-6 transition-colors duration-200 ${isActive ? "bg-primary" : "bg-border"}`} />
                 <span
-                  className={`mt-0 px-5 py-2 rounded-lg border text-sm font-bold whitespace-nowrap transition-all duration-200 ${
+                  className={`mt-0 px-4 sm:px-5 py-2 rounded-lg border text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 ${
                     isActive
                       ? "bg-primary text-white border-primary shadow-lg shadow-primary/30"
                       : "bg-muted/30 text-muted-foreground border-border group-hover:border-muted-foreground/30 group-hover:text-foreground"
@@ -191,7 +200,7 @@ export function InspectionsWhatWeInspect() {
         <div className="text-center text-sm text-muted-foreground max-w-2xl mx-auto mt-6 sm:mt-8 lg:mt-10 space-y-2">
           <p>Every inspection also includes a full outstanding finance, write-off, stolen and mileage history check.</p>
           <p>
-            For compatible fully electric vehicles, the dedicated CARA Approved® Autel EV Battery State of Health Report is available as a £49.99 optional add-on.
+            The £49.99 EV Battery State of Health Report is an optional deeper battery-health assessment for compatible fully electric vehicles — it is additional to the EV-specific checks already included in the main inspection.
           </p>
         </div>
 

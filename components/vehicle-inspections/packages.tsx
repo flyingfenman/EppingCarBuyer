@@ -10,11 +10,12 @@ const packages = [
     price: "£149.99",
     pointCheck: "90-Point Check",
     duration: "40–60 minutes on site",
-    description: "A thorough mechanical and visual check, plus the history check that matters most.",
+    description: "A thorough condition, chassis and powertrain inspection tailored to petrol, diesel, hybrid or electric vehicles.",
     features: [
-      "Full visual condition check — exterior, interior, engine bay, underbody, tyres",
-      "OBD diagnostic scan, including stored and recently cleared fault codes",
-      "Road test to assess how the car actually drives",
+      "Full visual condition check — exterior, interior, underbody, tyres and relevant powertrain areas",
+      "Full-system diagnostic scan, including stored faults and warning history where available",
+      "Powertrain-specific checks — engine/gearbox systems on petrol, diesel and hybrid vehicles; high-voltage, charging and electric drivetrain checks on EVs and hybrids where supported",
+      "Road test to assess braking, steering, handling, noises and how the vehicle actually drives",
       "Outstanding finance, write-off, stolen and mileage history check",
       "Photo report covering all key areas",
       "Personal phone call to talk through what we found",
@@ -26,12 +27,12 @@ const packages = [
     price: "£199.99",
     pointCheck: "140-Point Check",
     duration: "70–90 minutes on site",
-    description: "Everything in Standard, plus a deeper bodywork and vehicle-history assessment for extra peace of mind.",
+    description: "Everything in Standard, plus a deeper bodywork and vehicle-history assessment for extra peace of mind — with the same powertrain-specific approach for EV, hybrid, petrol and diesel vehicles.",
     popular: true,
     features: [
       "Everything in the Standard Inspection",
       "Paint depth readings to help identify previous repairs and resprays",
-      "Full video walkaround — interior, exterior, and engine running",
+      "Full video walkaround — interior, exterior, underbody areas and vehicle running / powered on",
       "Full vehicle history — keepers, service records, import/export status",
       "Priority booking — inspected within 24–48 hours",
     ],
@@ -44,8 +45,8 @@ export function InspectionsPackages() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Packages &amp; Pricing</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Clear pricing, independent advice and a same-day digital report.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Clear pricing, independent advice and a same-day digital report. The inspection is adapted to the vehicle — petrol, diesel, hybrid or electric.
           </p>
         </div>
 
@@ -104,7 +105,7 @@ export function InspectionsPackages() {
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
-                  Add a high-voltage traction battery SOH assessment and separate battery health report to either inspection on a compatible fully electric vehicle.
+                  EV-specific diagnostic and condition checks are already part of the main inspection. For compatible fully electric vehicles, add the dedicated high-voltage traction battery SOH assessment and separate customer battery-health report for a deeper look at battery condition.
                 </p>
                 <Link href="/ev-battery-health-check" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-2">
                   What the EV battery check includes <ArrowRight className="w-4 h-4" />
