@@ -11,7 +11,6 @@ const tiers = [
   {
     range: "£5,000 – £15,000",
     fee: "£297.50",
-    popular: true,
   },
   {
     range: "Over £15,000",
@@ -34,15 +33,8 @@ export function SellForMePricing() {
           {tiers.map((tier) => (
             <Card
               key={tier.range}
-              className={`relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
-                tier.popular ? "border-2 border-primary shadow-lg" : "border shadow-md"
-              }`}
+              className="relative overflow-hidden border shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              {tier.popular && (
-                <div className="absolute top-0 right-0 px-3 py-1 bg-primary text-white text-xs font-semibold rounded-bl-lg">
-                  Most common
-                </div>
-              )}
               <CardHeader className="text-center pb-2 pt-8">
                 <p className="text-lg font-semibold text-muted-foreground">{tier.range}</p>
                 <p className="text-5xl font-bold text-foreground mt-2">{tier.fee}</p>

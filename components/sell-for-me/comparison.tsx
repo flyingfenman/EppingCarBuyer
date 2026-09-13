@@ -17,7 +17,7 @@ const comparisons = [
     verdict: "hassle",
   },
   {
-    name: "Motorway / CarGurus",
+    name: "Motorway / Carwow",
     tagline: "Quick but cheap",
     pros: ["Fast and easy"],
     cons: [
