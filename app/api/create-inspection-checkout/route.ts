@@ -5,10 +5,11 @@ import { getOccupiedRanges } from "@/lib/inspection-bookings-server"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 const LOOKBACK_DAYS = 15
+const EV_SOH_AMOUNT_PENCE = 4999
 
 const PACKAGE_INFO: Record<PackageKey, { name: string; amountPence: number }> = {
-  standard: { name: "Standard Inspection", amountPence: 13000 },
-  premium: { name: "Premium Inspection", amountPence: 18000 },
+  standard: { name: "Standard Inspection", amountPence: 14999 },
+  premium: { name: "Premium Inspection", amountPence: 19999 },
 }
 
 function isPackageKey(value: unknown): value is PackageKey {
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const {
       packageKey, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
-      name, phone, email, notes,
+      name, phone, email, notes, includeEvSoh,
     } = body as {
       packageKey: unknown
       slotStart: string
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
       phone: string
       email: string
       notes?: string
+      includeEvSoh?: boolean
     }
 
     if (!isPackageKey(packageKey) || !slotStart || !slotEnd || !registration || !location || !name || !phone || !email) {
@@ -54,10 +56,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid time slot" }, { status: 400 })
     }
 
-    // Re-check this slot doesn't overlap anything already open (mid-checkout) or paid for someone else.
-    // This narrows, but can never fully close without a database, the gap between two people submitting
-    // at literally the same instant — the short expires_at below limits how long an abandoned attempt
-    // can block the slot for everyone else.
     const occupied = await getOccupiedRanges(LOOKBACK_DAYS)
     const alreadyTaken = occupied.some((range) => rangesOverlap(slotStart, slotEnd, range.start, range.end))
     if (alreadyTaken) {
@@ -65,31 +63,49 @@ export async function POST(request: NextRequest) {
     }
 
     const { name: packageName, amountPence } = PACKAGE_INFO[packageKey]
+    const wantsEvSoh = includeEvSoh === true
     const origin = request.nextUrl.origin
     const trimmedNotes = (notes || "").slice(0, 400)
+
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
+      {
+        price_data: {
+          currency: "gbp",
+          unit_amount: amountPence,
+          product_data: {
+            name: `${packageName} — Vehicle Inspection`,
+            description: `${registration} · ${start.toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })}`,
+          },
+        },
+        quantity: 1,
+      },
+    ]
+
+    if (wantsEvSoh) {
+      lineItems.push({
+        price_data: {
+          currency: "gbp",
+          unit_amount: EV_SOH_AMOUNT_PENCE,
+          product_data: {
+            name: "EV Battery State of Health Report",
+            description: "CARA Approved® Autel Blitz Battery Health Check add-on for compatible fully electric vehicles",
+          },
+        },
+        quantity: 1,
+      })
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
       customer_email: email,
-      expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // Stripe's minimum — releases the slot within 30 min if unpaid
-      line_items: [
-        {
-          price_data: {
-            currency: "gbp",
-            unit_amount: amountPence,
-            product_data: {
-              name: `${packageName} — Vehicle Inspection`,
-              description: `${registration} · ${start.toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })}`,
-            },
-          },
-          quantity: 1,
-        },
-      ],
+      expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+      line_items: lineItems,
       metadata: {
         type: "inspection_booking",
         packageKey,
         packageName,
+        includeEvSoh: wantsEvSoh ? "yes" : "no",
         slotStart,
         slotEnd,
         registration,
