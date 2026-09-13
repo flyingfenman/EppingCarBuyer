@@ -1,10 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
-import { PACKAGE_DURATIONS_MIN, rangesOverlap, type PackageKey } from "@/lib/inspection-slots"
+import {
+  MIN_BOOKING_NOTICE_HOURS,
+  PACKAGE_DURATIONS_MIN,
+  rangesOverlap,
+  type PackageKey,
+} from "@/lib/inspection-slots"
 import { getOccupiedRanges } from "@/lib/inspection-bookings-server"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
-const LOOKBACK_DAYS = 15
+const LOOKBACK_DAYS = 45
 const EV_SOH_AMOUNT_PENCE = 4999
 
 const PACKAGE_INFO: Record<PackageKey, { name: string; amountPence: number }> = {
@@ -46,14 +51,21 @@ export async function POST(request: NextRequest) {
     const end = new Date(slotEnd)
     const expectedDurationMin = PACKAGE_DURATIONS_MIN[packageKey]
     const actualDurationMin = (end.getTime() - start.getTime()) / 60000
+    const earliestAllowedStart = Date.now() + MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000
 
     if (
       Number.isNaN(start.getTime()) ||
       Number.isNaN(end.getTime()) ||
-      start.getTime() <= Date.now() ||
       actualDurationMin !== expectedDurationMin
     ) {
       return NextResponse.json({ error: "Invalid time slot" }, { status: 400 })
+    }
+
+    if (start.getTime() < earliestAllowedStart) {
+      return NextResponse.json(
+        { error: `Online bookings require at least ${MIN_BOOKING_NOTICE_HOURS} hours' notice. Please WhatsApp us for urgent availability.` },
+        { status: 400 },
+      )
     }
 
     const occupied = await getOccupiedRanges(LOOKBACK_DAYS)
