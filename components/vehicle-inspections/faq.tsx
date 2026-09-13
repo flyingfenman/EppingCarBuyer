@@ -18,17 +18,17 @@ const faqs = [
   {
     question: "Do you check the high-voltage battery on electric cars?",
     answer:
-      "Yes. On compatible fully electric vehicles, you can add an EV Battery State of Health (SOH) Report for £49.99. We use the Autel Blitz Battery Health Check, which carries the Battery Health Check CARA Approved® certification mark, and provide the customer battery health report alongside your inspection.",
+      "Yes. On compatible fully electric vehicles, you can add an EV Battery State of Health (SOH) Report for £49.99. We use a CARA Approved® Autel EV Battery Health Test and provide the customer battery health report alongside your inspection.",
   },
   {
     question: "What does EV battery State of Health mean?",
     answer:
-      "State of Health (SOH) is a percentage used to describe the condition of an EV's high-voltage traction battery. The Autel Blitz Test obtains and evaluates battery-management information available from the vehicle to produce the SOH result. Vehicle compatibility and the exact data available vary by model.",
+      "State of Health (SOH) is a percentage used to describe the condition of an EV's high-voltage traction battery. The Autel EV Battery Health Test obtains and evaluates battery-management information available from the vehicle to produce the SOH result. Vehicle compatibility and the exact data available vary by model.",
   },
   {
     question: "Is the EV battery test an independent capacity test?",
     answer:
-      "No. The Autel Blitz Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
+      "No. The Autel EV Battery Health Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
   },
   {
     question: "Where do inspections take place?",

@@ -44,7 +44,7 @@ export function InspectionsHero() {
 
             <div className="inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">
               <BatteryCharging className="h-5 w-5 text-emerald-700" />
-              EV Battery SOH Report +£49.99 · CARA Approved® Autel Blitz Test
+              EV Battery SOH Report +£49.99 · CARA Approved® Autel Test
             </div>
 
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
@@ -111,7 +111,7 @@ export function InspectionsHero() {
                 <div>
                   <p className="font-bold text-emerald-950">EV Battery State of Health Report +£49.99</p>
                   <p className="mt-1 text-xs leading-relaxed text-emerald-900/80">
-                    Add the CARA Approved® Autel Blitz Battery Health Check for compatible fully electric vehicles.
+                    Add the CARA Approved® Autel EV Battery Health Test for compatible fully electric vehicles.
                   </p>
                 </div>
               </div>

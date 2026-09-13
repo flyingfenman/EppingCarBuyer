@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       const amountPaid = `£${((session.amount_total || 0) / 100).toFixed(2)}`
       const slotFull = new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })
       const slotEndTime = new Date(slotEnd).toLocaleString("en-GB", { timeZone: "Europe/London", timeStyle: "short" })
-      const evSohLine = hasEvSoh ? "\nEV Battery SOH add-on: YES — CARA Approved® Autel Blitz report required" : ""
+      const evSohLine = hasEvSoh ? "\nEV Battery SOH add-on: YES — CARA Approved® Autel EV Battery Health Test report required" : ""
 
       const internalEmail = `
 New PAID Vehicle Inspection Booking
@@ -87,7 +87,7 @@ Stripe session: ${session.id}
 Hi ${customerName.split(" ")[0]},
 
 Your ${packageName} is booked and paid for — thanks!
-${hasEvSoh ? "\nYou've also added the £49.99 EV Battery State of Health Report using the CARA Approved® Autel Blitz Battery Health Check. Vehicle compatibility will be confirmed from the car details.\n" : ""}
+${hasEvSoh ? "\nYou've also added the £49.99 EV Battery State of Health Report using the CARA Approved® Autel EV Battery Health Test. Vehicle compatibility will be confirmed from the car details.\n" : ""}
 When: ${slotFull}
 Vehicle: ${registration}
 Where: ${location}

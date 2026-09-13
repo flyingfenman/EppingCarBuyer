@@ -190,7 +190,7 @@ export function InspectionsWhatWeInspect() {
         <div className="text-center text-sm text-muted-foreground max-w-2xl mx-auto mt-6 sm:mt-8 lg:mt-10 space-y-2">
           <p>Every inspection also includes a full outstanding finance, write-off, stolen and mileage history check.</p>
           <p>
-            For compatible fully electric vehicles, the dedicated CARA Approved® Autel Blitz Battery State of Health Report is available as a £49.99 optional add-on.
+            For compatible fully electric vehicles, the dedicated CARA Approved® Autel EV Battery State of Health Report is available as a £49.99 optional add-on.
           </p>
         </div>
       </div>

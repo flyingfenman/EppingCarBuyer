@@ -240,7 +240,7 @@ export function InspectionsBookingCalendar() {
                     For compatible fully electric vehicles. Includes the dedicated Autel traction-battery SOH test and customer battery health report.
                   </p>
                   <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
-                    <BadgeCheck className="w-4 h-4" /> CARA Approved® Autel Blitz Battery Health Check
+                    <BadgeCheck className="w-4 h-4" /> CARA Approved® Autel EV Battery Health Test
                   </p>
                   <p className="text-xs text-muted-foreground mt-2">
                     Vehicle compatibility applies. The test uses battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
