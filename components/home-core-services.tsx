@@ -14,7 +14,7 @@ export function HomeCoreServices() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-7xl">
           <div className="mb-7 max-w-3xl sm:mb-9">
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#0d9488]">Independent vehicle inspections</p>
+            <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Independent vehicle inspections</p>
             <h2 className="mt-2 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
               Buying a used car? Know what you&apos;re buying before you commit.
             </h2>
