@@ -4,16 +4,16 @@ import { BatteryCharging, BadgeCheck, Gauge, FileCheck2, MapPin, ShieldCheck, Ar
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "EV Battery Health Check & SOH Report | CARA Approved® Autel Blitz | Epping Car Buyer",
+  title: "EV Battery Health Check & SOH Report | CARA Approved® Autel Test | Epping Car Buyer",
   description:
-    "EV battery State of Health (SOH) check using the CARA Approved® Autel Blitz Test. Add a traction-battery health report to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, Cambridgeshire and nearby areas.",
+    "EV battery State of Health (SOH) check using a CARA Approved® Autel EV Battery Health Test. Add a traction-battery health report to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, Cambridgeshire and nearby areas.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },
   openGraph: {
     title: "EV Battery Health Check & State of Health Report",
     description:
-      "Check a used EV's high-voltage traction battery before you buy. CARA Approved® Autel Blitz Test, available as a £49.99 inspection add-on.",
+      "Check a used EV's high-voltage traction battery before you buy. CARA Approved® Autel EV Battery Health Test, available as a £49.99 inspection add-on.",
     url: "/ev-battery-health-check",
     type: "website",
   },
@@ -23,12 +23,12 @@ const faqs = [
   {
     question: "What is EV battery State of Health (SOH)?",
     answer:
-      "State of Health is a percentage used to describe the condition of an electric vehicle's high-voltage traction battery. The Autel Blitz Test obtains and evaluates battery-management data available from the vehicle to produce an SOH result and battery health report.",
+      "State of Health is a percentage used to describe the condition of an electric vehicle's high-voltage traction battery. The Autel EV Battery Health Test obtains and evaluates battery-management data available from the vehicle to produce an SOH result and battery health report.",
   },
   {
     question: "Is the Autel EV battery test CARA Approved?",
     answer:
-      "Yes. CARA Europe lists the AUTEL Blitz Test as carrying the Battery Health Check CARA Approved® certification mark. The approval applies to the Autel Blitz Test method, not to Epping Car Buyer as a separate certification body.",
+      "Yes. The Autel battery health test method we use carries the Battery Health Check CARA Approved® certification mark. The approval applies to the Autel test method, not to Epping Car Buyer as a separate certification body.",
   },
   {
     question: "How much does an EV battery health check cost?",
@@ -38,7 +38,7 @@ const faqs = [
   {
     question: "Is this the same as a full independent battery capacity test?",
     answer:
-      "No. The Autel Blitz Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
+      "No. The Autel EV Battery Health Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
   },
   {
     question: "Can every electric car be tested?",
@@ -54,7 +54,7 @@ const serviceSchema = {
   serviceType: "Electric vehicle traction battery State of Health assessment",
   url: "https://www.eppingcarbuyer.com/ev-battery-health-check",
   description:
-    "Mobile EV battery State of Health assessment using the CARA Approved Autel Blitz Test, available as an add-on to a pre-purchase vehicle inspection.",
+    "Mobile EV battery State of Health assessment using a CARA Approved Autel EV Battery Health Test, available as an add-on to a pre-purchase vehicle inspection.",
   provider: {
     "@type": "AutomotiveBusiness",
     name: "Epping Car Buyer",
@@ -95,7 +95,7 @@ export default function EvBatteryHealthCheckPage() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 mb-6">
               <BadgeCheck className="w-4 h-4" />
-              CARA Approved® Autel Blitz Battery Health Check
+              CARA Approved® Autel EV Battery Health Test
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
               EV Battery Health Check Before You Buy
@@ -150,7 +150,7 @@ export default function EvBatteryHealthCheckPage() {
                 <BadgeCheck className="w-9 h-9 text-emerald-700" />
                 <h3 className="font-bold text-xl mt-4">CARA Approved® Method</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                  The AUTEL Blitz Test is listed by CARA Europe as a Battery Health Check CARA Approved® test method.
+                  The Autel battery health test method we use carries the Battery Health Check CARA Approved® certification mark.
                 </p>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function EvBatteryHealthCheckPage() {
               <div className="mt-6 rounded-xl bg-amber-50 border border-amber-200 p-4 flex gap-3">
                 <Info className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-900 leading-relaxed">
-                  Compatibility and available metrics vary by vehicle. The Autel Blitz test is based on battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
+                  Compatibility and available metrics vary by vehicle. The Autel EV Battery Health Test is based on battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
                 </p>
               </div>
             </div>
