@@ -56,7 +56,7 @@ const localBusinessSchema = {
         "@type": "Service",
         name: "EV Battery State of Health Report",
         serviceType: "EV traction battery State of Health assessment",
-        description: "Optional EV battery SOH assessment using the Battery Health Check CARA Approved Autel Blitz Test, with an end-customer battery health report on compatible electric vehicles.",
+        description: "Optional EV battery SOH assessment using a Battery Health Check CARA Approved Autel EV Battery Health Test, with an end-customer battery health report on compatible electric vehicles.",
       },
       price: "49.99",
       priceCurrency: "GBP",
