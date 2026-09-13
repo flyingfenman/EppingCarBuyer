@@ -10,7 +10,7 @@ export function EvBatterySoh() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 mb-5">
               <BadgeCheck className="w-4 h-4" />
-              CARA Approved® Autel Blitz Test
+              CARA Approved® Autel EV Battery Health Test
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
@@ -19,8 +19,8 @@ export function EvBatterySoh() {
 
             <p className="mt-5 text-lg text-slate-300 leading-relaxed">
               Add a professional high-voltage traction battery State of Health (SOH) assessment to either vehicle
-              inspection for <strong className="text-white">£49.99</strong>. We use the Autel Blitz Battery Health
-              Check, which carries the Battery Health Check CARA Approved® certification mark.
+              inspection for <strong className="text-white">£49.99</strong>. We use a CARA Approved® Autel EV Battery
+              Health Test and provide a customer battery health report.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -66,13 +66,13 @@ export function EvBatterySoh() {
                 <BadgeCheck className="w-5 h-5 text-emerald-300 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold">CARA Approved® test method</p>
-                  <p className="text-sm text-slate-400 mt-1">The approval applies to the Autel Blitz Test. Vehicle compatibility and available battery data vary by make and model.</p>
+                  <p className="text-sm text-slate-400 mt-1">The approval applies to the Autel battery health test method. Vehicle compatibility and available battery data vary by make and model.</p>
                 </div>
               </div>
             </div>
 
             <p className="mt-6 pt-5 border-t border-white/10 text-xs text-slate-500 leading-relaxed">
-              The Autel Blitz test is a diagnostic SOH assessment based on data available from the vehicle/BMS. It is not a full independent charge-and-discharge capacity test.
+              The Autel EV Battery Health Test is a diagnostic SOH assessment based on data available from the vehicle/BMS. It is not a full independent charge-and-discharge capacity test.
             </p>
           </div>
         </div>
