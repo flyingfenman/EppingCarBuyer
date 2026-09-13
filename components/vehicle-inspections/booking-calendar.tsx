@@ -62,6 +62,7 @@ const PACKAGES: Array<{
 const EV_SOH_PRICE = 49.99
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const SHORT_NOTICE_MS = MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000
+const DEFAULT_CALENDAR_START_HOURS = 25
 
 function dateKey(isoString: string) {
   return isoString.slice(0, 10)
@@ -180,10 +181,12 @@ export function InspectionsBookingCalendar() {
 
   useEffect(() => {
     if (loadingSlots || selectedDate || slots.length === 0) return
-    const firstDate = dateKey(slots[0].start)
+    const defaultStartMs = nowMs + DEFAULT_CALENDAR_START_HOURS * 60 * 60 * 1000
+    const firstDefaultSlot = slots.find((slot) => new Date(slot.start).getTime() >= defaultStartMs) || slots[0]
+    const firstDate = dateKey(firstDefaultSlot.start)
     setSelectedDate(firstDate)
     setViewDate(setViewFromDateKey(firstDate))
-  }, [loadingSlots, selectedDate, slots])
+  }, [loadingSlots, nowMs, selectedDate, slots])
 
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
