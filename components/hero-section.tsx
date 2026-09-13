@@ -88,10 +88,10 @@ export function HeroSection() {
             <div className="grid gap-3 sm:grid-cols-2">
               <Link
                 href="/vehicle-inspections"
-                className="group flex items-center justify-between rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3.5 transition-colors hover:bg-primary/10"
+                className="group flex items-center justify-between rounded-2xl border border-[#0d9488]/30 bg-[#0d9488]/5 px-4 py-3.5 transition-colors hover:bg-[#0d9488]/10"
               >
                 <span className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0d9488] text-white shadow-sm">
                     <ClipboardCheck className="h-5 w-5" />
                   </span>
                   <span>
@@ -99,15 +99,15 @@ export function HeroSection() {
                     <span className="block text-xs text-muted-foreground">Book a vehicle inspection</span>
                   </span>
                 </span>
-                <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 text-[#0d9488] transition-transform group-hover:translate-x-1" />
               </Link>
 
               <Link
                 href="/market-and-sell"
-                className="group flex items-center justify-between rounded-2xl border border-border bg-white px-4 py-3.5 transition-colors hover:bg-muted/30"
+                className="group flex items-center justify-between rounded-2xl border border-[#FFCC00]/60 bg-[#FFCC00]/10 px-4 py-3.5 transition-colors hover:bg-[#FFCC00]/20"
               >
                 <span className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFCC00] text-black shadow-sm">
                     <Megaphone className="h-5 w-5" />
                   </span>
                   <span>
@@ -115,7 +115,7 @@ export function HeroSection() {
                     <span className="block text-xs text-muted-foreground">Let us market &amp; sell it</span>
                   </span>
                 </span>
-                <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 text-[#9a7a00] transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
