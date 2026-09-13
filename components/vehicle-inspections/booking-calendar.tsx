@@ -1,13 +1,23 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState, type ChangeEvent, type FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import {
-  Loader2, ChevronRight, ChevronLeft, Clock, TriangleAlert, Phone, MessageCircle,
-  BatteryCharging, BadgeCheck,
+  Loader2,
+  ChevronRight,
+  ChevronLeft,
+  Clock,
+  TriangleAlert,
+  Phone,
+  MessageCircle,
+  BatteryCharging,
+  BadgeCheck,
+  Check,
+  ShieldCheck,
+  CalendarDays,
 } from "lucide-react"
 import type { PackageKey, Slot } from "@/lib/inspection-slots"
 
@@ -18,9 +28,35 @@ function toWhatsAppNumber(phone: string): string {
   return cleaned
 }
 
-const PACKAGES: { key: PackageKey; name: string; price: string; amount: number }[] = [
-  { key: "standard", name: "Standard", price: "£149.99", amount: 149.99 },
-  { key: "premium", name: "Premium", price: "£199.99", amount: 199.99 },
+const PACKAGES: Array<{
+  key: PackageKey
+  name: string
+  price: string
+  amount: number
+  points: string
+  strapline: string
+  features: string[]
+  popular?: boolean
+}> = [
+  {
+    key: "standard",
+    name: "Standard Inspection",
+    price: "£149.99",
+    amount: 149.99,
+    points: "90-point inspection",
+    strapline: "Ideal for most everyday used cars",
+    features: ["Full diagnostic scan", "Road test", "Vehicle history check", "Same-day digital report"],
+  },
+  {
+    key: "premium",
+    name: "Premium Inspection",
+    price: "£199.99",
+    amount: 199.99,
+    points: "140-point inspection",
+    strapline: "Best for higher-value, prestige or performance cars",
+    features: ["Everything in Standard", "Paint-depth readings", "Video walkaround", "Deeper bodywork assessment"],
+    popular: true,
+  },
 ]
 
 const EV_SOH_PRICE = 49.99
@@ -46,10 +82,15 @@ function toDateKey(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
 }
 
+function setViewFromDateKey(key: string) {
+  const [year, month] = key.split("-").map(Number)
+  return { year, month: month - 1 }
+}
+
 export function InspectionsBookingCalendar() {
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
   const [includeEvSoh, setIncludeEvSoh] = useState(false)
-  const [slots, setSlots] = useState<Slot[]>([])
+  const [slotsByPackage, setSlotsByPackage] = useState<Record<PackageKey, Slot[]>>({ standard: [], premium: [] })
   const [loadingSlots, setLoadingSlots] = useState(true)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
@@ -58,25 +99,51 @@ export function InspectionsBookingCalendar() {
     return { year: d.getFullYear(), month: d.getMonth() }
   })
   const [form, setForm] = useState({
-    registration: "", location: "", sellerName: "", sellerPhone: "", advertUrl: "",
-    name: "", phone: "", email: "", notes: "",
+    registration: "",
+    location: "",
+    sellerName: "",
+    sellerPhone: "",
+    advertUrl: "",
+    name: "",
+    phone: "",
+    email: "",
+    notes: "",
   })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
 
   const selectedPackage = PACKAGES.find((p) => p.key === packageKey) || PACKAGES[0]
   const totalPrice = selectedPackage.amount + (includeEvSoh ? EV_SOH_PRICE : 0)
+  const slots = slotsByPackage[packageKey]
+
+  const loadAvailability = useCallback(async () => {
+    setLoadingSlots(true)
+    setError("")
+    try {
+      const res = await fetch("/api/inspection-slots?package=all", { cache: "no-store" })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Couldn't load availability")
+      setSlotsByPackage({
+        standard: data.slotsByPackage?.standard || [],
+        premium: data.slotsByPackage?.premium || [],
+      })
+    } catch {
+      setError("Couldn't load available times — please WhatsApp us and we'll arrange it with you.")
+    } finally {
+      setLoadingSlots(false)
+    }
+  }, [])
 
   useEffect(() => {
-    setLoadingSlots(true)
-    setSelectedDate(null)
-    setSelectedSlot(null)
-    fetch(`/api/inspection-slots?package=${packageKey}`)
-      .then((res) => res.json())
-      .then((data) => setSlots(data.slots || []))
-      .catch(() => setError("Couldn't load available times — please call or WhatsApp instead."))
-      .finally(() => setLoadingSlots(false))
-  }, [packageKey])
+    void loadAvailability()
+  }, [loadAvailability])
+
+  useEffect(() => {
+    if (loadingSlots || selectedDate || slots.length === 0) return
+    const firstDate = dateKey(slots[0].start)
+    setSelectedDate(firstDate)
+    setViewDate(setViewFromDateKey(firstDate))
+  }, [loadingSlots, selectedDate, slots])
 
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
@@ -88,22 +155,23 @@ export function InspectionsBookingCalendar() {
     return map
   }, [slots])
 
-  const todayKey = toDateKey(new Date())
   const monthGrid = useMemo(() => getMonthGrid(viewDate.year, viewDate.month), [viewDate])
-  const monthLabel = new Date(viewDate.year, viewDate.month, 1).toLocaleDateString("en-GB", { month: "long", year: "numeric" })
+  const monthLabel = new Date(viewDate.year, viewDate.month, 1).toLocaleDateString("en-GB", {
+    month: "long",
+    year: "numeric",
+  })
 
-  const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const set = (field: keyof typeof form) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [field]: e.target.value }))
 
-  const refreshSlots = () => {
-    setLoadingSlots(true)
-    fetch(`/api/inspection-slots?package=${packageKey}`)
-      .then((res) => res.json())
-      .then((data) => setSlots(data.slots || []))
-      .finally(() => setLoadingSlots(false))
+  const choosePackage = (key: PackageKey) => {
+    setPackageKey(key)
+    setSelectedDate(null)
+    setSelectedSlot(null)
+    setError("")
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (!selectedSlot) return
     setSubmitting(true)
@@ -126,9 +194,9 @@ export function InspectionsBookingCalendar() {
       window.location.href = data.url
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
-      if (err instanceof Error && err.message.includes("just booked")) {
+      if (err instanceof Error && (err.message.includes("just booked") || err.message.includes("notice"))) {
         setSelectedSlot(null)
-        refreshSlots()
+        await loadAvailability()
       }
       setSubmitting(false)
     }
@@ -136,32 +204,48 @@ export function InspectionsBookingCalendar() {
 
   if (selectedSlot) {
     return (
-      <div className="bg-background rounded-2xl border border-border p-6 md:p-8 shadow-sm max-w-2xl mx-auto">
-        <button onClick={() => setSelectedSlot(null)} className="text-sm text-primary font-medium mb-6 hover:underline">
-          ← Choose a different time
-        </button>
-
-        <div className="flex items-start gap-2.5 mb-6 p-3 bg-primary/5 rounded-lg border border-primary/20">
-          <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-foreground">
-              {selectedPackage.name} Inspection —{" "}
-              {new Date(selectedSlot.start).toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: "Europe/London" })}
-            </p>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              This time is provisional — please confirm it works for the seller before you book.
-            </p>
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
+        <div className="border-b border-border bg-slate-950 px-5 py-5 text-white sm:px-7">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <button onClick={() => setSelectedSlot(null)} className="text-sm font-semibold text-emerald-300 hover:underline">
+                ← Change date or time
+              </button>
+              <p className="mt-2 text-sm text-slate-400">You&apos;re booking</p>
+              <h3 className="text-2xl font-bold">{selectedPackage.name}</h3>
+              <p className="mt-1 text-sm text-slate-300">
+                {new Date(selectedSlot.start).toLocaleString("en-GB", {
+                  dateStyle: "full",
+                  timeStyle: "short",
+                  timeZone: "Europe/London",
+                })}
+              </p>
+            </div>
+            <div className="rounded-2xl bg-white/10 px-5 py-3 sm:text-right">
+              <p className="text-xs uppercase tracking-wide text-slate-400">Current total</p>
+              <p className="text-3xl font-bold">£{totalPrice.toFixed(2)}</p>
+            </div>
           </div>
-          <p className="font-bold text-foreground whitespace-nowrap">£{totalPrice.toFixed(2)}</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid gap-2 border-b border-border bg-emerald-50 px-5 py-4 text-sm sm:grid-cols-2 sm:px-7 lg:grid-cols-4">
+          {["Diagnostic scan", "Road test", "History check", "Same-day report"].map((item) => (
+            <div key={item} className="flex items-center gap-2 font-semibold text-emerald-950">
+              <Check className="h-4 w-4 text-emerald-600" /> {item}
+            </div>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-7 p-5 sm:p-7">
           <div>
-            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">1</span>
-              The Car
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span>
+              <div>
+                <h3 className="font-bold">Tell us about the car</h3>
+                <p className="text-xs text-muted-foreground">This lets us prepare before we arrive.</p>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="registration">Registration *</Label>
                 <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required className="uk-numberplate text-center tracking-widest" />
@@ -171,79 +255,62 @@ export function InspectionsBookingCalendar() {
                 <Input id="location" value={form.location} onChange={set("location")} placeholder="Postcode or dealer name" required />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="sellerName">Seller&apos;s Name</Label>
-                <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership name" />
+                <Label htmlFor="sellerName">Seller&apos;s name</Label>
+                <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership" />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="sellerPhone">Seller&apos;s Contact Number</Label>
+                <Label htmlFor="sellerPhone">Seller&apos;s contact number</Label>
                 <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" />
               </div>
+
               {form.sellerPhone.trim().length >= 10 && (
-                <div className="sm:col-span-2 flex flex-col sm:flex-row items-start sm:items-center gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200">
-                  <div className="flex items-start gap-2 flex-1">
-                    <TriangleAlert className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
-                    <p className="text-xs text-amber-800">
-                      We don&apos;t know the seller&apos;s availability — worth confirming this time works for them before you pay.
+                <div className="sm:col-span-2 flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3 sm:flex-row sm:items-center">
+                  <div className="flex flex-1 items-start gap-2">
+                    <TriangleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-700" />
+                    <p className="text-xs text-amber-900">
+                      Please make sure the seller can give us access to the vehicle at this time before you pay.
                     </p>
                   </div>
-                  <div className="flex gap-2 flex-shrink-0 w-full sm:w-auto">
-                    <a
-                      href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`}
-                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 h-9 px-3 text-xs font-semibold rounded-lg border border-amber-300 bg-white text-amber-900 hover:bg-amber-100 transition-colors"
-                    >
-                      <Phone className="w-3.5 h-3.5" /> Call Seller
+                  <div className="flex gap-2">
+                    <a href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`} className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 text-xs font-semibold text-amber-900 hover:bg-amber-100 sm:flex-initial">
+                      <Phone className="h-3.5 w-3.5" /> Call seller
                     </a>
-                    <a
-                      href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 h-9 px-3 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#1da851] transition-colors"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+                    <a href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`} target="_blank" rel="noopener noreferrer" className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 text-xs font-semibold text-white hover:bg-[#1da851] sm:flex-initial">
+                      <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
                     </a>
                   </div>
                 </div>
               )}
-              <div className="sm:col-span-2 space-y-1.5">
-                <Label htmlFor="advertUrl">Link to the Advert</Label>
-                <Input id="advertUrl" type="text" value={form.advertUrl} onChange={set("advertUrl")} placeholder="Link to AutoTrader, eBay, Facebook Marketplace, etc." />
+
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor="advertUrl">Link to the advert</Label>
+                <Input id="advertUrl" type="text" value={form.advertUrl} onChange={set("advertUrl")} placeholder="AutoTrader, eBay, Facebook Marketplace, dealer advert..." />
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">2</span>
-              EV Battery Health
-            </h3>
-            <label
-              htmlFor="includeEvSoh"
-              className={`block rounded-xl border-2 p-4 cursor-pointer transition-colors ${
-                includeEvSoh ? "border-emerald-500 bg-emerald-50" : "border-border hover:border-emerald-300 bg-background"
-              }`}
-            >
+            <div className="mb-4 flex items-center gap-3">
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span>
+              <div>
+                <h3 className="font-bold">Add EV battery health if needed</h3>
+                <p className="text-xs text-muted-foreground">Optional for compatible fully electric vehicles.</p>
+              </div>
+            </div>
+            <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
               <div className="flex items-start gap-3">
-                <input
-                  id="includeEvSoh"
-                  type="checkbox"
-                  checked={includeEvSoh}
-                  onChange={(e) => setIncludeEvSoh(e.target.checked)}
-                  className="mt-1 h-5 w-5 rounded border-border accent-emerald-600"
-                />
-                <BatteryCharging className="w-6 h-6 text-emerald-700 flex-shrink-0" />
+                <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="mt-1 h-5 w-5 rounded border-border accent-emerald-600" />
+                <BatteryCharging className="h-6 w-6 flex-shrink-0 text-emerald-700" />
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="font-bold text-foreground">Add EV Battery State of Health Report</p>
-                    <p className="font-bold text-emerald-800">+£49.99</p>
+                    <p className="font-bold text-foreground">EV Battery State of Health Report</p>
+                    <p className="text-lg font-bold text-emerald-800">+£49.99</p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    For compatible fully electric vehicles. Includes the dedicated Autel traction-battery SOH test and customer battery health report.
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Dedicated traction-battery SOH assessment plus a customer battery health report.
                   </p>
                   <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
-                    <BadgeCheck className="w-4 h-4" /> CARA Approved® Autel EV Battery Health Test
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Vehicle compatibility applies. The test uses battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
+                    <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
                   </p>
                 </div>
               </div>
@@ -251,157 +318,200 @@ export function InspectionsBookingCalendar() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">3</span>
-              Your Details
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">3</span>
+              <div>
+                <h3 className="font-bold">Your details</h3>
+                <p className="text-xs text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
-                <Label htmlFor="name">Full Name *</Label>
+                <Label htmlFor="name">Full name *</Label>
                 <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="phone">Phone Number *</Label>
+                <Label htmlFor="phone">Phone number *</Label>
                 <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required />
               </div>
-              <div className="sm:col-span-2 space-y-1.5">
-                <Label htmlFor="email">Email Address *</Label>
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor="email">Email address *</Label>
                 <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
               </div>
-              <div className="sm:col-span-2 space-y-1.5">
-                <Label htmlFor="notes">Anything else we should know?</Label>
-                <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Access details, anything you're already concerned about..." rows={2} maxLength={400} />
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor="notes">Anything you&apos;re already concerned about?</Label>
+                <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Any noises, warning lights, seller comments or access details..." rows={2} maxLength={400} />
               </div>
             </div>
           </div>
 
-          {error && <p className="text-sm text-destructive bg-destructive/10 px-4 py-3 rounded-lg">{error}</p>}
+          {error && <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
 
-          <Button type="submit" size="lg" disabled={submitting} className="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90">
+          <div className="rounded-2xl border border-border bg-muted/25 p-4">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="font-bold">{selectedPackage.name}</p>
+                <p className="text-xs text-muted-foreground">No hidden extras. Secure payment reserves your slot.</p>
+              </div>
+              <p className="text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
+            </div>
+          </div>
+
+          <Button type="submit" size="lg" disabled={submitting} className="h-14 w-full text-lg font-bold bg-primary hover:bg-primary/90">
             {submitting ? (
-              <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Redirecting to payment...</>
+              <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Opening secure payment...</>
             ) : (
-              <>Continue to Payment — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
+              <>Reserve My Inspection — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
             )}
           </Button>
-          <p className="text-xs text-center text-muted-foreground">
-            You&apos;ll pay securely via Stripe. Your slot is only confirmed once payment completes.
+          <p className="text-center text-xs text-muted-foreground">
+            Secure checkout via Stripe. Your appointment is confirmed once payment is complete.
           </p>
         </form>
       </div>
     )
   }
 
-  const daySlots = selectedDate ? (slotsByDate.get(selectedDate) || []) : []
+  const daySlots = selectedDate ? slotsByDate.get(selectedDate) || [] : []
 
   return (
-    <div>
-      <div className="flex rounded-xl border border-border overflow-hidden mb-8 bg-background max-w-md mx-auto">
-        {PACKAGES.map((pkg) => (
-          <button
-            key={pkg.key}
-            onClick={() => setPackageKey(pkg.key)}
-            className={`flex-1 py-3 text-sm font-semibold transition-colors duration-200 ${
-              packageKey === pkg.key ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted/60"
-            }`}
-          >
-            {pkg.name} — {pkg.price}
-          </button>
-        ))}
+    <div className="mx-auto max-w-5xl">
+      <div className="mb-7 grid gap-3 sm:grid-cols-3">
+        <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
+          <ShieldCheck className="h-6 w-6 text-primary" />
+          <div><p className="text-sm font-bold">Independent advice</p><p className="text-xs text-muted-foreground">We don&apos;t sell the car</p></div>
+        </div>
+        <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
+          <Clock className="h-6 w-6 text-primary" />
+          <div><p className="text-sm font-bold">24-hour notice</p><p className="text-xs text-muted-foreground">Time to prepare properly</p></div>
+        </div>
+        <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
+          <BadgeCheck className="h-6 w-6 text-primary" />
+          <div><p className="text-sm font-bold">Same-day report</p><p className="text-xs text-muted-foreground">Plus a personal walkthrough</p></div>
+        </div>
       </div>
 
-      {loadingSlots ? (
-        <div className="flex justify-center py-16">
-          <Loader2 className="w-6 h-6 animate-spin text-primary" />
-        </div>
-      ) : slots.length === 0 ? (
-        <p className="text-center text-muted-foreground py-16">
-          No slots available right now — please call or WhatsApp instead.
-        </p>
-      ) : (
-        <div className="bg-background rounded-2xl border border-border shadow-sm overflow-hidden max-w-3xl mx-auto">
-          <div className="grid md:grid-cols-[1.3fr_1fr]">
-            <div className="p-6 border-b md:border-b-0 md:border-r border-border">
-              <div className="flex items-center justify-between mb-4">
-                <button
-                  onClick={() => setViewDate((v) => (v.month === 0 ? { year: v.year - 1, month: 11 } : { year: v.year, month: v.month - 1 }))}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-muted transition-colors"
-                  aria-label="Previous month"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <p className="font-bold text-foreground">{monthLabel}</p>
-                <button
-                  onClick={() => setViewDate((v) => (v.month === 11 ? { year: v.year + 1, month: 0 } : { year: v.year, month: v.month + 1 }))}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-muted transition-colors"
-                  aria-label="Next month"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-7 gap-1 mb-2">
-                {WEEKDAY_LABELS.map((w) => (
-                  <div key={w} className="text-center text-xs font-semibold text-muted-foreground py-1">{w}</div>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-7 gap-1">
-                {monthGrid.map((date, i) => {
-                  if (!date) return <div key={i} />
-                  const key = toDateKey(date)
-                  const hasSlots = (slotsByDate.get(key) || []).length > 0
-                  const isPast = key < todayKey
-                  const isToday = key === todayKey
-                  const isSelected = key === selectedDate
-
-                  return (
-                    <button
-                      key={i}
-                      disabled={!hasSlots || isPast}
-                      onClick={() => setSelectedDate(key)}
-                      className={`aspect-square rounded-full text-sm font-medium transition-colors ${
-                        isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : hasSlots && !isPast
-                          ? "text-foreground hover:bg-primary/10 cursor-pointer"
-                          : "text-muted-foreground/30 cursor-not-allowed"
-                      } ${isToday && !isSelected ? "ring-1 ring-primary/50" : ""}`}
-                    >
-                      {date.getDate()}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            <div className="p-6 bg-muted/20 flex flex-col">
-              {!selectedDate ? (
-                <div className="flex-1 flex items-center justify-center text-center text-sm text-muted-foreground px-4">
-                  Select a date to see available times
-                </div>
-              ) : (
-                <>
-                  <p className="text-sm font-bold text-foreground mb-4">
-                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
-                  </p>
-                  <div className="space-y-2 overflow-y-auto max-h-80 pr-1">
-                    {daySlots.map((slot) => (
-                      <button
-                        key={slot.start}
-                        onClick={() => setSelectedSlot(slot)}
-                        className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                      >
-                        {new Date(slot.start).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" })}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+      <div className="mb-8">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">1</span>
+          <div>
+            <h3 className="text-xl font-bold">Choose your inspection</h3>
+            <p className="text-sm text-muted-foreground">Both packages include the checks that protect you from an expensive mistake.</p>
           </div>
         </div>
-      )}
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {PACKAGES.map((pkg) => {
+            const active = packageKey === pkg.key
+            return (
+              <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
+                {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
+                <p className="text-sm font-semibold text-muted-foreground">{pkg.points}</p>
+                <div className="mt-1 flex items-end gap-3">
+                  <h4 className="text-xl font-bold">{pkg.name}</h4>
+                  <p className="ml-auto text-3xl font-bold">{pkg.price}</p>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {pkg.features.map((feature) => (
+                    <span key={feature} className="flex items-center gap-2 text-xs font-medium"><Check className="h-4 w-4 text-emerald-600" /> {feature}</span>
+                  ))}
+                </div>
+                {active && <div className="mt-4 flex items-center gap-2 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</div>}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <div>
+        <div className="mb-4 flex items-center gap-3">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">2</span>
+          <div>
+            <h3 className="text-xl font-bold">Choose a convenient time</h3>
+            <p className="text-sm text-muted-foreground">Online appointments require at least 24 hours&apos; notice.</p>
+          </div>
+        </div>
+
+        {loadingSlots ? (
+          <div className="grid gap-4 md:grid-cols-[1.25fr_.75fr]">
+            <div className="h-80 animate-pulse rounded-2xl border bg-muted/40" />
+            <div className="h-80 animate-pulse rounded-2xl border bg-muted/30" />
+          </div>
+        ) : slots.length === 0 ? (
+          <div className="rounded-2xl border bg-white p-8 text-center">
+            <CalendarDays className="mx-auto h-8 w-8 text-primary" />
+            <p className="mt-3 font-bold">No online slots showing for this package.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Message us and we&apos;ll see what we can arrange.</p>
+          </div>
+        ) : (
+          <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-sm">
+            <div className="grid md:grid-cols-[1.25fr_.75fr]">
+              <div className="border-b border-border p-5 md:border-b-0 md:border-r sm:p-6">
+                <div className="mb-4 flex items-center justify-between">
+                  <button type="button" onClick={() => setViewDate((v) => (v.month === 0 ? { year: v.year - 1, month: 11 } : { year: v.year, month: v.month - 1 }))} className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted" aria-label="Previous month">
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                  <p className="font-bold">{monthLabel}</p>
+                  <button type="button" onClick={() => setViewDate((v) => (v.month === 11 ? { year: v.year + 1, month: 0 } : { year: v.year, month: v.month + 1 }))} className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted" aria-label="Next month">
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mb-2 grid grid-cols-7 gap-1">
+                  {WEEKDAY_LABELS.map((w) => <div key={w} className="py-1 text-center text-xs font-semibold text-muted-foreground">{w}</div>)}
+                </div>
+
+                <div className="grid grid-cols-7 gap-1">
+                  {monthGrid.map((date, i) => {
+                    if (!date) return <div key={i} />
+                    const key = toDateKey(date)
+                    const hasSlots = (slotsByDate.get(key) || []).length > 0
+                    const isSelected = key === selectedDate
+                    return (
+                      <button key={i} type="button" disabled={!hasSlots} onClick={() => setSelectedDate(key)} className={`aspect-square rounded-full text-sm font-semibold transition-colors ${isSelected ? "bg-primary text-primary-foreground" : hasSlots ? "text-foreground hover:bg-primary/10" : "cursor-not-allowed text-muted-foreground/25"}`}>
+                        {date.getDate()}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div className="bg-muted/20 p-5 sm:p-6">
+                {selectedDate ? (
+                  <>
+                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-primary">Available appointments</p>
+                    <p className="mb-4 font-bold">
+                      {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 md:grid-cols-1">
+                      {daySlots.map((slot) => (
+                        <button key={slot.start} type="button" onClick={() => setSelectedSlot(slot)} className="rounded-xl border border-primary bg-white px-4 py-3 text-sm font-bold text-primary transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-sm">
+                          {new Date(slot.start).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" })}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex min-h-48 items-center justify-center text-center text-sm text-muted-foreground">Choose a highlighted date to see appointment times.</div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {error && <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
+
+        <div className="mt-5 flex flex-col items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 sm:flex-row">
+          <div>
+            <p className="font-bold text-amber-950">Need an inspection sooner than 24 hours?</p>
+            <p className="text-sm text-amber-900/75">We don&apos;t promise same-day availability, but message us and we&apos;ll check for a genuine gap.</p>
+          </div>
+          <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 text-sm font-bold text-white hover:bg-[#1da851]">
+            <MessageCircle className="h-4 w-4" /> Ask on WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
   )
 }
