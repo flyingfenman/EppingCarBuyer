@@ -2,7 +2,6 @@ import { Metadata } from "next"
 import { InspectionsHero } from "@/components/vehicle-inspections/hero"
 import { InspectionsHowItWorks } from "@/components/vehicle-inspections/how-it-works"
 import { InspectionsWhatWeInspect } from "@/components/vehicle-inspections/what-we-inspect"
-import { InspectionsPackages } from "@/components/vehicle-inspections/packages"
 import { EvBatterySoh } from "@/components/vehicle-inspections/ev-battery-soh"
 import { InspectionsWhyUs } from "@/components/vehicle-inspections/why-us"
 import { InspectionsFAQ } from "@/components/vehicle-inspections/faq"
@@ -30,7 +29,6 @@ export default function VehicleInspectionsPage() {
       <InspectionsHero />
       <InspectionsHowItWorks />
       <InspectionsWhatWeInspect />
-      <InspectionsPackages />
       <EvBatterySoh />
       <InspectionsWhyUs />
       <InspectionsCta />
