@@ -203,3 +203,53 @@
     transition: all 0.2s ease;
   }
 }
+
+/* Keep the vehicle-inspection booking flow consistent with the site's light purple brand style. */
+#book .bg-slate-950 {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+#book .text-slate-300,
+#book .text-slate-400,
+#book .text-emerald-300 {
+  color: var(--muted-foreground) !important;
+}
+
+#book .bg-emerald-50,
+#book .bg-amber-50,
+#book .bg-amber-100 {
+  background: color-mix(in oklab, var(--primary) 4%, white) !important;
+}
+
+#book .border-emerald-200,
+#book .border-emerald-300,
+#book .border-emerald-500,
+#book .border-amber-200,
+#book .border-amber-300 {
+  border-color: color-mix(in oklab, var(--primary) 24%, white) !important;
+}
+
+#book .text-emerald-950,
+#book .text-emerald-900,
+#book .text-emerald-800,
+#book .text-emerald-700,
+#book .text-emerald-600,
+#book .text-amber-950,
+#book .text-amber-900,
+#book .text-amber-700 {
+  color: var(--primary) !important;
+}
+
+#book .bg-emerald-600,
+#book .bg-amber-500 {
+  background: var(--primary) !important;
+}
+
+#book .accent-emerald-600 {
+  accent-color: var(--primary) !important;
+}
+
+#book .shadow-xl {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08) !important;
+}
