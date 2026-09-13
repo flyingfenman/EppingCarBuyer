@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Check, FileText, ArrowRight, Clock, ListChecks, BatteryCharging, BadgeCheck } from "lucide-react"
+import { Check, ArrowRight, Clock, ListChecks, BatteryCharging, BadgeCheck } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 const packages = [
@@ -116,17 +116,6 @@ export function InspectionsPackages() {
               <p className="text-3xl font-bold text-foreground">+£49.99</p>
             </div>
           </div>
-        </div>
-
-        <div className="text-center mt-6 sm:mt-8 lg:mt-10">
-          <Link
-            href="/vehicle-inspections/sample-report"
-            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
-          >
-            <FileText className="w-4 h-4" />
-            See a sample inspection report
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
       </div>
     </section>
