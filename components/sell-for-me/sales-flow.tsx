@@ -35,7 +35,7 @@ const steps = [
 ]
 
 const proof = [
-  { icon: BadgeCheck, value: "14 days", label: "average time to sell" },
+  { icon: BadgeCheck, value: "10 days", label: "average time to sell" },
   { icon: BarChart3, value: "Live market data", label: "used to set the asking price" },
   { icon: ShieldCheck, value: "Trade offer fallback", label: "if Market & Sell is not right for you" },
 ]
