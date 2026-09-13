@@ -105,6 +105,25 @@ function shortNoticeWhatsAppUrl(slot: Slot, packageName: string) {
   return `https://wa.me/441992367909?text=${encodeURIComponent(message)}`
 }
 
+function formatSlotTime(slot: Slot) {
+  return new Date(slot.start).toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/London",
+  })
+}
+
+function formatSlotDateTime(slot: Slot) {
+  return new Date(slot.start).toLocaleString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/London",
+  })
+}
+
 export function InspectionsBookingCalendar() {
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
   const [includeEvSoh, setIncludeEvSoh] = useState(false)
@@ -112,6 +131,8 @@ export function InspectionsBookingCalendar() {
   const [loadingSlots, setLoadingSlots] = useState(true)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
+  const [shortNoticeCandidate, setShortNoticeCandidate] = useState<Slot | null>(null)
+  const [shortNoticeConfirmed, setShortNoticeConfirmed] = useState(false)
   const [viewDate, setViewDate] = useState(() => {
     const d = new Date()
     return { year: d.getFullYear(), month: d.getMonth() }
@@ -183,19 +204,43 @@ export function InspectionsBookingCalendar() {
   const set = (field: keyof typeof form) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [field]: e.target.value }))
 
+  const resetShortNotice = () => {
+    setShortNoticeCandidate(null)
+    setShortNoticeConfirmed(false)
+  }
+
   const choosePackage = (key: PackageKey) => {
     setPackageKey(key)
     setSelectedDate(null)
     setSelectedSlot(null)
+    resetShortNotice()
     setError("")
+  }
+
+  const chooseDate = (key: string) => {
+    setSelectedDate(key)
+    resetShortNotice()
   }
 
   const handleSlotClick = (slot: Slot) => {
     if (isShortNotice(slot, nowMs)) {
+      setShortNoticeCandidate(slot)
+      setShortNoticeConfirmed(false)
       window.open(shortNoticeWhatsAppUrl(slot, selectedPackage.name), "_blank", "noopener,noreferrer")
       return
     }
+    resetShortNotice()
     setSelectedSlot(slot)
+  }
+
+  const bookConfirmedShortNotice = () => {
+    if (!shortNoticeCandidate || !shortNoticeConfirmed) return
+    setSelectedSlot(shortNoticeCandidate)
+  }
+
+  const changeDateOrTime = () => {
+    setSelectedSlot(null)
+    resetShortNotice()
   }
 
   const handleSubmit = async (e: FormEvent) => {
@@ -211,6 +256,7 @@ export function InspectionsBookingCalendar() {
         body: JSON.stringify({
           packageKey,
           includeEvSoh,
+          shortNoticeConfirmed: isShortNotice(selectedSlot, nowMs) && shortNoticeConfirmed,
           slotStart: selectedSlot.start,
           slotEnd: selectedSlot.end,
           ...form,
@@ -221,8 +267,9 @@ export function InspectionsBookingCalendar() {
       window.location.href = data.url
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
-      if (err instanceof Error && (err.message.includes("just booked") || err.message.includes("notice"))) {
+      if (err instanceof Error && (err.message.includes("just booked") || err.message.includes("confirmed"))) {
         setSelectedSlot(null)
+        resetShortNotice()
         await loadAvailability()
       }
       setSubmitting(false)
@@ -230,12 +277,14 @@ export function InspectionsBookingCalendar() {
   }
 
   if (selectedSlot) {
+    const selectedIsShortNotice = isShortNotice(selectedSlot, nowMs)
+
     return (
       <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
         <div className="border-b border-border bg-slate-950 px-5 py-5 text-white sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <button onClick={() => setSelectedSlot(null)} className="text-sm font-semibold text-emerald-300 hover:underline">
+              <button onClick={changeDateOrTime} className="text-sm font-semibold text-emerald-300 hover:underline">
                 ← Change date or time
               </button>
               <p className="mt-2 text-sm text-slate-400">You&apos;re booking</p>
@@ -262,6 +311,12 @@ export function InspectionsBookingCalendar() {
             </div>
           ))}
         </div>
+
+        {selectedIsShortNotice && shortNoticeConfirmed && (
+          <div className="border-b border-primary/15 bg-primary/5 px-5 py-3 text-sm font-semibold text-primary sm:px-7">
+            <span className="inline-flex items-center gap-2"><Check className="h-4 w-4" /> Short-notice slot confirmed with Henry</span>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-7 p-5 sm:p-7">
           <div>
@@ -461,11 +516,11 @@ export function InspectionsBookingCalendar() {
         </div>
 
         <div className="mb-4 flex flex-wrap gap-3 text-xs font-semibold">
-          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-emerald-900">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" /> Book online
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-primary">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" /> Book online
           </span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-amber-900">
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-500" /> Within 24 hours — message first
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-3 py-1.5 text-foreground">
+            <span className="h-2.5 w-2.5 rounded-full border-2 border-primary bg-white" /> Within 24 hours — message first
           </span>
         </div>
 
@@ -511,12 +566,12 @@ export function InspectionsBookingCalendar() {
                         key={i}
                         type="button"
                         disabled={!hasSlots}
-                        onClick={() => setSelectedDate(key)}
+                        onClick={() => chooseDate(key)}
                         className={`aspect-square rounded-full text-sm font-semibold transition-colors ${
                           isSelected
                             ? "bg-primary text-primary-foreground"
                             : onlyShortNotice
-                              ? "bg-amber-50 text-amber-900 ring-1 ring-amber-300 hover:bg-amber-100"
+                              ? "bg-primary/5 text-primary ring-1 ring-primary/25 hover:bg-primary/10"
                               : hasSlots
                                 ? "text-foreground hover:bg-primary/10"
                                 : "cursor-not-allowed text-muted-foreground/25"
@@ -539,7 +594,8 @@ export function InspectionsBookingCalendar() {
                     <div className="grid grid-cols-2 gap-2 md:grid-cols-1">
                       {daySlots.map((slot) => {
                         const shortNotice = isShortNotice(slot, nowMs)
-                        const time = new Date(slot.start).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" })
+                        const isCandidate = shortNoticeCandidate?.start === slot.start
+                        const time = formatSlotTime(slot)
                         return (
                           <button
                             key={slot.start}
@@ -547,18 +603,56 @@ export function InspectionsBookingCalendar() {
                             onClick={() => handleSlotClick(slot)}
                             className={`rounded-xl border px-4 py-3 text-sm font-bold transition-all hover:shadow-sm ${
                               shortNotice
-                                ? "border-amber-300 bg-amber-50 text-amber-950 hover:bg-amber-100"
+                                ? isCandidate
+                                  ? "border-primary bg-primary/10 text-primary"
+                                  : "border-primary/25 bg-white text-foreground hover:border-primary/50 hover:bg-primary/5"
                                 : "border-primary bg-white text-primary hover:bg-primary hover:text-primary-foreground"
                             }`}
                           >
                             <span className="block text-base">{time}</span>
-                            <span className={`mt-0.5 block text-[11px] font-semibold ${shortNotice ? "text-amber-700" : "opacity-70"}`}>
+                            <span className={`mt-0.5 block text-[11px] font-semibold ${shortNotice ? "text-muted-foreground" : "opacity-70"}`}>
                               {shortNotice ? "Message first" : "Book online"}
                             </span>
                           </button>
                         )
                       })}
                     </div>
+
+                    {shortNoticeCandidate && dateKey(shortNoticeCandidate.start) === selectedDate && (
+                      <div className="mt-4 rounded-2xl border-2 border-primary/20 bg-white p-4">
+                        <p className="font-bold text-foreground">Want to book {formatSlotTime(shortNoticeCandidate)}?</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                          Message Henry first. If he confirms this exact short-notice slot is available, tick the box below to unlock online booking.
+                        </p>
+                        <a
+                          href={shortNoticeWhatsAppUrl(shortNoticeCandidate, selectedPackage.name)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                        >
+                          <MessageCircle className="h-4 w-4" /> Message Henry about this slot
+                        </a>
+                        <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-primary/15 bg-primary/5 p-3">
+                          <input
+                            type="checkbox"
+                            checked={shortNoticeConfirmed}
+                            onChange={(e) => setShortNoticeConfirmed(e.target.checked)}
+                            className="mt-0.5 h-5 w-5 rounded border-border accent-primary"
+                          />
+                          <span className="text-sm font-semibold text-foreground">
+                            Henry has confirmed {formatSlotDateTime(shortNoticeCandidate)} is available for me.
+                          </span>
+                        </label>
+                        <Button
+                          type="button"
+                          onClick={bookConfirmedShortNotice}
+                          disabled={!shortNoticeConfirmed}
+                          className="mt-3 w-full font-bold"
+                        >
+                          Book confirmed {formatSlotTime(shortNoticeCandidate)} slot
+                        </Button>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <div className="flex min-h-48 items-center justify-center text-center text-sm text-muted-foreground">Choose a highlighted date to see appointment times.</div>
@@ -570,12 +664,12 @@ export function InspectionsBookingCalendar() {
 
         {error && <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
 
-        <div className="mt-5 flex flex-col items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 sm:flex-row">
+        <div className="mt-5 flex flex-col items-center justify-between gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:flex-row">
           <div>
-            <p className="font-bold text-amber-950">Short-notice appointments are still shown.</p>
-            <p className="text-sm text-amber-900/75">If the time is inside 24 hours, tap it to message us first. Once Henry confirms, we&apos;ll arrange the booking with you.</p>
+            <p className="font-bold text-foreground">Short-notice appointments are still shown.</p>
+            <p className="text-sm text-muted-foreground">Inside 24 hours, message Henry first. Once he confirms your exact slot, tick the confirmation box and book online as normal.</p>
           </div>
-          <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 text-sm font-bold text-white hover:bg-[#1da851]">
+          <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-shrink-0 items-center justify-center gap-2 rounded-xl border border-primary/20 bg-white px-5 text-sm font-bold text-primary hover:bg-primary/5">
             <MessageCircle className="h-4 w-4" /> Message Henry
           </a>
         </div>

@@ -33,8 +33,8 @@ export default function VehicleInspectionsPage() {
       <InspectionsPackages />
       <EvBatterySoh />
       <InspectionsWhyUs />
-      <InspectionsFAQ />
       <InspectionsCta />
+      <InspectionsFAQ />
     </div>
   )
 }

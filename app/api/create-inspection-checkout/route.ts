@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const {
       packageKey, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
-      name, phone, email, notes, includeEvSoh,
+      name, phone, email, notes, includeEvSoh, shortNoticeConfirmed,
     } = body as {
       packageKey: unknown
       slotStart: string
@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
       email: string
       notes?: string
       includeEvSoh?: boolean
+      shortNoticeConfirmed?: boolean
     }
 
     if (!isPackageKey(packageKey) || !slotStart || !slotEnd || !registration || !location || !name || !phone || !email) {
@@ -52,6 +53,8 @@ export async function POST(request: NextRequest) {
     const expectedDurationMin = PACKAGE_DURATIONS_MIN[packageKey]
     const actualDurationMin = (end.getTime() - start.getTime()) / 60000
     const earliestAllowedStart = Date.now() + MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000
+    const isShortNotice = start.getTime() < earliestAllowedStart
+    const hasShortNoticeConfirmation = shortNoticeConfirmed === true
 
     if (
       Number.isNaN(start.getTime()) ||
@@ -61,9 +64,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid time slot" }, { status: 400 })
     }
 
-    if (start.getTime() < earliestAllowedStart) {
+    if (isShortNotice && !hasShortNoticeConfirmation) {
       return NextResponse.json(
-        { error: `Online bookings require at least ${MIN_BOOKING_NOTICE_HOURS} hours' notice. Please WhatsApp us for urgent availability.` },
+        { error: `Appointments inside ${MIN_BOOKING_NOTICE_HOURS} hours must be confirmed with Henry before online booking.` },
         { status: 400 },
       )
     }
@@ -118,6 +121,7 @@ export async function POST(request: NextRequest) {
         packageKey,
         packageName,
         includeEvSoh: wantsEvSoh ? "yes" : "no",
+        shortNoticeConfirmed: isShortNotice && hasShortNoticeConfirmation ? "yes" : "no",
         slotStart,
         slotEnd,
         registration,
