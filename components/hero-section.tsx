@@ -4,29 +4,27 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, Zap, ShieldCheck, Handshake } from "lucide-react"
+import { ArrowRight, ClipboardCheck, Handshake, Megaphone, ShieldCheck, Zap } from "lucide-react"
 
 const trustBadges = [
   {
     icon: Zap,
     label: "Instant Payment",
-    // top-left of the photo
     position: "top-6 -left-3 sm:left-0 lg:-left-6",
     delay: 500,
   },
   {
     icon: ShieldCheck,
     label: "Reliable",
-    // right side, mid height
     position: "top-1/3 -right-3 sm:right-0 lg:-right-6",
     delay: 700,
   },
   {
     icon: Handshake,
     label: "Honest",
-    // bottom-left of the photo
     position: "bottom-16 -left-3 sm:left-2 lg:-left-6",
     delay: 900,
   },
@@ -49,20 +47,19 @@ export function HeroSection() {
   }
 
   return (
-    <div className="relative bg-white overflow-x-hidden">
+    <div id="top" className="relative overflow-x-hidden bg-white">
       <div className="container mx-auto px-4 py-10 lg:py-16">
-        <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
-          {/* Content Section */}
+        <div className="grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-20">
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-sm font-semibold text-primary mb-4">
-                Trusted by 300+ customers
+              <div className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+                Sell • Inspect • Market &amp; Sell
               </div>
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-tight text-balance whitespace-normal lg:whitespace-nowrap">
+              <h1 className="text-4xl font-bold leading-tight text-balance whitespace-normal sm:text-5xl lg:whitespace-nowrap xl:text-6xl">
                 Sell Your Car <span className="text-primary">In Minutes</span>
               </h1>
-              <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
-                Get an instant online valuation. We buy any car, any condition. Payment within 24 hours.
+              <p className="text-xl leading-relaxed text-pretty text-muted-foreground">
+                Get an instant online valuation and fast payment — or use our inspection and managed selling services when you need more than a cash offer.
               </p>
             </div>
 
@@ -72,23 +69,57 @@ export function HeroSection() {
                 value={registration}
                 onChange={(e) => setRegistration(e.target.value.toUpperCase())}
                 placeholder="ENTER YOUR REG"
-                className="text-center h-20 sm:h-24 font-bold uppercase tracking-[0.08em] sm:tracking-[0.15em] !bg-[#ffd500] !text-black !border-0 placeholder:!text-black placeholder:!opacity-100 focus:!bg-[#ffd500] focus:!border-0 focus:!ring-4 focus:!ring-primary/20 rounded-xl transition-all duration-200"
+                className="h-20 rounded-xl !border-0 !bg-[#ffd500] text-center font-bold uppercase tracking-[0.08em] !text-black placeholder:!text-black placeholder:!opacity-100 transition-all duration-200 focus:!border-0 focus:!bg-[#ffd500] focus:!ring-4 focus:!ring-primary/20 sm:h-24 sm:tracking-[0.15em]"
                 style={{ fontFamily: "var(--font-charles-wright), monospace", fontSize: "clamp(1.4rem, 7vw, 2.55rem)" }}
               />
 
               <Button
                 type="submit"
                 size="lg"
-                className="w-full h-16 text-lg font-semibold bg-primary hover:bg-primary/90 transition-colors duration-200 group"
+                className="group h-16 w-full bg-primary text-lg font-semibold transition-colors duration-200 hover:bg-primary/90"
               >
                 Get Instant Valuation
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
 
-              <p className="text-sm text-muted-foreground text-center">Free • No obligation • Takes 30 seconds</p>
+              <p className="text-center text-sm text-muted-foreground">Free • No obligation • Takes 30 seconds</p>
             </form>
 
-            <div className="flex flex-wrap gap-8 pt-4">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link
+                href="/vehicle-inspections"
+                className="group flex items-center justify-between rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3.5 transition-colors hover:bg-primary/10"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+                    <ClipboardCheck className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold text-foreground">Buying a car?</span>
+                    <span className="block text-xs text-muted-foreground">Book a vehicle inspection</span>
+                  </span>
+                </span>
+                <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+              </Link>
+
+              <Link
+                href="/market-and-sell"
+                className="group flex items-center justify-between rounded-2xl border border-border bg-white px-4 py-3.5 transition-colors hover:bg-muted/30"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Megaphone className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold text-foreground">Want more than our offer?</span>
+                    <span className="block text-xs text-muted-foreground">Let us market &amp; sell it</span>
+                  </span>
+                </span>
+                <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap gap-8 pt-2">
               <div>
                 <div className="text-3xl font-bold text-foreground">£83K+</div>
                 <div className="text-sm text-muted-foreground">Paid out this month</div>
@@ -104,11 +135,9 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Photo Section */}
           <div className="relative flex justify-center px-6 sm:px-10">
-            {/* Photo that drops in on load */}
             <div
-              className={`relative w-full max-w-xs mx-auto transition-all duration-1000 ease-out ${
+              className={`relative mx-auto w-full max-w-xs transition-all duration-1000 ease-out ${
                 mounted ? "translate-y-0 opacity-100" : "-translate-y-16 opacity-0"
               }`}
             >
@@ -122,7 +151,6 @@ export function HeroSection() {
               />
             </div>
 
-            {/* Floating trust badges dotted around the photo */}
             {trustBadges.map(({ icon: Icon, label, position, delay }) => (
               <div
                 key={label}
