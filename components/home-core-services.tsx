@@ -14,12 +14,11 @@ export function HomeCoreServices() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-7xl">
           <div className="mb-7 max-w-3xl sm:mb-9">
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Independent vehicle inspections</p>
-            <h2 className="mt-2 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-              Buying a used car? Know what you&apos;re buying before you commit.
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+              Independent Vehicle Inspections
             </h2>
             <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-              We inspect the vehicle at the seller&apos;s location, road test it, scan its systems and send you a same-day digital report. Petrol, diesel, hybrid or electric — choose Standard or Premium and book online.
+              Buying a used car? Know what you&apos;re buying before you commit. We inspect the vehicle at the seller&apos;s location, road test it, scan its systems and send you a same-day digital report. Petrol, diesel, hybrid or electric — choose Standard or Premium and book online.
             </p>
           </div>
 
