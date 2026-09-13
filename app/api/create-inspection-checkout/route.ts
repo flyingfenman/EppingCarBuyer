@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
           unit_amount: EV_SOH_AMOUNT_PENCE,
           product_data: {
             name: "EV Battery State of Health Report",
-            description: "CARA Approved® Autel Blitz Battery Health Check add-on for compatible fully electric vehicles",
+            description: "CARA Approved® Autel EV Battery Health Test add-on for compatible fully electric vehicles",
           },
         },
         quantity: 1,
