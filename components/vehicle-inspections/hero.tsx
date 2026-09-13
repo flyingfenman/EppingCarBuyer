@@ -74,8 +74,8 @@ export function InspectionsHero() {
               EV Battery State of Health report available for compatible electric cars.
             </p>
 
-            <div className="inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">
-              <BatteryCharging className="h-5 w-5 text-emerald-700" />
+            <div className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary">
+              <BatteryCharging className="h-5 w-5 text-primary" />
               EV Battery SOH Report +£49.99 · CARA Approved® Autel Test
             </div>
 
@@ -158,12 +158,12 @@ export function InspectionsHero() {
               })}
             </div>
 
-            <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+            <div className="mt-4 rounded-2xl border border-primary/20 bg-primary/5 p-4">
               <div className="flex items-start gap-3">
-                <BatteryCharging className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-700" />
+                <BatteryCharging className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                 <div>
-                  <p className="font-bold text-emerald-950">EV Battery State of Health Report +£49.99</p>
-                  <p className="mt-1 text-xs leading-relaxed text-emerald-900/80">
+                  <p className="font-bold text-foreground">EV Battery State of Health Report +£49.99</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                     Add the CARA Approved® Autel EV Battery Health Test for compatible fully electric vehicles.
                   </p>
                 </div>
@@ -172,19 +172,19 @@ export function InspectionsHero() {
 
             <div className="mt-5 grid gap-2 text-sm text-foreground sm:grid-cols-2">
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-600" />
+                <Check className="h-4 w-4 text-primary" />
                 Diagnostic scan
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-600" />
+                <Check className="h-4 w-4 text-primary" />
                 Road test
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-600" />
+                <Check className="h-4 w-4 text-primary" />
                 Vehicle history check
               </div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                <ShieldCheck className="h-4 w-4 text-primary" />
                 Same-day digital report
               </div>
             </div>

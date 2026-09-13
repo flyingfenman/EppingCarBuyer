@@ -80,7 +80,7 @@ export function InspectionsPackages() {
                 <ul className="space-y-3">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2.5">
-                      <Check className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-foreground">{feature}</span>
                     </li>
                   ))}
@@ -90,29 +90,29 @@ export function InspectionsPackages() {
           ))}
         </div>
 
-        <div className="max-w-4xl mx-auto mt-8 rounded-2xl border-2 border-emerald-500/30 bg-emerald-50 p-5 sm:p-7">
+        <div className="max-w-4xl mx-auto mt-8 rounded-2xl border-2 border-primary/20 bg-primary/5 p-5 sm:p-7">
           <div className="flex flex-col sm:flex-row gap-5 sm:items-center sm:justify-between">
             <div className="flex gap-4">
-              <div className="w-11 h-11 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                <BatteryCharging className="w-6 h-6 text-emerald-700" />
+              <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <BatteryCharging className="w-6 h-6 text-primary" />
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="text-lg font-bold text-foreground">EV Battery State of Health Report</h3>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-white border border-emerald-200 px-2.5 py-1 text-xs font-bold text-emerald-800">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-white border border-primary/20 px-2.5 py-1 text-xs font-bold text-primary">
                     <BadgeCheck className="w-3.5 h-3.5" /> CARA Approved® Autel Test
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
                   Add a high-voltage traction battery SOH assessment and separate battery health report to either inspection on a compatible fully electric vehicle.
                 </p>
-                <Link href="/ev-battery-health-check" className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-800 hover:underline mt-2">
+                <Link href="/ev-battery-health-check" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-2">
                   What the EV battery check includes <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
             <div className="sm:text-right flex-shrink-0">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-800">Optional add-on</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Optional add-on</p>
               <p className="text-3xl font-bold text-foreground">+£49.99</p>
             </div>
           </div>
