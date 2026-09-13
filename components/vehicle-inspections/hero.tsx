@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   ArrowDown,
@@ -12,12 +13,43 @@ import {
   ShieldCheck,
 } from "lucide-react"
 
+type HeroPackage = "standard" | "premium"
+
+const packageDetails = {
+  standard: {
+    label: "Standard Inspection",
+    price: "£149.99",
+    detail: "90-point pre-purchase check",
+  },
+  premium: {
+    label: "Premium Inspection",
+    price: "£199.99",
+    detail: "140-point pre-purchase check",
+  },
+} as const
+
 export function InspectionsHero() {
+  const [selectedPackage, setSelectedPackage] = useState<HeroPackage>("standard")
+
   const scrollToPackages = () => {
     document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const syncPackageToBooking = (key: HeroPackage) => {
+    setSelectedPackage(key)
+
+    const bookingSection = document.getElementById("book")
+    if (!bookingSection) return
+
+    const packageLabel = key === "standard" ? "Standard Inspection" : "Premium Inspection"
+    const bookingButton = Array.from(bookingSection.querySelectorAll<HTMLButtonElement>("button")).find((button) =>
+      button.textContent?.includes(packageLabel),
+    )
+    bookingButton?.click()
+  }
+
   const scrollToBook = () => {
+    syncPackageToBooking(selectedPackage)
     document.getElementById("book")?.scrollIntoView({ behavior: "smooth" })
   }
 
@@ -82,27 +114,48 @@ export function InspectionsHero() {
                 <p className="text-sm font-bold uppercase tracking-wide text-primary">Epping Car Buyer</p>
                 <h2 className="mt-1 text-3xl font-bold sm:text-4xl">Book an Inspection</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Choose the level of inspection you need, pick an available time and pay securely online.
+                  Choose your inspection below. Your selection will carry through to the booking calendar.
                 </p>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-border bg-muted/25 p-4">
-                <p className="text-sm font-semibold text-muted-foreground">Standard Inspection</p>
-                <p className="mt-1 text-3xl font-bold">£149.99</p>
-                <p className="mt-1 text-xs text-muted-foreground">90-point pre-purchase check</p>
-              </div>
-              <div className="rounded-2xl border-2 border-primary bg-primary/5 p-4">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm font-semibold text-muted-foreground">Premium Inspection</p>
-                  <span className="rounded-full bg-primary px-2 py-1 text-[10px] font-bold uppercase text-primary-foreground">
-                    Most thorough
-                  </span>
-                </div>
-                <p className="mt-1 text-3xl font-bold">£199.99</p>
-                <p className="mt-1 text-xs text-muted-foreground">140-point pre-purchase check</p>
-              </div>
+              {(["standard", "premium"] as HeroPackage[]).map((key) => {
+                const pkg = packageDetails[key]
+                const selected = selectedPackage === key
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => syncPackageToBooking(key)}
+                    className={`relative rounded-2xl border-2 p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${
+                      selected
+                        ? "border-primary bg-primary/10 shadow-md ring-1 ring-primary/20"
+                        : "border-border bg-white hover:border-primary/40"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <p className={`text-sm font-bold ${selected ? "text-primary" : "text-muted-foreground"}`}>
+                        {pkg.label}
+                      </p>
+                      {key === "premium" && (
+                        <span className="rounded-full bg-primary px-2 py-1 text-[10px] font-bold uppercase text-primary-foreground">
+                          Most thorough
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-3xl font-bold">{pkg.price}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{pkg.detail}</p>
+                    <div className={`mt-3 flex items-center gap-1.5 text-xs font-bold ${selected ? "text-primary" : "text-muted-foreground"}`}>
+                      <span className={`flex h-5 w-5 items-center justify-center rounded-full border ${selected ? "border-primary bg-primary text-white" : "border-border"}`}>
+                        {selected && <Check className="h-3.5 w-3.5" />}
+                      </span>
+                      {selected ? "Selected" : "Click to select"}
+                    </div>
+                  </button>
+                )
+              })}
             </div>
 
             <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
@@ -141,7 +194,7 @@ export function InspectionsHero() {
               size="lg"
               className="mt-6 h-14 w-full text-lg font-bold bg-primary hover:bg-primary/90"
             >
-              Choose a Time &amp; Book Online
+              Book {selectedPackage === "standard" ? "Standard" : "Premium"} — {packageDetails[selectedPackage].price}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
 
