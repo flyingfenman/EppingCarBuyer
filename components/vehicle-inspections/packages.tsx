@@ -100,7 +100,7 @@ export function InspectionsPackages() {
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="text-lg font-bold text-foreground">EV Battery State of Health Report</h3>
                   <span className="inline-flex items-center gap-1 rounded-full bg-white border border-emerald-200 px-2.5 py-1 text-xs font-bold text-emerald-800">
-                    <BadgeCheck className="w-3.5 h-3.5" /> CARA Approved® Autel Blitz Test
+                    <BadgeCheck className="w-3.5 h-3.5" /> CARA Approved® Autel Test
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
