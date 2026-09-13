@@ -28,10 +28,10 @@ export function HomeCoreServices() {
             <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-[#0d9488] px-3 py-1.5 text-sm font-bold text-white">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1.5 text-sm font-bold text-white">
                     <ClipboardCheck className="h-4 w-4" /> Vehicle Inspections
                   </span>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-[#0d9488]/10 px-3 py-1.5 text-sm font-semibold text-[#0d9488]">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary">
                     From £149.99
                   </span>
                 </div>
@@ -60,8 +60,8 @@ export function HomeCoreServices() {
               <div className="space-y-3">
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                   {inspectionPoints.map((point) => (
-                    <div key={point} className="flex items-start gap-2.5 rounded-xl bg-[#0d9488]/5 px-3.5 py-3">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0d9488] text-white">
+                    <div key={point} className="flex items-start gap-2.5 rounded-xl bg-primary/5 px-3.5 py-3">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-white">
                         <Check className="h-3.5 w-3.5" />
                       </span>
                       <span className="text-sm font-semibold leading-relaxed text-foreground">{point}</span>
