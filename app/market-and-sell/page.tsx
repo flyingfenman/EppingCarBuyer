@@ -6,7 +6,6 @@ import { SellForMeHowItWorks } from "@/components/sell-for-me/how-it-works"
 import { SellForMeWhatsIncluded } from "@/components/sell-for-me/whats-included"
 import { SellForMePricing } from "@/components/sell-for-me/pricing"
 import { SellForMeComparison } from "@/components/sell-for-me/comparison"
-import { SellForMeCta } from "@/components/sell-for-me/cta"
 
 export const metadata: Metadata = {
   title: "Market & Sell - Epping Car Buyer",
@@ -30,7 +29,6 @@ export default function MarketAndSellPage() {
       <SellForMeWhatsIncluded />
       <SellForMePricing />
       <SellForMeComparison />
-      <SellForMeCta />
     </div>
   )
 }
