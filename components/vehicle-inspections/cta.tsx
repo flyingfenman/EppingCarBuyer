@@ -1,70 +1,23 @@
-"use client"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { MessageSquare, CalendarDays } from "lucide-react"
 import { InspectionsBookingCalendar } from "./booking-calendar"
 
-type Tab = "contact" | "calendar"
-
 export function InspectionsCta() {
-  const [tab, setTab] = useState<Tab>("calendar")
-
   return (
-    <section id="book" className="py-12 sm:py-16 lg:py-20 bg-muted/30 scroll-mt-24">
+    <section id="book" className="scroll-mt-24 bg-slate-50 py-12 sm:py-16 lg:py-20">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10 space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Book an Inspection</h2>
-            <p className="text-xl text-muted-foreground">
-              Pick a time that works for you, add an EV Battery SOH report if needed, and pay securely online.
+        <div className="mx-auto max-w-5xl">
+          <div className="mx-auto mb-9 max-w-3xl text-center sm:mb-12">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Independent. Thorough. On your side.</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">Book Your Vehicle Inspection</h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              Before you hand over thousands for a used car, get an independent view of what you&apos;re actually buying.
+              Choose your inspection, reserve a convenient appointment and we&apos;ll handle the rest.
             </p>
           </div>
 
-          <div className="flex rounded-xl border border-border overflow-hidden mb-8 bg-background max-w-lg mx-auto">
-            <button
-              onClick={() => setTab("calendar")}
-              className={`flex-1 py-3 text-sm font-semibold transition-colors duration-200 ${
-                tab === "calendar"
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted/60"
-              }`}
-            >
-              <CalendarDays className="inline w-4 h-4 mr-2 mb-0.5" />
-              Book Online
-            </button>
-            <button
-              onClick={() => setTab("contact")}
-              className={`flex-1 py-3 text-sm font-semibold transition-colors duration-200 ${
-                tab === "contact"
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted/60"
-              }`}
-            >
-              <MessageSquare className="inline w-4 h-4 mr-2 mb-0.5" />
-              WhatsApp Us
-            </button>
-          </div>
+          <InspectionsBookingCalendar />
 
-          {tab === "contact" && (
-            <div className="flex items-center justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="w-full sm:w-auto h-14 px-8 text-lg bg-[#25D366] hover:bg-[#1da851] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-              >
-                <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer">
-                  <MessageSquare className="mr-2 h-5 w-5" />
-                  WhatsApp Us
-                </a>
-              </Button>
-            </div>
-          )}
-
-          {tab === "calendar" && <InspectionsBookingCalendar />}
-
-          <p className="text-sm text-muted-foreground text-center mt-6">
-            Speak to Henry directly. Real person, real local service.
+          <p className="mt-7 text-center text-sm text-muted-foreground">
+            You&apos;ll deal directly with Henry from booking through to your inspection findings — no call centre and no sales commission from the car.
           </p>
         </div>
       </div>
