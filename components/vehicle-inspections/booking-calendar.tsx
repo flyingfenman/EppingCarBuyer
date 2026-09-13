@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Loader2, ChevronRight, ChevronLeft, Clock, TriangleAlert, Phone, MessageCircle } from "lucide-react"
+import {
+  Loader2, ChevronRight, ChevronLeft, Clock, TriangleAlert, Phone, MessageCircle,
+  BatteryCharging, BadgeCheck,
+} from "lucide-react"
 import type { PackageKey, Slot } from "@/lib/inspection-slots"
 
-// UK-friendly best-effort conversion to the digits-only, country-code-prefixed format wa.me needs.
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
   if (cleaned.startsWith("+")) return cleaned.slice(1)
@@ -16,23 +18,21 @@ function toWhatsAppNumber(phone: string): string {
   return cleaned
 }
 
-const PACKAGES: { key: PackageKey; name: string; price: string }[] = [
-  { key: "standard", name: "Standard", price: "£130" },
-  { key: "premium", name: "Premium", price: "£180" },
+const PACKAGES: { key: PackageKey; name: string; price: string; amount: number }[] = [
+  { key: "standard", name: "Standard", price: "£149.99", amount: 149.99 },
+  { key: "premium", name: "Premium", price: "£199.99", amount: 199.99 },
 ]
 
+const EV_SOH_PRICE = 49.99
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-// The Europe/London calendar date (YYYY-MM-DD) a slot falls on. Safe as a simple UTC slice here because
-// business hours (9am-6pm London) never cross a UTC date boundary even at the BST/GMT extremes.
 function dateKey(isoString: string) {
   return isoString.slice(0, 10)
 }
 
-// Builds a Monday-first grid of dates for the given month, padded with nulls to complete full weeks.
 function getMonthGrid(year: number, month: number): (Date | null)[] {
   const firstDay = new Date(year, month, 1)
-  const startWeekday = (firstDay.getDay() + 6) % 7 // Mon=0 ... Sun=6
+  const startWeekday = (firstDay.getDay() + 6) % 7
   const daysInMonth = new Date(year, month + 1, 0).getDate()
 
   const cells: (Date | null)[] = []
@@ -48,17 +48,24 @@ function toDateKey(date: Date) {
 
 export function InspectionsBookingCalendar() {
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
+  const [includeEvSoh, setIncludeEvSoh] = useState(false)
   const [slots, setSlots] = useState<Slot[]>([])
   const [loadingSlots, setLoadingSlots] = useState(true)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
-  const [viewDate, setViewDate] = useState(() => { const d = new Date(); return { year: d.getFullYear(), month: d.getMonth() } })
+  const [viewDate, setViewDate] = useState(() => {
+    const d = new Date()
+    return { year: d.getFullYear(), month: d.getMonth() }
+  })
   const [form, setForm] = useState({
     registration: "", location: "", sellerName: "", sellerPhone: "", advertUrl: "",
     name: "", phone: "", email: "", notes: "",
   })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
+
+  const selectedPackage = PACKAGES.find((p) => p.key === packageKey) || PACKAGES[0]
+  const totalPrice = selectedPackage.amount + (includeEvSoh ? EV_SOH_PRICE : 0)
 
   useEffect(() => {
     setLoadingSlots(true)
@@ -106,7 +113,13 @@ export function InspectionsBookingCalendar() {
       const res = await fetch("/api/create-inspection-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ packageKey, slotStart: selectedSlot.start, slotEnd: selectedSlot.end, ...form }),
+        body: JSON.stringify({
+          packageKey,
+          includeEvSoh,
+          slotStart: selectedSlot.start,
+          slotEnd: selectedSlot.end,
+          ...form,
+        }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || "Something went wrong")
@@ -130,19 +143,19 @@ export function InspectionsBookingCalendar() {
 
         <div className="flex items-start gap-2.5 mb-6 p-3 bg-primary/5 rounded-lg border border-primary/20">
           <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-          <div>
+          <div className="flex-1">
             <p className="text-sm font-semibold text-foreground">
-              {PACKAGES.find((p) => p.key === packageKey)?.name} Inspection —{" "}
+              {selectedPackage.name} Inspection —{" "}
               {new Date(selectedSlot.start).toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: "Europe/London" })}
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
               This time is provisional — please confirm it works for the seller before you book.
             </p>
           </div>
+          <p className="font-bold text-foreground whitespace-nowrap">£{totalPrice.toFixed(2)}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* The car & seller */}
           <div>
             <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
               <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">1</span>
@@ -170,8 +183,7 @@ export function InspectionsBookingCalendar() {
                   <div className="flex items-start gap-2 flex-1">
                     <TriangleAlert className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
                     <p className="text-xs text-amber-800">
-                      We don&apos;t know the seller&apos;s availability — worth confirming this time works for them
-                      before you pay.
+                      We don&apos;t know the seller&apos;s availability — worth confirming this time works for them before you pay.
                     </p>
                   </div>
                   <div className="flex gap-2 flex-shrink-0 w-full sm:w-auto">
@@ -179,8 +191,7 @@ export function InspectionsBookingCalendar() {
                       href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`}
                       className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 h-9 px-3 text-xs font-semibold rounded-lg border border-amber-300 bg-white text-amber-900 hover:bg-amber-100 transition-colors"
                     >
-                      <Phone className="w-3.5 h-3.5" />
-                      Call Seller
+                      <Phone className="w-3.5 h-3.5" /> Call Seller
                     </a>
                     <a
                       href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`}
@@ -188,8 +199,7 @@ export function InspectionsBookingCalendar() {
                       rel="noopener noreferrer"
                       className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 h-9 px-3 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#1da851] transition-colors"
                     >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      WhatsApp
+                      <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                     </a>
                   </div>
                 </div>
@@ -201,10 +211,48 @@ export function InspectionsBookingCalendar() {
             </div>
           </div>
 
-          {/* Customer details */}
           <div>
             <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
               <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">2</span>
+              EV Battery Health
+            </h3>
+            <label
+              htmlFor="includeEvSoh"
+              className={`block rounded-xl border-2 p-4 cursor-pointer transition-colors ${
+                includeEvSoh ? "border-emerald-500 bg-emerald-50" : "border-border hover:border-emerald-300 bg-background"
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <input
+                  id="includeEvSoh"
+                  type="checkbox"
+                  checked={includeEvSoh}
+                  onChange={(e) => setIncludeEvSoh(e.target.checked)}
+                  className="mt-1 h-5 w-5 rounded border-border accent-emerald-600"
+                />
+                <BatteryCharging className="w-6 h-6 text-emerald-700 flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="font-bold text-foreground">Add EV Battery State of Health Report</p>
+                    <p className="font-bold text-emerald-800">+£49.99</p>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    For compatible fully electric vehicles. Includes the dedicated Autel traction-battery SOH test and customer battery health report.
+                  </p>
+                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
+                    <BadgeCheck className="w-4 h-4" /> CARA Approved® Autel Blitz Battery Health Check
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Vehicle compatibility applies. The test uses battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
+                  </p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">3</span>
               Your Details
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -233,7 +281,7 @@ export function InspectionsBookingCalendar() {
             {submitting ? (
               <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Redirecting to payment...</>
             ) : (
-              <>Continue to Payment <ChevronRight className="ml-2 h-5 w-5" /></>
+              <>Continue to Payment — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
             )}
           </Button>
           <p className="text-xs text-center text-muted-foreground">
@@ -248,8 +296,7 @@ export function InspectionsBookingCalendar() {
 
   return (
     <div>
-      {/* Package toggle */}
-      <div className="flex rounded-xl border border-border overflow-hidden mb-8 bg-background max-w-sm mx-auto">
+      <div className="flex rounded-xl border border-border overflow-hidden mb-8 bg-background max-w-md mx-auto">
         {PACKAGES.map((pkg) => (
           <button
             key={pkg.key}
@@ -274,7 +321,6 @@ export function InspectionsBookingCalendar() {
       ) : (
         <div className="bg-background rounded-2xl border border-border shadow-sm overflow-hidden max-w-3xl mx-auto">
           <div className="grid md:grid-cols-[1.3fr_1fr]">
-            {/* Month calendar */}
             <div className="p-6 border-b md:border-b-0 md:border-r border-border">
               <div className="flex items-center justify-between mb-4">
                 <button
@@ -329,7 +375,6 @@ export function InspectionsBookingCalendar() {
               </div>
             </div>
 
-            {/* Time slots for selected date */}
             <div className="p-6 bg-muted/20 flex flex-col">
               {!selectedDate ? (
                 <div className="flex-1 flex items-center justify-center text-center text-sm text-muted-foreground px-4">
