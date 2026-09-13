@@ -1,6 +1,21 @@
+import { Metadata } from "next"
 import { MapPin, Clock, Phone, Mail } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+
+const title = "Contact Us — Epping Car Buyer"
+const description =
+  "Message us on WhatsApp, our main contact method, for a fast response. Covering Essex, Hertfordshire, Cambridgeshire, Greater London and more."
+
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    images: ["/images/inspection-car.jpg"],
+  },
+}
 
 export default function ContactPage() {
   return (
@@ -64,7 +79,8 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground">
-                Within 50 miles of Epping including Loughton, Chigwell, Harlow, and surrounding areas
+                Based in Waltham Abbey, covering Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of
+                Bedfordshire and Suffolk
               </p>
             </CardContent>
           </Card>

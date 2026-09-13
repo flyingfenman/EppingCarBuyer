@@ -4,6 +4,7 @@ import { InspectionsHowItWorks } from "@/components/vehicle-inspections/how-it-w
 import { InspectionsWhatWeInspect } from "@/components/vehicle-inspections/what-we-inspect"
 import { InspectionsPackages } from "@/components/vehicle-inspections/packages"
 import { InspectionsWhyUs } from "@/components/vehicle-inspections/why-us"
+import { InspectionsFAQ } from "@/components/vehicle-inspections/faq"
 import { InspectionsCta } from "@/components/vehicle-inspections/cta"
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function VehicleInspectionsPage() {
       <InspectionsWhatWeInspect />
       <InspectionsPackages />
       <InspectionsWhyUs />
+      <InspectionsFAQ />
       <InspectionsCta />
     </div>
   )

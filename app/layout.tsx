@@ -4,6 +4,7 @@ import { Fredoka } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import { LayoutWrapper } from "@/components/layout-wrapper"
+import { LocalBusinessSchema } from "@/components/seo/local-business-schema"
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -23,7 +24,23 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-    generator: 'v0.app'
+    generator: 'v0.app',
+  metadataBase: new URL("https://www.eppingcarbuyer.com"),
+  openGraph: {
+    type: "website",
+    siteName: "Epping Car Buyer",
+    title: "Epping Car Buyer - We Pay More",
+    description:
+      "Sell your car quickly and easily in Epping. Get instant quotes and fast cash for your vehicle in any condition.",
+    images: ["/images/inspection-car.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Epping Car Buyer - We Pay More",
+    description:
+      "Sell your car quickly and easily in Epping. Get instant quotes and fast cash for your vehicle in any condition.",
+    images: ["/images/inspection-car.jpg"],
+  },
 }
 
 export const viewport: Viewport = {
@@ -43,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={charlesWright.variable}>
       <head>
+        <LocalBusinessSchema />
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
         <script
           dangerouslySetInnerHTML={{

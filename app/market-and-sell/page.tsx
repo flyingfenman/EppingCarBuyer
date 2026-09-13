@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   title: "Market & Sell - Epping Car Buyer",
   description:
     "Let us market and sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
+  openGraph: {
+    title: "Market & Sell - Epping Car Buyer",
+    description:
+      "Let us market and sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
+    images: ["/images/inspection-car.jpg"],
+  },
 }
 
 export default function MarketAndSellPage() {
