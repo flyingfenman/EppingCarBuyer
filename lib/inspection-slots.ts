@@ -6,6 +6,8 @@ export const PACKAGE_DURATIONS_MIN = {
   premium: 90,
 } as const
 
+// Slots inside this window are still shown to customers, but must be confirmed by message first.
+// The checkout API also enforces this as a backstop so a short-notice slot cannot be paid for directly.
 export const MIN_BOOKING_NOTICE_HOURS = 24
 
 export type PackageKey = keyof typeof PACKAGE_DURATIONS_MIN
@@ -58,7 +60,6 @@ function londonDateParts(instant: Date) {
 export function generateAllSlots(packageKey: PackageKey, fromDate: Date = new Date()): Slot[] {
   const durationMin = PACKAGE_DURATIONS_MIN[packageKey]
   const slots: Slot[] = []
-  const earliestAllowedStart = fromDate.getTime() + MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000
 
   for (let dayOffset = 0; dayOffset < LOOKAHEAD_DAYS; dayOffset++) {
     const probe = new Date(fromDate.getTime() + dayOffset * 24 * 60 * 60 * 1000)
@@ -70,7 +71,7 @@ export function generateAllSlots(packageKey: PackageKey, fromDate: Date = new Da
       const slotEnd = new Date(slotStart.getTime() + durationMin * 60000)
 
       if (slotEnd > closing) break
-      if (slotStart.getTime() >= earliestAllowedStart) {
+      if (slotStart.getTime() > fromDate.getTime()) {
         slots.push({ start: slotStart.toISOString(), end: slotEnd.toISOString() })
       }
     }
