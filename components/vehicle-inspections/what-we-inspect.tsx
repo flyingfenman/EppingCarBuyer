@@ -2,13 +2,14 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import {
   Cog, Car, type LucideIcon,
   Droplet, Thermometer, Cable, BatteryCharging, BatteryFull, Zap, Wind, Settings2, Droplets,
-  RotateCw, Link, Waves, ArrowUpDown, CircleDot, Cylinder, Compass, Disc, Disc2,
+  RotateCw, Link as LinkIcon, Waves, ArrowUpDown, CircleDot, Cylinder, Compass, Disc, Disc2,
   ParkingCircle, ScanLine, Gauge, CircleStop, Navigation, Volume2,
   Palette, SprayCan, ShieldAlert, Lightbulb, CarFront, DoorOpen,
-  TriangleAlert, Radio, ShieldCheck,
+  TriangleAlert, Radio, ShieldCheck, FileText, ArrowRight,
 } from "lucide-react"
 
 function CarSeatIcon({ className, strokeWidth = 1.5 }: { className?: string; strokeWidth?: number }) {
@@ -57,7 +58,7 @@ const categories: Record<CategoryKey, Category> = {
       { label: "Engine & gearbox mounts", icon: Settings2 },
       { label: "Fluid leaks — oil, coolant, power steering, transmission", icon: Droplets },
       { label: "CV joints & driveshafts", icon: RotateCw },
-      { label: "Timing chain/belt noise check", icon: Link },
+      { label: "Timing chain/belt noise check", icon: LinkIcon },
       { label: "Front & rear suspension components", icon: Waves },
       { label: "Shock absorbers / struts", icon: ArrowUpDown },
       { label: "Ball joints & tie rod ends", icon: CircleDot },
@@ -192,6 +193,17 @@ export function InspectionsWhatWeInspect() {
           <p>
             For compatible fully electric vehicles, the dedicated CARA Approved® Autel EV Battery State of Health Report is available as a £49.99 optional add-on.
           </p>
+        </div>
+
+        <div className="mt-7 text-center sm:mt-9">
+          <Link
+            href="/vehicle-inspections/sample-report"
+            className="inline-flex items-center gap-2 rounded-xl border-2 border-primary/20 bg-primary/5 px-5 py-3 font-bold text-primary transition-all hover:border-primary/40 hover:bg-primary/10 hover:shadow-sm"
+          >
+            <FileText className="h-5 w-5" />
+            See a sample inspection report
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>
