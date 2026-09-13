@@ -48,18 +48,20 @@ export async function POST(request: NextRequest) {
 
     if (session.metadata?.type === "inspection_booking") {
       const {
-        packageName, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
+        packageName, includeEvSoh, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
         customerName, customerPhone, customerEmail, notes,
       } = session.metadata
 
+      const hasEvSoh = includeEvSoh === "yes"
       const amountPaid = `£${((session.amount_total || 0) / 100).toFixed(2)}`
       const slotFull = new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })
       const slotEndTime = new Date(slotEnd).toLocaleString("en-GB", { timeZone: "Europe/London", timeStyle: "short" })
+      const evSohLine = hasEvSoh ? "\nEV Battery SOH add-on: YES — CARA Approved® Autel Blitz report required" : ""
 
       const internalEmail = `
 New PAID Vehicle Inspection Booking
 
-Package: ${packageName}
+Package: ${packageName}${evSohLine}
 Slot: ${slotFull} – ${slotEndTime}
 
 Vehicle Details:
@@ -85,7 +87,7 @@ Stripe session: ${session.id}
 Hi ${customerName.split(" ")[0]},
 
 Your ${packageName} is booked and paid for — thanks!
-
+${hasEvSoh ? "\nYou've also added the £49.99 EV Battery State of Health Report using the CARA Approved® Autel Blitz Battery Health Check. Vehicle compatibility will be confirmed from the car details.\n" : ""}
 When: ${slotFull}
 Vehicle: ${registration}
 Where: ${location}
@@ -93,27 +95,24 @@ Amount paid: ${amountPaid}
 
 Henry will call or message you beforehand to confirm the details, then meet you at the car, run the full
 inspection, and talk you through everything he finds — before you hand over any money to the seller.
-
+${hasEvSoh ? "\nYour EV battery health report will be supplied with your inspection findings.\n" : ""}
 Questions in the meantime? WhatsApp Henry directly: https://wa.me/441992367909
 
 Thanks,
 Epping Car Buyer
       `.trim()
 
+      const subjectSuffix = hasEvSoh ? " + EV Battery SOH" : ""
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
           "henry@eppingcarbuyer.com",
-          `Vehicle inspection request — ${registration} (${packageName}) — PAID`,
+          `Vehicle inspection request — ${registration} (${packageName}${subjectSuffix}) — PAID`,
           internalEmail
         ),
-        sendEmail(customerEmail, `Booking confirmed — ${packageName} on ${slotFull}`, customerEmailBody),
+        sendEmail(customerEmail, `Booking confirmed — ${packageName}${subjectSuffix} on ${slotFull}`, customerEmailBody),
       ])
 
       if (!internalOk || !customerOk) {
-        // Fail the webhook so Stripe retries with backoff — there's no database here, so these emails
-        // are the only record of a paid booking. A silent 200 here would mean money taken with nobody
-        // (Henry or the customer) ever finding out. A retry may re-send whichever email already
-        // succeeded too — a harmless duplicate, worth accepting over a silently missing one.
         return NextResponse.json({ error: "Failed to send confirmation email" }, { status: 502 })
       }
     }
@@ -173,8 +172,6 @@ Epping Car Buyer
       const results = await Promise.all(emailTasks)
 
       if (results.some((ok) => !ok)) {
-        // Same reasoning as the inspection booking above — these emails are the only record of the
-        // order and its shipping address, so Stripe must retry rather than silently succeed.
         return NextResponse.json({ error: "Failed to send order email" }, { status: 502 })
       }
     }

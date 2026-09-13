@@ -17,6 +17,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${BASE_URL}/vehicle-inspections`,
       lastModified: now,
       changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/ev-battery-health-check`,
+      lastModified: now,
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {

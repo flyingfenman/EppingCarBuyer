@@ -1,13 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { Check, FileText, ArrowRight, Clock, ListChecks } from "lucide-react"
+import { Check, FileText, ArrowRight, Clock, ListChecks, BatteryCharging, BadgeCheck } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 const packages = [
   {
     name: "Standard Inspection",
-    price: "£130",
+    price: "£149.99",
     pointCheck: "90-Point Check",
     duration: "40–60 minutes on site",
     description: "A thorough mechanical and visual check, plus the history check that matters most.",
@@ -23,14 +23,14 @@ const packages = [
   },
   {
     name: "Premium Inspection",
-    price: "£180",
+    price: "£199.99",
     pointCheck: "140-Point Check",
     duration: "70–90 minutes on site",
-    description: "Everything in Standard, plus a deeper look at bodywork and history for extra peace of mind.",
+    description: "Everything in Standard, plus a deeper bodywork and vehicle-history assessment for extra peace of mind.",
     popular: true,
     features: [
       "Everything in the Standard Inspection",
-      "EV & hybrid battery health check, where applicable",
+      "Paint depth readings to help identify previous repairs and resprays",
       "Full video walkaround — interior, exterior, and engine running",
       "Full vehicle history — keepers, service records, import/export status",
       "Priority booking — inspected within 24–48 hours",
@@ -45,7 +45,7 @@ export function InspectionsPackages() {
         <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Packages &amp; Pricing</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            One flat fee. No hidden extras. Pay only for the inspection.
+            Clear pricing, independent advice and a same-day digital report.
           </p>
         </div>
 
@@ -90,13 +90,41 @@ export function InspectionsPackages() {
           ))}
         </div>
 
+        <div className="max-w-4xl mx-auto mt-8 rounded-2xl border-2 border-emerald-500/30 bg-emerald-50 p-5 sm:p-7">
+          <div className="flex flex-col sm:flex-row gap-5 sm:items-center sm:justify-between">
+            <div className="flex gap-4">
+              <div className="w-11 h-11 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                <BatteryCharging className="w-6 h-6 text-emerald-700" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-lg font-bold text-foreground">EV Battery State of Health Report</h3>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-white border border-emerald-200 px-2.5 py-1 text-xs font-bold text-emerald-800">
+                    <BadgeCheck className="w-3.5 h-3.5" /> CARA Approved® Autel Blitz Test
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+                  Add a high-voltage traction battery SOH assessment and separate battery health report to either inspection on a compatible fully electric vehicle.
+                </p>
+                <Link href="/ev-battery-health-check" className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-800 hover:underline mt-2">
+                  What the EV battery check includes <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+            <div className="sm:text-right flex-shrink-0">
+              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-800">Optional add-on</p>
+              <p className="text-3xl font-bold text-foreground">+£49.99</p>
+            </div>
+          </div>
+        </div>
+
         <div className="text-center mt-6 sm:mt-8 lg:mt-10">
           <Link
             href="/vehicle-inspections/sample-report"
             className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
           >
             <FileText className="w-4 h-4" />
-            See a sample report
+            See a sample inspection report
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

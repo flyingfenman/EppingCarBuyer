@@ -11,18 +11,16 @@ export function InspectionsCta() {
   const [tab, setTab] = useState<Tab>("calendar")
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+    <section id="book" className="py-12 sm:py-16 lg:py-20 bg-muted/30 scroll-mt-24">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          {/* Heading */}
           <div className="text-center mb-10 space-y-3">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Book an Inspection</h2>
             <p className="text-xl text-muted-foreground">
-              Pick a time that works for you and pay securely online.
+              Pick a time that works for you, add an EV Battery SOH report if needed, and pay securely online.
             </p>
           </div>
 
-          {/* Tab switcher */}
           <div className="flex rounded-xl border border-border overflow-hidden mb-8 bg-background max-w-lg mx-auto">
             <button
               onClick={() => setTab("calendar")}
@@ -48,7 +46,6 @@ export function InspectionsCta() {
             </button>
           </div>
 
-          {/* Contact tab */}
           {tab === "contact" && (
             <div className="flex items-center justify-center">
               <Button
@@ -64,7 +61,6 @@ export function InspectionsCta() {
             </div>
           )}
 
-          {/* Calendar tab */}
           {tab === "calendar" && <InspectionsBookingCalendar />}
 
           <p className="text-sm text-muted-foreground text-center mt-6">

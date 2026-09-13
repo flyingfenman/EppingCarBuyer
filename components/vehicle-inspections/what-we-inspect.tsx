@@ -11,8 +11,6 @@ import {
   TriangleAlert, Radio, ShieldCheck,
 } from "lucide-react"
 
-// lucide-react has no car-seat icon (Sofa/Armchair read as living-room furniture), so this is a small
-// custom outline icon built to match lucide's own visual weight (24x24, currentColor, rounded strokes).
 function CarSeatIcon({ className, strokeWidth = 1.5 }: { className?: string; strokeWidth?: number }) {
   return (
     <svg
@@ -52,8 +50,8 @@ const categories: Record<CategoryKey, Category> = {
       { label: "Oil condition & level", icon: Droplet },
       { label: "Coolant condition & level", icon: Thermometer },
       { label: "Drive belts & hoses", icon: Cable },
-      { label: "Battery condition & charging system", icon: BatteryCharging },
-      { label: "EV & hybrid traction battery health check", icon: BatteryFull },
+      { label: "12V battery condition & charging system", icon: BatteryCharging },
+      { label: "EV high-voltage system diagnostic checks, where supported", icon: BatteryFull },
       { label: "Alternator output", icon: Zap },
       { label: "Exhaust system & emissions", icon: Wind },
       { label: "Engine & gearbox mounts", icon: Settings2 },
@@ -116,7 +114,7 @@ export function InspectionsWhatWeInspect() {
         <div className="text-center mb-6 sm:mb-8 lg:mb-10 space-y-3 sm:space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold">What We Inspect</h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Tap a category below to see exactly what's covered in every inspection.
+            Tap a category below to see exactly what&apos;s covered in every inspection.
           </p>
         </div>
 
@@ -124,7 +122,7 @@ export function InspectionsWhatWeInspect() {
           <div className="relative aspect-[1600/629] rounded-2xl overflow-hidden bg-muted/30">
             <Image
               src="/images/inspection-car.jpg"
-              alt="Example vehicle"
+              alt="Vehicle undergoing a pre-purchase inspection"
               fill
               className="object-contain p-2"
               sizes="(min-width: 1024px) 768px, 95vw"
@@ -189,9 +187,12 @@ export function InspectionsWhatWeInspect() {
           </div>
         </div>
 
-        <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto mt-6 sm:mt-8 lg:mt-10">
-          Every inspection also includes a full outstanding finance, write-off, stolen and mileage history check.
-        </p>
+        <div className="text-center text-sm text-muted-foreground max-w-2xl mx-auto mt-6 sm:mt-8 lg:mt-10 space-y-2">
+          <p>Every inspection also includes a full outstanding finance, write-off, stolen and mileage history check.</p>
+          <p>
+            For compatible fully electric vehicles, the dedicated CARA Approved® Autel Blitz Battery State of Health Report is available as a £49.99 optional add-on.
+          </p>
+        </div>
       </div>
     </section>
   )

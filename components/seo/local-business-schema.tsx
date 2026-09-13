@@ -1,11 +1,13 @@
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "AutoRepair",
+  "@type": "AutomotiveBusiness",
   name: "Epping Car Buyer",
   url: "https://www.eppingcarbuyer.com",
   telephone: "+441992367909",
   email: "henry@eppingcarbuyer.com",
   image: "https://www.eppingcarbuyer.com/images/inspection-car.jpg",
+  description:
+    "Independent mobile pre-purchase vehicle inspections and EV battery State of Health checks across Essex, Hertfordshire, Greater London, Cambridgeshire and surrounding areas.",
   priceRange: "££",
   address: {
     "@type": "PostalAddress",
@@ -25,39 +27,61 @@ const localBusinessSchema = {
   makesOffer: [
     {
       "@type": "Offer",
+      url: "https://www.eppingcarbuyer.com/vehicle-inspections",
       itemOffered: {
         "@type": "Service",
-        name: "Standard Inspection",
-        description: "90-point pre-purchase vehicle inspection, 40-60 minutes on site.",
+        name: "Standard Pre-Purchase Vehicle Inspection",
+        serviceType: "Pre-purchase vehicle inspection",
+        description: "90-point mobile pre-purchase vehicle inspection with diagnostic scan, road test, history check, photos and same-day digital report.",
       },
-      price: "130",
+      price: "149.99",
       priceCurrency: "GBP",
     },
     {
       "@type": "Offer",
+      url: "https://www.eppingcarbuyer.com/vehicle-inspections",
       itemOffered: {
         "@type": "Service",
-        name: "Premium Inspection",
-        description: "140-point pre-purchase vehicle inspection, 70-90 minutes on site.",
+        name: "Premium Pre-Purchase Vehicle Inspection",
+        serviceType: "Pre-purchase vehicle inspection",
+        description: "140-point mobile pre-purchase vehicle inspection including deeper bodywork assessment, paint-depth readings and full video walkaround.",
       },
-      price: "180",
+      price: "199.99",
+      priceCurrency: "GBP",
+    },
+    {
+      "@type": "Offer",
+      url: "https://www.eppingcarbuyer.com/ev-battery-health-check",
+      itemOffered: {
+        "@type": "Service",
+        name: "EV Battery State of Health Report",
+        serviceType: "EV traction battery State of Health assessment",
+        description: "Optional EV battery SOH assessment using the Battery Health Check CARA Approved Autel Blitz Test, with an end-customer battery health report on compatible electric vehicles.",
+      },
+      price: "49.99",
       priceCurrency: "GBP",
     },
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Vehicle Inspection Packages",
+    name: "Vehicle Inspection Services",
     itemListElement: [
       {
         "@type": "Offer",
-        name: "Standard Inspection",
-        price: "130",
+        name: "Standard Pre-Purchase Vehicle Inspection",
+        price: "149.99",
         priceCurrency: "GBP",
       },
       {
         "@type": "Offer",
-        name: "Premium Inspection",
-        price: "180",
+        name: "Premium Pre-Purchase Vehicle Inspection",
+        price: "199.99",
+        priceCurrency: "GBP",
+      },
+      {
+        "@type": "Offer",
+        name: "EV Battery State of Health Report Add-on",
+        price: "49.99",
         priceCurrency: "GBP",
       },
     ],
