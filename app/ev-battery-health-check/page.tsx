@@ -90,32 +90,32 @@ export default function EvBatteryHealthCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <section className="bg-slate-950 text-white py-14 sm:py-20 lg:py-28">
+      <section className="border-b border-border bg-primary/5 py-14 sm:py-20 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-4 py-2 text-sm font-bold text-primary mb-6">
               <BadgeCheck className="w-4 h-4" />
               CARA Approved® Autel EV Battery Health Test
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance text-foreground">
               EV Battery Health Check Before You Buy
             </h1>
-            <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Buying a used electric car? Add a high-voltage traction battery State of Health (SOH) assessment and customer battery report to your pre-purchase inspection.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <div className="rounded-xl bg-white text-slate-950 px-6 py-3 text-left">
-                <p className="text-xs uppercase tracking-wide font-bold text-slate-500">Inspection add-on</p>
-                <p className="text-3xl font-bold">£49.99</p>
+              <div className="rounded-xl border border-primary/15 bg-white px-6 py-3 text-left shadow-sm">
+                <p className="text-xs uppercase tracking-wide font-bold text-primary">Inspection add-on</p>
+                <p className="text-3xl font-bold text-foreground">£49.99</p>
               </div>
-              <Button asChild size="lg" className="h-16 px-8 bg-emerald-500 text-slate-950 hover:bg-emerald-400 font-bold">
+              <Button asChild size="lg" className="h-16 px-8 bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
                 <Link href="/vehicle-inspections#book">
                   Book a Vehicle Inspection <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
             </div>
-            <p className="mt-5 flex items-center justify-center gap-2 text-sm text-slate-400">
-              <MapPin className="w-4 h-4" /> Essex, Hertfordshire, Greater London, Cambridgeshire and surrounding areas
+            <p className="mt-5 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+              <MapPin className="w-4 h-4 text-primary" /> Essex, Hertfordshire, Greater London, Cambridgeshire and surrounding areas
             </p>
           </div>
         </div>
@@ -133,21 +133,21 @@ export default function EvBatteryHealthCheckPage() {
 
             <div className="grid md:grid-cols-3 gap-5">
               <div className="rounded-2xl border bg-white p-6 shadow-sm">
-                <Gauge className="w-9 h-9 text-emerald-700" />
+                <Gauge className="w-9 h-9 text-primary" />
                 <h3 className="font-bold text-xl mt-4">State of Health (SOH)</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                   A clear battery-health percentage produced from the battery-management information available from the vehicle.
                 </p>
               </div>
               <div className="rounded-2xl border bg-white p-6 shadow-sm">
-                <FileCheck2 className="w-9 h-9 text-emerald-700" />
+                <FileCheck2 className="w-9 h-9 text-primary" />
                 <h3 className="font-bold text-xl mt-4">Customer Report</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                   A separate Autel battery health report to keep with your Epping Car Buyer pre-purchase inspection report.
                 </p>
               </div>
               <div className="rounded-2xl border bg-white p-6 shadow-sm">
-                <BadgeCheck className="w-9 h-9 text-emerald-700" />
+                <BadgeCheck className="w-9 h-9 text-primary" />
                 <h3 className="font-bold text-xl mt-4">CARA Approved® Method</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                   The Autel battery health test method we use carries the Battery Health Check CARA Approved® certification mark.
@@ -177,14 +177,14 @@ export default function EvBatteryHealthCheckPage() {
                 <BatteryCharging className="w-6 h-6 text-primary" /> What&apos;s included
               </h3>
               <ul className="mt-5 space-y-4 text-sm">
-                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" /><span>Dedicated high-voltage EV traction-battery health assessment on compatible vehicles</span></li>
-                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" /><span>State of Health (SOH) result based on available vehicle/BMS battery data</span></li>
-                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" /><span>Autel end-customer battery health report</span></li>
-                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" /><span>Battery findings considered alongside the wider pre-purchase inspection</span></li>
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>Dedicated high-voltage EV traction-battery health assessment on compatible vehicles</span></li>
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>State of Health (SOH) result based on available vehicle/BMS battery data</span></li>
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>Autel end-customer battery health report</span></li>
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>Battery findings considered alongside the wider pre-purchase inspection</span></li>
               </ul>
-              <div className="mt-6 rounded-xl bg-amber-50 border border-amber-200 p-4 flex gap-3">
-                <Info className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-amber-900 leading-relaxed">
+              <div className="mt-6 rounded-xl bg-primary/5 border border-primary/15 p-4 flex gap-3">
+                <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Compatibility and available metrics vary by vehicle. The Autel EV Battery Health Test is based on battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
                 </p>
               </div>
@@ -202,7 +202,7 @@ export default function EvBatteryHealthCheckPage() {
             </div>
             <div className="space-y-4">
               {faqs.map((faq) => (
-                <div key={faq.question} className="rounded-2xl border p-5 sm:p-6">
+                <div key={faq.question} className="rounded-2xl border p-5 sm:p-6 bg-white">
                   <h3 className="font-bold text-lg">{faq.question}</h3>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
                 </div>
@@ -212,14 +212,14 @@ export default function EvBatteryHealthCheckPage() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-20 bg-primary text-primary-foreground">
+      <section className="py-14 sm:py-20 border-t border-border bg-primary/5">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold">Inspect the whole car — and the EV battery.</h2>
-            <p className="mt-4 text-primary-foreground/80 text-lg">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Inspect the whole car — and the EV battery.</h2>
+            <p className="mt-4 text-muted-foreground text-lg">
               Choose a Standard or Premium inspection, then add the EV Battery State of Health Report for £49.99.
             </p>
-            <Button asChild size="lg" variant="secondary" className="mt-7 h-14 px-8 font-bold">
+            <Button asChild size="lg" className="mt-7 h-14 px-8 font-bold bg-primary text-primary-foreground hover:bg-primary/90">
               <Link href="/vehicle-inspections#book">View inspection packages &amp; book</Link>
             </Button>
           </div>
