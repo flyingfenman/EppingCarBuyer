@@ -540,8 +540,8 @@ export function InspectionsBookingCalendar() {
           </div>
         ) : (
           <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-sm">
-            <div className="grid md:grid-cols-[1.25fr_.75fr]">
-              <div className="border-b border-border p-5 md:border-b-0 md:border-r sm:p-6">
+            <div className="grid md:h-[430px] md:grid-cols-[1.25fr_.75fr]">
+              <div className="border-b border-border p-5 md:h-full md:overflow-hidden md:border-b-0 md:border-r sm:p-6">
                 <div className="mb-4 flex items-center justify-between">
                   <button type="button" onClick={() => setViewDate((v) => (v.month === 0 ? { year: v.year - 1, month: 11 } : { year: v.year, month: v.month - 1 }))} className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted" aria-label="Previous month">
                     <ChevronLeft className="h-4 w-4" />
@@ -570,7 +570,7 @@ export function InspectionsBookingCalendar() {
                         type="button"
                         disabled={!hasSlots}
                         onClick={() => chooseDate(key)}
-                        className={`aspect-square rounded-full text-sm font-semibold transition-colors ${
+                        className={`h-10 rounded-full text-sm font-semibold transition-colors ${
                           isSelected
                             ? "bg-primary text-primary-foreground"
                             : onlyShortNotice
@@ -587,7 +587,7 @@ export function InspectionsBookingCalendar() {
                 </div>
               </div>
 
-              <div className="bg-muted/20 p-5 sm:p-6">
+              <div className="bg-muted/20 p-5 sm:p-6 md:h-full md:overflow-y-auto md:overscroll-contain">
                 {selectedDate ? (
                   <>
                     <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-primary">Available appointments</p>
