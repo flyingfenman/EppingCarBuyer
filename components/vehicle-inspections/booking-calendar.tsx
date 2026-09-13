@@ -19,7 +19,7 @@ import {
   ShieldCheck,
   CalendarDays,
 } from "lucide-react"
-import type { PackageKey, Slot } from "@/lib/inspection-slots"
+import { MIN_BOOKING_NOTICE_HOURS, type PackageKey, type Slot } from "@/lib/inspection-slots"
 
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
@@ -61,6 +61,7 @@ const PACKAGES: Array<{
 
 const EV_SOH_PRICE = 49.99
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+const SHORT_NOTICE_MS = MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000
 
 function dateKey(isoString: string) {
   return isoString.slice(0, 10)
@@ -87,6 +88,23 @@ function setViewFromDateKey(key: string) {
   return { year, month: month - 1 }
 }
 
+function isShortNotice(slot: Slot, nowMs: number) {
+  return new Date(slot.start).getTime() < nowMs + SHORT_NOTICE_MS
+}
+
+function shortNoticeWhatsAppUrl(slot: Slot, packageName: string) {
+  const when = new Date(slot.start).toLocaleString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/London",
+  })
+  const message = `Hi Henry, I can see the ${packageName} slot at ${when}. Is this short-notice appointment still available?`
+  return `https://wa.me/441992367909?text=${encodeURIComponent(message)}`
+}
+
 export function InspectionsBookingCalendar() {
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
   const [includeEvSoh, setIncludeEvSoh] = useState(false)
@@ -98,6 +116,7 @@ export function InspectionsBookingCalendar() {
     const d = new Date()
     return { year: d.getFullYear(), month: d.getMonth() }
   })
+  const [nowMs] = useState(() => Date.now())
   const [form, setForm] = useState({
     registration: "",
     location: "",
@@ -169,6 +188,14 @@ export function InspectionsBookingCalendar() {
     setSelectedDate(null)
     setSelectedSlot(null)
     setError("")
+  }
+
+  const handleSlotClick = (slot: Slot) => {
+    if (isShortNotice(slot, nowMs)) {
+      window.open(shortNoticeWhatsAppUrl(slot, selectedPackage.name), "_blank", "noopener,noreferrer")
+      return
+    }
+    setSelectedSlot(slot)
   }
 
   const handleSubmit = async (e: FormEvent) => {
@@ -383,7 +410,7 @@ export function InspectionsBookingCalendar() {
         </div>
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
           <Clock className="h-6 w-6 text-primary" />
-          <div><p className="text-sm font-bold">24-hour notice</p><p className="text-xs text-muted-foreground">Time to prepare properly</p></div>
+          <div><p className="text-sm font-bold">Short-notice availability</p><p className="text-xs text-muted-foreground">Message first inside 24 hours</p></div>
         </div>
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
           <BadgeCheck className="h-6 w-6 text-primary" />
@@ -429,8 +456,17 @@ export function InspectionsBookingCalendar() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">2</span>
           <div>
             <h3 className="text-xl font-bold">Choose a convenient time</h3>
-            <p className="text-sm text-muted-foreground">Online appointments require at least 24 hours&apos; notice.</p>
+            <p className="text-sm text-muted-foreground">All open times are shown. If it&apos;s within 24 hours, message us first so we can confirm travel and access.</p>
           </div>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-3 text-xs font-semibold">
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-emerald-900">
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" /> Book online
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-amber-900">
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-500" /> Within 24 hours — message first
+          </span>
         </div>
 
         {loadingSlots ? (
@@ -441,7 +477,7 @@ export function InspectionsBookingCalendar() {
         ) : slots.length === 0 ? (
           <div className="rounded-2xl border bg-white p-8 text-center">
             <CalendarDays className="mx-auto h-8 w-8 text-primary" />
-            <p className="mt-3 font-bold">No online slots showing for this package.</p>
+            <p className="mt-3 font-bold">No availability showing for this package.</p>
             <p className="mt-1 text-sm text-muted-foreground">Message us and we&apos;ll see what we can arrange.</p>
           </div>
         ) : (
@@ -466,10 +502,26 @@ export function InspectionsBookingCalendar() {
                   {monthGrid.map((date, i) => {
                     if (!date) return <div key={i} />
                     const key = toDateKey(date)
-                    const hasSlots = (slotsByDate.get(key) || []).length > 0
+                    const dateSlots = slotsByDate.get(key) || []
+                    const hasSlots = dateSlots.length > 0
+                    const onlyShortNotice = hasSlots && dateSlots.every((slot) => isShortNotice(slot, nowMs))
                     const isSelected = key === selectedDate
                     return (
-                      <button key={i} type="button" disabled={!hasSlots} onClick={() => setSelectedDate(key)} className={`aspect-square rounded-full text-sm font-semibold transition-colors ${isSelected ? "bg-primary text-primary-foreground" : hasSlots ? "text-foreground hover:bg-primary/10" : "cursor-not-allowed text-muted-foreground/25"}`}>
+                      <button
+                        key={i}
+                        type="button"
+                        disabled={!hasSlots}
+                        onClick={() => setSelectedDate(key)}
+                        className={`aspect-square rounded-full text-sm font-semibold transition-colors ${
+                          isSelected
+                            ? "bg-primary text-primary-foreground"
+                            : onlyShortNotice
+                              ? "bg-amber-50 text-amber-900 ring-1 ring-amber-300 hover:bg-amber-100"
+                              : hasSlots
+                                ? "text-foreground hover:bg-primary/10"
+                                : "cursor-not-allowed text-muted-foreground/25"
+                        }`}
+                      >
                         {date.getDate()}
                       </button>
                     )
@@ -485,11 +537,27 @@ export function InspectionsBookingCalendar() {
                       {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
                     </p>
                     <div className="grid grid-cols-2 gap-2 md:grid-cols-1">
-                      {daySlots.map((slot) => (
-                        <button key={slot.start} type="button" onClick={() => setSelectedSlot(slot)} className="rounded-xl border border-primary bg-white px-4 py-3 text-sm font-bold text-primary transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-sm">
-                          {new Date(slot.start).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" })}
-                        </button>
-                      ))}
+                      {daySlots.map((slot) => {
+                        const shortNotice = isShortNotice(slot, nowMs)
+                        const time = new Date(slot.start).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" })
+                        return (
+                          <button
+                            key={slot.start}
+                            type="button"
+                            onClick={() => handleSlotClick(slot)}
+                            className={`rounded-xl border px-4 py-3 text-sm font-bold transition-all hover:shadow-sm ${
+                              shortNotice
+                                ? "border-amber-300 bg-amber-50 text-amber-950 hover:bg-amber-100"
+                                : "border-primary bg-white text-primary hover:bg-primary hover:text-primary-foreground"
+                            }`}
+                          >
+                            <span className="block text-base">{time}</span>
+                            <span className={`mt-0.5 block text-[11px] font-semibold ${shortNotice ? "text-amber-700" : "opacity-70"}`}>
+                              {shortNotice ? "Message first" : "Book online"}
+                            </span>
+                          </button>
+                        )
+                      })}
                     </div>
                   </>
                 ) : (
@@ -504,11 +572,11 @@ export function InspectionsBookingCalendar() {
 
         <div className="mt-5 flex flex-col items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 sm:flex-row">
           <div>
-            <p className="font-bold text-amber-950">Need an inspection sooner than 24 hours?</p>
-            <p className="text-sm text-amber-900/75">We don&apos;t promise same-day availability, but message us and we&apos;ll check for a genuine gap.</p>
+            <p className="font-bold text-amber-950">Short-notice appointments are still shown.</p>
+            <p className="text-sm text-amber-900/75">If the time is inside 24 hours, tap it to message us first. Once Henry confirms, we&apos;ll arrange the booking with you.</p>
           </div>
           <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 text-sm font-bold text-white hover:bg-[#1da851]">
-            <MessageCircle className="h-4 w-4" /> Ask on WhatsApp
+            <MessageCircle className="h-4 w-4" /> Message Henry
           </a>
         </div>
       </div>
