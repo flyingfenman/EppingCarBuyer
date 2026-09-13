@@ -8,32 +8,42 @@ const faqs = [
   {
     question: "How much does a car inspection cost?",
     answer:
-      "There are two options: the Standard Inspection at £130 (a 90-point check) and the Premium Inspection at £180 (a 140-point check). Both are one flat fee — no hidden extras.",
+      "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 140-point check). For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
   },
   {
     question: "Is it worth paying for an inspection before buying a used car?",
     answer:
-      "Yes. You get an outstanding finance, write-off, stolen and mileage history check, a full OBD diagnostic scan, and a road test — the exact things that catch a bad purchase before you hand over any money. It's cheap insurance against buying someone else's problem.",
+      "Yes. You get an outstanding finance, write-off, stolen and mileage history check, a full OBD diagnostic scan, a road test and a detailed condition report — the checks that can uncover expensive problems before you hand over any money.",
   },
   {
-    question: "Do you check the battery on electric or hybrid cars?",
+    question: "Do you check the high-voltage battery on electric cars?",
     answer:
-      "Yes. The Premium Inspection includes an EV & hybrid battery health check, where applicable.",
+      "Yes. On compatible fully electric vehicles, you can add an EV Battery State of Health (SOH) Report for £49.99. We use the Autel Blitz Battery Health Check, which carries the Battery Health Check CARA Approved® certification mark, and provide the customer battery health report alongside your inspection.",
+  },
+  {
+    question: "What does EV battery State of Health mean?",
+    answer:
+      "State of Health (SOH) is a percentage used to describe the condition of an EV's high-voltage traction battery. The Autel Blitz Test obtains and evaluates battery-management information available from the vehicle to produce the SOH result. Vehicle compatibility and the exact data available vary by model.",
+  },
+  {
+    question: "Is the EV battery test an independent capacity test?",
+    answer:
+      "No. The Autel Blitz Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
   },
   {
     question: "Where do inspections take place?",
     answer:
-      "Wherever the car is. Based in Waltham Abbey, the inspector travels to you — a dealer forecourt, a private seller's address, or your own home — covering Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk.",
+      "Wherever the car is. Based in Waltham Abbey, the inspector travels to the vehicle — a dealer forecourt, a private seller's address, or your own home — covering Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk.",
   },
   {
     question: "How do I book, and how do I get in touch?",
     answer:
-      "Book online and pick a time slot, or message us on WhatsApp — it's the fastest way to reach Epping Car Buyer.",
+      "Book online and pick a time slot, or message us on WhatsApp — it's the fastest way to reach Epping Car Buyer. If you want an EV battery report, select the £49.99 SOH add-on when booking.",
   },
   {
     question: "How long does it take and when do I get the report?",
     answer:
-      "40–60 minutes on site for a Standard Inspection, 70–90 minutes for Premium. You'll get a digital report the same day, plus a personal phone call talking through what we found.",
+      "Allow around 40–60 minutes on site for a Standard Inspection and 70–90 minutes for Premium. You'll get a digital inspection report the same day, plus a personal phone call to talk through the findings. EV customers who select the SOH add-on also receive the battery health report.",
   },
 ]
 
