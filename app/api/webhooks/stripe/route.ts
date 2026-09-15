@@ -65,7 +65,7 @@ function brandedEmail(title: string, contentHtml: string) {
                           </a>
                         </td>
                         <td style="vertical-align:middle;">
-                          <a href="https://wa.me/441992367909" style="font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:#128C7E;text-decoration:none;font-weight:700;">01992 367909</a>
+                          <a href="https://wa.me/441992367909" style="font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:#25D366;text-decoration:none;font-weight:700;">+44 1992 367909</a>
                         </td>
                       </tr>
                     </table>
@@ -192,7 +192,7 @@ Amount paid: ${amountPaid}
 
 Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.
 ${hasEvSoh ? "\nYour EV battery health report will be supplied with your inspection findings.\n" : ""}
-Questions in the meantime? WhatsApp Henry directly on 01992 367909.
+Questions in the meantime? WhatsApp Henry directly on +44 1992 367909.
       `.trim()
 
       const customerHtml = brandedEmail(
@@ -274,7 +274,7 @@ Amount paid: ${amountPaid}
 
 We will get this dispatched and email you once it is on its way.
 
-Questions? WhatsApp us on 01992 367909.
+Questions? WhatsApp us on +44 1992 367909.
       `.trim()
 
       const customerHtml = brandedEmail(
