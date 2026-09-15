@@ -31,30 +31,30 @@ const steps = [
 
 export function InspectionsHowItWorks() {
   return (
-    <section id="how-it-works" className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+    <section id="how-it-works" className="py-8 sm:py-16 lg:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+        <div className="text-center mb-6 sm:mb-12 lg:mb-16 space-y-2 sm:space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">How It Works</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
             Four simple steps to buying with confidence
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8 max-w-6xl mx-auto">
           {steps.map((step) => (
             <div
               key={step.number}
-              className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="relative aspect-square sm:aspect-auto bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-md sm:shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="absolute -top-4 left-8 px-3 py-1 bg-primary text-white text-sm font-bold rounded-full">
+              <div className="absolute -top-3 sm:-top-4 left-3 sm:left-8 px-2.5 sm:px-3 py-0.5 sm:py-1 bg-primary text-white text-xs sm:text-sm font-bold rounded-full">
                 {step.number}
               </div>
-              <div className="mt-4 space-y-4">
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center">
-                  <step.icon className="w-7 h-7 text-primary" />
+              <div className="mt-2 sm:mt-4 h-full flex flex-col gap-2.5 sm:gap-4">
+                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-primary/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <step.icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                <h3 className="text-sm leading-tight sm:text-xl sm:leading-normal font-bold">{step.title}</h3>
+                <p className="hidden sm:block text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             </div>
           ))}
