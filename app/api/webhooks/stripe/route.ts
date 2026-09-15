@@ -4,8 +4,6 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
 const WHATSAPP_ICON = "https://cdn.simpleicons.org/whatsapp/FFFFFF"
-const WHATSAPP_GREEN = "#25D366"
-const WHATSAPP_DISPLAY_NUMBER = "+44 1992 367909"
 const FONT_STACK = "'Fredoka','Trebuchet MS',Arial,Helvetica,sans-serif"
 
 function escapeHtml(value: unknown) {
@@ -19,7 +17,7 @@ function escapeHtml(value: unknown) {
 
 function whatsappButton(label: string) {
   return `<div style="text-align:center;margin-top:26px;">
-    <a href="https://wa.me/441992367909" style="display:inline-block;background:${WHATSAPP_GREEN};color:#ffffff;text-decoration:none;font-family:${FONT_STACK};font-size:14px;font-weight:700;padding:13px 20px;border-radius:12px;">
+    <a href="https://wa.me/441992367909" style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;font-family:${FONT_STACK};font-size:14px;font-weight:700;padding:13px 20px;border-radius:12px;">
       <img src="${WHATSAPP_ICON}" width="18" height="18" border="0" alt="WhatsApp" style="display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:8px;">${escapeHtml(label)}
     </a>
   </div>`
@@ -63,11 +61,11 @@ function brandedEmail(title: string, contentHtml: string) {
                       <tr>
                         <td style="padding-right:8px;vertical-align:middle;">
                           <a href="https://wa.me/441992367909" style="text-decoration:none;">
-                            <img src="${WHATSAPP_ICON}" width="18" height="18" border="0" alt="WhatsApp" style="display:block;width:18px;height:18px;background:${WHATSAPP_GREEN};border-radius:50%;padding:3px;">
+                            <img src="${WHATSAPP_ICON}" width="18" height="18" border="0" alt="WhatsApp" style="display:block;width:18px;height:18px;background:#25D366;border-radius:50%;padding:3px;">
                           </a>
                         </td>
                         <td style="vertical-align:middle;">
-                          <a href="https://wa.me/441992367909" style="font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:${WHATSAPP_GREEN};text-decoration:none;font-weight:700;">${WHATSAPP_DISPLAY_NUMBER}</a>
+                          <a href="https://wa.me/441992367909" style="font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:#128C7E;text-decoration:none;font-weight:700;">01992 367909</a>
                         </td>
                       </tr>
                     </table>
@@ -194,7 +192,7 @@ Amount paid: ${amountPaid}
 
 Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.
 ${hasEvSoh ? "\nYour EV battery health report will be supplied with your inspection findings.\n" : ""}
-Questions in the meantime? WhatsApp Henry directly on ${WHATSAPP_DISPLAY_NUMBER}.
+Questions in the meantime? WhatsApp Henry directly on 01992 367909.
       `.trim()
 
       const customerHtml = brandedEmail(
@@ -276,7 +274,7 @@ Amount paid: ${amountPaid}
 
 We will get this dispatched and email you once it is on its way.
 
-Questions? WhatsApp us on ${WHATSAPP_DISPLAY_NUMBER}.
+Questions? WhatsApp us on 01992 367909.
       `.trim()
 
       const customerHtml = brandedEmail(
