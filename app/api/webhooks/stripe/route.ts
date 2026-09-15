@@ -4,7 +4,79 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
 
-async function sendEmail(to: string, subject: string, text: string): Promise<boolean> {
+function escapeHtml(value: unknown) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+}
+
+function brandedEmail(title: string, contentHtml: string) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0;padding:0;background:#f5f2f7;font-family:Arial,Helvetica,sans-serif;color:#171717;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f5f2f7;padding:28px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(43,20,60,.08);">
+          <tr>
+            <td style="background:#6711a4;padding:28px 34px;">
+              <div style="font-size:28px;line-height:1.1;font-weight:800;color:#ffffff;letter-spacing:-.5px;">Epping Car Buyer</div>
+              <div style="font-size:12px;line-height:1.5;color:#eadcf3;margin-top:5px;">Independent vehicle buying, selling and inspections</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:34px;">
+              <div style="font-size:24px;line-height:1.25;font-weight:800;color:#24142f;margin:0 0 22px;">${escapeHtml(title)}</div>
+              ${contentHtml}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0 34px 34px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top:1px solid #e8e1ec;padding-top:24px;">
+                <tr>
+                  <td>
+                    <div style="font-size:15px;color:#2b2330;line-height:1.7;">Kind regards,</div>
+                    <div style="font-size:21px;font-weight:800;color:#6711a4;margin-top:8px;">Henry</div>
+                    <div style="font-size:14px;font-weight:700;color:#2b2330;margin-top:2px;">Epping Car Buyer</div>
+                    <div style="font-size:13px;color:#6f6575;line-height:1.7;margin-top:8px;">
+                      WhatsApp: <a href="https://wa.me/441992367909" style="color:#6711a4;text-decoration:none;font-weight:700;">01992 367909</a><br>
+                      <a href="https://www.eppingcarbuyer.com" style="color:#6711a4;text-decoration:none;font-weight:700;">www.eppingcarbuyer.com</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div style="font-size:11px;color:#8b8190;padding:16px 10px 0;line-height:1.5;">Epping Car Buyer</div>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`
+}
+
+function textToHtml(text: string) {
+  return `<div style="font-size:15px;line-height:1.75;color:#342c38;white-space:pre-line;">${escapeHtml(text)}</div>`
+}
+
+function infoTable(rows: Array<[string, string]>) {
+  return `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:0;background:#f8f5fa;border:1px solid #eadff0;border-radius:14px;overflow:hidden;margin:22px 0;">
+    ${rows.map(([label, value], index) => `<tr>
+      <td style="padding:13px 16px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#786a80;${index ? "border-top:1px solid #eadff0;" : ""}">${escapeHtml(label)}</td>
+      <td style="padding:13px 16px;font-size:14px;font-weight:700;color:#26182e;text-align:right;${index ? "border-top:1px solid #eadff0;" : ""}">${escapeHtml(value)}</td>
+    </tr>`).join("")}
+  </table>`
+}
+
+async function sendEmail(to: string, subject: string, text: string, html?: string): Promise<boolean> {
   const resendResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -13,9 +85,11 @@ async function sendEmail(to: string, subject: string, text: string): Promise<boo
     },
     body: JSON.stringify({
       from: "Epping Car Buyer <noreply@eppingcarbuyer.com>",
+      reply_to: "henry@eppingcarbuyer.com",
       to: [to],
       subject,
       text,
+      html: html || brandedEmail(subject, textToHtml(text)),
     }),
   })
 
@@ -56,25 +130,25 @@ export async function POST(request: NextRequest) {
       const amountPaid = `£${((session.amount_total || 0) / 100).toFixed(2)}`
       const slotFull = new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })
       const slotEndTime = new Date(slotEnd).toLocaleString("en-GB", { timeZone: "Europe/London", timeStyle: "short" })
-      const evSohLine = hasEvSoh ? "\nEV Battery SOH add-on: YES — CARA Approved® Autel EV Battery Health Test report required" : ""
+      const evSohLine = hasEvSoh ? "\nEV Battery SOH add on: YES. CARA Approved® Autel EV Battery Health Test report required" : ""
 
       const internalEmail = `
 New PAID Vehicle Inspection Booking
 
 Package: ${packageName}${evSohLine}
-Slot: ${slotFull} – ${slotEndTime}
+Slot: ${slotFull} to ${slotEndTime}
 
 Vehicle Details:
-- Registration: ${registration}
-- Where the car is: ${location}
-- Seller name: ${sellerName || "Not provided"}
-- Seller contact number: ${sellerPhone || "Not provided"}
-- Advert link: ${advertUrl || "Not provided"}
+Registration: ${registration}
+Where the car is: ${location}
+Seller name: ${sellerName || "Not provided"}
+Seller contact number: ${sellerPhone || "Not provided"}
+Advert link: ${advertUrl || "Not provided"}
 
 Customer Details:
-- Name: ${customerName}
-- Phone: ${customerPhone}
-- Email: ${customerEmail}
+Name: ${customerName}
+Phone: ${customerPhone}
+Email: ${customerEmail}
 
 Additional Notes:
 ${notes || "None provided"}
@@ -86,30 +160,48 @@ Stripe session: ${session.id}
       const customerEmailBody = `
 Hi ${customerName.split(" ")[0]},
 
-Your ${packageName} is booked and paid for — thanks!
-${hasEvSoh ? "\nYou've also added the £49.99 EV Battery State of Health Report using the CARA Approved® Autel EV Battery Health Test. Vehicle compatibility will be confirmed from the car details.\n" : ""}
+Your ${packageName} is booked and paid for. Thank you.
+${hasEvSoh ? "\nYou have also added the £49.99 EV Battery State of Health Report using the CARA Approved® Autel EV Battery Health Test. Vehicle compatibility will be confirmed from the car details.\n" : ""}
 When: ${slotFull}
 Vehicle: ${registration}
 Where: ${location}
 Amount paid: ${amountPaid}
 
-Henry will call or message you beforehand to confirm the details, then meet you at the car, run the full
-inspection, and talk you through everything he finds — before you hand over any money to the seller.
+Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.
 ${hasEvSoh ? "\nYour EV battery health report will be supplied with your inspection findings.\n" : ""}
-Questions in the meantime? WhatsApp Henry directly: https://wa.me/441992367909
-
-Thanks,
-Epping Car Buyer
+Questions in the meantime? WhatsApp Henry directly on 01992 367909.
       `.trim()
+
+      const customerHtml = brandedEmail(
+        "Your vehicle inspection is confirmed",
+        `<div style="font-size:16px;line-height:1.7;color:#342c38;">Hi ${escapeHtml(customerName.split(" ")[0])},</div>
+         <div style="font-size:16px;line-height:1.7;color:#342c38;margin-top:12px;">Your <strong>${escapeHtml(packageName)}</strong> is booked and paid for. Thank you.</div>
+         ${hasEvSoh ? `<div style="margin:20px 0 0;background:#eef9f5;border:1px solid #bfe8d7;border-radius:12px;padding:15px 16px;color:#145c48;font-size:14px;line-height:1.6;"><strong>EV Battery SOH included</strong><br>Your £49.99 CARA Approved® Autel EV Battery Health Test has been added to the booking. Vehicle compatibility will be confirmed from the car details.</div>` : ""}
+         ${infoTable([
+           ["Inspection", packageName],
+           ["When", slotFull],
+           ["Vehicle", registration],
+           ["Location", location],
+           ["Amount paid", amountPaid],
+         ])}
+         <div style="font-size:15px;line-height:1.75;color:#342c38;">Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.</div>
+         ${hasEvSoh ? `<div style="font-size:15px;line-height:1.75;color:#342c38;margin-top:14px;">Your EV battery health report will be supplied with your inspection findings.</div>` : ""}
+         <div style="text-align:center;margin-top:26px;"><a href="https://wa.me/441992367909" style="display:inline-block;background:#6711a4;color:#ffffff;text-decoration:none;font-size:14px;font-weight:800;padding:13px 20px;border-radius:10px;">WhatsApp Henry</a></div>`
+      )
 
       const subjectSuffix = hasEvSoh ? " + EV Battery SOH" : ""
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
           "henry@eppingcarbuyer.com",
-          `Vehicle inspection request — ${registration} (${packageName}${subjectSuffix}) — PAID`,
+          `Vehicle inspection request: ${registration} (${packageName}${subjectSuffix}) PAID`,
           internalEmail
         ),
-        sendEmail(customerEmail, `Booking confirmed — ${packageName}${subjectSuffix} on ${slotFull}`, customerEmailBody),
+        sendEmail(
+          customerEmail,
+          `Booking confirmed: ${packageName}${subjectSuffix} on ${slotFull}`,
+          customerEmailBody,
+          customerHtml,
+        ),
       ])
 
       if (!internalOk || !customerOk) {
@@ -132,14 +224,14 @@ Epping Car Buyer
       const customerEmail = session.customer_details?.email
 
       const internalEmail = `
-New PAID Shop Order — dropship fulfillment needed
+New PAID Shop Order. Dropship fulfilment needed.
 
 Product: ${productName}
 Amount paid: ${amountPaid}
 
 Customer:
-- Name: ${customerName}
-- Email: ${customerEmail || "Not provided"}
+Name: ${customerName}
+Email: ${customerEmail || "Not provided"}
 
 Ship the supplier order to:
 ${addressLines}
@@ -152,22 +244,30 @@ ACTION NEEDED: Place this order with your supplier now, using the address above 
       const customerEmailBody = `
 Hi ${customerName.split(" ")[0]},
 
-Thanks for your order — payment received.
+Thanks for your order. Payment has been received.
 
 Item: ${productName}
 Amount paid: ${amountPaid}
 
-We'll get this dispatched and email you once it's on its way.
+We will get this dispatched and email you once it is on its way.
 
-Questions? WhatsApp us: https://wa.me/441992367909
-
-Thanks,
-Epping Car Buyer
+Questions? WhatsApp us on 01992 367909.
       `.trim()
 
-      const emailTasks = [sendEmail("henry@eppingcarbuyer.com", `Shop order — ${productName} — PAID, needs fulfilling`, internalEmail)]
+      const customerHtml = brandedEmail(
+        "Your order is confirmed",
+        `<div style="font-size:16px;line-height:1.7;color:#342c38;">Hi ${escapeHtml(customerName.split(" ")[0])},</div>
+         <div style="font-size:16px;line-height:1.7;color:#342c38;margin-top:12px;">Thanks for your order. Payment has been received.</div>
+         ${infoTable([["Item", productName], ["Amount paid", amountPaid]])}
+         <div style="font-size:15px;line-height:1.75;color:#342c38;">We will get this dispatched and email you once it is on its way.</div>
+         <div style="text-align:center;margin-top:26px;"><a href="https://wa.me/441992367909" style="display:inline-block;background:#6711a4;color:#ffffff;text-decoration:none;font-size:14px;font-weight:800;padding:13px 20px;border-radius:10px;">WhatsApp us</a></div>`
+      )
+
+      const emailTasks = [
+        sendEmail("henry@eppingcarbuyer.com", `Shop order: ${productName}. PAID, needs fulfilling`, internalEmail),
+      ]
       if (customerEmail) {
-        emailTasks.push(sendEmail(customerEmail, `Order confirmed — ${productName}`, customerEmailBody))
+        emailTasks.push(sendEmail(customerEmail, `Order confirmed: ${productName}`, customerEmailBody, customerHtml))
       }
       const results = await Promise.all(emailTasks)
 
