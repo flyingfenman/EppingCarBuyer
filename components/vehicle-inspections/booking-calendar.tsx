@@ -54,7 +54,7 @@ const PACKAGES: Array<{
     amount: 199.99,
     points: "140-point inspection",
     strapline: "Best for higher-value, prestige or performance cars",
-    features: ["Everything in Standard", "Paint-depth readings", "Video walkaround", "Deeper bodywork assessment"],
+    features: ["Everything in Standard", "Additional condition checks", "Video walkaround", "Deeper bodywork assessment"],
     popular: true,
   },
 ]
