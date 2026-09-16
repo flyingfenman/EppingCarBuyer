@@ -2,22 +2,21 @@ import { InspectionsBookingCalendar } from "./booking-calendar"
 
 export function InspectionsCta() {
   return (
-    <section id="book" className="scroll-mt-24 bg-slate-50 py-12 sm:py-16 lg:py-20">
+    <section id="book" className="scroll-mt-24 bg-white py-8 sm:py-12 lg:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-5xl">
-          <div className="mx-auto mb-9 max-w-3xl text-center sm:mb-12">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Independent. Thorough. On your side.</p>
-            <h2 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">Book Your Vehicle Inspection</h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              Before you hand over thousands for a used car, get an independent view of what you&apos;re actually buying.
-              Choose your inspection, reserve a convenient appointment and we&apos;ll handle the rest.
+          <div className="mx-auto mb-6 max-w-3xl text-center sm:mb-8">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary sm:text-sm">Book online</p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-4xl">Choose your inspection and appointment</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Pick Standard or Premium, choose an available time and enter the vehicle details.
             </p>
           </div>
 
           <InspectionsBookingCalendar />
 
-          <p className="mt-7 text-center text-sm text-muted-foreground">
-            You&apos;ll deal directly with Henry from booking through to your inspection findings — no call centre and no sales commission from the car.
+          <p className="mt-5 text-center text-xs text-muted-foreground sm:text-sm">
+            You&apos;ll deal directly with Henry from booking through to the inspection findings.
           </p>
         </div>
       </div>
