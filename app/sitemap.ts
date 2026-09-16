@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.95,
     },
     {
-      url: `${BASE_URL}/vehicle-inspection-epping`,
+      url: `${BASE_URL}/vehicle-inspection-london`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
