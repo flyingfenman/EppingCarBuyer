@@ -96,7 +96,7 @@ export default function VehicleInspectionsPage() {
                     <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4">
                       <p className="text-sm font-bold text-primary">Premium Inspection</p>
                       <p className="mt-1 text-3xl font-bold">£199.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">140-point inspection with deeper bodywork assessment, paint-depth readings and video walkaround.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">140-point inspection with deeper bodywork assessment, additional condition checks and video walkaround.</p>
                     </div>
                   </div>
                   <a href="#book" className="mt-4 inline-flex items-center gap-2 font-bold text-primary hover:underline">
