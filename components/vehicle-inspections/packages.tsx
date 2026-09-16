@@ -31,7 +31,7 @@ const packages = [
     popular: true,
     features: [
       "Everything in the Standard Inspection",
-      "Paint depth readings to help identify previous repairs and resprays",
+      "Additional condition checks for a fuller picture of the vehicle",
       "Full video walkaround — interior, exterior, underbody areas and vehicle running / powered on",
       "Full vehicle history — keepers, service records, import/export status",
       "Priority booking — inspected within 24–48 hours",
