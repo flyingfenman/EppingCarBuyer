@@ -50,6 +50,7 @@ export const viewport: Viewport = {
 }
 
 const GA_TRACKING_ID = "G-0VZ6KTHLBW"
+const GOOGLE_ADS_ID = "AW-18442938327"
 const META_PIXEL_ID = "805110688694115"
 
 export default function RootLayout({
@@ -69,6 +70,7 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', '${GA_TRACKING_ID}');
+              gtag('config', '${GOOGLE_ADS_ID}');
             `,
           }}
         />
