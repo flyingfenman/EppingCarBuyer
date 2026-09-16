@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { MapPin, CheckCircle } from "lucide-react"
 import { useState } from "react"
 
@@ -49,6 +50,14 @@ export function AreasWeCover() {
                 <div className="text-4xl font-bold text-primary">{areas.length}</div>
                 <div className="text-sm text-muted-foreground">Major Areas</div>
               </div>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-2">
+              <Link href="/vehicle-inspection-epping" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+                Vehicle Inspection Epping
+              </Link>
+              <Link href="/pre-purchase-car-inspection-essex" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+                Pre Purchase Car Inspection Essex
+              </Link>
             </div>
           </div>
 
