@@ -10,15 +10,16 @@ const packages = [
     price: "£149.99",
     pointCheck: "90-Point Check",
     duration: "40–60 minutes on site",
-    description: "A thorough condition, chassis and powertrain inspection tailored to petrol, diesel, hybrid or electric vehicles.",
+    description: "A detailed investigation of the vehicle's condition, with an easy-to-understand video review, documented evidence and personal guidance to help you decide whether to buy. Tailored to petrol, diesel, hybrid or electric vehicles.",
     features: [
       "Full visual condition check — exterior, interior, underbody, tyres and relevant powertrain areas",
       "Full-system diagnostic scan, including stored faults and warning history where available",
       "Powertrain-specific checks — engine/gearbox systems on petrol, diesel and hybrid vehicles; high-voltage, charging and electric drivetrain checks on EVs and hybrids where supported",
       "Road test to assess braking, steering, handling, noises and how the vehicle actually drives",
       "Outstanding finance, write-off, stolen and mileage history check",
-      "Photo report covering all key areas",
-      "Personal phone call to talk through what we found",
+      "Easy-to-understand video review explaining the vehicle's condition and key findings",
+      "Photo evidence and written findings recording issues observed during the inspection",
+      "Personal phone call covering concerns, priorities and questions to raise before buying",
       "Digital report sent the same day",
     ],
   },
@@ -27,12 +28,14 @@ const packages = [
     price: "£199.99",
     pointCheck: "140-Point Check",
     duration: "70–90 minutes on site",
-    description: "Everything in Standard, plus a deeper bodywork and vehicle-history assessment for extra peace of mind — with the same powertrain-specific approach for EV, hybrid, petrol and diesel vehicles.",
+    description: "Everything in Standard, including the video review, evidence and buying guidance, plus a deeper condition assessment, extended road test and additional research into the vehicle's history and seller.",
     popular: true,
     features: [
       "Everything in the Standard Inspection",
       "Additional condition checks for a fuller picture of the vehicle",
-      "Full video walkaround — interior, exterior, underbody areas and vehicle running / powered on",
+      "Extended road test where safe and permitted",
+      "Search available auction, salvage and previous advert records, including Copart where available",
+      "Seller identity and document checks with cooperation, plus checks for indicators of undisclosed motor trading",
       "Full vehicle history — keepers, service records, import/export status",
       "Priority booking — inspected within 24–48 hours",
     ],
@@ -46,7 +49,7 @@ export function InspectionsPackages() {
         <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Packages &amp; Pricing</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Clear pricing, independent advice and a same-day digital report. The inspection is adapted to the vehicle — petrol, diesel, hybrid or electric.
+            Both packages include a clear video review, photo evidence, a same-day digital report and a personal call. Understand the findings, make an informed purchase decision and keep a record of the issues observed.
           </p>
         </div>
 

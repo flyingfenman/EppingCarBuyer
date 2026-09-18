@@ -6,6 +6,21 @@ import { Card } from "@/components/ui/card"
 
 const faqs = [
   {
+    question: "Do both packages include a video review and buying advice?",
+    answer:
+      "Yes. Standard and Premium both include an easy-to-understand video review of the vehicle, photos of key findings, a same-day digital report and a personal phone call. We explain the positives, concerns and what needs attention, helping you decide whether to proceed, request repairs or discuss the price with the seller.",
+  },
+  {
+    question: "How can the inspection evidence help me after buying?",
+    answer:
+      "Your video, photographs and written findings provide a record of the issues observed during the inspection. Keep them for reference: they can help you explain a later concern to the seller or a repairer and compare it with what was recorded before purchase. The record covers what was observed at the time of inspection.",
+  },
+  {
+    question: "What does Premium add to the Standard inspection?",
+    answer:
+      "Premium includes everything in Standard, including the video review and personal buying guidance, plus a deeper 140-point assessment and an extended road test where safe and permitted. We also search available auction, salvage and previous advert records, including Copart where available, and look for indicators of undisclosed motor trading. Seller identity and document checks depend on cooperation. We report the evidence found and any limitations; no matching record does not establish that a vehicle has never been auctioned.",
+  },
+  {
     question: "How much does a car inspection cost?",
     answer:
       "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 140-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
@@ -48,7 +63,7 @@ const faqs = [
   {
     question: "How long does it take and when do I get the report?",
     answer:
-      "Allow around 40–60 minutes on site for a Standard Inspection and 70–90 minutes for Premium. You'll get a digital inspection report the same day, plus a personal phone call to talk through the findings. EV customers who select the SOH add-on also receive the separate battery-health report.",
+      "Allow around 40–60 minutes on site for a Standard Inspection and 70–90 minutes for Premium. Both include a video review, photo evidence, a digital inspection report the same day and a personal phone call to talk through the findings and your purchase decision. EV customers who select the SOH add-on also receive the separate battery-health report.",
   },
 ]
 

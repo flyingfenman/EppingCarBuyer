@@ -19,13 +19,13 @@ const steps = [
     number: "03",
     icon: ClipboardCheck,
     title: "Full inspection on the spot",
-    description: "Visual condition check, OBD diagnostic scan, road test, and a full history check while we're there.",
+    description: "We assess the vehicle, scan its systems, road test it where permitted and investigate concerns using the findings and history.",
   },
   {
     number: "04",
     icon: FileCheck2,
-    title: "Report before you commit",
-    description: "You get the full findings and a phone call talking you through them — before you hand over any money.",
+    title: "Understand before you decide",
+    description: "Both packages include a clear video review, photo evidence, a same-day report and a personal call to guide your decision. Keep the findings for future reference.",
   },
 ]
 

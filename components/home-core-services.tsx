@@ -5,7 +5,8 @@ const inspectionPoints = [
   "Standard 90-point inspection — £149.99",
   "Premium 140-point inspection — £199.99",
   "Petrol, diesel, hybrid & electric vehicles",
-  "Same-day digital report with independent findings",
+  "Video review, photo evidence and same-day report in both packages",
+  "Personal call to guide your purchase decision",
 ]
 
 export function HomeCoreServices() {
@@ -18,7 +19,7 @@ export function HomeCoreServices() {
               Independent Vehicle Inspections
             </h2>
             <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-              Buying a used car? Know what you&apos;re buying before you commit. We inspect the vehicle at the seller&apos;s location, road test it, scan its systems and send you a same-day digital report. Petrol, diesel, hybrid or electric — choose Standard or Premium and book online.
+              Buying a used car? We take a detailed look at its condition, investigate concerns and help you understand what the findings mean before you commit. Both Standard and Premium include a clear video review, documented evidence and a personal call to guide your purchase decision.
             </p>
           </div>
 
@@ -37,7 +38,7 @@ export function HomeCoreServices() {
 
                 <h3 className="mt-5 text-3xl font-bold text-foreground sm:text-4xl">Independent Vehicle Inspections</h3>
                 <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-                  Buying a used car? Have it professionally inspected before you commit. We check the vehicle, road test it, scan its systems and give you an independent report so you know what you are buying.
+                  See the car through an inspector&apos;s eyes. We explain the positives, the issues and what needs attention in plain English, so you can decide whether to proceed, ask for repairs or discuss the price. Your video, photos and report also provide a record of the issues observed if questions arise after purchase.
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">

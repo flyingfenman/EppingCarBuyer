@@ -44,8 +44,8 @@ const PACKAGES: Array<{
     price: "£149.99",
     amount: 149.99,
     points: "90-point inspection",
-    strapline: "Ideal for most everyday used cars",
-    features: ["Full diagnostic scan", "Road test", "Vehicle history check", "Same-day digital report"],
+    strapline: "Detailed findings and guidance for your purchase",
+    features: ["Full diagnostic scan", "Road test", "Vehicle history check", "Easy-to-understand video review", "Photo evidence and same-day report", "Personal call and buying guidance"],
   },
   {
     key: "premium",
@@ -53,8 +53,8 @@ const PACKAGES: Array<{
     price: "£199.99",
     amount: 199.99,
     points: "140-point inspection",
-    strapline: "Best for higher-value, prestige or performance cars",
-    features: ["Everything in Standard", "Additional condition checks", "Video walkaround", "Deeper bodywork assessment"],
+    strapline: "Deeper inspection and vehicle and seller research",
+    features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Seller identity and document checks with cooperation", "Checks for indicators of undisclosed motor trading"],
     popular: true,
   },
 ]

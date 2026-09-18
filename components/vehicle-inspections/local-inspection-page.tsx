@@ -114,7 +114,7 @@ export function LocalInspectionPage({
               <h2 className="mt-4 text-3xl font-bold">Pre-purchase car inspections in {city}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{localCopy}</p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                We attend the vehicle where it is being sold, whether that is a dealer forecourt or a private seller, and give you an independent view before you commit to buying.
+                We investigate the vehicle&apos;s condition at the seller&apos;s location and help you understand what the findings mean for your purchase. Both packages include a clear video review and a personal call to discuss concerns, priorities and questions to raise. Your photos and report also give you a record of issues observed to refer back to after purchase.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -135,7 +135,9 @@ export function LocalInspectionPage({
                   "Vehicle history check",
                   "Body, chassis, tyres and interior checks",
                   "Powertrain-specific checks for petrol, diesel, hybrid or EV",
-                  "Same-day digital report and findings walkthrough",
+                  "Easy-to-understand video review in both packages",
+                  "Photo evidence and same-day digital report",
+                  "Personal call and buying guidance",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2.5">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
@@ -162,7 +164,7 @@ export function LocalInspectionPage({
                 <p className="mt-2 text-4xl font-bold">£149.99</p>
                 <p className="mt-2 font-semibold">90-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  A thorough inspection for everyday used cars, including diagnostics, road test, history check and same-day digital report.
+                  A detailed inspection including diagnostics, road test and history check, with a clear video review, photo evidence, same-day report and personal buying guidance.
                 </p>
               </div>
 
@@ -171,7 +173,7 @@ export function LocalInspectionPage({
                 <p className="mt-2 text-4xl font-bold">£199.99</p>
                 <p className="mt-2 font-semibold">140-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Everything in Standard, plus additional condition checks, a deeper bodywork assessment and a full video walkaround.
+                  Everything in Standard, including the video review, plus deeper condition checks, an extended road test and additional auction, salvage, previous advert and seller provenance searches, subject to available records, seller cooperation and road-test permission.
                 </p>
               </div>
             </div>
@@ -208,7 +210,7 @@ export function LocalInspectionPage({
                 ["1", "Choose a package and appointment", "Book online and tell us where the vehicle is being sold."],
                 ["2", "We attend the vehicle", `We travel to the seller or dealer in ${city} or the surrounding area.`],
                 ["3", "We inspect and test", "We carry out the relevant physical, diagnostic, history and road-test checks."],
-                ["4", "You get the findings", "You receive the digital report and can talk through the important points before deciding what to do."],
+                ["4", "Understand before you decide", "Receive your video review, photos and digital report, then talk through the findings and buying decision with us. Keep the evidence for future reference."],
               ].map(([number, title, text]) => (
                 <div key={number} className="flex gap-4 rounded-2xl border border-border bg-white p-4 sm:p-5">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">{number}</span>

@@ -16,7 +16,10 @@ export function InspectionsHero() {
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            We inspect the vehicle where it is being sold, road test it, scan its systems and check its history before you commit.
+            We take a detailed look at the car, investigate concerns and explain what the findings mean for your purchase. Get independent guidance on what needs attention, what to ask the seller and whether the car is right for you.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Both Standard and Premium include an easy-to-understand video review, a same-day digital report, photos of key findings and a personal call to help you decide. You also get a record of the issues found to refer back to after purchase.
           </p>
 
           <div className="mx-auto mt-6 grid max-w-2xl grid-cols-2 gap-3">

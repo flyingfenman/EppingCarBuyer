@@ -12,14 +12,14 @@ import { InspectionsCta } from "@/components/vehicle-inspections/cta"
 export const metadata: Metadata = {
   title: "Pre-Purchase Vehicle Inspections & EV Battery Health Checks | Epping Car Buyer",
   description:
-    "Independent mobile pre-purchase car inspections across Essex, Hertfordshire, Greater London, Cambridgeshire and nearby areas. Diagnostic scan, road test, history check and optional £49.99 CARA Approved® Autel EV Battery State of Health report.",
+    "Detailed pre-purchase car inspections with a clear video review, photo evidence, same-day report and personal buying guidance in both Standard and Premium packages.",
   alternates: {
     canonical: "/vehicle-inspections",
   },
   openGraph: {
     title: "Pre-Purchase Vehicle Inspections & EV Battery Health Checks",
     description:
-      "Independent vehicle inspections from £149.99, with an optional £49.99 CARA Approved® Autel EV Battery State of Health report.",
+      "Understand the car before you commit. Both packages include a video review, documented findings and personal buying guidance. Inspections from £149.99.",
     url: "/vehicle-inspections",
     type: "website",
   },
@@ -91,14 +91,15 @@ export default function VehicleInspectionsPage() {
                     <div className="rounded-2xl border border-border p-4">
                       <p className="text-sm font-bold text-primary">Standard Inspection</p>
                       <p className="mt-1 text-3xl font-bold">£149.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">90-point inspection including diagnostic scan, road test, history check and same-day digital report.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">A detailed 90-point inspection with diagnostics, road test and vehicle history check. Includes an easy-to-understand video review, photo evidence, same-day report and a personal call to help you make your purchase decision.</p>
                     </div>
                     <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4">
                       <p className="text-sm font-bold text-primary">Premium Inspection</p>
                       <p className="mt-1 text-3xl font-bold">£199.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">140-point inspection with deeper bodywork assessment, additional condition checks and video walkaround.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">Everything in Standard, including the video review and buying guidance, plus a deeper 140-point assessment, extended road test and additional vehicle and seller provenance searches.</p>
                     </div>
                   </div>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Premium searches available auction, salvage and previous advert records, including Copart where available, and checks for indicators of undisclosed motor trading. Searches depend on available records; seller identity and document checks depend on cooperation. Road tests are subject to safety and permission.</p>
                   <a href="#book" className="mt-4 inline-flex items-center gap-2 font-bold text-primary hover:underline">
                     Choose a package and book <ArrowRight className="h-4 w-4" />
                   </a>
