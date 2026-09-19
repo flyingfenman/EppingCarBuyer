@@ -44,8 +44,8 @@ const PACKAGES: Array<{
     price: "£149.99",
     amount: 149.99,
     points: "90-point inspection",
-    strapline: "Detailed findings and guidance for your purchase",
-    features: ["Full diagnostic scan", "Road test", "Vehicle history check", "Easy-to-understand video review", "Photo evidence and same-day report", "Personal call and buying guidance"],
+    strapline: "In-depth mechanical findings and buying guidance",
+    features: ["Engine / drivetrain, brakes, steering and suspension", "Full diagnostic scan and road test", "Vehicle history check", "Seller identity and documents with cooperation", "Easy-to-understand video review", "Photo evidence and same-day mechanical report", "Personal call and buying guidance"],
   },
   {
     key: "premium",
@@ -54,7 +54,7 @@ const PACKAGES: Array<{
     amount: 199.99,
     points: "140-point inspection",
     strapline: "Deeper inspection and vehicle and seller research",
-    features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Seller identity and document checks with cooperation", "Checks for indicators of undisclosed motor trading"],
+    features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Checks for indicators of undisclosed motor trading"],
     popular: true,
   },
 ]
@@ -288,7 +288,7 @@ export function InspectionsBookingCalendar() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <button onClick={changeDateOrTime} className="text-sm font-semibold text-emerald-300 hover:underline">
-                ← Change date or time
+                ← Change package, add-on or time
               </button>
               <p className="mt-2 text-sm text-slate-400">You&apos;re booking</p>
               <h3 className="text-2xl font-bold">{selectedPackage.name}</h3>
@@ -378,34 +378,6 @@ export function InspectionsBookingCalendar() {
             <div className="mb-4 flex items-center gap-3">
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span>
               <div>
-                <h3 className="font-bold">Add EV battery health if needed</h3>
-                <p className="text-xs text-muted-foreground">Optional for compatible fully electric vehicles.</p>
-              </div>
-            </div>
-            <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
-              <div className="flex items-start gap-3">
-                <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="mt-1 h-5 w-5 rounded border-border accent-emerald-600" />
-                <BatteryCharging className="h-6 w-6 flex-shrink-0 text-emerald-700" />
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="font-bold text-foreground">EV Battery State of Health Report</p>
-                    <p className="text-lg font-bold text-emerald-800">+£49.99</p>
-                  </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Dedicated traction-battery SOH assessment plus a customer battery health report.
-                  </p>
-                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
-                    <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
-                  </p>
-                </div>
-              </div>
-            </label>
-          </div>
-
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">3</span>
-              <div>
                 <h3 className="font-bold">Your details</h3>
                 <p className="text-xs text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
               </div>
@@ -436,7 +408,7 @@ export function InspectionsBookingCalendar() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="font-bold">{selectedPackage.name}</p>
-                <p className="text-xs text-muted-foreground">No hidden extras. Secure payment reserves your slot.</p>
+                <p className="text-xs text-muted-foreground">{includeEvSoh ? "Includes EV Battery State of Health Report (+£49.99)" : "Inspection only — no optional battery State of Health report"}</p>
               </div>
               <p className="text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
             </div>
@@ -481,7 +453,7 @@ export function InspectionsBookingCalendar() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">1</span>
           <div>
             <h3 className="text-xl font-bold">Choose your inspection</h3>
-            <p className="text-sm text-muted-foreground">Both packages include the checks that protect you from an expensive mistake.</p>
+            <p className="text-sm text-muted-foreground">Both packages include an in-depth mechanical inspection, video review, evidence and personal buying guidance.</p>
           </div>
         </div>
 
@@ -507,6 +479,42 @@ export function InspectionsBookingCalendar() {
             )
           })}
         </div>
+      </div>
+
+      <div>
+        <div className="mb-4 flex items-center gap-3">
+          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">+</span>
+          <div>
+            <h3 className="font-bold">Optional EV battery State of Health report</h3>
+            <p className="text-xs text-muted-foreground">Choose your add-on now. EV-specific inspection checks are already included in both packages.</p>
+          </div>
+        </div>
+        <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
+          <div className="flex items-start gap-3">
+            <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="mt-1 h-5 w-5 rounded border-border accent-emerald-600" />
+            <BatteryCharging className="h-6 w-6 flex-shrink-0 text-emerald-700" />
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-bold text-foreground">EV Battery State of Health Report</p>
+                <p className="text-lg font-bold text-emerald-800">+£49.99</p>
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric vehicles.
+              </p>
+              <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
+                <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
+              </p>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div className="my-6 flex items-center justify-between gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-4" aria-live="polite">
+        <div>
+          <p className="font-bold">{selectedPackage.name}</p>
+          <p className="text-sm text-muted-foreground">{includeEvSoh ? "Includes EV Battery State of Health Report (+£49.99)" : "No optional battery State of Health report selected"}</p>
+        </div>
+        <p className="shrink-0 text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
       </div>
 
       <div>

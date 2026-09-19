@@ -12,11 +12,11 @@ export function InspectionsHero() {
           </div>
 
           <h1 className="mt-4 text-3xl font-bold leading-tight text-balance sm:text-5xl lg:text-6xl">
-            Buying a Used Car? <span className="text-primary">Know Before You Buy.</span>
+            In-depth Mechanical Inspections. <span className="text-primary">Know Before You Buy.</span>
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            We take a detailed look at the car, investigate concerns and explain what the findings mean for your purchase. Get independent guidance on what needs attention, what to ask the seller and whether the car is right for you.
+            Understand the car&apos;s mechanical condition before you commit. We inspect the engine and drivetrain, brakes, steering and suspension, scan its systems and assess how it drives, with checks adapted to the vehicle. Your report explains the findings, concerns and what needs attention, backed by personal buying guidance.
           </p>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             Both Standard and Premium include an easy-to-understand video review, a same-day digital report, photos of key findings and a personal call to help you decide. You also get a record of the issues found to refer back to after purchase.

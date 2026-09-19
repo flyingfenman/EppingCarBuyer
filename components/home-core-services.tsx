@@ -16,10 +16,10 @@ export function HomeCoreServices() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-7 max-w-3xl sm:mb-9">
             <h2 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-              Independent Vehicle Inspections
+              In-depth Mechanical Inspections
             </h2>
             <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-              Buying a used car? We take a detailed look at its condition, investigate concerns and help you understand what the findings mean before you commit. Both Standard and Premium include a clear video review, documented evidence and a personal call to guide your purchase decision.
+              Buying a used car? Our in-depth mechanical inspections assess the relevant engine and drivetrain, brakes, steering, suspension, diagnostic findings and road-test behaviour. We explain the issues and help you understand what they mean before you commit. Both Standard and Premium include a clear video review, documented evidence and a personal call to guide your purchase decision.
             </p>
           </div>
 
@@ -36,7 +36,7 @@ export function HomeCoreServices() {
                   </span>
                 </div>
 
-                <h3 className="mt-5 text-3xl font-bold text-foreground sm:text-4xl">Independent Vehicle Inspections</h3>
+                <h3 className="mt-5 text-3xl font-bold text-foreground sm:text-4xl">In-depth Mechanical Inspections</h3>
                 <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
                   See the car through an inspector&apos;s eyes. We explain the positives, the issues and what needs attention in plain English, so you can decide whether to proceed, ask for repairs or discuss the price. Your video, photos and report also provide a record of the issues observed if questions arise after purchase.
                 </p>

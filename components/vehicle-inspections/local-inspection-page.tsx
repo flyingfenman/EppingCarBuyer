@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { MechanicalReportOverview } from "@/components/vehicle-inspections/mechanical-report-overview"
 import {
   ArrowRight,
   BatteryCharging,
@@ -114,7 +115,7 @@ export function LocalInspectionPage({
               <h2 className="mt-4 text-3xl font-bold">Pre-purchase car inspections in {city}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{localCopy}</p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                We investigate the vehicle&apos;s condition at the seller&apos;s location and help you understand what the findings mean for your purchase. Both packages include a clear video review and a personal call to discuss concerns, priorities and questions to raise. Your photos and report also give you a record of issues observed to refer back to after purchase.
+                Our in-depth mechanical inspection investigates the vehicle&apos;s condition at the seller&apos;s location and help you understand what the findings mean for your purchase. Both packages include a clear video review and a personal call to discuss concerns, priorities and questions to raise. Your photos and report also give you a record of issues observed to refer back to after purchase.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -133,6 +134,7 @@ export function LocalInspectionPage({
                   "Full-system diagnostic scan",
                   "Road test where safe and permitted",
                   "Vehicle history check",
+                  "Seller identity and document checks with cooperation",
                   "Body, chassis, tyres and interior checks",
                   "Powertrain-specific checks for petrol, diesel, hybrid or EV",
                   "Easy-to-understand video review in both packages",
@@ -150,6 +152,8 @@ export function LocalInspectionPage({
         </div>
       </section>
 
+      <MechanicalReportOverview />
+
       <section className="bg-slate-50 py-10 sm:py-14">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-5xl">
@@ -164,7 +168,7 @@ export function LocalInspectionPage({
                 <p className="mt-2 text-4xl font-bold">£149.99</p>
                 <p className="mt-2 font-semibold">90-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  A detailed inspection including diagnostics, road test and history check, with a clear video review, photo evidence, same-day report and personal buying guidance.
+                  An in-depth mechanical inspection of the relevant engine and drivetrain, brakes, steering, suspension and diagnostics. Includes road test, vehicle history, seller identity and document checks with cooperation, a clear video review, photo evidence and personal buying guidance.
                 </p>
               </div>
 
@@ -173,7 +177,7 @@ export function LocalInspectionPage({
                 <p className="mt-2 text-4xl font-bold">£199.99</p>
                 <p className="mt-2 font-semibold">140-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Everything in Standard, including the video review, plus deeper condition checks, an extended road test and additional auction, salvage, previous advert and seller provenance searches, subject to available records, seller cooperation and road-test permission.
+                  Everything in Standard, including seller identity and document checks and the video review, plus deeper condition checks, an extended road test, available auction, salvage and previous advert searches, and checks for indicators of undisclosed motor trading. Subject to available records, seller cooperation and road-test permission.
                 </p>
               </div>
             </div>

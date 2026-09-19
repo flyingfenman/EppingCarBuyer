@@ -6,6 +6,16 @@ import { Card } from "@/components/ui/card"
 
 const faqs = [
   {
+    question: "What is included in the mechanical report?",
+    answer:
+      "Both packages include an in-depth mechanical and condition report covering relevant engine and cooling checks, gearbox and drivetrain operation, brakes, steering, suspension, tyres, full-system diagnostic findings and road-test behaviour. We explain issues observed, what needs attention and any checks we could not complete. Photos, a clear video review and a personal call help you understand the findings and make your purchase decision. Checks are adapted to the vehicle and accessible components.",
+  },
+  {
+    question: "Are seller identity and document checks included in Standard?",
+    answer:
+      "Yes. Seller identity and document checks are included in both Standard and Premium, subject to the seller’s cooperation and documents being available. Premium adds the deeper condition assessment, extended road test, available auction and previous advert searches, and checks for indicators of undisclosed motor trading.",
+  },
+  {
     question: "Do both packages include a video review and buying advice?",
     answer:
       "Yes. Standard and Premium both include an easy-to-understand video review of the vehicle, photos of key findings, a same-day digital report and a personal phone call. We explain the positives, concerns and what needs attention, helping you decide whether to proceed, request repairs or discuss the price with the seller.",
@@ -18,7 +28,7 @@ const faqs = [
   {
     question: "What does Premium add to the Standard inspection?",
     answer:
-      "Premium includes everything in Standard, including the video review and personal buying guidance, plus a deeper 140-point assessment and an extended road test where safe and permitted. We also search available auction, salvage and previous advert records, including Copart where available, and look for indicators of undisclosed motor trading. Seller identity and document checks depend on cooperation. We report the evidence found and any limitations; no matching record does not establish that a vehicle has never been auctioned.",
+      "Premium includes everything in Standard, including the video review and personal buying guidance, plus a deeper 140-point assessment and an extended road test where safe and permitted. We also search available auction, salvage and previous advert records, including Copart where available, and look for indicators of undisclosed motor trading. Seller identity and document checks are included in both packages, with the seller’s cooperation. We report the evidence found and any limitations; no matching record does not establish that a vehicle has never been auctioned.",
   },
   {
     question: "How much does a car inspection cost?",
