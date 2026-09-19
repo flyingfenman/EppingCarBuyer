@@ -30,15 +30,18 @@ export default function VehicleInspectionsPage() {
   return (
     <div className="min-h-screen bg-white">
       <InspectionsHero />
-      <MechanicalReportOverview />
+      <InspectionsCta />
+      <div id="inspection-details" className="scroll-mt-24">
+        <MechanicalReportOverview />
+      </div>
 
       <section className="bg-slate-50 py-7 sm:py-10">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             <div className="mb-5 text-center">
-              <h2 className="text-2xl font-bold sm:text-3xl">Everything you need to know</h2>
+              <h2 className="text-2xl font-bold sm:text-3xl">More about your inspection</h2>
               <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-                Open only the information you want. You can go straight to booking at any time.
+                Explore the checks, view a sample report or read the answers to common questions.
               </p>
             </div>
 
@@ -192,7 +195,6 @@ export default function VehicleInspectionsPage() {
         </div>
       </section>
 
-      <InspectionsCta />
     </div>
   )
 }

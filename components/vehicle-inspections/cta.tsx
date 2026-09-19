@@ -3,10 +3,10 @@ import { LocalAreaLinks } from "./local-area-links"
 
 export function InspectionsCta() {
   return (
-    <section id="book" className="scroll-mt-24 bg-slate-50 py-12 sm:py-16 lg:py-20">
+    <section id="book" className="scroll-mt-24 bg-slate-50 py-7 sm:py-9 lg:py-10">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-5xl">
-          <div className="mx-auto mb-9 max-w-3xl text-center sm:mb-12">
+          <div className="mx-auto mb-6 max-w-3xl text-center sm:mb-8">
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Independent. Thorough. On your side.</p>
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">Book Your Vehicle Inspection</h2>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground sm:text-xl">
@@ -15,6 +15,11 @@ export function InspectionsCta() {
           </div>
 
           <InspectionsBookingCalendar />
+          <p className="mt-7 text-center">
+            <a href="#inspection-details" className="text-sm font-bold text-primary underline underline-offset-4">
+              Want more detail? See what your mechanical report covers below
+            </a>
+          </p>
           <LocalAreaLinks />
 
           <p className="mt-7 text-center text-sm text-muted-foreground">

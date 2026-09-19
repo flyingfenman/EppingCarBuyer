@@ -1,10 +1,8 @@
-import Link from "next/link"
-import { ArrowRight, BatteryCharging, FileText, MapPin, ShieldCheck } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ShieldCheck } from "lucide-react"
 
 export function InspectionsHero() {
   return (
-    <section className="border-b border-border bg-white py-8 sm:py-12 lg:py-16">
+    <section className="border-b border-border bg-white py-7 sm:py-9 lg:py-10">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary sm:text-sm">
@@ -16,45 +14,7 @@ export function InspectionsHero() {
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Understand the car&apos;s mechanical condition before you commit. We inspect the engine and drivetrain, brakes, steering and suspension, scan its systems and assess how it drives, with checks adapted to the vehicle. Your report explains the findings, concerns and what needs attention, backed by personal buying guidance.
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Both Standard and Premium include an easy-to-understand video review, a same-day digital report, photos of key findings and a personal call to help you decide. You also get a record of the issues found to refer back to after purchase.
-          </p>
-
-          <div className="mx-auto mt-6 grid max-w-2xl grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-border bg-white p-4 text-left shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Standard</p>
-              <p className="mt-1 text-2xl font-bold">£149.99</p>
-              <p className="mt-1 text-xs text-muted-foreground">90-point inspection</p>
-            </div>
-            <div className="rounded-2xl border border-primary/30 bg-primary/5 p-4 text-left shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wide text-primary">Premium</p>
-              <p className="mt-1 text-2xl font-bold">£199.99</p>
-              <p className="mt-1 text-xs text-muted-foreground">140-point inspection</p>
-            </div>
-          </div>
-
-          <div className="mx-auto mt-3 flex max-w-2xl items-center justify-center gap-2 rounded-xl border border-primary/15 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary">
-            <BatteryCharging className="h-4 w-4 shrink-0" />
-            EV Battery State of Health Report +£49.99
-          </div>
-
-          <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg" className="h-13 px-7 font-bold">
-              <a href="#book">
-                Book an Inspection <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-13 px-7 font-bold">
-              <Link href="/vehicle-inspections/sample-report">
-                <FileText className="mr-2 h-4 w-4" /> View Sample Report
-              </Link>
-            </Button>
-          </div>
-
-          <p className="mt-5 flex items-center justify-center gap-1.5 text-xs text-muted-foreground sm:text-sm">
-            <MapPin className="h-4 w-4" /> Essex · Hertfordshire · Cambridgeshire · Greater London · surrounding areas
+            In-depth mechanical checks, an easy-to-understand video review, photo evidence and a same-day report. Both packages include a personal call to explain the findings and help you decide before buying.
           </p>
         </div>
       </div>
