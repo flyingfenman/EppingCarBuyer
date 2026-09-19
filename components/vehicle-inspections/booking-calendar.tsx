@@ -16,7 +16,7 @@ import {
   BatteryCharging,
   BadgeCheck,
   Check,
-  ShieldCheck,
+  Wrench,
   CalendarDays,
 } from "lucide-react"
 import { MIN_BOOKING_NOTICE_HOURS, type PackageKey, type Slot } from "@/lib/inspection-slots"
@@ -435,16 +435,16 @@ export function InspectionsBookingCalendar() {
     <div className="mx-auto max-w-5xl">
       <div className="mb-7 grid gap-3 sm:grid-cols-3">
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
-          <ShieldCheck className="h-6 w-6 text-primary" />
-          <div><p className="text-sm font-bold">Independent advice</p><p className="text-xs text-muted-foreground">We don&apos;t sell the car</p></div>
+          <BatteryCharging className="h-6 w-6 shrink-0 text-primary" />
+          <div><p className="text-sm font-bold">Specialists in EV</p><p className="text-xs text-muted-foreground">EV diagnostics &amp; optional battery health reports</p></div>
         </div>
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
-          <Clock className="h-6 w-6 text-primary" />
+          <Clock className="h-6 w-6 shrink-0 text-primary" />
           <div><p className="text-sm font-bold">Short-notice availability</p><p className="text-xs text-muted-foreground">Message first inside 24 hours</p></div>
         </div>
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
-          <BadgeCheck className="h-6 w-6 text-primary" />
-          <div><p className="text-sm font-bold">Same-day report</p><p className="text-xs text-muted-foreground">Plus a personal walkthrough</p></div>
+          <Wrench className="h-6 w-6 shrink-0 text-primary" />
+          <div><p className="text-sm font-bold">Most thorough mechanical checks available</p><p className="text-xs text-muted-foreground">In-depth findings, video &amp; buying guidance</p></div>
         </div>
       </div>
 
