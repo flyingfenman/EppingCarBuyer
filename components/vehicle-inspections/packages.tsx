@@ -17,7 +17,6 @@ const packages = [
       "Powertrain-specific checks — engine/gearbox systems on petrol, diesel and hybrid vehicles; high-voltage, charging and electric drivetrain checks on EVs and hybrids where supported",
       "Road test to assess braking, steering, handling, noises and how the vehicle actually drives",
       "Outstanding finance, write-off, stolen and mileage history check",
-      "Seller identity and document checks with the seller’s cooperation",
       "Easy-to-understand video review explaining the vehicle's condition and key findings",
       "Photo evidence and written findings recording issues observed during the inspection",
       "Personal phone call covering concerns, priorities and questions to raise before buying",

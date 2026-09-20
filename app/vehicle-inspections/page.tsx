@@ -96,7 +96,7 @@ export default function VehicleInspectionsPage() {
                     <div className="rounded-2xl border border-border p-4">
                       <p className="text-sm font-bold text-primary">Standard Inspection</p>
                       <p className="mt-1 text-3xl font-bold">£149.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">An in-depth 90-point mechanical and condition inspection covering the relevant engine and drivetrain, brakes, steering, suspension, diagnostics and road test. Includes vehicle history, seller identity and document checks, a clear video review, photo evidence, same-day report and personal buying guidance.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">An in-depth 90-point mechanical and condition inspection covering the relevant engine and drivetrain, brakes, steering, suspension, diagnostics and road test. Includes vehicle history, a clear video review, photo evidence, same-day report and personal buying guidance.</p>
                     </div>
                     <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4">
                       <p className="text-sm font-bold text-primary">Premium Inspection</p>
@@ -104,7 +104,7 @@ export default function VehicleInspectionsPage() {
                       <p className="mt-1 text-sm text-muted-foreground">Everything in Standard, including the video review and buying guidance, plus a deeper 140-point assessment, extended road test and additional vehicle and seller provenance searches.</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Seller identity and document checks are included in both packages, with the seller&apos;s cooperation. Premium adds searches of available auction, salvage and previous advert records, including Copart where available, and checks for indicators of undisclosed motor trading. Searches depend on available records. Road tests are subject to safety and permission.</p>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Premium adds searches of available auction, salvage and previous advert records, including Copart where available, and checks for indicators of undisclosed motor trading. Searches depend on available records. Road tests are subject to safety and permission.</p>
                   <a href="#book" className="mt-4 inline-flex items-center gap-2 font-bold text-primary hover:underline">
                     Choose a package and book <ArrowRight className="h-4 w-4" />
                   </a>

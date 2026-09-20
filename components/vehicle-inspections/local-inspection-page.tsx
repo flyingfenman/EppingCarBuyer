@@ -134,7 +134,6 @@ export function LocalInspectionPage({
                   "Full-system diagnostic scan",
                   "Road test where safe and permitted",
                   "Vehicle history check",
-                  "Seller identity and document checks with cooperation",
                   "Body, chassis, tyres and interior checks",
                   "Powertrain-specific checks for petrol, diesel, hybrid or EV",
                   "Easy-to-understand video review in both packages",
@@ -168,7 +167,7 @@ export function LocalInspectionPage({
                 <p className="mt-2 text-4xl font-bold">£149.99</p>
                 <p className="mt-2 font-semibold">90-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  An in-depth mechanical inspection of the relevant engine and drivetrain, brakes, steering, suspension and diagnostics. Includes road test, vehicle history, seller identity and document checks with cooperation, a clear video review, photo evidence and personal buying guidance.
+                  An in-depth mechanical inspection of the relevant engine and drivetrain, brakes, steering, suspension and diagnostics. Includes road test, vehicle history, a clear video review, photo evidence and personal buying guidance.
                 </p>
               </div>
 
@@ -177,7 +176,7 @@ export function LocalInspectionPage({
                 <p className="mt-2 text-4xl font-bold">£199.99</p>
                 <p className="mt-2 font-semibold">140-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Everything in Standard, including seller identity and document checks and the video review, plus deeper condition checks, an extended road test, available auction, salvage and previous advert searches, and checks for indicators of undisclosed motor trading. Subject to available records, seller cooperation and road-test permission.
+                  Everything in Standard, including the video review, plus deeper condition checks, an extended road test, available auction, salvage and previous advert searches, and checks for indicators of undisclosed motor trading. Subject to available records, seller cooperation and road-test permission.
                 </p>
               </div>
             </div>

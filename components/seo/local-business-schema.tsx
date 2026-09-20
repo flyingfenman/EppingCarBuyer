@@ -32,7 +32,7 @@ const localBusinessSchema = {
         "@type": "Service",
         name: "Standard Pre-Purchase Vehicle Inspection",
         serviceType: "Pre-purchase vehicle inspection",
-        description: "In-depth 90-point mechanical and condition inspection with diagnostics, road test, history check, seller identity and document checks with cooperation, video review, photo evidence, same-day report and buying guidance.",
+        description: "In-depth 90-point mechanical and condition inspection with diagnostics, road test, history check, video review, photo evidence, same-day report and buying guidance.",
       },
       price: "149.99",
       priceCurrency: "GBP",

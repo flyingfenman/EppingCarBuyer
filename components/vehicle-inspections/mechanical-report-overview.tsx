@@ -45,7 +45,7 @@ export function MechanicalReportOverview() {
           ))}
         </div>
         <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
-          Checks are adapted to the vehicle and accessible components. The report records any checks that could not be completed. Both packages also include bodywork, interior, vehicle history, and seller identity and document checks with the seller&apos;s cooperation. Keep the video, photos and report as evidence of the issues observed at the time.
+          Checks are adapted to the vehicle and accessible components. The report records any checks that could not be completed. Both packages also include bodywork, interior and vehicle history checks. Keep the video, photos and report as evidence of the issues observed at the time.
         </p>
       </div>
     </section>
