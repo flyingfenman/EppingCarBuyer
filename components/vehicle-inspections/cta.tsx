@@ -1,5 +1,4 @@
 import { InspectionsBookingCalendar } from "./booking-calendar"
-import { LocalAreaLinks } from "./local-area-links"
 
 export function InspectionsCta() {
   return (
@@ -20,7 +19,6 @@ export function InspectionsCta() {
               Want more detail? See what your mechanical report covers below
             </a>
           </p>
-          <LocalAreaLinks />
 
           <p className="mt-7 text-center text-sm text-muted-foreground">
             You&apos;ll deal directly with Henry from booking through to your inspection findings — no call centre and no sales commission from the car.

@@ -9,6 +9,7 @@ import { EvBatterySoh } from "@/components/vehicle-inspections/ev-battery-soh"
 import { InspectionsWhyUs } from "@/components/vehicle-inspections/why-us"
 import { InspectionsFAQ } from "@/components/vehicle-inspections/faq"
 import { InspectionsCta } from "@/components/vehicle-inspections/cta"
+import { LocalAreaLinks } from "@/components/vehicle-inspections/local-area-links"
 
 export const metadata: Metadata = {
   title: "Pre-Purchase Vehicle Inspections & EV Battery Health Checks | Epping Car Buyer",
@@ -191,6 +192,7 @@ export default function VehicleInspectionsPage() {
                 </div>
               </details>
             </div>
+            <LocalAreaLinks />
           </div>
         </div>
       </section>
