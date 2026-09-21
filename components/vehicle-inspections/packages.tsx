@@ -26,13 +26,13 @@ const packages = [
   {
     name: "Premium Inspection",
     price: "£199.99",
-    pointCheck: "140-Point Check",
+    pointCheck: "260-Point Check",
     duration: "70–90 minutes on site",
-    description: "Everything in Standard, including the video review, evidence and buying guidance, plus a deeper condition assessment, extended road test and additional research into the vehicle's history and seller.",
+    description: "Everything in Standard, including the video review, evidence and buying guidance, plus a 260-point assessment with paint-depth checks, deeper body and condition assessment, extended road test, repair-cost guidance and additional research into the vehicle's history and seller.",
     popular: true,
     features: [
       "Everything in the Standard Inspection",
-      "Additional condition checks for a fuller picture of the vehicle",
+      "260 defined inspection points across bodywork, paint, mechanical systems, diagnostics, underbody, interior and road test",\n      "Paint-depth assessment on suitable accessible painted panels",\n      "Repair-cost guidance and prioritised action plan",
       "Extended road test where safe and permitted",
       "Search available auction, salvage and previous advert records, including Copart where available",
       "Checks for indicators of undisclosed motor trading",
