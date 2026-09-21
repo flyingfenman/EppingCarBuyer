@@ -102,7 +102,7 @@ export default function VehicleInspectionsPage() {
                     <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4">
                       <p className="text-sm font-bold text-primary">Premium Inspection</p>
                       <p className="mt-1 text-3xl font-bold">£199.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">Everything in Standard, including the video review and buying guidance, plus a deeper 140-point assessment, extended road test and additional vehicle and seller provenance searches.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">Everything in Standard, including the video review and buying guidance, plus a deeper 260-point assessment, paint-depth assessment, extended road test, repair-cost guidance and additional vehicle and seller provenance searches.</p>
                     </div>
                   </div>
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Premium adds searches of available auction, salvage and previous advert records, including Copart where available, and checks for indicators of undisclosed motor trading. Searches depend on available records. Road tests are subject to safety and permission.</p>
@@ -118,7 +118,7 @@ export default function VehicleInspectionsPage() {
                     <ListChecks className="h-5 w-5 shrink-0 text-primary" />
                     <span>
                       <span className="block font-bold">What do you inspect?</span>
-                      <span className="block text-xs text-muted-foreground sm:text-sm">Mechanical, body, interior, diagnostics, history and road test</span>
+                      <span className="block text-xs text-muted-foreground sm:text-sm">90-point Standard · 260-point Premium · diagnostics, paint, provenance and road test</span>
                     </span>
                   </span>
                   <ChevronDown className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
