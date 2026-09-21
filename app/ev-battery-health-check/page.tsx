@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { BatteryCharging, BadgeCheck, Gauge, FileCheck2, MapPin, ShieldCheck, ArrowRight, Info } from "lucide-react"
+import { BatteryCharging, BadgeCheck, Gauge, FileCheck2, MapPin, ShieldCheck, ArrowRight, Info, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
   title: "EV Battery Health Check & SOH Report | CARA Approved® Autel Test | Epping Car Buyer",
   description:
-    "EV battery State of Health (SOH) check using a CARA Approved® Autel EV Battery Health Test. Add a traction-battery health report to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, Cambridgeshire and nearby areas.",
+    "Buying a used Tesla or other EV? Add an EV battery State of Health (SOH) report, using a CARA Approved® Autel EV Battery Health Test on compatible vehicles, to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, Cambridgeshire and nearby areas.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },
@@ -44,6 +44,11 @@ const faqs = [
     question: "Can every electric car be tested?",
     answer:
       "Vehicle compatibility and the battery data available vary by manufacturer, model and software version. Send us the registration or vehicle details before booking if you want us to confirm compatibility.",
+  },
+  {
+    question: "Can you inspect a used Tesla?",
+    answer:
+      "Yes. We inspect used Teslas and other electric cars before you buy. Every inspection includes diagnostic checks appropriate to the vehicle, and on older EVs we recommend adding the £49.99 EV Battery State of Health report where the car is compatible. Send us the model and year before booking and we'll confirm compatibility.",
   },
 ]
 
@@ -188,6 +193,45 @@ export default function EvBatteryHealthCheckPage() {
                   Compatibility and available metrics vary by vehicle. The Autel EV Battery Health Test is based on battery-management data available from the vehicle and is not a full independent charge/discharge capacity test.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 sm:py-20 bg-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <p className="text-sm uppercase tracking-wider font-bold text-primary">Used Tesla &amp; EV buyers</p>
+              <h2 className="text-3xl sm:text-4xl font-bold mt-2">Buying a used Tesla? Check the battery before you pay.</h2>
+              <p className="mt-5 text-muted-foreground leading-relaxed">
+                We inspect used Teslas and other electric cars before you buy. On older EVs the battery matters most, so we recommend adding the £49.99 State of Health report.
+              </p>
+              <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                <Button asChild size="lg" className="h-14 px-7 font-bold bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Link href="/vehicle-inspections#book">
+                    Book an EV inspection <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="h-14 px-7 font-bold bg-white">
+                  <a
+                    href={`https://wa.me/441992367909?text=${encodeURIComponent("Hi, I'm looking at a used Tesla and would like to check the EV Battery SOH report works on it. Model and year: ")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="mr-2 w-5 h-5" /> Check my Tesla
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border bg-white p-6 sm:p-8 shadow-sm">
+              <h3 className="font-bold text-xl">What you get on a used Tesla</h3>
+              <ul className="mt-5 space-y-4 text-sm">
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>A full pre-purchase inspection, with diagnostic checks appropriate to the vehicle</span></li>
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>The optional £49.99 Autel State of Health report on compatible vehicles</span></li>
+                <li className="flex gap-3"><ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" /><span>WhatsApp us the model and year and we&apos;ll confirm compatibility before you book</span></li>
+              </ul>
             </div>
           </div>
         </div>
