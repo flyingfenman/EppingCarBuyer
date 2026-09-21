@@ -97,7 +97,7 @@ export default function VehicleInspectionsPage() {
                     <div className="rounded-2xl border border-border p-4">
                       <p className="text-sm font-bold text-primary">Standard Inspection</p>
                       <p className="mt-1 text-3xl font-bold">£149.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">An in-depth 90-point mechanical and condition inspection covering the relevant engine and drivetrain, brakes, steering, suspension, diagnostics and road test. Includes vehicle history, a clear video review, photo evidence, same-day report and personal buying guidance.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">An in-depth 160-point mechanical and condition inspection covering the relevant engine and drivetrain, brakes, steering, suspension, diagnostics and road test. Includes vehicle history, a clear video review, photo evidence, same-day report and personal buying guidance.</p>
                     </div>
                     <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4">
                       <p className="text-sm font-bold text-primary">Premium Inspection</p>
@@ -118,7 +118,7 @@ export default function VehicleInspectionsPage() {
                     <ListChecks className="h-5 w-5 shrink-0 text-primary" />
                     <span>
                       <span className="block font-bold">What do you inspect?</span>
-                      <span className="block text-xs text-muted-foreground sm:text-sm">90-point Standard · 260-point Premium · diagnostics, paint, provenance and road test</span>
+                      <span className="block text-xs text-muted-foreground sm:text-sm">160-point Standard · 260-point Premium · diagnostics, paint, provenance and road test</span>
                     </span>
                   </span>
                   <ChevronDown className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
