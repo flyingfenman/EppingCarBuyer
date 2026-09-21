@@ -174,7 +174,7 @@ export function LocalInspectionPage({
               <div className="rounded-3xl border-2 border-primary/30 bg-white p-6 shadow-sm">
                 <p className="text-sm font-bold text-primary">Premium Inspection</p>
                 <p className="mt-2 text-4xl font-bold">£199.99</p>
-                <p className="mt-2 font-semibold">140-point pre-purchase inspection</p>
+                <p className="mt-2 font-semibold">260-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Everything in Standard, including the video review, plus deeper condition checks, an extended road test, available auction, salvage and previous advert searches, and checks for indicators of undisclosed motor trading. Subject to available records, seller cooperation and road-test permission.
                 </p>
