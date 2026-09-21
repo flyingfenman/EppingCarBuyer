@@ -419,14 +419,14 @@ export function InspectionsWhatWeInspect() {
           <p className="text-sm font-bold uppercase tracking-wider text-primary">The full inspection scope</p>
           <h2 className="mt-2 text-3xl font-bold sm:text-4xl lg:text-5xl">What We Inspect</h2>
           <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Standard is a focused 90-point pre-purchase inspection. Premium is our {premiumTotal}-point inspection for buyers who want the deepest assessment, evidence and provenance work before committing.
+            Standard is a comprehensive 160-point pre-purchase inspection. Premium is our {premiumTotal}-point inspection for buyers who want the deepest assessment, evidence and provenance work before committing.
           </p>
         </div>
 
         <div className="mx-auto mt-7 grid max-w-4xl gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-border bg-slate-50 p-5">
             <p className="text-sm font-bold text-primary">Standard · £149.99</p>
-            <p className="mt-1 text-3xl font-bold">90 points</p>
+            <p className="mt-1 text-3xl font-bold">160 points</p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               The essential mechanical, diagnostic, safety, condition and road-test checks, with history, video, photos, report and buying guidance.
             </p>
