@@ -23,12 +23,12 @@ const faqs = [
   {
     question: "What does Premium add to the Standard inspection?",
     answer:
-      "Premium includes everything in Standard, including the video review and personal buying guidance, plus a deeper 140-point assessment and an extended road test where safe and permitted. We also search available auction, salvage and previous advert records, including Copart where available, and look for indicators of undisclosed motor trading. We report the evidence found and any limitations; no matching record does not establish that a vehicle has never been auctioned.",
+      "Premium includes everything in Standard, including the video review and personal buying guidance, plus a deeper 260-point assessment with paint-depth checks on suitable panels, repair-cost guidance and an extended road test where safe and permitted. We also search available auction, salvage and previous advert records, including Copart where available, and look for indicators of undisclosed motor trading. We report the evidence found and any limitations; no matching record does not establish that a vehicle has never been auctioned.",
   },
   {
     question: "How much does a car inspection cost?",
     answer:
-      "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 140-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
+      "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 260-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
   },
   {
     question: "Is it worth paying for an inspection before buying a used car?",
