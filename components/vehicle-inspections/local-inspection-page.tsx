@@ -165,7 +165,7 @@ export function LocalInspectionPage({
               <div className="rounded-3xl border border-border bg-white p-6 shadow-sm">
                 <p className="text-sm font-bold text-primary">Standard Inspection</p>
                 <p className="mt-2 text-4xl font-bold">£149.99</p>
-                <p className="mt-2 font-semibold">90-point pre-purchase inspection</p>
+                <p className="mt-2 font-semibold">160-point pre-purchase inspection</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   An in-depth mechanical inspection of the relevant engine and drivetrain, brakes, steering, suspension and diagnostics. Includes road test, vehicle history, a clear video review, photo evidence and personal buying guidance.
                 </p>
