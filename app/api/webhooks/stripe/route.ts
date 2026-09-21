@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
     if (session.metadata?.type === "inspection_booking") {
       const {
         packageName, includeEvSoh, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
-        customerName, customerPhone, customerEmail, notes,
+        customerName, customerPhone, customerEmail, notes, trafficSource, trafficDetail, landingPage,
       } = session.metadata
 
       const hasEvSoh = includeEvSoh === "yes"
@@ -172,6 +172,10 @@ Customer Details:
 Name: ${customerName}
 Phone: ${customerPhone}
 Email: ${customerEmail}
+
+How they found us:
+${trafficSource || "Direct / unknown"}${trafficDetail ? ` (${trafficDetail})` : ""}
+Landing page: ${landingPage || "Unknown"}
 
 Additional Notes:
 ${notes || "None provided"}

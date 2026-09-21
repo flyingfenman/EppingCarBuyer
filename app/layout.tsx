@@ -5,6 +5,8 @@ import localFont from "next/font/local"
 import "./globals.css"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema"
+import { SiteTracking } from "@/components/tracking/site-tracking"
+import { GA_TRACKING_ID, GOOGLE_ADS_ID } from "@/lib/tracking"
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -49,8 +51,6 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-const GA_TRACKING_ID = "G-0VZ6KTHLBW"
-const GOOGLE_ADS_ID = "AW-18442938327"
 const META_PIXEL_ID = "805110688694115"
 
 export default function RootLayout({
@@ -101,6 +101,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className={fredoka.className}>
+        <SiteTracking />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>

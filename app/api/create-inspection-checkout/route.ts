@@ -21,12 +21,16 @@ function isPackageKey(value: unknown): value is PackageKey {
   return value === "standard" || value === "premium"
 }
 
+function cleanText(value: unknown, maxLength: number): string {
+  return typeof value === "string" ? value.trim().slice(0, maxLength) : ""
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const {
       packageKey, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
-      name, phone, email, notes, includeEvSoh, shortNoticeConfirmed,
+      name, phone, email, notes, includeEvSoh, shortNoticeConfirmed, trafficSource,
     } = body as {
       packageKey: unknown
       slotStart: string
@@ -42,6 +46,7 @@ export async function POST(request: NextRequest) {
       notes?: string
       includeEvSoh?: boolean
       shortNoticeConfirmed?: boolean
+      trafficSource?: { label?: unknown; detail?: unknown; landingPage?: unknown } | null
     }
 
     if (!isPackageKey(packageKey) || !slotStart || !slotEnd || !registration || !location || !name || !phone || !email) {
@@ -133,6 +138,9 @@ export async function POST(request: NextRequest) {
         customerPhone: phone,
         customerEmail: email,
         notes: trimmedNotes,
+        trafficSource: cleanText(trafficSource?.label, 60),
+        trafficDetail: cleanText(trafficSource?.detail, 120),
+        landingPage: cleanText(trafficSource?.landingPage, 120),
       },
       success_url: `${origin}/vehicle-inspections/booked?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/vehicle-inspections?booking=cancelled`,

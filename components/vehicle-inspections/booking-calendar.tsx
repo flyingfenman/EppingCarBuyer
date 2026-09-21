@@ -20,6 +20,8 @@ import {
   CalendarDays,
 } from "lucide-react"
 import { MIN_BOOKING_NOTICE_HOURS, type PackageKey, type Slot } from "@/lib/inspection-slots"
+import { trackWhatsAppClick } from "@/lib/tracking"
+import { getTrafficSource } from "@/lib/traffic-source"
 
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
@@ -229,6 +231,7 @@ export function InspectionsBookingCalendar() {
     if (isShortNotice(slot, nowMs)) {
       setShortNoticeCandidate(slot)
       setShortNoticeConfirmed(false)
+      trackWhatsAppClick("short_notice_slot")
       window.open(shortNoticeWhatsAppUrl(slot, selectedPackage.name), "_blank", "noopener,noreferrer")
       return
     }
@@ -262,6 +265,7 @@ export function InspectionsBookingCalendar() {
           shortNoticeConfirmed: isShortNotice(selectedSlot, nowMs) && shortNoticeConfirmed,
           slotStart: selectedSlot.start,
           slotEnd: selectedSlot.end,
+          trafficSource: getTrafficSource(),
           ...form,
         }),
       })
