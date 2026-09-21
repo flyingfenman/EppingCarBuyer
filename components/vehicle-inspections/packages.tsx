@@ -8,7 +8,7 @@ const packages = [
   {
     name: "Standard Inspection",
     price: "£149.99",
-    pointCheck: "90-Point Check",
+    pointCheck: "160-Point Check",
     duration: "40–60 minutes on site",
     description: "An in-depth mechanical and condition inspection covering the relevant engine and drivetrain, brakes, steering, suspension and diagnostics, with a clear video review, documented findings and personal buying guidance. Tailored to petrol, diesel, hybrid or electric vehicles.",
     features: [
