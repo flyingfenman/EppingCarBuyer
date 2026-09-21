@@ -1,11 +1,11 @@
 export const GA_TRACKING_ID = "G-0VZ6KTHLBW"
 export const GOOGLE_ADS_ID = "AW-18442938327"
 
-// Labels come from Google Ads > Goals > Conversions > (the action) > Tag setup, e.g. "AbC1dEfG2hIjK3lM".
-// An empty label means that conversion action doesn't exist yet, so only GA4 receives the event.
+// Labels come from Google Ads > Goals > Conversions > (the action) > Tag setup.
+// An empty label skips the Ads event, so GA4 still receives it on its own.
 const ADS_CONVERSION_LABELS = {
-  booking: "",
-  whatsapp: "",
+  booking: "FjCkCNGZ3_8cENfPo9pE", // "Inspection booked"
+  whatsapp: "h60CCNSZ3_8cENfPo9pE", // "WhatsApp click"
 }
 
 function gtag(...args: unknown[]) {
