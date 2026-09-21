@@ -28,7 +28,7 @@ const faqs = [
   {
     question: "How much does a car inspection cost?",
     answer:
-      "There are two options: the Standard Inspection at £149.99 (a 90-point check) and the Premium Inspection at £199.99 (a 260-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
+      "There are two options: the Standard Inspection at £149.99 (a 160-point check) and the Premium Inspection at £199.99 (a 260-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
   },
   {
     question: "Is it worth paying for an inspection before buying a used car?",
