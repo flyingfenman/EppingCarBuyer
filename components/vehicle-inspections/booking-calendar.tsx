@@ -54,7 +54,7 @@ const PACKAGES: Array<{
     name: "Premium Inspection",
     price: "£199.99",
     amount: 199.99,
-    points: "140-point inspection",
+    points: "260-point inspection",
     strapline: "Deeper inspection and vehicle and seller research",
     features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Checks for indicators of undisclosed motor trading"],
     popular: true,
