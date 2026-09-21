@@ -6,17 +6,13 @@ import {
   ArrowRight,
   BadgeCheck,
   BatteryCharging,
-  Car,
   CheckCircle2,
   FileSearch,
   FileText,
   Gauge,
-  MonitorCheck,
-  Paintbrush,
   ScanLine,
   ShieldCheck,
   Video,
-  Wrench,
 } from "lucide-react"
 
 type InspectionSection = {
