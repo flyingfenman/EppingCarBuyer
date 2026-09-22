@@ -51,9 +51,6 @@ export function AreasWeCover() {
               <Link href="/pre-purchase-car-inspection-essex" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
                 Pre Purchase Car Inspection Essex
               </Link>
-              <Link href="/contact" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
-                Check Your Vehicle’s Location
-              </Link>
             </div>
           </div>
           <ul className="grid gap-4 sm:grid-cols-2">
