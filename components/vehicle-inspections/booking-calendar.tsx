@@ -135,6 +135,7 @@ export function InspectionsBookingCalendar() {
   const [loadingSlots, setLoadingSlots] = useState(true)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
+  const [showDetails, setShowDetails] = useState(false)
   const [shortNoticeCandidate, setShortNoticeCandidate] = useState<Slot | null>(null)
   const [shortNoticeConfirmed, setShortNoticeConfirmed] = useState(false)
   const [viewDate, setViewDate] = useState(() => {
@@ -192,7 +193,7 @@ export function InspectionsBookingCalendar() {
   }, [loadingSlots, nowMs, selectedDate, slots])
 
   useEffect(() => {
-    if (!selectedSlot) return
+    if (!selectedSlot || !showDetails) return
 
     // The calendar is replaced by a shorter form. Move to it after the DOM updates
     // instead of leaving the viewport at the calendar's previous scroll position.
@@ -203,7 +204,7 @@ export function InspectionsBookingCalendar() {
       bookingForm.scrollIntoView({ behavior: "instant", block: "start" })
     })
     return () => window.cancelAnimationFrame(frame)
-  }, [selectedSlot])
+  }, [selectedSlot, showDetails])
 
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
@@ -230,6 +231,7 @@ export function InspectionsBookingCalendar() {
   }
 
   const choosePackage = (key: PackageKey) => {
+    setShowDetails(false)
     setPackageKey(key)
     setSelectedDate(null)
     setSelectedSlot(null)
@@ -239,10 +241,14 @@ export function InspectionsBookingCalendar() {
 
   const chooseDate = (key: string) => {
     setSelectedDate(key)
+    setSelectedSlot(null)
+    setShowDetails(false)
     resetShortNotice()
   }
 
   const handleSlotClick = (slot: Slot) => {
+    setSelectedSlot(null)
+    setShowDetails(false)
     if (isShortNotice(slot, nowMs)) {
       setShortNoticeCandidate(slot)
       setShortNoticeConfirmed(false)
@@ -260,6 +266,7 @@ export function InspectionsBookingCalendar() {
   }
 
   const changeDateOrTime = () => {
+    setShowDetails(false)
     setSelectedSlot(null)
     resetShortNotice()
   }
@@ -291,6 +298,7 @@ export function InspectionsBookingCalendar() {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
       if (err instanceof Error && (err.message.includes("just booked") || err.message.includes("confirmed"))) {
         setSelectedSlot(null)
+        setShowDetails(false)
         resetShortNotice()
         await loadAvailability()
       }
@@ -298,11 +306,11 @@ export function InspectionsBookingCalendar() {
     }
   }
 
-  if (selectedSlot) {
+  if (selectedSlot && showDetails) {
     const selectedIsShortNotice = isShortNotice(selectedSlot, nowMs)
 
     return (
-      <div ref={bookingFormRef} tabIndex={-1} aria-label="Your inspection booking" className="mx-auto max-w-3xl scroll-mt-24 overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
         <div className="border-b border-border bg-slate-950 px-5 py-5 text-white sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -341,7 +349,7 @@ export function InspectionsBookingCalendar() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-7 p-5 sm:p-7">
-          <div>
+          <div ref={bookingFormRef} tabIndex={-1} aria-label="Tell us about the car" className="scroll-mt-24">
             <div className="mb-4 flex items-center gap-3">
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span>
               <div>
@@ -451,7 +459,7 @@ export function InspectionsBookingCalendar() {
   const daySlots = selectedDate ? slotsByDate.get(selectedDate) || [] : []
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className={`mx-auto max-w-5xl ${selectedSlot ? "pb-64 sm:pb-40" : ""}`}>
       <div className="mb-7 grid gap-3 sm:grid-cols-3">
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
           <BatteryCharging className="h-6 w-6 shrink-0 text-primary" />
@@ -625,14 +633,18 @@ export function InspectionsBookingCalendar() {
                       {daySlots.map((slot) => {
                         const shortNotice = isShortNotice(slot, nowMs)
                         const isCandidate = shortNoticeCandidate?.start === slot.start
+                        const isSelected = selectedSlot?.start === slot.start
                         const time = formatSlotTime(slot)
                         return (
                           <button
                             key={slot.start}
                             type="button"
                             onClick={() => handleSlotClick(slot)}
+                            aria-pressed={isSelected}
                             className={`rounded-xl border px-4 py-3 text-sm font-bold transition-all hover:shadow-sm ${
-                              shortNotice
+                              isSelected
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : shortNotice
                                 ? isCandidate
                                   ? "border-primary bg-primary/10 text-primary"
                                   : "border-primary/25 bg-white text-foreground hover:border-primary/50 hover:bg-primary/5"
@@ -704,6 +716,34 @@ export function InspectionsBookingCalendar() {
           </a>
         </div>
       </div>
+
+      {selectedSlot && (
+        <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)]">
+          <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+            <div role="status" aria-live="polite" className="min-w-0">
+              <p className="text-sm font-semibold leading-relaxed sm:text-base">
+                You&apos;ve selected a {selectedPackage.name.toLowerCase()}
+                {includeEvSoh ? " with an EV battery health check" : ""}
+                {" on "}
+                {new Date(selectedSlot.start).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  timeZone: "Europe/London",
+                })}
+                {" at "}{formatSlotTime(selectedSlot)}.
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Total: <span className="font-bold text-foreground">£{totalPrice.toFixed(2)}</span>
+                {" · "}Booking confirmed after payment.
+              </p>
+            </div>
+            <Button type="button" size="lg" onClick={() => setShowDetails(true)} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
+              Continue <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
