@@ -19,9 +19,9 @@ const charlesWright = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Epping Car Buyer - We Pay More",
+  title: "Epping Car Buyer | Independent Vehicle Inspections",
   description:
-    "Sell your car quickly and easily in Epping. Get instant quotes and fast cash for your vehicle in any condition.",
+    "Independent pre-purchase vehicle inspections across London, Essex, Hertfordshire and surrounding areas, with diagnostics, road testing, video evidence and EV and hybrid checks.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
@@ -31,16 +31,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Epping Car Buyer",
-    title: "Epping Car Buyer - We Pay More",
+    title: "Epping Car Buyer | Independent Vehicle Inspections",
     description:
-      "Sell your car quickly and easily in Epping. Get instant quotes and fast cash for your vehicle in any condition.",
+      "Independent pre-purchase vehicle inspections across London, Essex, Hertfordshire and surrounding areas, with diagnostics, road testing, video evidence and EV and hybrid checks.",
     images: ["/images/inspection-car.jpg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Epping Car Buyer - We Pay More",
+    title: "Epping Car Buyer | Independent Vehicle Inspections",
     description:
-      "Sell your car quickly and easily in Epping. Get instant quotes and fast cash for your vehicle in any condition.",
+      "Independent pre-purchase vehicle inspections across London, Essex, Hertfordshire and surrounding areas, with diagnostics, road testing, video evidence and EV and hybrid checks.",
     images: ["/images/inspection-car.jpg"],
   },
 }
