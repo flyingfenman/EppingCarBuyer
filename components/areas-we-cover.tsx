@@ -5,79 +5,68 @@ import { MapPin, CheckCircle } from "lucide-react"
 import { useState } from "react"
 
 const areas = [
+  "Greater London",
   "Epping",
   "Loughton",
   "Chigwell",
-  "Buckhurst Hill",
-  "Waltham Abbey",
   "Harlow",
-  "Ongar",
   "Brentwood",
   "Romford",
   "Ilford",
   "Chelmsford",
+  "Hertfordshire",
+  "Cambridge area",
 ]
 
 export function AreasWeCover() {
   const [hoveredArea, setHoveredArea] = useState<string | null>(null)
 
   return (
-    <section id="areas" className="py-12 sm:py-16 lg:py-20 px-4 relative overflow-hidden">
+    <section id="areas" className="relative overflow-hidden px-4 py-12 sm:py-16 lg:py-20">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute left-1/4 top-1/2 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
       </div>
 
-      <div className="container mx-auto relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 animate-fade-in-left">
-            <div className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 rounded-full">
-              <MapPin className="w-5 h-5 text-primary" />
-              <span className="font-semibold text-primary">Service Coverage</span>
+      <div className="container relative z-10 mx-auto">
+        <div className="grid items-center gap-12 md:grid-cols-2">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-3 rounded-full bg-primary/10 px-4 py-2">
+              <MapPin className="h-5 w-5 text-primary" />
+              <span className="font-semibold text-primary">Mobile inspection coverage</span>
             </div>
-            <h2 className="text-5xl font-bold leading-tight">
-              Where Do We <span className="text-primary">Cover?</span>
+            <h2 className="text-4xl font-bold leading-tight sm:text-5xl">
+              We inspect the car <span className="text-primary">where it is.</span>
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              We serve customers across Epping and the surrounding areas. Professional car buying service within
-              a 50-mile radius of Epping.
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              We travel to private sellers, dealerships and vehicle locations across Greater London, Essex, Hertfordshire and surrounding areas. If the car is further away, ask us before booking and we&apos;ll confirm coverage.
             </p>
-            <div className="flex gap-8 pt-4">
-              <div>
-                <div className="text-4xl font-bold text-primary">50+</div>
-                <div className="text-sm text-muted-foreground">Miles Coverage</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-primary">{areas.length}</div>
-                <div className="text-sm text-muted-foreground">Major Areas</div>
-              </div>
-            </div>
             <div className="flex flex-wrap gap-2 pt-2">
-              <Link href="/vehicle-inspection-epping" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
-                Vehicle Inspection Epping
+              <Link href="/vehicle-inspection-london" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+                Vehicle Inspection London
               </Link>
               <Link href="/pre-purchase-car-inspection-essex" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
-                Pre Purchase Car Inspection Essex
+                Pre-Purchase Inspection Essex
+              </Link>
+              <Link href="/vehicle-inspection-cambridge" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+                Vehicle Inspection Cambridge
               </Link>
             </div>
           </div>
 
-          <div className="animate-fade-in-right">
-            <p className="mb-6 text-muted-foreground">This includes but isn&apos;t limited to:</p>
+          <div>
+            <p className="mb-6 text-muted-foreground">Regular inspection areas include:</p>
             <ul className="grid grid-cols-2 gap-3">
-              {areas.map((area, index) => (
+              {areas.map((area) => (
                 <li
                   key={area}
-                  className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-300 cursor-pointer ${
-                    hoveredArea === area ? "bg-primary/10 scale-105 shadow-md" : "bg-muted/30 hover:bg-muted/50"
+                  className={`flex cursor-default items-center gap-3 rounded-lg p-3 transition-all duration-200 ${
+                    hoveredArea === area ? "scale-[1.02] bg-primary/10 shadow-sm" : "bg-muted/30"
                   }`}
                   onMouseEnter={() => setHoveredArea(area)}
                   onMouseLeave={() => setHoveredArea(null)}
-                  style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <div className={`transition-all duration-300 ${hoveredArea === area ? "scale-110" : "scale-100"}`}>
-                    <CheckCircle className={`w-5 h-5 ${hoveredArea === area ? "text-primary" : "text-primary/60"}`} />
-                  </div>
-                  <span className={`font-medium ${hoveredArea === area ? "text-primary" : ""}`}>{area}</span>
+                  <CheckCircle className="h-5 w-5 shrink-0 text-primary" />
+                  <span className="font-medium">{area}</span>
                 </li>
               ))}
             </ul>
