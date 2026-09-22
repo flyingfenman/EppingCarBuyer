@@ -2,7 +2,7 @@ import Link from "next/link"
 import { MapPin } from "lucide-react"
 
 const areas = [
-  { label: "Vehicle Inspection Epping", href: "/vehicle-inspection-epping" },
+  { label: "Vehicle Inspection London", href: "/vehicle-inspection-london" },
   { label: "Pre Purchase Car Inspection Essex", href: "/pre-purchase-car-inspection-essex" },
 ]
 
