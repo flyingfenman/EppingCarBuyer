@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/hero-section"
 import { HomeCoreServices } from "@/components/home-core-services"
 import { CarTrailerSection } from "@/components/car-trailer-section"
 import { AreasWeCover } from "@/components/areas-we-cover"
-import { ValuationSection } from "@/components/valuation-section"
 import { ContactSection } from "@/components/contact-section"
 
 const title = "Vehicle Inspections, Market & Sell & Car Buying | Epping Car Buyer"
@@ -27,7 +26,6 @@ export default function HomePage() {
       <HomeCoreServices />
       <CarTrailerSection />
       <AreasWeCover />
-      <ValuationSection />
       <ContactSection />
     </div>
   )
