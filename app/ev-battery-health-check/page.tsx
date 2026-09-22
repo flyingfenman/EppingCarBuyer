@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 export const metadata: Metadata = {
   title: "EV Battery Health Check & SOH Report | CARA Approved® Autel Test | Epping Car Buyer",
   description:
-    "Buying a used Tesla or other EV? Add an EV battery State of Health (SOH) report, using a CARA Approved® Autel EV Battery Health Test on compatible vehicles, to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, Cambridgeshire and nearby areas.",
+    "Buying a used Tesla or other EV? Add an EV battery State of Health (SOH) report, using a CARA Approved® Autel EV Battery Health Test on compatible vehicles, to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, South Cambridgeshire and nearby areas.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },
@@ -66,7 +66,7 @@ const serviceSchema = {
     url: "https://www.eppingcarbuyer.com",
     telephone: "+441992367909",
   },
-  areaServed: ["Essex", "Hertfordshire", "Greater London", "Cambridgeshire", "Bedfordshire", "Suffolk"],
+  areaServed: ["Essex", "Hertfordshire", "Greater London", "South Cambridgeshire", "Bedfordshire", "Suffolk"],
   offers: {
     "@type": "Offer",
     price: "49.99",
@@ -120,7 +120,7 @@ export default function EvBatteryHealthCheckPage() {
               </Button>
             </div>
             <p className="mt-5 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-              <MapPin className="w-4 h-4 text-primary" /> Essex, Hertfordshire, Greater London, Cambridgeshire and surrounding areas
+              <MapPin className="w-4 h-4 text-primary" /> Essex, Hertfordshire, Greater London, South Cambridgeshire and surrounding areas
             </p>
           </div>
         </div>
