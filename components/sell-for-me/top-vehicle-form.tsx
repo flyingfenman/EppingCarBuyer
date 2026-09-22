@@ -91,7 +91,7 @@ export function SellForMeTopVehicleForm() {
   }
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-sm">
+    <div id="vehicle-details" className="scroll-mt-24 overflow-hidden rounded-3xl border border-border bg-white shadow-sm">
       <div className="border-b border-border bg-primary/5 px-5 py-5 sm:px-6">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">No obligation</p>
         <h2 className="mt-1 text-2xl font-bold">Submit Your Vehicle Details</h2>
