@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, ClipboardCheck, Handshake, Megaphone, ShieldCheck, Zap } from "lucide-react"
+import { ArrowRight, Handshake, ShieldCheck, Zap } from "lucide-react"
 
 const trustBadges = [
   {
@@ -73,42 +73,18 @@ export function HeroSection() {
                 Start Market &amp; Sell
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
-              <p className="text-center text-sm text-muted-foreground">Tell us about your vehicle • No obligation</p>
             </form>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Link
-                href="/vehicle-inspections"
-                className="group flex items-center justify-between rounded-2xl border border-[#0d9488]/30 bg-[#0d9488]/5 px-4 py-3.5 transition-colors hover:bg-[#0d9488]/10"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0d9488] text-white shadow-sm">
-                    <ClipboardCheck className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm font-bold text-foreground">Buying a car?</span>
-                    <span className="block text-xs text-muted-foreground">Book a vehicle inspection</span>
-                  </span>
-                </span>
-                <ArrowRight className="h-4 w-4 text-[#0d9488] transition-transform group-hover:translate-x-1" />
+            <Button
+              asChild
+              size="lg"
+              className="group min-h-16 h-auto w-full whitespace-normal bg-[#15803d] px-4 py-4 text-center text-lg font-semibold text-white transition-colors duration-200 hover:bg-[#166534]"
+            >
+              <Link href="/vehicle-inspections">
+                In Depth Vehicle Inspections
+                <ArrowRight className="ml-2 h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
-
-              <Link
-                href="/market-and-sell"
-                className="group flex items-center justify-between rounded-2xl border border-[#FFCC00]/60 bg-[#FFCC00]/10 px-4 py-3.5 transition-colors hover:bg-[#FFCC00]/20"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFCC00] text-black shadow-sm">
-                    <Megaphone className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm font-bold text-foreground">Selling your car?</span>
-                    <span className="block text-xs text-muted-foreground">Let us market &amp; sell it</span>
-                  </span>
-                </span>
-                <ArrowRight className="h-4 w-4 text-[#9a7a00] transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
+            </Button>
 
             <div className="flex flex-wrap gap-8 pt-2">
               <div>
