@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { ArrowRight, ClipboardCheck, Handshake, Megaphone, ShieldCheck, Zap } from "lucide-react"
 
 const trustBadges = [
@@ -51,19 +52,29 @@ export function HeroSection() {
               </p>
             </div>
 
-            <div className="space-y-4">
+            <form action="/market-and-sell#vehicle-details" method="get" className="space-y-4">
+              <Input
+                type="text"
+                name="reg"
+                aria-label="Vehicle registration"
+                placeholder="ENTER YOUR REG"
+                required
+                pattern=".*[A-Za-z0-9].*"
+                maxLength={16}
+                autoCapitalize="characters"
+                className="h-20 rounded-xl !border-0 !bg-[#ffd500] text-center font-bold uppercase tracking-[0.08em] !text-black placeholder:!text-black placeholder:!opacity-100 transition-all duration-200 focus:!border-0 focus:!bg-[#ffd500] focus:!ring-4 focus:!ring-primary/20 sm:h-24 sm:tracking-[0.15em]"
+                style={{ fontFamily: "var(--font-charles-wright), monospace", fontSize: "clamp(1.4rem, 7vw, 2.55rem)" }}
+              />
               <Button
-                asChild
+                type="submit"
                 size="lg"
                 className="group h-16 w-full bg-primary text-lg font-semibold transition-colors duration-200 hover:bg-primary/90"
               >
-                <Link href="/market-and-sell#vehicle-details">
-                  Start Market &amp; Sell
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
+                Start Market &amp; Sell
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
               <p className="text-center text-sm text-muted-foreground">Tell us about your vehicle • No obligation</p>
-            </div>
+            </form>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <Link
