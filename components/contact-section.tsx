@@ -9,40 +9,47 @@ export function ContactSection() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-gradient-to-b from-muted/30 to-background px-4 py-12 sm:py-16 lg:py-20">
+    <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
       </div>
 
-      <div className="container relative z-10 mx-auto">
-        <div className="mb-8 space-y-3 text-center sm:mb-12">
-          <h2 className="text-4xl font-bold sm:text-5xl">Have a car you&apos;re thinking of buying?</h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Send us the advert or registration on WhatsApp. We can confirm the right inspection, EV compatibility and availability before you book.
+      <div className="container mx-auto relative z-10">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-5xl font-bold">Get In Touch</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Ready to sell? Contact us today for a free, no-obligation valuation
           </p>
         </div>
 
-        <div className="mx-auto max-w-sm">
+        <div className="max-w-sm mx-auto">
           <Card
-            className={`border-2 transition-all duration-300 hover:-translate-y-1 ${
-              hoveredCard === "whatsapp" ? "border-[#25D366]/50 shadow-2xl" : "shadow-lg"
+            className={`transition-all duration-500 hover:-translate-y-2 border-2 ${
+              hoveredCard === "whatsapp" ? "shadow-2xl border-[#25D366]/50" : "shadow-lg"
             }`}
             onMouseEnter={() => setHoveredCard("whatsapp")}
             onMouseLeave={() => setHoveredCard(null)}
           >
-            <CardHeader className="space-y-4 text-center">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#25D366]/10">
-                <MessageSquare className="h-10 w-10 text-[#25D366]" />
+            <CardHeader className="text-center space-y-4">
+              <div
+                className={`mx-auto w-20 h-20 bg-[#25D366]/10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  hoveredCard === "whatsapp" ? "scale-110 bg-[#25D366]/20" : "scale-100"
+                }`}
+              >
+                <MessageSquare
+                  className={`h-10 w-10 text-[#25D366] ${hoveredCard === "whatsapp" ? "animate-pulse" : ""}`}
+                />
               </div>
-              <CardTitle className="text-2xl">Ask us on WhatsApp</CardTitle>
+              <CardTitle className="text-2xl">WhatsApp</CardTitle>
               <CardDescription className="text-base">
-                Send the vehicle advert, registration or any questions about the inspection.
+                Send us photos and details of your vehicle for a quick response.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Button
                 asChild
-                className="h-14 w-full bg-[#25D366] text-lg shadow-lg transition hover:bg-[#1da851]"
+                variant="default"
+                className="w-full h-14 text-lg bg-[#25D366] hover:bg-[#1da851] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
                 size="lg"
               >
                 <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer">
