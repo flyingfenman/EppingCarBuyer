@@ -56,7 +56,7 @@ export function HeroSection() {
                 Vehicle Inspections • Market &amp; Sell
               </div>
               <h1 className="text-4xl font-bold leading-tight text-balance sm:text-5xl xl:text-6xl">
-                Vehicle Inspections <span className="text-primary">&amp; Market &amp; Sell</span>
+                Vehicle Inspection <span className="text-primary">+ Market &amp; Sell</span>
               </h1>
               <p className="text-xl leading-relaxed text-pretty text-muted-foreground">
                 At Epping Car Buyer, we offer two specialist services: in-depth vehicle inspections to help you buy with confidence, and our managed Market &amp; Sell service to help you get more for your vehicle.
