@@ -2,18 +2,18 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/50 px-4 py-8">
+    <footer className="border-t bg-muted/50 py-8 px-4">
       <div className="container mx-auto">
-        <div className="flex flex-col items-center space-y-4 text-center">
+        <div className="flex flex-col items-center text-center space-y-4">
           <nav className="flex flex-wrap justify-center gap-6">
-            <Link href="/vehicle-inspections" className="text-sm font-semibold hover:underline">
+            <Link href="/quote" className="text-sm hover:underline">
+              Get a Quote
+            </Link>
+            <Link href="/market-and-sell" className="text-sm hover:underline">
+              Market &amp; Sell
+            </Link>
+            <Link href="/vehicle-inspections" className="text-sm hover:underline">
               Vehicle Inspections
-            </Link>
-            <Link href="/vehicle-inspections/what-we-inspect" className="text-sm hover:underline">
-              What We Inspect
-            </Link>
-            <Link href="/vehicle-inspections/sample-report" className="text-sm hover:underline">
-              Sample Report
             </Link>
             <Link href="/ev-battery-health-check" className="text-sm hover:underline">
               EV Battery Health Check
@@ -27,9 +27,12 @@ export function Footer() {
             <Link href="/terms-of-service" className="text-sm hover:underline">
               Terms of Service
             </Link>
+            <Link href="/admin/login" className="text-sm hover:underline text-muted-foreground">
+              Admin
+            </Link>
           </nav>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Independent pre-purchase vehicle inspections across London, Essex, Hertfordshire and surrounding areas, including EV and hybrid diagnostic checks.
+          <p className="text-sm text-muted-foreground">
+            Independent vehicle buying, selling and pre-purchase inspection services across Essex and surrounding areas.
           </p>
           <p className="text-sm text-muted-foreground">© 2026 Epping Car Buyer. All rights reserved.</p>
         </div>
