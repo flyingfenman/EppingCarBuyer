@@ -53,13 +53,13 @@ export function HeroSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                Sell • Inspect • Market &amp; Sell
+                Vehicle Inspections • Market &amp; Sell
               </div>
-              <h1 className="text-4xl font-bold leading-tight text-balance whitespace-normal sm:text-5xl lg:whitespace-nowrap xl:text-6xl">
-                Sell Your Car <span className="text-primary">In Minutes</span>
+              <h1 className="text-4xl font-bold leading-tight text-balance sm:text-5xl xl:text-6xl">
+                Vehicle Inspections <span className="text-primary">&amp; Market &amp; Sell</span>
               </h1>
               <p className="text-xl leading-relaxed text-pretty text-muted-foreground">
-                Get an instant online valuation and fast payment — or use our inspection and managed selling services when you need more than a cash offer.
+                At Epping Car Buyer, we offer two specialist services: in-depth vehicle inspections to help you buy with confidence, and our managed Market &amp; Sell service to help you get more for your vehicle.
               </p>
             </div>
 
