@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -42,6 +42,13 @@ export function SellForMeTopVehicleForm() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    const registration = new URLSearchParams(window.location.search).get("reg")?.trim().toUpperCase()
+    if (registration) {
+      setForm((current) => ({ ...current, registration: current.registration || registration }))
+    }
+  }, [])
 
   const set = (field: keyof FormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
