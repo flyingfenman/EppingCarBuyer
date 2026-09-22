@@ -1,12 +1,9 @@
 "use client"
 
-import type React from "react"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { ArrowRight, ClipboardCheck, Handshake, Megaphone, ShieldCheck, Zap } from "lucide-react"
 
 const trustBadges = [
@@ -31,20 +28,11 @@ const trustBadges = [
 ]
 
 export function HeroSection() {
-  const [registration, setRegistration] = useState("")
   const [mounted, setMounted] = useState(false)
-  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (registration.trim()) {
-      router.push(`/vehicle-details?reg=${encodeURIComponent(registration.trim())}`)
-    }
-  }
 
   return (
     <div id="top" className="relative overflow-x-hidden bg-white">
@@ -63,27 +51,19 @@ export function HeroSection() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Input
-                type="text"
-                value={registration}
-                onChange={(e) => setRegistration(e.target.value.toUpperCase())}
-                placeholder="ENTER YOUR REG"
-                className="h-20 rounded-xl !border-0 !bg-[#ffd500] text-center font-bold uppercase tracking-[0.08em] !text-black placeholder:!text-black placeholder:!opacity-100 transition-all duration-200 focus:!border-0 focus:!bg-[#ffd500] focus:!ring-4 focus:!ring-primary/20 sm:h-24 sm:tracking-[0.15em]"
-                style={{ fontFamily: "var(--font-charles-wright), monospace", fontSize: "clamp(1.4rem, 7vw, 2.55rem)" }}
-              />
-
+            <div className="space-y-4">
               <Button
-                type="submit"
+                asChild
                 size="lg"
                 className="group h-16 w-full bg-primary text-lg font-semibold transition-colors duration-200 hover:bg-primary/90"
               >
-                Get Instant Valuation
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                <Link href="/market-and-sell#vehicle-details">
+                  Start Market &amp; Sell
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
               </Button>
-
-              <p className="text-center text-sm text-muted-foreground">Free • No obligation • Takes 30 seconds</p>
-            </form>
+              <p className="text-center text-sm text-muted-foreground">Tell us about your vehicle • No obligation</p>
+            </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <Link
@@ -111,7 +91,7 @@ export function HeroSection() {
                     <Megaphone className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-foreground">Want more than our offer?</span>
+                    <span className="block text-sm font-bold text-foreground">Selling your car?</span>
                     <span className="block text-xs text-muted-foreground">Let us market &amp; sell it</span>
                   </span>
                 </span>
