@@ -252,8 +252,6 @@ export function InspectionsBookingCalendar() {
     if (isShortNotice(slot, nowMs)) {
       setShortNoticeCandidate(slot)
       setShortNoticeConfirmed(false)
-      trackWhatsAppClick("short_notice_slot")
-      window.open(shortNoticeWhatsAppUrl(slot, selectedPackage.name), "_blank", "noopener,noreferrer")
       return
     }
     resetShortNotice()
@@ -457,9 +455,11 @@ export function InspectionsBookingCalendar() {
   }
 
   const daySlots = selectedDate ? slotsByDate.get(selectedDate) || [] : []
+  const bannerSlot = selectedSlot || shortNoticeCandidate
+  const needsWhatsAppConfirmation = !selectedSlot && !!shortNoticeCandidate
 
   return (
-    <div className={`mx-auto max-w-5xl ${selectedSlot ? "pb-64 sm:pb-40" : ""}`}>
+    <div className={`mx-auto max-w-5xl ${bannerSlot ? "pb-64 sm:pb-40" : ""}`}>
       <div className="mb-7 grid gap-3 sm:grid-cols-3">
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
           <BatteryCharging className="h-6 w-6 shrink-0 text-primary" />
@@ -717,7 +717,7 @@ export function InspectionsBookingCalendar() {
         </div>
       </div>
 
-      {selectedSlot && (
+      {bannerSlot && (
         <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)]">
           <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <div role="status" aria-live="polite" className="min-w-0">
@@ -725,22 +725,35 @@ export function InspectionsBookingCalendar() {
                 You&apos;ve selected a {selectedPackage.name.toLowerCase()}
                 {includeEvSoh ? " with an EV battery health check" : ""}
                 {" on "}
-                {new Date(selectedSlot.start).toLocaleDateString("en-GB", {
+                {new Date(bannerSlot.start).toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "2-digit",
                   year: "numeric",
                   timeZone: "Europe/London",
                 })}
-                {" at "}{formatSlotTime(selectedSlot)}.
+                {" at "}{formatSlotTime(bannerSlot)}.
               </p>
               <p className="mt-1 text-sm text-muted-foreground">
                 Total: <span className="font-bold text-foreground">£{totalPrice.toFixed(2)}</span>
-                {" · "}Booking confirmed after payment.
+                {" · "}{needsWhatsAppConfirmation ? "Availability needs confirming." : "Booking confirmed after payment."}
               </p>
+              {needsWhatsAppConfirmation && (
+                <p className="mt-1 text-sm text-muted-foreground">
+                  This appointment is within 24 hours. Continue to WhatsApp to message Henry and confirm availability.
+                </p>
+              )}
             </div>
-            <Button type="button" size="lg" onClick={() => setShowDetails(true)} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
-              Continue <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
+            {needsWhatsAppConfirmation ? (
+              <Button asChild size="lg" className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
+                <a href={shortNoticeWhatsAppUrl(bannerSlot, selectedPackage.name)} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick("short_notice_slot")}>
+                  Continue to WhatsApp <MessageCircle className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+            ) : (
+              <Button type="button" size="lg" onClick={() => setShowDetails(true)} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
+                Continue <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+            )}
           </div>
         </div>
       )}
