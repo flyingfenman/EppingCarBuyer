@@ -7,7 +7,7 @@ const localBusinessSchema = {
   email: "henry@eppingcarbuyer.com",
   image: "https://www.eppingcarbuyer.com/images/inspection-car.jpg",
   description:
-    "Independent mobile pre-purchase vehicle inspections and EV battery State of Health checks across Essex, Hertfordshire, Greater London, Cambridgeshire and surrounding areas.",
+    "Independent mobile pre-purchase vehicle inspections and EV battery State of Health checks across Essex, Hertfordshire, Greater London, South Cambridgeshire and surrounding areas.",
   priceRange: "££",
   address: {
     "@type": "PostalAddress",
@@ -15,7 +15,7 @@ const localBusinessSchema = {
     addressRegion: "Essex",
     addressCountry: "GB",
   },
-  areaServed: ["Essex", "Hertfordshire", "Cambridgeshire", "Greater London", "Bedfordshire", "Suffolk"],
+  areaServed: ["Essex", "Hertfordshire", "South Cambridgeshire", "Greater London", "Bedfordshire", "Suffolk"],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
