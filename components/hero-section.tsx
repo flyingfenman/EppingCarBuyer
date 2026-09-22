@@ -78,7 +78,7 @@ export function HeroSection() {
             <Button
               asChild
               size="lg"
-              className="group min-h-16 h-auto w-full whitespace-normal bg-[#15803d] px-4 py-4 text-center text-lg font-semibold text-white transition-colors duration-200 hover:bg-[#166534]"
+              className="group min-h-16 h-auto w-full whitespace-normal bg-[#0d9488] px-4 py-4 text-center text-lg font-semibold text-white transition-colors duration-200 hover:bg-[#0b7a70]"
             >
               <Link href="/vehicle-inspections">
                 In Depth Vehicle Inspections
