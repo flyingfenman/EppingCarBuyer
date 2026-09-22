@@ -58,7 +58,7 @@ const faqs = [
   {
     question: "Where do inspections take place?",
     answer:
-      "Wherever the car is. Based in Waltham Abbey, the inspector travels to the vehicle — a dealer forecourt, a private seller's address, or your own home — covering Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk.",
+      "Wherever the car is. The inspector travels to the vehicle — a dealer forecourt, a private seller's address, or your own home — covering Essex, Hertfordshire, South Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk.",
   },
   {
     question: "How do I book, and how do I get in touch?",
