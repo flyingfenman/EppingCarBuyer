@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 const title = "Contact Us — Epping Car Buyer"
 const description =
-  "Message us on WhatsApp, our main contact method, for a fast response. Covering Essex, Hertfordshire, Cambridgeshire, Greater London and more."
+  "Message us on WhatsApp, our main contact method, for a fast response. Covering Essex, Hertfordshire, South Cambridgeshire, Greater London and more."
 
 export const metadata: Metadata = {
   title,
@@ -79,7 +79,7 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground">
-                Based in Waltham Abbey, covering Essex, Hertfordshire, Cambridgeshire, Greater London, and parts of
+                Covering Essex, Hertfordshire, South Cambridgeshire, Greater London, and parts of
                 Bedfordshire and Suffolk
               </p>
             </CardContent>
