@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState, type ChangeEvent, type FormEvent } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -128,6 +128,7 @@ function formatSlotDateTime(slot: Slot) {
 }
 
 export function InspectionsBookingCalendar() {
+  const bookingFormRef = useRef<HTMLDivElement>(null)
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
   const [includeEvSoh, setIncludeEvSoh] = useState(false)
   const [slotsByPackage, setSlotsByPackage] = useState<Record<PackageKey, Slot[]>>({ standard: [], premium: [] })
@@ -189,6 +190,20 @@ export function InspectionsBookingCalendar() {
     setSelectedDate(firstDate)
     setViewDate(setViewFromDateKey(firstDate))
   }, [loadingSlots, nowMs, selectedDate, slots])
+
+  useEffect(() => {
+    if (!selectedSlot) return
+
+    // The calendar is replaced by a shorter form. Move to it after the DOM updates
+    // instead of leaving the viewport at the calendar's previous scroll position.
+    const frame = window.requestAnimationFrame(() => {
+      const bookingForm = bookingFormRef.current
+      if (!bookingForm) return
+      bookingForm.focus({ preventScroll: true })
+      bookingForm.scrollIntoView({ behavior: "instant", block: "start" })
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [selectedSlot])
 
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
@@ -287,7 +302,7 @@ export function InspectionsBookingCalendar() {
     const selectedIsShortNotice = isShortNotice(selectedSlot, nowMs)
 
     return (
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
+      <div ref={bookingFormRef} tabIndex={-1} aria-label="Your inspection booking" className="mx-auto max-w-3xl scroll-mt-24 overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
         <div className="border-b border-border bg-slate-950 px-5 py-5 text-white sm:px-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
