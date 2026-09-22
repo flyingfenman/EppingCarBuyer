@@ -1,15 +1,14 @@
 import { Metadata } from "next"
 import { HeroSection } from "@/components/hero-section"
 import { HomeCoreServices } from "@/components/home-core-services"
-import { HowItWorks } from "@/components/how-it-works"
-import { CarTrailerSection } from "@/components/car-trailer-section"
+import { MechanicalReportOverview } from "@/components/vehicle-inspections/mechanical-report-overview"
+import { InspectionsWhyUs } from "@/components/vehicle-inspections/why-us"
 import { AreasWeCover } from "@/components/areas-we-cover"
-import { ValuationSection } from "@/components/valuation-section"
 import { ContactSection } from "@/components/contact-section"
 
-const title = "Epping Car Buyer — Sell, Market or Inspect Your Car"
+const title = "Independent Vehicle Inspections | Epping Car Buyer"
 const description =
-  "Sell your car for a fast cash offer, use our managed Market & Sell service to aim closer to retail value, or book an independent pre-purchase vehicle inspection from £149.99."
+  "Independent pre-purchase vehicle inspections from £149.99. 160-point Standard and 260-point Premium inspections with diagnostics, road test, video evidence and EV and hybrid checks across London, Essex and surrounding areas."
 
 export const metadata: Metadata = {
   title,
@@ -23,13 +22,12 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <HeroSection />
       <HomeCoreServices />
-      <HowItWorks />
-      <CarTrailerSection />
+      <MechanicalReportOverview />
+      <InspectionsWhyUs />
       <AreasWeCover />
-      <ValuationSection />
       <ContactSection />
     </div>
   )
