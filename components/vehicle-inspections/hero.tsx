@@ -1,9 +1,7 @@
-import Image from "next/image"
 import Link from "next/link"
 import {
   ArrowRight,
   BatteryCharging,
-  CheckCircle2,
   ClipboardCheck,
   FileSearch,
   ScanLine,
@@ -23,7 +21,7 @@ export function InspectionsHero() {
     <section className="relative overflow-hidden border-b bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(103,17,164,0.12),transparent_40%)]" />
       <div className="container relative mx-auto px-4 py-9 sm:py-12 lg:py-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <div className="mx-auto max-w-4xl">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-bold text-primary">
               <ShieldCheck className="h-4 w-4" />
@@ -72,43 +70,6 @@ export function InspectionsHero() {
             </div>
           </div>
 
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-primary/15 bg-slate-50 p-3 shadow-2xl shadow-primary/10">
-              <div className="relative aspect-[1600/900] overflow-hidden rounded-2xl bg-white">
-                <Image
-                  src="/images/inspection-car.jpg"
-                  alt="Independent pre-purchase vehicle inspection"
-                  fill
-                  priority
-                  className="object-contain p-3"
-                  sizes="(min-width: 1024px) 44vw, 94vw"
-                />
-              </div>
-
-              <div className="grid gap-3 p-3 sm:grid-cols-2">
-                <div className="rounded-2xl bg-white p-4">
-                  <p className="text-xs font-bold uppercase tracking-wide text-primary">Standard</p>
-                  <p className="mt-1 text-2xl font-bold">160 points</p>
-                  <p className="mt-1 text-sm font-bold">£149.99</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">Comprehensive mechanical, diagnostic, condition, history and road-test inspection.</p>
-                </div>
-
-                <div className="rounded-2xl bg-primary p-4 text-white">
-                  <p className="text-xs font-bold uppercase tracking-wide text-white/80">Premium</p>
-                  <p className="mt-1 text-2xl font-bold">260 points</p>
-                  <p className="mt-1 text-sm font-bold">£199.99</p>
-                  <p className="mt-2 text-xs leading-relaxed text-white/80">Paint-depth assessment, provenance, repair-cost guidance, enhanced video evidence and priority booking.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-4 -left-3 hidden rounded-2xl border bg-white p-4 shadow-xl sm:block">
-              <div className="flex items-center gap-2 text-sm font-bold">
-                <CheckCircle2 className="h-4 w-4 text-primary" />
-                Buyer-first. Independent. Evidence-led.
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
