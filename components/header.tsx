@@ -17,20 +17,20 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-4">
+            <Link href="/vehicle-inspections">
+              <Button
+                size="lg"
+                className="text-base font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70] border-2 border-[#0b7a70] shadow-md"
+              >
+                Vehicle Inspections
+              </Button>
+            </Link>
             <Link href="/market-and-sell">
               <Button
                 size="lg"
                 className="text-base font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800] border-2 border-[#E6B800] shadow-md"
               >
                 Market &amp; Sell
-              </Button>
-            </Link>
-            <Link href="/vehicle-inspections">
-              <Button
-                size="lg"
-                className="text-base font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70] border-2 border-[#0b7a70] shadow-md"
-              >
-                Inspections
               </Button>
             </Link>
             <Link href="/contact">
@@ -51,14 +51,14 @@ export function Header() {
 
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 space-y-2">
+            <Link href="/vehicle-inspections" onClick={() => setIsMenuOpen(false)} className="block">
+              <Button className="w-full font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70]" size="lg">
+                Vehicle Inspections
+              </Button>
+            </Link>
             <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)} className="block">
               <Button className="w-full font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
                 Market &amp; Sell
-              </Button>
-            </Link>
-            <Link href="/vehicle-inspections" onClick={() => setIsMenuOpen(false)} className="block">
-              <Button className="w-full font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70]" size="lg">
-                Inspections
               </Button>
             </Link>
             <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block">
