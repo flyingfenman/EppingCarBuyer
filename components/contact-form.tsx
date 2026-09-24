@@ -1,27 +1,21 @@
 "use client"
 
-import { useState, type FormEvent } from "react"
+import { useId, useState, type FormEvent } from "react"
 import Link from "next/link"
 import { CheckCircle2, Loader2, MessageCircle, Send } from "lucide-react"
+import { parseContactDetail } from "@/lib/contact"
 import { getTrafficSource } from "@/lib/traffic-source"
-
-const TOPICS = [
-  { value: "booking", label: "Booking an inspection" },
-  { value: "question", label: "Question about an inspection" },
-  { value: "selling", label: "Selling my car (Market & Sell)" },
-  { value: "other", label: "Something else" },
-]
 
 const WHATSAPP_URL = "https://wa.me/441992367909"
 
 const inputClass =
-  "block w-full rounded-xl border-2 border-border bg-white px-4 text-lg text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15 aria-[invalid=true]:border-red-600"
+  "block w-full rounded-xl border-2 border-border bg-white px-4 text-lg text-foreground focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15 aria-[invalid=true]:border-red-600"
 
-export function ContactForm() {
-  const [topic, setTopic] = useState("")
+export function ContactForm({ headingLevel = "h2" }: { headingLevel?: "h2" | "h3" }) {
+  const Heading = headingLevel
+  const uid = useId()
   const [name, setName] = useState("")
-  const [phone, setPhone] = useState("")
-  const [email, setEmail] = useState("")
+  const [contact, setContact] = useState("")
   const [message, setMessage] = useState("")
   const [website, setWebsite] = useState("")
   const [errors, setErrors] = useState<{ name?: string; contact?: string }>({})
@@ -29,15 +23,11 @@ export function ContactForm() {
 
   const validate = () => {
     const next: { name?: string; contact?: string } = {}
-    if (!name.trim()) next.name = "Please tell us your name."
-    const digits = phone.replace(/\D/g, "").length
-    const phoneOk = digits >= 10 && digits <= 15
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-    if (!phoneOk && !emailOk) {
-      next.contact =
-        phone.trim() || email.trim()
-          ? "Please check your phone number or email. We need one of them to reply."
-          : "Please give us a phone number or an email so we can reply."
+    if (!name.trim()) next.name = "Please enter your name."
+    if (!parseContactDetail(contact)) {
+      next.contact = contact.trim()
+        ? "Please check your phone number or email. We need it to reply to you."
+        : "Please enter a phone number or email so we can reply to you."
     }
     setErrors(next)
     return Object.keys(next).length === 0
@@ -51,7 +41,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic, name, phone, email, message, website, trafficSource: getTrafficSource() }),
+        body: JSON.stringify({ name, contact, message, website, trafficSource: getTrafficSource() }),
       })
       setStatus(res.ok ? "sent" : "failed")
     } catch {
@@ -64,7 +54,7 @@ export function ContactForm() {
     return (
       <div className="rounded-3xl border-2 border-primary/20 bg-white p-6 text-center shadow-sm sm:p-10" role="status">
         <CheckCircle2 className="mx-auto h-16 w-16 text-primary" aria-hidden="true" />
-        <h2 className="mt-4 text-3xl font-bold">Thanks, {firstName}!</h2>
+        <Heading className="mt-4 text-3xl font-bold">Thanks, {firstName}!</Heading>
         <p className="mt-3 text-lg leading-relaxed text-foreground">
           Your message has been sent. Henry will get back to you soon, usually within an hour during business hours.
         </p>
@@ -82,126 +72,69 @@ export function ContactForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className="rounded-3xl border-2 border-primary/15 bg-white p-5 shadow-sm sm:p-8"
-      aria-labelledby="contact-form-heading"
-    >
-      <h2 id="contact-form-heading" className="text-2xl font-bold sm:text-3xl">
-        Send us a message
-      </h2>
-      <p className="mt-2 text-lg text-foreground">Just your name and a way to reply. That&apos;s all we need.</p>
-
-      <fieldset className="mt-6">
-        <legend className="text-lg font-semibold text-foreground">
-          What&apos;s it about? <span className="font-normal text-muted-foreground">(optional)</span>
-        </legend>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {TOPICS.map((t) => (
-            <label
-              key={t.value}
-              className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-2 px-4 py-3 text-lg font-medium transition has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/15 ${
-                topic === t.value ? "border-primary bg-primary/5 text-primary" : "border-border bg-white text-foreground hover:border-primary/40"
-              }`}
-            >
-              <input
-                type="radio"
-                name="topic"
-                value={t.value}
-                checked={topic === t.value}
-                onChange={() => setTopic(t.value)}
-                className="h-5 w-5 shrink-0 accent-[#6711a4]"
-              />
-              {t.label}
-            </label>
-          ))}
-        </div>
-      </fieldset>
+    <form onSubmit={handleSubmit} noValidate className="rounded-3xl border-2 border-primary/15 bg-white p-5 text-left shadow-sm sm:p-8">
+      <Heading className="text-2xl font-bold sm:text-3xl">Send us a message</Heading>
+      <p className="mt-2 text-lg text-foreground">We usually reply within an hour during business hours.</p>
 
       <div className="mt-6">
-        <label htmlFor="contact-name" className="text-lg font-semibold text-foreground">
+        <label htmlFor={`${uid}-name`} className="text-lg font-semibold text-foreground">
           Your name
         </label>
         <input
-          id="contact-name"
+          id={`${uid}-name`}
           type="text"
           autoComplete="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? "contact-name-error" : undefined}
+          aria-describedby={errors.name ? `${uid}-name-error` : undefined}
           className={`mt-2 h-14 ${inputClass}`}
         />
         {errors.name && (
-          <p id="contact-name-error" className="mt-2 text-base font-medium text-red-700">
+          <p id={`${uid}-name-error`} className="mt-2 text-base font-medium text-red-700">
             {errors.name}
           </p>
         )}
       </div>
 
-      <fieldset className="mt-6" aria-describedby={errors.contact ? "contact-reply-error" : "contact-reply-hint"}>
-        <legend className="text-lg font-semibold text-foreground">How should we reply?</legend>
-        <p id="contact-reply-hint" className="mt-1 text-base text-muted-foreground">
-          Fill in either one. You don&apos;t need both.
-        </p>
-        <div className="mt-3 grid gap-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="contact-phone" className="text-base font-semibold text-foreground">
-              Phone number
-            </label>
-            <input
-              id="contact-phone"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              aria-invalid={!!errors.contact}
-              className={`mt-2 h-14 ${inputClass}`}
-            />
-          </div>
-          <div>
-            <label htmlFor="contact-email" className="text-base font-semibold text-foreground">
-              Email
-            </label>
-            <input
-              id="contact-email"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              aria-invalid={!!errors.contact}
-              className={`mt-2 h-14 ${inputClass}`}
-            />
-          </div>
-        </div>
+      <div className="mt-5">
+        <label htmlFor={`${uid}-detail`} className="text-lg font-semibold text-foreground">
+          Phone number or email
+        </label>
+        <input
+          id={`${uid}-detail`}
+          type="text"
+          autoComplete="tel"
+          value={contact}
+          onChange={(e) => setContact(e.target.value)}
+          aria-invalid={!!errors.contact}
+          aria-describedby={errors.contact ? `${uid}-detail-error` : undefined}
+          className={`mt-2 h-14 ${inputClass}`}
+        />
         {errors.contact && (
-          <p id="contact-reply-error" className="mt-2 text-base font-medium text-red-700">
+          <p id={`${uid}-detail-error`} className="mt-2 text-base font-medium text-red-700">
             {errors.contact}
           </p>
         )}
-      </fieldset>
+      </div>
 
-      <div className="mt-6">
-        <label htmlFor="contact-message" className="text-lg font-semibold text-foreground">
-          Your message <span className="font-normal text-muted-foreground">(optional)</span>
+      <div className="mt-5">
+        <label htmlFor={`${uid}-message`} className="text-lg font-semibold text-foreground">
+          How can we help?
         </label>
         <textarea
-          id="contact-message"
-          rows={5}
+          id={`${uid}-message`}
+          rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="For example: the car's make and model, and where it is"
           className={`mt-2 py-3 ${inputClass}`}
         />
       </div>
 
       <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
-        <label htmlFor="contact-website">Leave this empty</label>
+        <label htmlFor={`${uid}-website`}>Leave this empty</label>
         <input
-          id="contact-website"
+          id={`${uid}-website`}
           type="text"
           tabIndex={-1}
           autoComplete="off"

@@ -1,64 +1,37 @@
-"use client"
-
 import { MessageSquare } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { ContactForm } from "@/components/contact-form"
 
 export function ContactSection() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
-
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-      </div>
-
-      <div className="container mx-auto relative z-10">
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
-          <h2 className="text-5xl font-bold">Get In Touch</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Questions about a car inspection or Market &amp; Sell? Send us a WhatsApp.
+    <section id="contact" className="bg-gradient-to-b from-muted/30 to-background px-4 py-12 sm:py-16 lg:py-20">
+      <div className="container mx-auto">
+        <div className="mb-8 space-y-3 text-center sm:mb-12 sm:space-y-4">
+          <h2 className="text-4xl font-bold sm:text-5xl">Get In Touch</h2>
+          <p className="mx-auto max-w-2xl text-xl text-muted-foreground">
+            Questions about a car inspection or Market &amp; Sell? Send us a message or a WhatsApp.
           </p>
         </div>
 
-        <div className="max-w-sm mx-auto">
-          <Card
-            className={`transition-all duration-500 hover:-translate-y-2 border-2 ${
-              hoveredCard === "whatsapp" ? "shadow-2xl border-[#25D366]/50" : "shadow-lg"
-            }`}
-            onMouseEnter={() => setHoveredCard("whatsapp")}
-            onMouseLeave={() => setHoveredCard(null)}
-          >
-            <CardHeader className="text-center space-y-4">
-              <div
-                className={`mx-auto w-20 h-20 bg-[#25D366]/10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  hoveredCard === "whatsapp" ? "scale-110 bg-[#25D366]/20" : "scale-100"
-                }`}
-              >
-                <MessageSquare
-                  className={`h-10 w-10 text-[#25D366] ${hoveredCard === "whatsapp" ? "animate-pulse" : ""}`}
-                />
-              </div>
-              <CardTitle className="text-2xl">WhatsApp</CardTitle>
-              <CardDescription className="text-base">
-                Send us photos and details of your vehicle for a quick response.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                asChild
-                variant="default"
-                className="w-full h-14 text-lg bg-[#25D366] hover:bg-[#1da851] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-                size="lg"
-              >
-                <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer">
-                  <MessageSquare className="mr-2 h-5 w-5" />
-                  Message on WhatsApp
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+        <div className="mx-auto grid max-w-5xl items-start gap-8 lg:grid-cols-[3fr_2fr]">
+          <ContactForm headingLevel="h3" />
+
+          <div className="rounded-3xl border-2 border-[#25D366]/30 bg-white p-6 text-center shadow-sm sm:p-8">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#25D366]/10">
+              <MessageSquare className="h-10 w-10 text-[#25D366]" aria-hidden="true" />
+            </div>
+            <h3 className="mt-4 text-2xl font-bold">Prefer WhatsApp?</h3>
+            <p className="mt-2 text-lg text-muted-foreground">
+              Send us photos and details of the vehicle for a quick response.
+            </p>
+            <a
+              href="https://wa.me/441992367909"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 text-lg font-bold text-white shadow-lg transition hover:bg-[#1da851]"
+            >
+              <MessageSquare className="h-5 w-5" aria-hidden="true" /> Message on WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </section>
