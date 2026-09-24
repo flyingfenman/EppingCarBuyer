@@ -25,7 +25,7 @@ export function InspectionsHero() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-bold text-primary">
               <ShieldCheck className="h-4 w-4" />
-              Independent pre-purchase vehicle inspections
+              Independent pre-purchase car inspection service
             </div>
 
             <h1 className="mt-5 text-4xl font-bold leading-[1.06] sm:text-5xl lg:text-6xl">

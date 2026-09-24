@@ -12,14 +12,14 @@ import { InspectionsCta } from "@/components/vehicle-inspections/cta"
 import { LocalAreaLinks } from "@/components/vehicle-inspections/local-area-links"
 
 export const metadata: Metadata = {
-  title: "Pre-Purchase Vehicle Inspections & EV Battery Health Checks | Epping Car Buyer",
+  title: "Car Inspection Service | Pre-Purchase Vehicle Inspections | Epping Car Buyer",
   description:
-    "In-depth mechanical car inspections covering engine, drivetrain, brakes, steering, suspension and diagnostics, with video review, evidence and personal buying guidance.",
+    "Independent mobile car inspection service from £149.99. In-depth pre-purchase inspections with diagnostics, road test, video review and personal buying guidance across Essex, Herts and London.",
   alternates: {
     canonical: "/vehicle-inspections",
   },
   openGraph: {
-    title: "Pre-Purchase Vehicle Inspections & EV Battery Health Checks",
+    title: "Car Inspection Service | Pre-Purchase Vehicle Inspections",
     description:
       "Understand the car before you commit. Both packages include a video review, documented findings and personal buying guidance. Inspections from £149.99.",
     url: "/vehicle-inspections",
