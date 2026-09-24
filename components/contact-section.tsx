@@ -18,7 +18,7 @@ export function ContactSection() {
         <div className="text-center mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4">
           <h2 className="text-5xl font-bold">Get In Touch</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to sell? Contact us today for a free, no-obligation valuation
+            Questions about a car inspection or Market &amp; Sell? Send us a WhatsApp.
           </p>
         </div>
 

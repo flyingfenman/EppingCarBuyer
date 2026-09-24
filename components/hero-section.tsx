@@ -10,7 +10,7 @@ import { ArrowRight, Handshake, ShieldCheck, Zap } from "lucide-react"
 const trustBadges = [
   {
     icon: Zap,
-    label: "Instant Payment",
+    label: "Same-Day Report",
     position: "top-6 -left-3 sm:left-0 lg:-left-6",
     delay: 500,
   },
@@ -88,16 +88,16 @@ export function HeroSection() {
 
             <div className="flex flex-wrap gap-8 pt-2">
               <div>
-                <div className="text-3xl font-bold text-foreground">£83K+</div>
-                <div className="text-sm text-muted-foreground">Paid out this month</div>
+                <div className="text-3xl font-bold text-foreground">£149.99</div>
+                <div className="text-sm text-muted-foreground">Inspections from</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-foreground">4.9/5</div>
                 <div className="text-sm text-muted-foreground">Customer rating</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-foreground">5 mins</div>
-                <div className="text-sm text-muted-foreground">Instant payment time</div>
+                <div className="text-3xl font-bold text-foreground">Same day</div>
+                <div className="text-sm text-muted-foreground">Digital inspection report</div>
               </div>
             </div>
           </div>

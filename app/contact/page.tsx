@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/contact-form"
 
 const title = "Contact Us — Epping Car Buyer"
 const description =
-  "Send us a message, WhatsApp or email us about a car inspection or selling your car. Covering Essex, Hertfordshire, South Cambridgeshire, Greater London and more."
+  "Send us a message, WhatsApp or email us about a car inspection or our Market & Sell service. Covering Essex, Hertfordshire, South Cambridgeshire, Greater London and more."
 
 export const metadata: Metadata = {
   title,
@@ -23,7 +23,7 @@ export default function ContactPage() {
         <div className="mb-8 text-center sm:mb-10">
           <h1 className="text-4xl font-bold sm:text-5xl">Contact Us</h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground sm:text-xl">
-            A question about an inspection, or selling your car? Send us a message below, or WhatsApp or email if you
+            A question about a car inspection or Market &amp; Sell? Send us a message below, or WhatsApp or email if you
             prefer.
           </p>
         </div>

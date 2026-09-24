@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server"
 const TOPICS: Record<string, string> = {
   booking: "Booking an inspection",
   question: "Question about an inspection",
-  selling: "Selling my car",
+  selling: "Market & Sell",
   other: "Something else",
 }
 
