@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight, MessageSquareQuote, Quote } from "lucide-react"
+import { ChevronLeft, ChevronRight, MapPin, MessageSquareQuote, Quote } from "lucide-react"
 
 type Testimonial = {
   name: string
   vehicle: string
   service: string
+  location: string
   quote: string
   image: string
   imageAlt: string
@@ -18,9 +19,11 @@ const testimonials: Testimonial[] = [
     name: "Dave",
     vehicle: "Land Rover Discovery",
     service: "Pre-purchase inspection",
+    location: "a prestige car dealer in Wickford, Essex",
     quote: "I am very happy with the service. Value for money was great.",
     image: "/images/testimonials/dave-land-rover-discovery.jpg",
-    imageAlt: "Dave's Land Rover Discovery on ramps during its pre-purchase inspection",
+    imageAlt:
+      "Dave's Land Rover Discovery on ramps during its pre-purchase inspection at a prestige car dealer in Wickford, Essex",
   },
 ]
 
@@ -88,6 +91,10 @@ export function TestimonialsSection() {
                   <p className="text-lg font-bold text-primary">{current.name}</p>
                   <p className="text-sm text-muted-foreground">
                     {current.vehicle} · {current.service}
+                  </p>
+                  <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                    Inspected at {current.location}
                   </p>
                 </figcaption>
               </div>

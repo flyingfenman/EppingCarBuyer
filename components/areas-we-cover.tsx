@@ -4,7 +4,7 @@ import { MapPin, CheckCircle } from "lucide-react"
 const areas = [
   {
     name: "Essex",
-    places: "Waltham Abbey, Epping, Loughton, Harlow, Brentwood, Chelmsford, Ongar and Chigwell.",
+    places: "Waltham Abbey, Epping, Loughton, Harlow, Brentwood, Chelmsford, Wickford, Ongar and Chigwell.",
   },
   {
     name: "Hertfordshire",

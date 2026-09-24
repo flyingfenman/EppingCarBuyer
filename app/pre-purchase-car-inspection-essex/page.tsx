@@ -27,7 +27,7 @@ export default function PrePurchaseCarInspectionEssexPage() {
       canonicalPath={canonicalPath}
       intro="Buying a used car in Essex? Get an independent inspection before you pay. We attend the vehicle where it is being sold and check its condition, diagnostics, road behaviour and history."
       localCopy="Our mobile pre-purchase inspection service covers Essex and nearby areas from our Epping side of the business. It is aimed at buyers who want more than an advert, short test drive or dealer description before committing to a used car."
-      nearbyAreas={["Epping", "Loughton", "Harlow", "Brentwood", "Chelmsford", "Ongar", "Chigwell"]}
+      nearbyAreas={["Epping", "Loughton", "Harlow", "Brentwood", "Chelmsford", "Wickford", "Ongar", "Chigwell"]}
     />
   )
 }
