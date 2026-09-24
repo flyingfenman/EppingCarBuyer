@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { HeroSection } from "@/components/hero-section"
 import { HomeCoreServices } from "@/components/home-core-services"
-import { CarTrailerSection } from "@/components/car-trailer-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { AreasWeCover } from "@/components/areas-we-cover"
 import { ContactSection } from "@/components/contact-section"
 
@@ -24,7 +24,7 @@ export default function HomePage() {
     <div className="min-h-screen">
       <HeroSection />
       <HomeCoreServices />
-      <CarTrailerSection />
+      <TestimonialsSection />
       <AreasWeCover />
       <ContactSection />
     </div>
