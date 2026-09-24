@@ -21,6 +21,12 @@ const nextConfig = {
         destination: '/market-and-sell',
         permanent: true,
       },
+      // Retired car-buying/valuation pages; old links and ads now land on Market & Sell.
+      ...['/quote', '/fb', '/continue', '/vehicle-details'].map((path) => ({
+        source: `${path}/:rest*`,
+        destination: '/market-and-sell',
+        permanent: false,
+      })),
     ]
   },
 }

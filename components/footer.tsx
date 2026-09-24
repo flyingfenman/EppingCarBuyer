@@ -6,9 +6,6 @@ export function Footer() {
       <div className="container mx-auto">
         <div className="flex flex-col items-center text-center space-y-4">
           <nav className="flex flex-wrap justify-center gap-6">
-            <Link href="/quote" className="text-sm hover:underline">
-              Get a Quote
-            </Link>
             <Link href="/market-and-sell" className="text-sm hover:underline">
               Market &amp; Sell
             </Link>

@@ -92,8 +92,8 @@ export function HeroSection() {
                 <div className="text-sm text-muted-foreground">Inspections from</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-foreground">4.9/5</div>
-                <div className="text-sm text-muted-foreground">Customer rating</div>
+                <div className="text-3xl font-bold text-foreground">160-point</div>
+                <div className="text-sm text-muted-foreground">Standard inspection</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-foreground">Same day</div>

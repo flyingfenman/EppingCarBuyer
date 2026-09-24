@@ -51,6 +51,7 @@ Submitted: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
 
     if (!resendResponse.ok) {
       console.error("Resend error:", await resendResponse.text())
+      return NextResponse.json({ error: "Failed to send enquiry" }, { status: 502 })
     }
 
     return NextResponse.json({ success: true })
