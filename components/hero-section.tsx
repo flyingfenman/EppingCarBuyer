@@ -85,21 +85,6 @@ export function HeroSection() {
                 <ArrowRight className="ml-2 h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
             </Button>
-
-            <div className="flex flex-wrap gap-8 pt-2">
-              <div>
-                <div className="text-3xl font-bold text-foreground">£149.99</div>
-                <div className="text-sm text-muted-foreground">Inspections from</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-foreground">160-point</div>
-                <div className="text-sm text-muted-foreground">Standard inspection</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-foreground">Same day</div>
-                <div className="text-sm text-muted-foreground">Digital inspection report</div>
-              </div>
-            </div>
           </div>
 
           <div className="relative flex justify-center px-6 sm:px-10">
