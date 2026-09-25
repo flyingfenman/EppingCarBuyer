@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 export const metadata: Metadata = {
   title: "EV Battery Health Check & SOH Report | CARA Approved® Autel Test | Epping Car Buyer",
   description:
-    "Buying a used Tesla or other EV? Add an EV battery State of Health (SOH) report, using a CARA Approved® Autel EV Battery Health Test on compatible vehicles, to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, South Cambridgeshire and nearby areas.",
+    "Buying a used Tesla, other EV or plug-in hybrid? Add an EV battery State of Health (SOH) report, using a CARA Approved® Autel EV Battery Health Test on compatible vehicles, to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, South Cambridgeshire and nearby areas.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },
@@ -41,9 +41,14 @@ const faqs = [
       "No. The Autel EV Battery Health Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
   },
   {
-    question: "Can every electric car be tested?",
+    question: "Can every electric or plug-in hybrid car be tested?",
     answer:
       "Vehicle compatibility and the battery data available vary by manufacturer, model and software version. Send us the registration or vehicle details before booking if you want us to confirm compatibility.",
+  },
+  {
+    question: "Can you check the battery on a plug-in hybrid?",
+    answer:
+      "Yes. The £49.99 EV Battery State of Health report can be added for compatible plug-in hybrids as well as fully electric cars. Send us the make, model and year before booking and we'll confirm your car is compatible.",
   },
   {
     question: "Can you inspect a used Tesla?",
@@ -56,7 +61,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: "EV Battery State of Health Check",
-  serviceType: "Electric vehicle traction battery State of Health assessment",
+  serviceType: "Electric and plug-in hybrid vehicle traction battery State of Health assessment",
   url: "https://www.eppingcarbuyer.com/ev-battery-health-check",
   description:
     "Mobile EV battery State of Health assessment using a CARA Approved Autel EV Battery Health Test, available as an add-on to a pre-purchase vehicle inspection.",
@@ -72,7 +77,7 @@ const serviceSchema = {
     price: "49.99",
     priceCurrency: "GBP",
     availability: "https://schema.org/InStock",
-    description: "Optional add-on to a pre-purchase vehicle inspection; compatible fully electric vehicles only.",
+    description: "Optional add-on to a pre-purchase vehicle inspection for compatible fully electric and plug-in hybrid vehicles.",
   },
 }
 
@@ -106,7 +111,7 @@ export default function EvBatteryHealthCheckPage() {
               EV Battery Health Check Before You Buy
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Buying a used electric car? Add a high-voltage traction battery State of Health (SOH) assessment and customer battery report to your pre-purchase inspection.
+              Buying a used electric or plug-in hybrid car? Add a high-voltage traction battery State of Health (SOH) assessment and customer battery report to your pre-purchase inspection.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <div className="rounded-xl border border-primary/15 bg-white px-6 py-3 text-left shadow-sm">

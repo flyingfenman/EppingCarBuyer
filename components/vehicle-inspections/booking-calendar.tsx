@@ -526,7 +526,7 @@ export function InspectionsBookingCalendar() {
                 <p className="text-lg font-bold text-emerald-800">+£49.99</p>
               </div>
               <p className="mt-1 text-sm text-muted-foreground">
-                Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric vehicles.
+                Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric and plug-in hybrid vehicles.
               </p>
               <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
                 <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test

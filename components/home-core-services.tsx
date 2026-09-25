@@ -78,7 +78,7 @@ export function HomeCoreServices() {
                     <div>
                       <p className="font-bold text-foreground">EV buyers are covered too</p>
                       <p className="mt-1 text-sm text-muted-foreground">
-                        EV and hybrid checks are part of the main inspection where supported, with an optional dedicated EV Battery State of Health report for compatible fully electric vehicles.
+                        EV and hybrid checks are part of the main inspection where supported, with an optional dedicated EV Battery State of Health report for compatible fully electric and plug-in hybrid vehicles.
                       </p>
                     </div>
                   </div>

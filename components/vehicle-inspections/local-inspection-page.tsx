@@ -186,9 +186,9 @@ export function LocalInspectionPage({
                 <div className="flex gap-3">
                   <BatteryCharging className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
                   <div>
-                    <h3 className="font-bold">Buying a fully electric car?</h3>
+                    <h3 className="font-bold">Buying an electric or plug-in hybrid car?</h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Add a dedicated CARA Approved® Autel EV Battery State of Health report for compatible EVs.
+                      Add a dedicated CARA Approved® Autel EV Battery State of Health report for compatible EVs and plug-in hybrids.
                     </p>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ export function LocalInspectionPage({
               <Link href="/ev-battery-health-check" className="group rounded-3xl border bg-white p-6 shadow-sm transition hover:shadow-md">
                 <BatteryCharging className="h-7 w-7 text-primary" />
                 <h2 className="mt-4 text-xl font-bold">EV battery health checks</h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Learn what the optional State of Health assessment checks on compatible fully electric cars.</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Learn what the optional State of Health assessment checks on compatible electric and plug-in hybrid cars.</p>
                 <span className="mt-4 inline-flex items-center font-bold text-primary">EV battery health <ArrowRight className="ml-2 h-4 w-4" /></span>
               </Link>
             </div>

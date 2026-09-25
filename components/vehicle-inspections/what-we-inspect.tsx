@@ -544,7 +544,7 @@ export function InspectionsWhatWeInspect() {
                 <h3 className="font-bold">EV & hybrid vehicles</h3>
               </div>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-                Relevant high-voltage, charging, electric-drivetrain and battery-management diagnostics are included where the vehicle and diagnostic equipment support them. The separate £49.99 EV Battery State of Health Report is an optional deeper traction-battery assessment for compatible fully electric vehicles.
+                Relevant high-voltage, charging, electric-drivetrain and battery-management diagnostics are included where the vehicle and diagnostic equipment support them. The separate £49.99 EV Battery State of Health Report is an optional deeper traction-battery assessment for compatible fully electric and plug-in hybrid vehicles.
               </p>
             </div>
             <Link
