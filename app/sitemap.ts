@@ -1,96 +1,22 @@
 import type { MetadataRoute } from "next"
-import { getPublicCars } from "@/lib/cars-public"
 
 const BASE_URL = "https://www.eppingcarbuyer.com"
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date()
-
-  const staticEntries: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE_URL}/`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/vehicle-inspections`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.95,
-    },
-    {
-      url: `${BASE_URL}/vehicle-inspection-london`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/pre-purchase-car-inspection-essex`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/ev-battery-health-check`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/vehicle-inspections/sample-report`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/market-and-sell`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/cars-for-sale`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/privacy-policy`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/terms-of-service`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
+// No lastModified: a date that is always "now" is ignored by Google, and wrong dates hurt trust in the sitemap.
+export default function sitemap(): MetadataRoute.Sitemap {
+  const pages: Array<[path: string, priority: number]> = [
+    ["/", 1.0],
+    ["/vehicle-inspections", 0.95],
+    ["/vehicle-inspections/what-we-inspect", 0.85],
+    ["/vehicle-inspection-london", 0.9],
+    ["/pre-purchase-car-inspection-essex", 0.9],
+    ["/ev-battery-health-check", 0.9],
+    ["/vehicle-inspections/sample-report", 0.7],
+    ["/market-and-sell", 0.8],
+    ["/contact", 0.6],
+    ["/privacy-policy", 0.2],
+    ["/terms-of-service", 0.2],
   ]
 
-  let dynamicEntries: MetadataRoute.Sitemap = []
-
-  try {
-    const cars = await getPublicCars()
-
-    if (cars && cars.length > 0) {
-      dynamicEntries = cars.map((car) => ({
-        url: `${BASE_URL}/cars-for-sale/${car.id}`,
-        lastModified: now,
-        changeFrequency: "daily" as const,
-        priority: 0.6,
-      }))
-    }
-  } catch {
-    dynamicEntries = []
-  }
-
-  return [...staticEntries, ...dynamicEntries]
+  return pages.map(([path, priority]) => ({ url: `${BASE_URL}${path}`, priority }))
 }

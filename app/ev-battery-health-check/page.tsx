@@ -4,9 +4,9 @@ import { BatteryCharging, BadgeCheck, Gauge, FileCheck2, MapPin, ShieldCheck, Ar
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "EV Battery Health Check & SOH Report | CARA Approved® Autel Test | Epping Car Buyer",
+  title: "EV Battery Health Check & SOH Report | Epping Car Buyer",
   description:
-    "Buying a used Tesla, other EV or plug-in hybrid? Add an EV battery State of Health (SOH) report, using a CARA Approved® Autel EV Battery Health Test on compatible vehicles, to a pre-purchase vehicle inspection for £49.99 across Essex, Hertfordshire, Greater London, South Cambridgeshire and nearby areas.",
+    "Check a used EV or plug-in hybrid battery before you buy. CARA Approved® Autel State of Health report, added to any inspection for £49.99.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },

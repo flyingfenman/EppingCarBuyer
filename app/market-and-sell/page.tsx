@@ -4,14 +4,18 @@ import { SellForMeTwoPrices } from "@/components/sell-for-me/two-prices"
 import { SellForMeWhatsIncluded } from "@/components/sell-for-me/whats-included"
 import { SellForMeSalesFlow } from "@/components/sell-for-me/sales-flow"
 
+const title = "Sell My Car For Me | Market & Sell Service | Epping Car Buyer"
+const description =
+  "We market and sell your car for you, aiming closer to retail value than a trade sale. No upfront cost, no sale, no fee. Covering Essex, Herts and London."
+
 export const metadata: Metadata = {
-  title: "Market & Sell - Epping Car Buyer",
-  description:
-    "Let us market and sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
+  title,
+  description,
+  alternates: { canonical: "/market-and-sell" },
   openGraph: {
-    title: "Market & Sell - Epping Car Buyer",
-    description:
-      "Let us market and sell your car on your behalf for closer to retail price. No upfront cost, no hassle. You only pay us if we sell it.",
+    title,
+    description,
+    url: "/market-and-sell",
     images: ["/images/inspection-car.jpg"],
   },
 }

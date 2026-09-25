@@ -33,7 +33,7 @@ export default function WhatWeInspectPage() {
           </Link>
         </div>
       </div>
-      <InspectionsWhatWeInspect />
+      <InspectionsWhatWeInspect headingLevel="h1" />
     </main>
   )
 }

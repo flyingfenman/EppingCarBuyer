@@ -94,10 +94,11 @@ export function HeroSection() {
               }`}
             >
               <Image
-                src="/henry.png"
+                src="/henry.webp"
                 alt="Henry from Epping Car Buyer"
-                width={1500}
-                height={2000}
+                width={750}
+                height={1000}
+                sizes="(min-width: 1024px) 320px, 80vw"
                 priority
                 className="h-auto w-full object-contain"
               />

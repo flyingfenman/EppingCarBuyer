@@ -411,13 +411,14 @@ const differentiators = [
   },
 ]
 
-export function InspectionsWhatWeInspect() {
+export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
+  const Heading = headingLevel
   return (
     <section id="what-we-inspect" className="bg-white py-10 sm:py-14 lg:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-bold uppercase tracking-wider text-primary">The full inspection scope</p>
-          <h2 className="mt-2 text-3xl font-bold sm:text-4xl lg:text-5xl">What We Inspect</h2>
+          <Heading className="mt-2 text-3xl font-bold sm:text-4xl lg:text-5xl">What We Inspect</Heading>
           <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Standard is a comprehensive 160-point pre-purchase inspection. Premium is our {premiumTotal}-point inspection for buyers who want the deepest assessment, evidence and provenance work before committing.
           </p>

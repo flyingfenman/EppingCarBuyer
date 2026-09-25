@@ -1,4 +1,11 @@
+import type { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Epping Car Buyer",
+  description: "How Epping Car Buyer collects, uses and protects your personal information.",
+  alternates: { canonical: "/privacy-policy" },
+}
 
 export default function PrivacyPolicyPage() {
   return (

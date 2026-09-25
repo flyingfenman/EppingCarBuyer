@@ -21,6 +21,7 @@ export type LocalInspectionPageProps = {
   intro: string
   localCopy: string
   nearbyAreas: string[]
+  localProof?: React.ReactNode
 }
 
 export function LocalInspectionPage({
@@ -33,6 +34,7 @@ export function LocalInspectionPage({
   intro,
   localCopy,
   nearbyAreas,
+  localProof,
 }: LocalInspectionPageProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -150,6 +152,8 @@ export function LocalInspectionPage({
           </div>
         </div>
       </section>
+
+      {localProof}
 
       <MechanicalReportOverview />
 

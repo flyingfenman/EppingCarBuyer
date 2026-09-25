@@ -12,8 +12,9 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const car = await getPublicCarById(id)
-  if (!car) return { title: "Car Not Found - Epping Car Buyer" }
+  if (!car) return { title: "Car Not Found - Epping Car Buyer", robots: { index: false, follow: true } }
   return {
+    robots: { index: false, follow: true },
     title: `${car.year} ${car.make} ${car.model} - Epping Car Buyer`,
     description: `${car.year} ${car.make} ${car.model}, ${car.mileage.toLocaleString()} miles — £${car.retail_price.toLocaleString()}. For sale at Epping Car Buyer.`,
   }

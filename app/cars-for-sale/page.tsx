@@ -5,6 +5,7 @@ import { Car, Gauge, Calendar, MessageCircle, ArrowRight } from "lucide-react"
 import { getPublicCars } from "@/lib/cars-public"
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   title: "Cars For Sale - Epping Car Buyer",
   description:
     "Quality used cars for sale in Epping, Essex. Every car we sell has been through our own inspection process before it goes on the forecourt.",

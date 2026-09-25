@@ -1,4 +1,11 @@
+import type { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Epping Car Buyer",
+  description: "The terms and conditions for using the Epping Car Buyer website and services.",
+  alternates: { canonical: "/terms-of-service" },
+}
 
 export default function TermsOfServicePage() {
   return (
