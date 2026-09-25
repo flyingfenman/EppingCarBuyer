@@ -20,6 +20,8 @@ import {
   CalendarDays,
 } from "lucide-react"
 import { MIN_BOOKING_NOTICE_HOURS, type PackageKey, type Slot } from "@/lib/inspection-slots"
+import { INSPECTION_PACKAGES as PACKAGES } from "@/lib/inspection-packages"
+import { testimonials } from "@/lib/testimonials"
 import { trackWhatsAppClick } from "@/lib/tracking"
 import { getTrafficSource } from "@/lib/traffic-source"
 
@@ -30,36 +32,7 @@ function toWhatsAppNumber(phone: string): string {
   return cleaned
 }
 
-const PACKAGES: Array<{
-  key: PackageKey
-  name: string
-  price: string
-  amount: number
-  points: string
-  strapline: string
-  features: string[]
-  popular?: boolean
-}> = [
-  {
-    key: "standard",
-    name: "Standard Inspection",
-    price: "£149.99",
-    amount: 149.99,
-    points: "160-point inspection",
-    strapline: "In-depth mechanical findings and buying guidance",
-    features: ["Engine / drivetrain, brakes, steering and suspension", "Full diagnostic scan and road test", "Vehicle history check", "Easy-to-understand video review", "Photo evidence and same-day mechanical report", "Personal call and buying guidance"],
-  },
-  {
-    key: "premium",
-    name: "Premium Inspection",
-    price: "£199.99",
-    amount: 199.99,
-    points: "260-point inspection",
-    strapline: "Deeper inspection and vehicle and seller research",
-    features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Checks for indicators of undisclosed motor trading"],
-    popular: true,
-  },
-]
+const PHONE_FEATURE_LIMIT = 4
 
 const EV_SOH_PRICE = 49.99
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -136,6 +109,7 @@ export function InspectionsBookingCalendar() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
   const [showDetails, setShowDetails] = useState(false)
+  const [showAllFeatures, setShowAllFeatures] = useState(false)
   const [shortNoticeCandidate, setShortNoticeCandidate] = useState<Slot | null>(null)
   const [shortNoticeConfirmed, setShortNoticeConfirmed] = useState(false)
   const [viewDate, setViewDate] = useState(() => {
@@ -460,7 +434,7 @@ export function InspectionsBookingCalendar() {
 
   return (
     <div className={`mx-auto max-w-5xl ${bannerSlot ? "pb-64 sm:pb-40" : ""}`}>
-      <div className="mb-7 grid gap-3 sm:grid-cols-3">
+      <div className="mb-7 hidden gap-3 sm:grid sm:grid-cols-3">
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
           <BatteryCharging className="h-6 w-6 shrink-0 text-primary" />
           <div><p className="text-sm font-bold">Specialists in EV</p><p className="text-xs text-muted-foreground">EV diagnostics &amp; optional battery health reports</p></div>
@@ -497,8 +471,8 @@ export function InspectionsBookingCalendar() {
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                  {pkg.features.map((feature) => (
-                    <span key={feature} className="flex items-center gap-2 text-xs font-medium"><Check className="h-4 w-4 text-emerald-600" /> {feature}</span>
+                  {pkg.features.map((feature, i) => (
+                    <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT && !showAllFeatures ? "hidden sm:flex" : "flex"} items-center gap-2 text-xs font-medium`}><Check className="h-4 w-4 text-emerald-600" /> {feature}</span>
                   ))}
                 </div>
                 {active && <div className="mt-4 flex items-center gap-2 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</div>}
@@ -506,6 +480,17 @@ export function InspectionsBookingCalendar() {
             )
           })}
         </div>
+        {PACKAGES.some((pkg) => pkg.features.length > PHONE_FEATURE_LIMIT) && (
+          <button
+            type="button"
+            onClick={() => setShowAllFeatures((open) => !open)}
+            aria-expanded={showAllFeatures}
+            className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-primary/20 bg-white px-4 py-3 text-sm font-bold text-primary sm:hidden"
+          >
+            {showAllFeatures ? "Show less" : "See everything included"}
+            <ChevronRight className={`h-4 w-4 transition-transform ${showAllFeatures ? "-rotate-90" : "rotate-90"}`} />
+          </button>
+        )}
       </div>
 
       <div>
@@ -542,6 +527,18 @@ export function InspectionsBookingCalendar() {
           <p className="text-sm text-muted-foreground">{includeEvSoh ? "Includes EV Battery State of Health Report (+£49.99)" : "No optional battery State of Health report selected"}</p>
         </div>
         <p className="shrink-0 text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
+      </div>
+
+      <div className="mb-6 space-y-3 sm:hidden">
+        <p className="text-sm font-bold uppercase tracking-wide text-primary">What customers say</p>
+        {testimonials.map((t) => (
+          <figure key={t.name} className="rounded-2xl border border-border bg-white p-4">
+            <blockquote className="font-semibold leading-snug text-foreground">&ldquo;{t.headline}&rdquo;</blockquote>
+            <figcaption className="mt-2 text-sm text-muted-foreground">
+              {t.name} · {t.vehicle} · {t.town}
+            </figcaption>
+          </figure>
+        ))}
       </div>
 
       <div>
