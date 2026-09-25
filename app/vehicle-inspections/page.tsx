@@ -10,6 +10,7 @@ import { InspectionsWhyUs } from "@/components/vehicle-inspections/why-us"
 import { InspectionsFAQ } from "@/components/vehicle-inspections/faq"
 import { InspectionsCta } from "@/components/vehicle-inspections/cta"
 import { LocalAreaLinks } from "@/components/vehicle-inspections/local-area-links"
+import { TestimonialsSection } from "@/components/testimonials-section"
 
 export const metadata: Metadata = {
   title: "Car Inspection Service | Pre-Purchase Vehicle Inspections | Epping Car Buyer",
@@ -32,6 +33,7 @@ export default function VehicleInspectionsPage() {
     <div className="min-h-screen bg-white">
       <InspectionsHero />
       <InspectionsCta />
+      <TestimonialsSection className="border-b border-border bg-white" />
       <div id="inspection-details" className="scroll-mt-24">
         <MechanicalReportOverview />
       </div>

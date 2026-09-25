@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { ChevronDown, ChevronLeft, ChevronRight, MapPin, MessageSquareQuote, Quote } from "lucide-react"
+import { ChevronDown, ChevronLeft, ChevronRight, MapPin, Quote } from "lucide-react"
 
 type Testimonial = {
   name: string
@@ -47,20 +47,16 @@ const testimonials: Testimonial[] = [
   },
 ]
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ className = "bg-gray-50" }: { className?: string }) {
   const [index, setIndex] = useState(0)
   const count = testimonials.length
   const go = (next: number) => setIndex((next + count) % count)
 
   return (
-    <section className="bg-gray-50 py-10 sm:py-12 lg:py-16">
+    <section className={`py-10 sm:py-12 lg:py-16 ${className}`}>
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-8 space-y-4 text-center sm:mb-10">
-            <div className="inline-flex items-center gap-3 rounded-full bg-primary/10 px-4 py-2">
-              <MessageSquareQuote className="h-5 w-5 text-primary" />
-              <span className="font-semibold text-primary">Customer Stories</span>
-            </div>
+          <div className="mb-8 text-center sm:mb-10">
             <h2 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
               What Our Customers <span className="text-primary">Say</span>
             </h2>
