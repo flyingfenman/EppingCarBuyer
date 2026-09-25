@@ -27,9 +27,9 @@ export function SellForMeHero() {
             </div>
 
             <h1 className="mt-6 text-4xl font-bold leading-tight text-balance sm:text-5xl lg:text-6xl">
-              Want More Than{" "}
+              Sell Your Car For More,{" "}
               <br />
-              <span className="text-primary">We Offered?</span>
+              <span className="text-primary">Without the Hassle</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
