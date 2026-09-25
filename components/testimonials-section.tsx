@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ChevronDown, ChevronLeft, ChevronRight, MapPin, Quote } from "lucide-react"
 
 type Testimonial = {
@@ -152,6 +153,12 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
               </div>
             )}
           </div>
+
+          <p className="mt-6 text-center">
+            <Link href="/inspection-notes" className="inline-flex items-center gap-1 font-bold text-primary hover:underline">
+              See what we found on real inspections <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </p>
         </div>
       </div>
     </section>

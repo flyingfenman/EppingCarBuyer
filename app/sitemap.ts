@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { inspectionNotes } from "@/lib/inspection-notes"
 
 const BASE_URL = "https://www.eppingcarbuyer.com"
 
@@ -11,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/vehicle-inspection-london", 0.9],
     ["/pre-purchase-car-inspection-essex", 0.9],
     ["/ev-battery-health-check", 0.9],
+    ["/inspection-notes", 0.8],
+    ...inspectionNotes.map((note): [string, number] => [`/inspection-notes/${note.slug}`, 0.7]),
     ["/market-and-sell", 0.8],
     ["/contact", 0.6],
     ["/privacy-policy", 0.2],

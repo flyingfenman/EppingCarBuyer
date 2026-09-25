@@ -12,6 +12,9 @@ export function Footer() {
             <Link href="/vehicle-inspections" className="text-sm hover:underline">
               Vehicle Inspections
             </Link>
+            <Link href="/inspection-notes" className="text-sm hover:underline">
+              Inspection Notes
+            </Link>
             <Link href="/ev-battery-health-check" className="text-sm hover:underline">
               EV Battery Health Check
             </Link>
