@@ -38,12 +38,12 @@ const testimonials: Testimonial[] = [
   {
     name: "Dave",
     vehicle: "Land Rover Discovery",
-    service: "Pre-purchase inspection",
+    service: "Premium inspection + EV battery health check",
     location: "a prestige car dealer in Wickford, Essex",
     quote: "I am very happy with the service. Value for money was great.",
     image: "/images/testimonials/dave-land-rover-discovery.jpg",
     imageAlt:
-      "Dave's Land Rover Discovery on ramps during its pre-purchase inspection at a prestige car dealer in Wickford, Essex",
+      "Dave's Land Rover Discovery on ramps during its Premium pre-purchase inspection at a prestige car dealer in Wickford, Essex",
   },
 ]
 
