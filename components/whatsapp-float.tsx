@@ -26,7 +26,7 @@ export function WhatsAppFloat() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 h-14 w-14">
+    <div className="fixed bottom-4 right-4 z-50 h-14 w-14 sm:bottom-6 sm:right-6">
       <a
         href="https://wa.me/441992367909"
         target="_blank"
@@ -36,8 +36,9 @@ export function WhatsAppFloat() {
       >
         <MessageCircle className="w-7 h-7" aria-hidden="true" />
       </a>
+      {/* The speech bubble is hidden on phones, where it covered the page's main buttons. */}
       {showMessage && (
-        <div className="absolute right-full top-1/2 mr-3 w-max max-w-[calc(100vw-7rem)] -translate-y-[66%] px-7 py-6 text-center text-sm leading-snug text-gray-900 drop-shadow-lg">
+        <div className="absolute right-full top-1/2 mr-3 hidden w-max max-w-[calc(100vw-7rem)] -translate-y-[66%] px-7 py-6 text-center text-sm leading-snug text-gray-900 drop-shadow-lg sm:block">
           <svg
             aria-hidden="true"
             className="absolute inset-0 h-full w-full"
@@ -56,9 +57,8 @@ export function WhatsAppFloat() {
             target="_blank"
             rel="noopener noreferrer"
             className="relative block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700"
-            aria-label="Any questions? Send us a WhatsApp!"
           >
-            <span className="block font-semibold">Any questions?</span>
+            <span className="block font-semibold">Any questions?</span>{" "}
             <span className="block">Send us a WhatsApp!</span>
           </a>
           <button
