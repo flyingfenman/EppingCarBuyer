@@ -477,7 +477,7 @@ export function InspectionsBookingCalendar() {
 
       <div className="mb-8">
         <div className="mb-4 flex items-center gap-3">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">1</span>
+          <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">1</span>
           <div>
             <h3 className="text-xl font-bold">Choose your inspection</h3>
             <p className="text-sm text-muted-foreground">Both packages include an in-depth mechanical inspection, video review, evidence and personal buying guidance.</p>
@@ -569,7 +569,7 @@ export function InspectionsBookingCalendar() {
 
       <div>
         <div className="mb-4 flex items-center gap-3">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">2</span>
+          <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">2</span>
           <div>
             <h3 className="text-xl font-bold">Choose a convenient time</h3>
             <p className="text-sm text-muted-foreground">All open times are shown. If it&apos;s within 24 hours, message us first so we can confirm travel and access.</p>
