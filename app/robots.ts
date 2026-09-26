@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next"
 
 const BASE_URL = "https://www.eppingcarbuyer.com"
+// /admin is left crawlable on purpose: its pages carry noindex, which Google only sees if it can fetch them.
 const PRIVATE_PATHS = [
-  "/admin",
-  "/admin/",
   "/dealer",
   "/dealer/",
   "/api",

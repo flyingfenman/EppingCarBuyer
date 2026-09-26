@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   title: "Terms of Service | Epping Car Buyer",
   description: "The terms and conditions for using the Epping Car Buyer website and services.",
   alternates: { canonical: "/terms-of-service" },
+  // Still linked from every page, but kept out of search results so Google's sitelinks show the services.
+  robots: { index: false, follow: true },
 }
 
 export default function TermsOfServicePage() {

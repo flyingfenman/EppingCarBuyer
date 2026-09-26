@@ -4,14 +4,14 @@ import { BatteryCharging, BadgeCheck, Gauge, FileCheck2, MapPin, ShieldCheck, Ar
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "EV Battery Health Check & SOH Report | Epping Car Buyer",
+  title: "EV & Hybrid Battery Health Check | Epping Car Buyer",
   description:
     "Check a used EV or plug-in hybrid battery before you buy. CARA Approved® Autel State of Health report, added to any inspection for £49.99.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },
   openGraph: {
-    title: "EV Battery Health Check & State of Health Report",
+    title: "EV & Hybrid Battery Health Check & State of Health Report",
     description:
       "Check a used EV's high-voltage traction battery before you buy. CARA Approved® Autel EV Battery Health Test, available as a £49.99 inspection add-on.",
     url: "/ev-battery-health-check",
