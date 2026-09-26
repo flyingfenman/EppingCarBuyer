@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Epping Car Buyer",
   description: "How Epping Car Buyer collects, uses and protects your personal information.",
   alternates: { canonical: "/privacy-policy" },
+  // Still linked from every page, but kept out of search results so Google's sitelinks show the services.
+  robots: { index: false, follow: true },
 }
 
 export default function PrivacyPolicyPage() {

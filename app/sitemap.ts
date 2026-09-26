@@ -16,8 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...inspectionNotes.map((note): [string, number] => [`/inspection-notes/${note.slug}`, 0.7]),
     ["/market-and-sell", 0.8],
     ["/contact", 0.6],
-    ["/privacy-policy", 0.2],
-    ["/terms-of-service", 0.2],
   ]
 
   return pages.map(([path, priority]) => ({ url: `${BASE_URL}${path}`, priority }))

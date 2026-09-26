@@ -16,7 +16,7 @@ export function Footer() {
               Inspection Notes
             </Link>
             <Link href="/ev-battery-health-check" className="inline-flex min-h-11 items-center text-sm hover:underline">
-              EV Battery Health Check
+              EV &amp; Hybrid Battery Health Check
             </Link>
             <Link href="/contact" className="inline-flex min-h-11 items-center text-sm hover:underline">
               Contact Us
@@ -27,7 +27,7 @@ export function Footer() {
             <Link href="/terms-of-service" className="inline-flex min-h-11 items-center text-sm hover:underline">
               Terms of Service
             </Link>
-            <Link href="/admin/login" className="inline-flex min-h-11 items-center text-sm hover:underline text-muted-foreground">
+            <Link href="/admin/login" rel="nofollow" className="inline-flex min-h-11 items-center text-sm hover:underline text-muted-foreground">
               Admin
             </Link>
           </nav>
