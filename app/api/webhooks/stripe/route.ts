@@ -6,6 +6,50 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
 const WHATSAPP_ICON = "https://cdn.simpleicons.org/whatsapp/FFFFFF"
 const FONT_STACK = "'Fredoka','Trebuchet MS',Arial,Helvetica,sans-serif"
 
+type Brand = {
+  name: string
+  tagline: string
+  senders: string[]
+  replyTo: string
+  inbox: string
+  whatsappLink: string
+  whatsappDisplay: string
+  site: string
+}
+
+// The Stripe account is shared with Stamford Car Buyer, so this webhook also
+// receives Stamford's bookings. Stamford's checkout marks them
+// brand: "Stamford Car Buyer"; anything unmarked is Epping's. Before this, a
+// Stamford customer was confirmed as an Epping booking, with Epping's number,
+// and Henry's notice went to the Epping inbox and so into Epping's lead tool.
+const BRANDS: Record<"epping" | "stamford", Brand> = {
+  epping: {
+    name: "Epping Car Buyer",
+    tagline: "Independent vehicle buying, selling and inspections",
+    senders: ["Epping Car Buyer <noreply@eppingcarbuyer.com>"],
+    replyTo: "henry@eppingcarbuyer.com",
+    inbox: "henry@eppingcarbuyer.com",
+    whatsappLink: "441992367909",
+    whatsappDisplay: "+44 1992 367909",
+    site: "www.eppingcarbuyer.com",
+  },
+  stamford: {
+    name: "Stamford Car Buyer",
+    tagline: "Vehicle inspections and Market & Sell",
+    // Stamford's own address first; Epping's is the fallback if Resend refuses it.
+    senders: ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"],
+    replyTo: "henry@stamfordcarbuyer.com",
+    inbox: "henry@stamfordcarbuyer.com",
+    whatsappLink: "447376624097",
+    whatsappDisplay: "+44 7376 624097",
+    site: "www.stamfordcarbuyer.com",
+  },
+}
+
+function brandFor(metadata: Stripe.Metadata | null | undefined): Brand {
+  return metadata?.brand === "Stamford Car Buyer" ? BRANDS.stamford : BRANDS.epping
+}
+
 function escapeHtml(value: unknown) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -15,15 +59,15 @@ function escapeHtml(value: unknown) {
     .replace(/'/g, "&#039;")
 }
 
-function whatsappButton(label: string) {
+function whatsappButton(label: string, brand: Brand = BRANDS.epping) {
   return `<div style="text-align:center;margin-top:26px;">
-    <a href="https://wa.me/441992367909" style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;font-family:${FONT_STACK};font-size:14px;font-weight:700;padding:13px 20px;border-radius:12px;">
+    <a href="https://wa.me/${brand.whatsappLink}" style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;font-family:${FONT_STACK};font-size:14px;font-weight:700;padding:13px 20px;border-radius:12px;">
       <img src="${WHATSAPP_ICON}" width="18" height="18" border="0" alt="WhatsApp" style="display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:8px;">${escapeHtml(label)}
     </a>
   </div>`
 }
 
-function brandedEmail(title: string, contentHtml: string) {
+function brandedEmail(title: string, contentHtml: string, brand: Brand = BRANDS.epping) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -39,8 +83,8 @@ function brandedEmail(title: string, contentHtml: string) {
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(43,20,60,.08);font-family:${FONT_STACK};">
           <tr>
             <td style="background:#6711a4;padding:28px 34px;">
-              <div style="font-family:${FONT_STACK};font-size:30px;line-height:1.1;font-weight:700;color:#ffffff;letter-spacing:-.4px;">Epping Car Buyer</div>
-              <div style="font-family:${FONT_STACK};font-size:12px;line-height:1.5;color:#eadcf3;margin-top:5px;">Independent vehicle buying, selling and inspections</div>
+              <div style="font-family:${FONT_STACK};font-size:30px;line-height:1.1;font-weight:700;color:#ffffff;letter-spacing:-.4px;">${escapeHtml(brand.name)}</div>
+              <div style="font-family:${FONT_STACK};font-size:12px;line-height:1.5;color:#eadcf3;margin-top:5px;">${escapeHtml(brand.tagline)}</div>
             </td>
           </tr>
           <tr>
@@ -56,21 +100,21 @@ function brandedEmail(title: string, contentHtml: string) {
                   <td>
                     <div style="font-family:${FONT_STACK};font-size:15px;color:#2b2330;line-height:1.7;">Kind regards,</div>
                     <div style="font-family:${FONT_STACK};font-size:22px;font-weight:700;color:#6711a4;margin-top:8px;">Henry</div>
-                    <div style="font-family:${FONT_STACK};font-size:14px;font-weight:600;color:#2b2330;margin-top:2px;">Epping Car Buyer</div>
+                    <div style="font-family:${FONT_STACK};font-size:14px;font-weight:600;color:#2b2330;margin-top:2px;">${escapeHtml(brand.name)}</div>
                     <table role="presentation" cellspacing="0" cellpadding="0" style="margin-top:10px;font-family:${FONT_STACK};">
                       <tr>
                         <td style="padding-right:8px;vertical-align:middle;">
-                          <a href="https://wa.me/441992367909" style="text-decoration:none;">
+                          <a href="https://wa.me/${brand.whatsappLink}" style="text-decoration:none;">
                             <img src="${WHATSAPP_ICON}" width="18" height="18" border="0" alt="WhatsApp" style="display:block;width:18px;height:18px;background:#25D366;border-radius:50%;padding:3px;">
                           </a>
                         </td>
                         <td style="vertical-align:middle;">
-                          <a href="https://wa.me/441992367909" style="font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:#25D366;text-decoration:none;font-weight:700;">+44 1992 367909</a>
+                          <a href="https://wa.me/${brand.whatsappLink}" style="font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:#25D366;text-decoration:none;font-weight:700;">${brand.whatsappDisplay}</a>
                         </td>
                       </tr>
                     </table>
                     <div style="font-family:${FONT_STACK};font-size:13px;color:#6f6575;line-height:1.7;margin-top:7px;">
-                      <a href="https://www.eppingcarbuyer.com" style="font-family:${FONT_STACK};color:#6711a4;text-decoration:none;font-weight:700;">www.eppingcarbuyer.com</a>
+                      <a href="https://${brand.site}" style="font-family:${FONT_STACK};color:#6711a4;text-decoration:none;font-weight:700;">${brand.site}</a>
                     </div>
                   </td>
                 </tr>
@@ -78,7 +122,7 @@ function brandedEmail(title: string, contentHtml: string) {
             </td>
           </tr>
         </table>
-        <div style="font-family:${FONT_STACK};font-size:11px;color:#8b8190;padding:16px 10px 0;line-height:1.5;">Epping Car Buyer</div>
+        <div style="font-family:${FONT_STACK};font-size:11px;color:#8b8190;padding:16px 10px 0;line-height:1.5;">${escapeHtml(brand.name)}</div>
       </td>
     </tr>
   </table>
@@ -99,28 +143,28 @@ function infoTable(rows: Array<[string, string]>) {
   </table>`
 }
 
-async function sendEmail(to: string, subject: string, text: string, html?: string): Promise<boolean> {
-  const resendResponse = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "Epping Car Buyer <noreply@eppingcarbuyer.com>",
-      reply_to: "henry@eppingcarbuyer.com",
-      to: [to],
-      subject,
-      text,
-      html: html || brandedEmail(subject, textToHtml(text)),
-    }),
-  })
-
-  if (!resendResponse.ok) {
-    console.error(`Resend error sending "${subject}" to ${to}:`, await resendResponse.text())
-    return false
+async function sendEmail(to: string, subject: string, text: string, html?: string,
+                         brand: Brand = BRANDS.epping): Promise<boolean> {
+  for (const from of brand.senders) {
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        reply_to: brand.replyTo,
+        to: [to],
+        subject,
+        text,
+        html: html || brandedEmail(subject, textToHtml(text), brand),
+      }),
+    })
+    if (resendResponse.ok) return true
+    console.error(`Resend error sending "${subject}" to ${to} as ${from}:`, await resendResponse.text())
   }
-  return true
+  return false
 }
 
 export async function POST(request: NextRequest) {
@@ -149,6 +193,7 @@ export async function POST(request: NextRequest) {
         customerName, customerPhone, customerEmail, notes, trafficSource, trafficDetail, landingPage,
       } = session.metadata
 
+      const brand = brandFor(session.metadata)
       const hasEvSoh = includeEvSoh === "yes"
       const amountPaid = `£${((session.amount_total || 0) / 100).toFixed(2)}`
       const slotFull = new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })
@@ -196,7 +241,7 @@ Amount paid: ${amountPaid}
 
 Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.
 ${hasEvSoh ? "\nYour EV battery health report will be supplied with your inspection findings.\n" : ""}
-Questions in the meantime? WhatsApp Henry directly on +44 1992 367909.
+Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       `.trim()
 
       const customerHtml = brandedEmail(
@@ -213,21 +258,25 @@ Questions in the meantime? WhatsApp Henry directly on +44 1992 367909.
          ])}
          <div style="font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:#342c38;">Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.</div>
          ${hasEvSoh ? `<div style="font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:#342c38;margin-top:14px;">Your EV battery health report will be supplied with your inspection findings.</div>` : ""}
-         ${whatsappButton("WhatsApp Henry")}`
+         ${whatsappButton("WhatsApp Henry", brand)}`,
+        brand,
       )
 
       const subjectSuffix = hasEvSoh ? " + EV Battery SOH" : ""
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
-          "henry@eppingcarbuyer.com",
+          brand.inbox,
           `Vehicle inspection request: ${registration} (${packageName}${subjectSuffix}) PAID`,
-          internalEmail
+          internalEmail,
+          undefined,
+          brand,
         ),
         sendEmail(
           customerEmail,
           `Booking confirmed: ${packageName}${subjectSuffix} on ${slotFull}`,
           customerEmailBody,
           customerHtml,
+          brand,
         ),
       ])
 
