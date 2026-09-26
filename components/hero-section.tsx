@@ -29,20 +29,25 @@ const trustBadges = [
 
 type Route = "inspection" | "sell"
 
-const ROUTES: Array<{ value: Route; title: string; subtitle: string; selectedClass: string; accentClass: string }> = [
+// Solid colours match the header buttons; the teal is the header's darker shade so small white text stays readable.
+const ROUTES: Array<{ value: Route; title: string; subtitle: string; cardClass: string; subtitleClass: string; circleClass: string; dotClass: string }> = [
   {
     value: "inspection",
     title: "Get it inspected",
     subtitle: "Buying this car? We check it before you pay.",
-    selectedClass: "border-[#0d9488] bg-[#0d9488]/5",
-    accentClass: "accent-[#0d9488]",
+    cardClass: "bg-[#0b7a70] text-white",
+    subtitleClass: "text-white",
+    circleClass: "border-white",
+    dotClass: "bg-white",
   },
   {
     value: "sell",
     title: "Market & Sell it",
     subtitle: "Selling this car? We sell it for you.",
-    selectedClass: "border-[#eab308] bg-[#fef9c3]",
-    accentClass: "accent-[#ca8a04]",
+    cardClass: "bg-[#FFCC00] text-black",
+    subtitleClass: "text-black/80",
+    circleClass: "border-black",
+    dotClass: "bg-black",
   },
 ]
 
@@ -108,8 +113,8 @@ export function HeroSection() {
                     return (
                       <label
                         key={option.value}
-                        className={`flex min-h-16 cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/20 ${
-                          selected ? option.selectedClass : "border-border bg-white hover:border-primary/40"
+                        className={`flex min-h-16 cursor-pointer items-start gap-3 rounded-2xl p-4 shadow-sm transition hover:brightness-95 has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/40 ${option.cardClass} ${
+                          selected ? "ring-4 ring-primary ring-offset-2" : route ? "opacity-60" : ""
                         }`}
                       >
                         <input
@@ -121,11 +126,17 @@ export function HeroSection() {
                             setRoute(option.value)
                             setError("")
                           }}
-                          className={`mt-0.5 h-6 w-6 shrink-0 ${option.accentClass}`}
+                          className="sr-only"
                         />
+                        <span
+                          aria-hidden="true"
+                          className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${option.circleClass}`}
+                        >
+                          {selected && <span className={`h-3 w-3 rounded-full ${option.dotClass}`} />}
+                        </span>
                         <span>
-                          <span className="block text-lg font-bold leading-tight text-foreground">{option.title}</span>
-                          <span className="mt-1 block text-sm text-muted-foreground">{option.subtitle}</span>
+                          <span className="block text-lg font-bold leading-tight">{option.title}</span>
+                          <span className={`mt-1 block text-sm font-medium ${option.subtitleClass}`}>{option.subtitle}</span>
                         </span>
                       </label>
                     )
