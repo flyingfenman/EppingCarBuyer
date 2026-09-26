@@ -15,7 +15,8 @@ export type PackageKey = keyof typeof PACKAGE_DURATIONS_MIN
 const BUSINESS_START_HOUR = 9
 const BUSINESS_END_HOUR = 18
 const LOOKAHEAD_DAYS = 30
-const SLOT_INTERVAL_MIN = 30
+// Appointments start on the hour.
+const SLOT_INTERVAL_MIN = 60
 const LONDON_TZ = "Europe/London"
 
 export interface Slot {
