@@ -650,7 +650,7 @@ export function InspectionsBookingCalendar() {
                     <p className="mb-4 font-bold">
                       {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
                     </p>
-                    <div className="grid grid-cols-2 gap-2 md:grid-cols-1">
+                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-1">
                       {daySlots.map((slot) => {
                         const shortNotice = isShortNotice(slot, nowMs)
                         const isCandidate = shortNoticeCandidate?.start === slot.start
@@ -662,7 +662,7 @@ export function InspectionsBookingCalendar() {
                             type="button"
                             onClick={() => handleSlotClick(slot)}
                             aria-pressed={isSelected}
-                            className={`rounded-xl border px-4 py-3 text-sm font-bold transition-all hover:shadow-sm ${
+                            className={`rounded-xl border px-2 py-2.5 text-sm font-bold transition-all hover:shadow-sm md:px-4 md:py-3 ${
                               isSelected
                                 ? "border-primary bg-primary text-primary-foreground"
                                 : shortNotice
@@ -673,7 +673,8 @@ export function InspectionsBookingCalendar() {
                             }`}
                           >
                             <span className="block text-base">{time}</span>
-                            <span className={`mt-0.5 block text-[11px] font-semibold ${shortNotice ? "text-muted-foreground" : "opacity-70"}`}>
+                            {/* On phones only short-notice times carry a label; the legend above explains the rest. */}
+                            <span className={`mt-0.5 text-[12px] font-semibold md:text-[11px] ${shortNotice ? "block text-muted-foreground" : "hidden opacity-70 md:block"}`}>
                               {shortNotice ? "Message first" : "Book online"}
                             </span>
                           </button>
