@@ -19,7 +19,7 @@ export default function WhatWeInspectPage() {
         <div className="container mx-auto flex max-w-5xl flex-col gap-3 px-4 py-5 sm:flex-row sm:items-center sm:justify-between">
           <Link
             href="/vehicle-inspections"
-            className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+            className="-my-3 inline-flex items-center gap-2 py-3 text-sm font-bold text-primary hover:underline"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Vehicle Inspections

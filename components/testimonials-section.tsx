@@ -86,7 +86,7 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
-                <div className="flex gap-2">
+                <div className="flex">
                   {testimonials.map((t, i) => (
                     <button
                       key={t.name + t.vehicle}
@@ -94,10 +94,14 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
                       onClick={() => go(i)}
                       aria-label={`Show ${t.name}'s review`}
                       aria-current={i === index}
-                      className={`h-3 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                        i === index ? "w-9 bg-primary" : "w-3 bg-primary/25 hover:bg-primary/40"
-                      }`}
-                    />
+                      className="group/dot flex h-11 min-w-6 items-center justify-center px-1 focus-visible:outline-none"
+                    >
+                      <span
+                        className={`block h-3 rounded-full transition-all group-focus-visible/dot:ring-2 group-focus-visible/dot:ring-primary ${
+                          i === index ? "w-9 bg-primary" : "w-3 bg-primary/25 group-hover/dot:bg-primary/40"
+                        }`}
+                      />
+                    </button>
                   ))}
                 </div>
                 <button
@@ -113,7 +117,7 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
           </div>
 
           <p className="mt-6 text-center">
-            <Link href="/inspection-notes" className="inline-flex items-center gap-1 font-bold text-primary hover:underline">
+            <Link href="/inspection-notes" className="-my-2.5 inline-flex items-center gap-1 py-2.5 font-bold text-primary hover:underline">
               See what we found on real inspections <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </p>

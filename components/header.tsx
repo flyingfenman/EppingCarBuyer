@@ -17,55 +17,59 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-4">
-            <Link href="/vehicle-inspections">
-              <Button
-                size="lg"
-                className="text-base font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70] border-2 border-[#0b7a70] shadow-md"
-              >
-                Vehicle Inspections
-              </Button>
-            </Link>
-            <Link href="/market-and-sell">
-              <Button
-                size="lg"
-                className="text-base font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800] border-2 border-[#E6B800] shadow-md"
-              >
-                Market &amp; Sell
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-base bg-[#6711a4] text-white hover:bg-[#6711a4]/90 border-[#6711a4]"
-              >
-                Contact Us
-              </Button>
-            </Link>
+            <Button
+              asChild
+              size="lg"
+              className="text-base font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70] border-2 border-[#0b7a70] shadow-md"
+            >
+              <Link href="/vehicle-inspections">Vehicle Inspections</Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              className="text-base font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800] border-2 border-[#E6B800] shadow-md"
+            >
+              <Link href="/market-and-sell">Market &amp; Sell</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="text-base bg-[#6711a4] text-white hover:bg-[#6711a4]/90 border-[#6711a4]"
+            >
+              <Link href="/contact">Contact Us</Link>
+            </Button>
           </nav>
 
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+          <button
+            type="button"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-md md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+          >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 space-y-2">
-            <Link href="/vehicle-inspections" onClick={() => setIsMenuOpen(false)} className="block">
-              <Button className="w-full font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70]" size="lg">
+          <nav id="mobile-menu" className="md:hidden mt-4 pb-4 space-y-2">
+            <Button asChild className="flex h-12 w-full font-semibold bg-[#0d9488] text-white hover:bg-[#0b7a70]" size="lg">
+              <Link href="/vehicle-inspections" onClick={() => setIsMenuOpen(false)}>
                 Vehicle Inspections
-              </Button>
-            </Link>
-            <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)} className="block">
-              <Button className="w-full font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
+              </Link>
+            </Button>
+            <Button asChild className="flex h-12 w-full font-semibold bg-[#FFCC00] text-black hover:bg-[#E6B800]" size="lg">
+              <Link href="/market-and-sell" onClick={() => setIsMenuOpen(false)}>
                 Market &amp; Sell
-              </Button>
-            </Link>
-            <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block">
-              <Button className="w-full bg-[#6711a4] text-white hover:bg-[#6711a4]/90" size="lg">
+              </Link>
+            </Button>
+            <Button asChild className="flex h-12 w-full bg-[#6711a4] text-white hover:bg-[#6711a4]/90" size="lg">
+              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
                 Contact Us
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </nav>
         )}
       </div>

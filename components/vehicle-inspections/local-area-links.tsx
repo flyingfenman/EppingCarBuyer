@@ -18,7 +18,7 @@ export function LocalAreaLinks() {
           <Link
             key={area.href}
             href={area.href}
-            className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10"
+            className="inline-flex min-h-11 items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10"
           >
             {area.label}
           </Link>

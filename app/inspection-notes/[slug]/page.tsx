@@ -83,7 +83,7 @@ export default async function InspectionNotePage({ params }: Props) {
         <header className="border-b border-border bg-primary/5 py-8 sm:py-12">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-4xl">
-              <Link href="/inspection-notes" className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline">
+              <Link href="/inspection-notes" className="-my-3 inline-flex items-center gap-2 py-3 text-sm font-bold text-primary hover:underline">
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Inspection Notes
               </Link>
               <h1 className="mt-4 text-3xl font-bold leading-tight text-balance sm:text-4xl lg:text-5xl">{note.title}</h1>
@@ -163,7 +163,7 @@ export default async function InspectionNotePage({ params }: Props) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10"
+                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10"
                   >
                     {link.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>

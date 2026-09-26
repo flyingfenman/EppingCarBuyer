@@ -45,10 +45,10 @@ export function AreasWeCover() {
               send us its postcode and we’ll confirm whether we can attend before you book.
             </p>
             <div className="flex flex-wrap gap-2">
-              <Link href="/vehicle-inspection-london" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+              <Link href="/vehicle-inspection-london" className="inline-flex min-h-11 items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
                 Vehicle Inspection London
               </Link>
-              <Link href="/pre-purchase-car-inspection-essex" className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+              <Link href="/pre-purchase-car-inspection-essex" className="inline-flex min-h-11 items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
                 Pre Purchase Car Inspection Essex
               </Link>
             </div>
