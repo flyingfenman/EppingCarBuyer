@@ -4,7 +4,7 @@ import { useState, useEffect, type FormEvent } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, Handshake, ShieldCheck, Zap } from "lucide-react"
+import { ArrowRight, CheckCircle2, Handshake, ShieldCheck, Zap } from "lucide-react"
 
 const trustBadges = [
   {
@@ -29,25 +29,18 @@ const trustBadges = [
 
 type Route = "inspection" | "sell"
 
-// Solid colours match the header buttons; the teal is the header's darker shade so small white text stays readable.
-const ROUTES: Array<{ value: Route; title: string; subtitle: string; cardClass: string; subtitleClass: string; circleClass: string; dotClass: string }> = [
+// Same colours and edges as the header's Vehicle Inspections and Market & Sell buttons. The labels are
+// large and bold so white text on the teal stays readable.
+const ROUTES: Array<{ value: Route; title: string; buttonClass: string }> = [
   {
     value: "inspection",
     title: "Get it inspected",
-    subtitle: "Buying this car? We check it before you pay.",
-    cardClass: "bg-[#0b7a70] text-white",
-    subtitleClass: "text-white",
-    circleClass: "border-white",
-    dotClass: "bg-white",
+    buttonClass: "border-[#0b7a70] bg-[#0d9488] text-white hover:bg-[#0b7a70]",
   },
   {
     value: "sell",
     title: "Market & Sell it",
-    subtitle: "Selling this car? We sell it for you.",
-    cardClass: "bg-[#FFCC00] text-black",
-    subtitleClass: "text-black/80",
-    circleClass: "border-black",
-    dotClass: "bg-black",
+    buttonClass: "border-[#E6B800] bg-[#FFCC00] text-black hover:bg-[#E6B800]",
   },
 ]
 
@@ -113,7 +106,7 @@ export function HeroSection() {
                     return (
                       <label
                         key={option.value}
-                        className={`flex min-h-16 cursor-pointer items-start gap-3 rounded-2xl p-4 shadow-sm transition hover:brightness-95 has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/40 ${option.cardClass} ${
+                        className={`flex min-h-16 cursor-pointer items-center justify-center gap-2 rounded-md border-2 px-4 py-3 text-center text-xl font-bold shadow-md transition has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/40 ${option.buttonClass} ${
                           selected ? "ring-4 ring-primary ring-offset-2" : route ? "opacity-60" : ""
                         }`}
                       >
@@ -128,16 +121,8 @@ export function HeroSection() {
                           }}
                           className="sr-only"
                         />
-                        <span
-                          aria-hidden="true"
-                          className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${option.circleClass}`}
-                        >
-                          {selected && <span className={`h-3 w-3 rounded-full ${option.dotClass}`} />}
-                        </span>
-                        <span>
-                          <span className="block text-lg font-bold leading-tight">{option.title}</span>
-                          <span className={`mt-1 block text-sm font-medium ${option.subtitleClass}`}>{option.subtitle}</span>
-                        </span>
+                        {selected && <CheckCircle2 aria-hidden="true" className="h-6 w-6 shrink-0" />}
+                        {option.title}
                       </label>
                     )
                   })}
