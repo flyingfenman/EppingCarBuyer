@@ -448,7 +448,7 @@ export function InspectionsBookingCalendar() {
   const needsWhatsAppConfirmation = !selectedSlot && !!shortNoticeCandidate
 
   return (
-    <div className={`mx-auto max-w-5xl ${bannerSlot ? "pb-64 sm:pb-40" : ""}`}>
+    <div className="mx-auto max-w-5xl">
       {prefilledReg && (
         <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-primary/20 bg-white p-4" role="status">
           <span
@@ -751,7 +751,8 @@ export function InspectionsBookingCalendar() {
 
         {error && <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
 
-        <div className="mt-5 flex flex-col items-center justify-between gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:flex-row">
+        {/* Phones already get the short-notice steps when they pick a time inside 24 hours. */}
+        <div className="mt-5 hidden flex-col items-center justify-between gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:flex sm:flex-row">
           <div>
             <p className="font-bold text-foreground">Short-notice appointments are still shown.</p>
             <p className="text-sm text-muted-foreground">Inside 24 hours, message Henry first. Once he confirms your exact slot, tick the confirmation box and book online as normal.</p>
@@ -762,8 +763,10 @@ export function InspectionsBookingCalendar() {
         </div>
       </div>
 
+      {/* On phones the bar sits under the calendar and sticks to the bottom of the screen only while the
+          booking is in view; tablets and laptops pin it to the bottom of the screen. */}
       {bannerSlot && (
-        <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)]">
+        <div className="sticky bottom-0 z-[60] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:fixed sm:inset-x-0 sm:mx-0 sm:mt-0">
           <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <div role="status" aria-live="polite" className="min-w-0">
               <p className="text-sm font-semibold leading-relaxed sm:text-base">
