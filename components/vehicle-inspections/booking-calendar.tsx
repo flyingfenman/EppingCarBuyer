@@ -111,7 +111,6 @@ export function InspectionsBookingCalendar() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
   const [showDetails, setShowDetails] = useState(false)
-  const [showAllFeatures, setShowAllFeatures] = useState(false)
   const [shortNoticeCandidate, setShortNoticeCandidate] = useState<Slot | null>(null)
   const [shortNoticeConfirmed, setShortNoticeConfirmed] = useState(false)
   const [viewDate, setViewDate] = useState(() => {
@@ -518,7 +517,7 @@ export function InspectionsBookingCalendar() {
                 <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   {pkg.features.map((feature, i) => (
-                    <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT && !showAllFeatures ? "hidden sm:flex" : "flex"} items-center gap-2 text-xs font-medium`}><Check className="h-4 w-4 text-emerald-600" /> {feature}</span>
+                    <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT ? "hidden sm:flex" : "flex"} items-center gap-2 text-xs font-medium`}><Check className="h-4 w-4 text-emerald-600" /> {feature}</span>
                   ))}
                 </div>
                 {active && <div className="mt-4 flex items-center gap-2 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</div>}
@@ -526,17 +525,6 @@ export function InspectionsBookingCalendar() {
             )
           })}
         </div>
-        {PACKAGES.some((pkg) => pkg.features.length > PHONE_FEATURE_LIMIT) && (
-          <button
-            type="button"
-            onClick={() => setShowAllFeatures((open) => !open)}
-            aria-expanded={showAllFeatures}
-            className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-primary/20 bg-white px-4 py-3 text-sm font-bold text-primary sm:hidden"
-          >
-            {showAllFeatures ? "Show less" : "See everything included"}
-            <ChevronRight className={`h-4 w-4 transition-transform ${showAllFeatures ? "-rotate-90" : "rotate-90"}`} />
-          </button>
-        )}
       </div>
 
       <div>
