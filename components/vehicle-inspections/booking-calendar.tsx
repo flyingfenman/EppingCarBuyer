@@ -9,6 +9,7 @@ import {
   Loader2,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   Clock,
   TriangleAlert,
   Phone,
@@ -443,6 +444,7 @@ export function InspectionsBookingCalendar() {
 
   const daySlots = selectedDate ? slotsByDate.get(selectedDate) || [] : []
   const bannerSlot = selectedSlot || shortNoticeCandidate
+  const chosenTime = bannerSlot && daySlots.some((slot) => slot.start === bannerSlot.start) ? bannerSlot.start : ""
   const needsWhatsAppConfirmation = !selectedSlot && !!shortNoticeCandidate
 
   return (
@@ -650,7 +652,29 @@ export function InspectionsBookingCalendar() {
                     <p className="mb-4 font-bold">
                       {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
                     </p>
-                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-1">
+                    {/* Phones and small tablets pick a time from a dropdown; laptops get the scrolling list. */}
+                    <div className="relative md:hidden">
+                      <select
+                        aria-label="Appointment time"
+                        value={chosenTime}
+                        onChange={(e) => {
+                          const slot = daySlots.find((s) => s.start === e.target.value)
+                          if (slot) handleSlotClick(slot)
+                        }}
+                        className="h-12 w-full appearance-none rounded-xl border-2 border-primary bg-white pl-4 pr-10 text-base font-bold text-primary focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+                      >
+                        <option value="" disabled>
+                          Choose a time ({daySlots.length} available)
+                        </option>
+                        {daySlots.map((slot) => (
+                          <option key={slot.start} value={slot.start}>
+                            {`${formatSlotTime(slot)}${isShortNotice(slot, nowMs) ? " — message first" : ""}`}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-primary" />
+                    </div>
+                    <div className="hidden gap-2 md:grid md:grid-cols-1">
                       {daySlots.map((slot) => {
                         const shortNotice = isShortNotice(slot, nowMs)
                         const isCandidate = shortNoticeCandidate?.start === slot.start
@@ -662,7 +686,7 @@ export function InspectionsBookingCalendar() {
                             type="button"
                             onClick={() => handleSlotClick(slot)}
                             aria-pressed={isSelected}
-                            className={`rounded-xl border px-2 py-2.5 text-sm font-bold transition-all hover:shadow-sm md:px-4 md:py-3 ${
+                            className={`rounded-xl border px-4 py-3 text-sm font-bold transition-all hover:shadow-sm ${
                               isSelected
                                 ? "border-primary bg-primary text-primary-foreground"
                                 : shortNotice
@@ -673,8 +697,7 @@ export function InspectionsBookingCalendar() {
                             }`}
                           >
                             <span className="block text-base">{time}</span>
-                            {/* On phones only short-notice times carry a label; the legend above explains the rest. */}
-                            <span className={`mt-0.5 text-[12px] font-semibold md:text-[11px] ${shortNotice ? "block text-muted-foreground" : "hidden opacity-70 md:block"}`}>
+                            <span className={`mt-0.5 block text-[11px] font-semibold ${shortNotice ? "text-muted-foreground" : "opacity-70"}`}>
                               {shortNotice ? "Message first" : "Book online"}
                             </span>
                           </button>
