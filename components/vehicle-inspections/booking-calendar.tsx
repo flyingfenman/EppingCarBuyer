@@ -24,6 +24,7 @@ import { INSPECTION_PACKAGES as PACKAGES } from "@/lib/inspection-packages"
 import { testimonials } from "@/lib/testimonials"
 import { trackWhatsAppClick } from "@/lib/tracking"
 import { getTrafficSource } from "@/lib/traffic-source"
+import { scrollToAnchorWhileLoading } from "@/lib/scroll-to-anchor"
 
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
@@ -130,6 +131,18 @@ export function InspectionsBookingCalendar() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
+  const [prefilledReg, setPrefilledReg] = useState("")
+
+  useEffect(() => {
+    const registration = new URLSearchParams(window.location.search).get("reg")?.trim().toUpperCase()
+    if (registration) {
+      setPrefilledReg(registration)
+      setForm((current) => ({ ...current, registration: current.registration || registration }))
+    }
+    // Arriving from the homepage chooser: the browser's own jump to #book gets undone during page load,
+    // so retry briefly until the section is in view.
+    if (window.location.hash === "#book") return scrollToAnchorWhileLoading("book")
+  }, [])
 
   const selectedPackage = PACKAGES.find((p) => p.key === packageKey) || PACKAGES[0]
   const totalPrice = selectedPackage.amount + (includeEvSoh ? EV_SOH_PRICE : 0)
@@ -434,6 +447,17 @@ export function InspectionsBookingCalendar() {
 
   return (
     <div className={`mx-auto max-w-5xl ${bannerSlot ? "pb-64 sm:pb-40" : ""}`}>
+      {prefilledReg && (
+        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-primary/20 bg-white p-4" role="status">
+          <span
+            className="rounded-md bg-[#ffd500] px-3 py-1 text-lg font-bold tracking-wider text-black"
+            style={{ fontFamily: "var(--font-charles-wright), monospace" }}
+          >
+            {prefilledReg}
+          </span>
+          <p className="text-sm font-semibold text-foreground">Added to your booking. You can change it when you enter your details.</p>
+        </div>
+      )}
       <div className="mb-7 hidden gap-3 sm:grid sm:grid-cols-3">
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
           <BatteryCharging className="h-6 w-6 shrink-0 text-primary" />

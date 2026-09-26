@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { CheckCircle2, ChevronRight, Loader2, MessageSquare } from "lucide-react"
+import { scrollToAnchorWhileLoading } from "@/lib/scroll-to-anchor"
 
 type FormState = {
   registration: string
@@ -48,6 +49,8 @@ export function SellForMeTopVehicleForm() {
     if (registration) {
       setForm((current) => ({ ...current, registration: current.registration || registration }))
     }
+    // Arriving from the homepage chooser: the browser's own jump to the form gets undone during page load.
+    if (window.location.hash === "#vehicle-details") return scrollToAnchorWhileLoading("vehicle-details")
   }, [])
 
   const set = (field: keyof FormState) => (

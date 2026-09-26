@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, type FormEvent } from "react"
 import Image from "next/image"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Handshake, ShieldCheck, Zap } from "lucide-react"
@@ -28,12 +27,45 @@ const trustBadges = [
   },
 ]
 
+type Route = "inspection" | "sell"
+
+const ROUTES: Array<{ value: Route; title: string; subtitle: string; selectedClass: string; accentClass: string }> = [
+  {
+    value: "inspection",
+    title: "Get it inspected",
+    subtitle: "Buying this car? We check it before you pay.",
+    selectedClass: "border-[#0d9488] bg-[#0d9488]/5",
+    accentClass: "accent-[#0d9488]",
+  },
+  {
+    value: "sell",
+    title: "Market & Sell it",
+    subtitle: "Selling this car? We sell it for you.",
+    selectedClass: "border-[#eab308] bg-[#fef9c3]",
+    accentClass: "accent-[#ca8a04]",
+  },
+]
+
 export function HeroSection() {
   const [mounted, setMounted] = useState(false)
+  const [reg, setReg] = useState("")
+  const [route, setRoute] = useState<Route | null>(null)
+  const [error, setError] = useState("")
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const handleContinue = (e: FormEvent) => {
+    e.preventDefault()
+    if (!route) {
+      setError("Please choose whether you'd like it inspected or want us to Market & Sell it.")
+      return
+    }
+    const plate = reg.trim().toUpperCase()
+    const query = plate ? `?reg=${encodeURIComponent(plate)}` : ""
+    window.location.assign(route === "inspection" ? `/vehicle-inspections${query}#book` : `/market-and-sell${query}#vehicle-details`)
+  }
 
   return (
     <div id="top" className="relative overflow-x-hidden bg-white">
@@ -52,39 +84,70 @@ export function HeroSection() {
               </p>
             </div>
 
-            <form action="/market-and-sell#vehicle-details" method="get" className="space-y-4">
+            <form onSubmit={handleContinue} noValidate className="space-y-4">
               <Input
                 type="text"
                 name="reg"
+                value={reg}
+                onChange={(e) => setReg(e.target.value)}
                 aria-label="Vehicle registration"
                 placeholder="ENTER YOUR REG"
-                required
-                pattern=".*[A-Za-z0-9].*"
                 maxLength={16}
                 autoCapitalize="characters"
+                autoComplete="off"
+                spellCheck={false}
                 className="h-20 rounded-xl !border-0 !bg-[#ffd500] text-center font-bold uppercase tracking-[0.08em] !text-black placeholder:!text-black placeholder:!opacity-100 transition-all duration-200 focus:!border-0 focus:!bg-[#ffd500] focus:!ring-4 focus:!ring-primary/20 sm:h-24 sm:tracking-[0.15em]"
                 style={{ fontFamily: "var(--font-charles-wright), monospace", fontSize: "clamp(1.4rem, 7vw, 2.55rem)" }}
               />
+
+              <fieldset>
+                <legend className="text-lg font-semibold text-foreground">What would you like us to do?</legend>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {ROUTES.map((option) => {
+                    const selected = route === option.value
+                    return (
+                      <label
+                        key={option.value}
+                        className={`flex min-h-16 cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-primary/20 ${
+                          selected ? option.selectedClass : "border-border bg-white hover:border-primary/40"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="route"
+                          value={option.value}
+                          checked={selected}
+                          onChange={() => {
+                            setRoute(option.value)
+                            setError("")
+                          }}
+                          className={`mt-0.5 h-6 w-6 shrink-0 ${option.accentClass}`}
+                        />
+                        <span>
+                          <span className="block text-lg font-bold leading-tight text-foreground">{option.title}</span>
+                          <span className="mt-1 block text-sm text-muted-foreground">{option.subtitle}</span>
+                        </span>
+                      </label>
+                    )
+                  })}
+                </div>
+              </fieldset>
+
+              {error && (
+                <p role="alert" className="text-base font-medium text-red-700">
+                  {error}
+                </p>
+              )}
+
               <Button
                 type="submit"
                 size="lg"
                 className="group h-16 w-full bg-primary text-lg font-semibold transition-colors duration-200 hover:bg-primary/90"
               >
-                Start Market &amp; Sell
+                {route === "inspection" ? "Book my inspection" : route === "sell" ? "Start Market & Sell" : "Continue"}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
             </form>
-
-            <Button
-              asChild
-              size="lg"
-              className="group min-h-16 h-auto w-full whitespace-normal bg-[#0d9488] px-4 py-4 text-center text-lg font-semibold text-white transition-colors duration-200 hover:bg-[#0b7a70]"
-            >
-              <Link href="/vehicle-inspections">
-                In Depth Vehicle Inspections
-                <ArrowRight className="ml-2 h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-              </Link>
-            </Button>
           </div>
 
           <div className="relative flex justify-center px-6 sm:px-10">
