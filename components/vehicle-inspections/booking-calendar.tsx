@@ -345,7 +345,7 @@ export function InspectionsBookingCalendar() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="registration">Registration *</Label>
-                <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required className="uk-numberplate text-center tracking-widest" />
+                <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required autoCapitalize="characters" autoCorrect="off" spellCheck={false} autoComplete="off" className="uk-numberplate text-center tracking-widest" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="location">Where is the car? *</Label>
@@ -353,11 +353,11 @@ export function InspectionsBookingCalendar() {
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="sellerName">Seller&apos;s name</Label>
-                <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership" />
+                <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership" autoComplete="off" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="sellerPhone">Seller&apos;s contact number</Label>
-                <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" />
+                <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" autoComplete="off" />
               </div>
 
               {form.sellerPhone.trim().length >= 10 && (
@@ -397,15 +397,15 @@ export function InspectionsBookingCalendar() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="name">Full name *</Label>
-                <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required />
+                <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required autoComplete="name" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="phone">Phone number *</Label>
-                <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required />
+                <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required autoComplete="tel" />
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label htmlFor="email">Email address *</Label>
-                <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
+                <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required autoComplete="email" />
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label htmlFor="notes">Anything you&apos;re already concerned about?</Label>
@@ -487,7 +487,7 @@ export function InspectionsBookingCalendar() {
             const active = packageKey === pkg.key
             return (
               <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
-                {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
+                {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
                 <p className="text-sm font-semibold text-muted-foreground">{pkg.points}</p>
                 <div className="mt-1 flex items-end gap-3">
                   <h4 className="text-xl font-bold">{pkg.name}</h4>
