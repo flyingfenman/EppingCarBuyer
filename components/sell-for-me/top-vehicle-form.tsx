@@ -121,11 +121,11 @@ export function SellForMeTopVehicleForm() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="market-registration">Registration *</Label>
-                <Input id="market-registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required className="uk-numberplate text-center tracking-widest" />
+                <Input id="market-registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required autoCapitalize="characters" autoCorrect="off" spellCheck={false} autoComplete="off" className="uk-numberplate text-center tracking-widest" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="market-mileage">Mileage *</Label>
-                <Input id="market-mileage" value={form.mileage} onChange={set("mileage")} placeholder="e.g. 42,000" required />
+                <Input id="market-mileage" value={form.mileage} onChange={set("mileage")} placeholder="e.g. 42,000" required inputMode="numeric" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="market-make">Make *</Label>
@@ -137,7 +137,7 @@ export function SellForMeTopVehicleForm() {
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="market-year">Year *</Label>
-                <Input id="market-year" value={form.year} onChange={set("year")} placeholder="e.g. 2021" required />
+                <Input id="market-year" value={form.year} onChange={set("year")} placeholder="e.g. 2021" required inputMode="numeric" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="market-colour">Colour</Label>
@@ -150,7 +150,7 @@ export function SellForMeTopVehicleForm() {
                   value={form.condition}
                   onChange={set("condition")}
                   required
-                  className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  className="h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background md:h-10 md:text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 >
                   <option value="">Select condition...</option>
                   <option value="Excellent">Excellent — near perfect</option>
@@ -166,7 +166,7 @@ export function SellForMeTopVehicleForm() {
                   value={form.serviceHistory}
                   onChange={set("serviceHistory")}
                   required
-                  className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  className="h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background md:h-10 md:text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 >
                   <option value="">Select history...</option>
                   <option value="Full dealer service history">Full dealer service history</option>
@@ -187,15 +187,15 @@ export function SellForMeTopVehicleForm() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="market-name">Full Name *</Label>
-                <Input id="market-name" value={form.name} onChange={set("name")} placeholder="Your name" required />
+                <Input id="market-name" value={form.name} onChange={set("name")} placeholder="Your name" required autoComplete="name" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="market-phone">Phone Number *</Label>
-                <Input id="market-phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required />
+                <Input id="market-phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required autoComplete="tel" />
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label htmlFor="market-email">Email Address *</Label>
-                <Input id="market-email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
+                <Input id="market-email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required autoComplete="email" />
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label htmlFor="market-notes">Anything else we should know?</Label>
@@ -222,7 +222,7 @@ export function SellForMeTopVehicleForm() {
 
           <div className="flex flex-col items-center justify-between gap-2 border-t border-border pt-4 text-sm sm:flex-row">
             <p className="text-muted-foreground">No commitment required.</p>
-            <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold text-primary hover:underline">
+            <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="-my-3 inline-flex items-center gap-2 py-3 font-bold text-primary hover:underline">
               <MessageSquare className="h-4 w-4" /> Prefer WhatsApp?
             </a>
           </div>
