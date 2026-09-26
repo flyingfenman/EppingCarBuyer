@@ -77,7 +77,7 @@ export function LocalInspectionPage({
       <section className="border-b border-border bg-gradient-to-b from-primary/5 to-white py-10 sm:py-14 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl text-center">
-            <Link href="/vehicle-inspections" className="text-sm font-semibold text-primary hover:underline">
+            <Link href="/vehicle-inspections" className="-my-3.5 inline-block py-3.5 text-sm font-semibold text-primary hover:underline">
               Vehicle inspections
             </Link>
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">{keyword}</h1>
@@ -198,7 +198,7 @@ export function LocalInspectionPage({
                 </div>
                 <div className="shrink-0 sm:text-right">
                   <p className="text-2xl font-bold">+£49.99</p>
-                  <Link href="/ev-battery-health-check" className="text-sm font-bold text-primary hover:underline">
+                  <Link href="/ev-battery-health-check" className="-my-3.5 inline-block py-3.5 text-sm font-bold text-primary hover:underline">
                     EV battery details
                   </Link>
                 </div>
@@ -252,26 +252,26 @@ export function LocalInspectionPage({
             </div>
 
             <div className="mt-5 space-y-3">
-              <details className="group rounded-2xl border bg-white p-4 sm:p-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-bold [&::-webkit-details-marker]:hidden">
+              <details className="group rounded-2xl border bg-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 font-bold sm:p-5 [&::-webkit-details-marker]:hidden">
                   Can you inspect a car at a dealership in {city}?
                   <ChevronDown className="h-5 w-5 transition-transform group-open:rotate-180" />
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Yes. The inspection is mobile, so we can attend a dealer or private seller as long as access to the vehicle and the required checks can be arranged.</p>
+                <p className="-mt-1 px-4 pb-4 text-sm leading-relaxed text-muted-foreground sm:-mt-2 sm:px-5 sm:pb-5">Yes. The inspection is mobile, so we can attend a dealer or private seller as long as access to the vehicle and the required checks can be arranged.</p>
               </details>
-              <details className="group rounded-2xl border bg-white p-4 sm:p-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-bold [&::-webkit-details-marker]:hidden">
+              <details className="group rounded-2xl border bg-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 font-bold sm:p-5 [&::-webkit-details-marker]:hidden">
                   Do I need to be there?
                   <ChevronDown className="h-5 w-5 transition-transform group-open:rotate-180" />
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">No. We can inspect the vehicle directly with the seller or dealer and send the findings to you afterwards.</p>
+                <p className="-mt-1 px-4 pb-4 text-sm leading-relaxed text-muted-foreground sm:-mt-2 sm:px-5 sm:pb-5">No. We can inspect the vehicle directly with the seller or dealer and send the findings to you afterwards.</p>
               </details>
-              <details className="group rounded-2xl border bg-white p-4 sm:p-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-bold [&::-webkit-details-marker]:hidden">
+              <details className="group rounded-2xl border bg-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 font-bold sm:p-5 [&::-webkit-details-marker]:hidden">
                   Will you tell me whether to buy the car?
                   <ChevronDown className="h-5 w-5 transition-transform group-open:rotate-180" />
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">We give you the inspection findings, highlight the important issues and talk you through them so you can make your own buying decision.</p>
+                <p className="-mt-1 px-4 pb-4 text-sm leading-relaxed text-muted-foreground sm:-mt-2 sm:px-5 sm:pb-5">We give you the inspection findings, highlight the important issues and talk you through them so you can make your own buying decision.</p>
               </details>
             </div>
           </div>
