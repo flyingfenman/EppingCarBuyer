@@ -19,7 +19,8 @@ const highlights = [
   { icon: BatteryCharging, label: "EV & hybrid checks" },
 ]
 
-// On phones the prices, a review and the Book button come first; laptops keep the original order.
+// On phones the prices, a review and the Book button come first, and the longer text is left out;
+// laptops keep the original order.
 export function InspectionsHero() {
   const review = testimonials[0]
 
@@ -64,7 +65,7 @@ export function InspectionsHero() {
               </figure>
             )}
 
-            <p className="order-6 mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:order-3 sm:text-xl">
+            <p className="order-6 mt-5 hidden max-w-2xl text-lg leading-relaxed text-muted-foreground sm:order-3 sm:block sm:text-xl">
               Years of buying cars with our own money shape how we inspect yours. We combine a detailed physical inspection, advanced diagnostics, road testing, vehicle history and clear video evidence so you understand the car before you commit.
             </p>
 
@@ -94,7 +95,7 @@ export function InspectionsHero() {
               ))}
             </div>
 
-            <div className="order-8 mt-6 flex items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:order-6">
+            <div className="order-8 mt-6 hidden items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:order-6 sm:flex">
               <Video className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <p className="text-sm leading-relaxed text-muted-foreground">
                 You don&apos;t just receive a tick-box result. We explain the important findings in plain English and give you evidence you can use when deciding whether to buy, negotiate or walk away.
