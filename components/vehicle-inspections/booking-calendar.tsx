@@ -521,7 +521,7 @@ export function InspectionsBookingCalendar() {
 
       <div>
         <div className="mb-4 flex items-center gap-3">
-          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">+</span>
+          <span className="hidden h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground sm:inline-flex">+</span>
           <div>
             <h3 className="font-bold">Optional EV battery State of Health report</h3>
             <p className="text-xs text-muted-foreground">Choose your add-on now. EV-specific inspection checks are already included in both packages.</p>
