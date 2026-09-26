@@ -507,11 +507,17 @@ export function InspectionsBookingCalendar() {
           {PACKAGES.map((pkg) => {
             const active = packageKey === pkg.key
             return (
-              <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
+              <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} aria-pressed={active} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
                 {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
                 <p className="text-sm font-semibold text-muted-foreground">{pkg.points}</p>
                 <div className="mt-1 flex items-end gap-3">
-                  <h4 className="text-xl font-bold">{pkg.name}</h4>
+                  <div className="flex items-center gap-2.5">
+                    {/* Radio-style circle, filled on the chosen package. */}
+                    <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 bg-white ${active ? "border-primary" : "border-muted-foreground/40"}`}>
+                      {active && <span className="h-3 w-3 rounded-full bg-primary" />}
+                    </span>
+                    <h4 className="text-xl font-bold">{pkg.name}</h4>
+                  </div>
                   <p className="ml-auto text-3xl font-bold">{pkg.price}</p>
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
