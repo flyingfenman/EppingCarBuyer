@@ -194,6 +194,14 @@ export function InspectionsBookingCalendar() {
     return () => window.cancelAnimationFrame(frame)
   }, [selectedSlot, showDetails])
 
+  // The details form has its own history entry (see openDetails), so the phone's Back button returns to
+  // the calendar and Forward reopens the form.
+  useEffect(() => {
+    const onPopState = (event: PopStateEvent) => setShowDetails(event.state?.inspectionStep === "details")
+    window.addEventListener("popstate", onPopState)
+    return () => window.removeEventListener("popstate", onPopState)
+  }, [])
+
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
     for (const slot of slots) {
@@ -251,8 +259,20 @@ export function InspectionsBookingCalendar() {
     setSelectedSlot(shortNoticeCandidate)
   }
 
+  const openDetails = () => {
+    // Without an entry of its own, Back on the details form would leave the page.
+    if (window.history.state?.inspectionStep !== "details") window.history.pushState({ inspectionStep: "details" }, "")
+    setShowDetails(true)
+  }
+
+  // Leave the details form the way Back does, so its history entry goes too.
+  const closeDetails = () => {
+    if (window.history.state?.inspectionStep === "details") window.history.back()
+    else setShowDetails(false)
+  }
+
   const changeDateOrTime = () => {
-    setShowDetails(false)
+    closeDetails()
     setSelectedSlot(null)
     resetShortNotice()
   }
@@ -284,7 +304,7 @@ export function InspectionsBookingCalendar() {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
       if (err instanceof Error && (err.message.includes("just booked") || err.message.includes("confirmed"))) {
         setSelectedSlot(null)
-        setShowDetails(false)
+        closeDetails()
         resetShortNotice()
         await loadAvailability()
       }
@@ -798,7 +818,7 @@ export function InspectionsBookingCalendar() {
                 </a>
               </Button>
             ) : (
-              <Button type="button" size="lg" onClick={() => setShowDetails(true)} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
+              <Button type="button" size="lg" onClick={openDetails} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
                 Continue <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             )}
