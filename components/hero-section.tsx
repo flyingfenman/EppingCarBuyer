@@ -67,9 +67,9 @@ export function HeroSection() {
 
   return (
     <div id="top" className="relative overflow-x-hidden bg-white">
-      <div className="container mx-auto px-4 py-10 lg:py-16">
+      <div className="container mx-auto px-4 py-6 sm:py-10 lg:py-16">
         <div className="grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-20">
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4">
               <div className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
                 Vehicle Inspections • Market &amp; Sell
@@ -77,7 +77,7 @@ export function HeroSection() {
               <h1 className="text-4xl font-bold leading-tight text-balance sm:text-5xl xl:text-6xl">
                 Vehicle Inspection <span className="text-primary">+ Market &amp; Sell</span>
               </h1>
-              <p className="text-xl leading-relaxed text-pretty text-muted-foreground">
+              <p className="text-base leading-relaxed text-pretty text-muted-foreground sm:text-xl">
                 At Epping Car Buyer, we offer two specialist services: in-depth vehicle inspections to help you buy with confidence, and our managed Market &amp; Sell service to help you get more for your vehicle.
               </p>
             </div>
