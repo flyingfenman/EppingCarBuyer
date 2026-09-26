@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, type FormEvent } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -31,15 +32,17 @@ type Route = "inspection" | "sell"
 
 // Same colours and edges as the header's Vehicle Inspections and Market & Sell buttons. The labels are
 // large and bold so white text on the teal stays readable.
-const ROUTES: Array<{ value: Route; title: string; buttonClass: string }> = [
+const ROUTES: Array<{ value: Route; title: string; href: string; buttonClass: string }> = [
   {
     value: "inspection",
     title: "Get it inspected",
+    href: "/vehicle-inspections",
     buttonClass: "border-[#0b7a70] bg-[#0d9488] text-white hover:bg-[#0b7a70]",
   },
   {
     value: "sell",
     title: "Market & Sell it",
+    href: "/market-and-sell",
     buttonClass: "border-[#E6B800] bg-[#FFCC00] text-black hover:bg-[#E6B800]",
   },
 ]
@@ -49,6 +52,7 @@ export function HeroSection() {
   const [reg, setReg] = useState("")
   const [route, setRoute] = useState<Route | null>(null)
   const [error, setError] = useState("")
+  const hasReg = reg.trim() !== ""
 
   useEffect(() => {
     setMounted(true)
@@ -102,6 +106,19 @@ export function HeroSection() {
                 <legend className="text-lg font-semibold text-foreground">What would you like us to do?</legend>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   {ROUTES.map((option) => {
+                    // With no reg to carry over, each option is simply a link to its page.
+                    if (!hasReg) {
+                      return (
+                        <Link
+                          key={option.value}
+                          href={option.href}
+                          className={`group flex min-h-16 items-center justify-center gap-2 rounded-md border-2 px-4 py-3 text-center text-xl font-bold shadow-md transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 ${option.buttonClass}`}
+                        >
+                          {option.title}
+                          <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                        </Link>
+                      )
+                    }
                     const selected = route === option.value
                     return (
                       <label
@@ -135,14 +152,16 @@ export function HeroSection() {
                 </p>
               )}
 
-              <Button
-                type="submit"
-                size="lg"
-                className="group h-16 w-full bg-primary text-lg font-semibold transition-colors duration-200 hover:bg-primary/90"
-              >
-                {route === "inspection" ? "Book my inspection" : route === "sell" ? "Start Market & Sell" : "Continue"}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </Button>
+              {hasReg && (
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="group h-16 w-full bg-primary text-lg font-semibold transition-colors duration-200 hover:bg-primary/90"
+                >
+                  {route === "inspection" ? "Book my inspection" : route === "sell" ? "Start Market & Sell" : "Continue"}
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                </Button>
+              )}
             </form>
           </div>
 
