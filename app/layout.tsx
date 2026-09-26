@@ -13,9 +13,12 @@ const fredoka = Fredoka({
   weight: ["400", "500", "700"],
 })
 
+// Number-plate font, cut down to the basic Latin characters a registration can contain.
+// Not preloaded: only the registration boxes use it, so other pages never download it.
 const charlesWright = localFont({
-  src: "../public/fonts/charles-wright.ttf",
+  src: "../public/fonts/charles-wright.woff2",
   variable: "--font-charles-wright",
+  preload: false,
 })
 
 export const metadata: Metadata = {
