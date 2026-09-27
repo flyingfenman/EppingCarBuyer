@@ -21,7 +21,10 @@ type FormState = {
   phone: string
   email: string
   notes: string
+  cleaningConfirmed: boolean
 }
+
+type TextField = Exclude<keyof FormState, "cleaningConfirmed">
 
 const INITIAL: FormState = {
   registration: "",
@@ -36,6 +39,7 @@ const INITIAL: FormState = {
   phone: "",
   email: "",
   notes: "",
+  cleaningConfirmed: false,
 }
 
 export function SellForMeTopVehicleForm() {
@@ -53,7 +57,7 @@ export function SellForMeTopVehicleForm() {
     if (window.location.hash === "#vehicle-details") return scrollToAnchorWhileLoading("vehicle-details")
   }, [])
 
-  const set = (field: keyof FormState) => (
+  const set = (field: TextField) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => setForm((current) => ({ ...current, [field]: e.target.value }))
 
@@ -86,6 +90,9 @@ export function SellForMeTopVehicleForm() {
           <h2 className="mt-5 text-2xl font-bold">Thanks, we&apos;ve got your vehicle details.</h2>
           <p className="mt-3 text-muted-foreground">
             Henry will review the car and get in touch to discuss the best way to market and sell it.
+          </p>
+          <p className="mt-3 text-sm font-semibold text-foreground">
+            Remember to have the car cleaned inside and out before we arrive.
           </p>
           <a
             href="https://wa.me/441992367909"
@@ -210,6 +217,23 @@ export function SellForMeTopVehicleForm() {
             </div>
           </div>
 
+          {/* Required: the photos and video for the advert are taken on our visit, so a clean car is part of the deal. */}
+          <label className="flex cursor-pointer items-start gap-3 rounded-2xl border-2 border-primary/20 bg-primary/5 p-4">
+            <input
+              type="checkbox"
+              required
+              checked={form.cleaningConfirmed}
+              onChange={(e) => setForm((current) => ({ ...current, cleaningConfirmed: e.target.checked }))}
+              className="mt-0.5 h-5 w-5 shrink-0 accent-primary"
+            />
+            <span>
+              <span className="block font-bold text-foreground">I&apos;ll get my car cleaned inside and out before you arrive *</span>
+              <span className="mt-1 block text-sm text-muted-foreground">
+                We take the photos and walkaround video for your advert when we visit, so the car needs to be clean and ready when we get there.
+              </span>
+            </span>
+          </label>
+
           {error && <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
 
           <Button type="submit" size="lg" disabled={submitting} className="h-14 w-full text-lg font-bold">
@@ -221,7 +245,7 @@ export function SellForMeTopVehicleForm() {
           </Button>
 
           <div className="flex flex-col items-center justify-between gap-2 border-t border-border pt-4 text-sm sm:flex-row">
-            <p className="text-muted-foreground">No commitment required.</p>
+            <p className="text-muted-foreground">No obligation to sell.</p>
             <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="-my-3 inline-flex items-center gap-2 py-3 font-bold text-primary hover:underline">
               <MessageSquare className="h-4 w-4" /> Prefer WhatsApp?
             </a>

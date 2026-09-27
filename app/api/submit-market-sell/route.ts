@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const {
       registration, make, model, year, mileage, colour,
-      serviceHistory, condition, name, phone, email, notes,
+      serviceHistory, condition, name, phone, email, notes, cleaningConfirmed,
     } = body
 
     if (!registration || !make || !model || !year || !mileage || !condition || !serviceHistory || !name || !phone || !email) {
@@ -23,6 +23,8 @@ Vehicle Details:
 - Mileage: ${mileage}
 - Condition: ${condition}
 - Service History: ${serviceHistory}
+
+Car cleaned inside and out before our visit: ${cleaningConfirmed === true ? "Customer agreed" : "Not confirmed"}
 
 Customer Details:
 - Name: ${name}
