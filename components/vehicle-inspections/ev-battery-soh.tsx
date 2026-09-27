@@ -20,7 +20,7 @@ export function EvBatterySoh() {
             <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
               Add a professional high-voltage traction battery State of Health (SOH) assessment to either vehicle
               inspection for <strong className="text-foreground">£49.99</strong>, or book it on its own for{" "}
-              <strong className="text-foreground">£100</strong>. We use a CARA Approved® Autel EV Battery
+              <strong className="text-foreground">£99.99</strong>. We use a CARA Approved® Autel EV Battery
               Health Test and provide a customer battery health report.
             </p>
 
@@ -33,7 +33,7 @@ export function EvBatterySoh() {
               </Button>
               {/* A full page load, so the booking calendar opens with the battery check chosen. */}
               <Button asChild size="lg" variant="outline" className="border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
-                <a href="/vehicle-inspections?package=ev#book">Battery check only — £100</a>
+                <a href="/vehicle-inspections?package=ev#book">Battery check only — £99.99</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
                 <Link href="/ev-battery-health-check">Learn about the battery test</Link>
@@ -49,7 +49,7 @@ export function EvBatterySoh() {
               <div>
                 <p className="text-sm text-muted-foreground">Optional EV add-on</p>
                 <p className="text-3xl font-bold text-foreground">+£49.99</p>
-                <p className="text-sm font-semibold text-primary">or £100 on its own</p>
+                <p className="text-sm font-semibold text-primary">or £99.99 on its own</p>
               </div>
             </div>
 

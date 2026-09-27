@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button"
 export const metadata: Metadata = {
   title: "EV & Hybrid Battery Health Check | Epping Car Buyer",
   description:
-    "Check a used EV or plug-in hybrid battery before you buy. CARA Approved® Autel State of Health report: £100 on its own, or £49.99 with an inspection.",
+    "Check a used EV or plug-in hybrid battery before you buy. CARA Approved® Autel State of Health report: £99.99 on its own, or £49.99 with an inspection.",
   alternates: {
     canonical: "/ev-battery-health-check",
   },
   openGraph: {
     title: "EV & Hybrid Battery Health Check & State of Health Report",
     description:
-      "Check a used EV's high-voltage traction battery before you buy. CARA Approved® Autel EV Battery Health Test: £100 on its own or a £49.99 inspection add-on.",
+      "Check a used EV's high-voltage traction battery before you buy. CARA Approved® Autel EV Battery Health Test: £99.99 on its own or a £49.99 inspection add-on.",
     url: "/ev-battery-health-check",
     type: "website",
   },
@@ -33,12 +33,12 @@ const faqs = [
   {
     question: "How much does an EV battery health check cost?",
     answer:
-      "The EV battery health check is £100 on its own. If you're having the car inspected as well, the EV Battery State of Health Report is £49.99 on top of an Epping Car Buyer pre-purchase vehicle inspection.",
+      "The EV battery health check is £99.99 on its own. If you're having the car inspected as well, the EV Battery State of Health Report is £49.99 on top of an Epping Car Buyer pre-purchase vehicle inspection.",
   },
   {
     question: "Can I book the battery check without an inspection?",
     answer:
-      "Yes. For £100 we come to the car, run the CARA Approved® Autel EV Battery Health Test and give you the State of Health report, without inspecting the rest of the car. If you want the whole car checked too, add the report to a Standard or Premium inspection for £49.99.",
+      "Yes. For £99.99 we come to the car, run the CARA Approved® Autel EV Battery Health Test and give you the State of Health report, without inspecting the rest of the car. If you want the whole car checked too, add the report to a Standard or Premium inspection for £49.99.",
   },
   {
     question: "Is this the same as a full independent battery capacity test?",
@@ -53,7 +53,7 @@ const faqs = [
   {
     question: "Can you check the battery on a plug-in hybrid?",
     answer:
-      "Yes. The EV Battery State of Health report is available for compatible plug-in hybrids as well as fully electric cars, on its own for £100 or added to an inspection for £49.99. Send us the make, model and year before booking and we'll confirm your car is compatible.",
+      "Yes. The EV Battery State of Health report is available for compatible plug-in hybrids as well as fully electric cars, on its own for £99.99 or added to an inspection for £49.99. Send us the make, model and year before booking and we'll confirm your car is compatible.",
   },
   {
     question: "Can you inspect a used Tesla?",
@@ -81,7 +81,7 @@ const serviceSchema = {
     {
       "@type": "Offer",
       name: "EV Battery Health Check",
-      price: "100.00",
+      price: "99.99",
       priceCurrency: "GBP",
       availability: "https://schema.org/InStock",
       description: "The battery State of Health test and report on their own, for compatible fully electric and plug-in hybrid vehicles.",
@@ -133,7 +133,7 @@ export default function EvBatteryHealthCheckPage() {
             <div className="mt-8 grid grid-cols-2 gap-3 max-w-2xl mx-auto text-left">
               <div className="rounded-xl border-2 border-primary bg-white px-4 py-3 shadow-sm sm:px-6 sm:py-4">
                 <p className="text-xs uppercase tracking-wide font-bold text-primary">Battery check on its own</p>
-                <p className="text-2xl font-bold text-foreground sm:text-3xl">£100</p>
+                <p className="text-2xl font-bold text-foreground sm:text-3xl">£99.99</p>
                 <p className="mt-1 hidden text-sm text-muted-foreground sm:block">We come to the car and run the battery test and report.</p>
               </div>
               <div className="rounded-xl border border-primary/15 bg-white px-4 py-3 shadow-sm sm:px-6 sm:py-4">
@@ -145,7 +145,7 @@ export default function EvBatteryHealthCheckPage() {
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild size="lg" className="h-14 w-full sm:w-auto px-8 bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
                 <Link href="/vehicle-inspections?package=ev#book">
-                  Book the battery check — £100 <ArrowRight className="ml-2 w-5 h-5" />
+                  Book the battery check — £99.99 <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-14 w-full sm:w-auto px-8 bg-white font-bold">
@@ -294,14 +294,14 @@ export default function EvBatteryHealthCheckPage() {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Inspect the whole car — and the EV battery.</h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Choose a Standard or Premium inspection, then add the EV Battery State of Health Report for £49.99. Only need the battery checked? Book it on its own for £100.
+              Choose a Standard or Premium inspection, then add the EV Battery State of Health Report for £49.99. Only need the battery checked? Book it on its own for £99.99.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild size="lg" className="h-14 w-full sm:w-auto px-8 font-bold bg-primary text-primary-foreground hover:bg-primary/90">
                 <Link href="/vehicle-inspections#book">View inspection packages &amp; book</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-14 w-full sm:w-auto px-8 font-bold bg-white">
-                <Link href="/vehicle-inspections?package=ev#book">Book the battery check — £100</Link>
+                <Link href="/vehicle-inspections?package=ev#book">Book the battery check — £99.99</Link>
               </Button>
             </div>
           </div>
