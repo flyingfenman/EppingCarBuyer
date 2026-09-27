@@ -3,6 +3,7 @@ import Stripe from "stripe"
 import {
   MIN_BOOKING_NOTICE_HOURS,
   PACKAGE_DURATIONS_MIN,
+  isPackageKey,
   rangesOverlap,
   type PackageKey,
 } from "@/lib/inspection-slots"
@@ -15,10 +16,7 @@ const EV_SOH_AMOUNT_PENCE = 4999
 const PACKAGE_INFO: Record<PackageKey, { name: string; amountPence: number }> = {
   standard: { name: "Standard Inspection", amountPence: 14999 },
   premium: { name: "Premium Inspection", amountPence: 19999 },
-}
-
-function isPackageKey(value: unknown): value is PackageKey {
-  return value === "standard" || value === "premium"
+  ev: { name: "EV Battery Health Check", amountPence: 10000 },
 }
 
 function cleanText(value: unknown, maxLength: number): string {
@@ -83,7 +81,9 @@ export async function POST(request: NextRequest) {
     }
 
     const { name: packageName, amountPence } = PACKAGE_INFO[packageKey]
-    const wantsEvSoh = includeEvSoh === true
+    // The battery check on its own is the whole booking, so the add-on doesn't apply to it.
+    const evOnly = packageKey === "ev"
+    const wantsEvSoh = !evOnly && includeEvSoh === true
     const origin = request.nextUrl.origin
     const trimmedNotes = (notes || "").slice(0, 400)
 
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
           currency: "gbp",
           unit_amount: amountPence,
           product_data: {
-            name: `${packageName} — Vehicle Inspection`,
+            name: evOnly ? packageName : `${packageName} — Vehicle Inspection`,
             description: `${registration} · ${start.toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })}`,
           },
         },

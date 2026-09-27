@@ -43,7 +43,7 @@ const faqs = [
   {
     question: "Do you check the high-voltage battery on electric cars?",
     answer:
-      "Yes. Relevant high-voltage and battery-management diagnostic checks are part of the core EV inspection where supported. For compatible fully electric and plug-in hybrid vehicles, you can also add an EV Battery State of Health (SOH) Report for £49.99 using the CARA Approved® Autel EV Battery Health Test, with the customer battery-health report supplied alongside your inspection.",
+      "Yes. Relevant high-voltage and battery-management diagnostic checks are part of the core EV inspection where supported. For compatible fully electric and plug-in hybrid vehicles, you can also add an EV Battery State of Health (SOH) Report for £49.99 using the CARA Approved® Autel EV Battery Health Test, with the customer battery-health report supplied alongside your inspection. If you only need the battery checked, the same test and report are £100 on their own.",
   },
   {
     question: "What does EV battery State of Health mean?",

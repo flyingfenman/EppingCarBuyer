@@ -4,6 +4,8 @@
 export const PACKAGE_DURATIONS_MIN = {
   standard: 60,
   premium: 90,
+  // The EV battery health check on its own, without an inspection.
+  ev: 60,
 } as const
 
 // Slots inside this window are still shown to customers, but must be confirmed by message first.
@@ -11,6 +13,11 @@ export const PACKAGE_DURATIONS_MIN = {
 export const MIN_BOOKING_NOTICE_HOURS = 24
 
 export type PackageKey = keyof typeof PACKAGE_DURATIONS_MIN
+export const PACKAGE_KEYS = Object.keys(PACKAGE_DURATIONS_MIN) as PackageKey[]
+
+export function isPackageKey(value: unknown): value is PackageKey {
+  return PACKAGE_KEYS.includes(value as PackageKey)
+}
 
 const BUSINESS_START_HOUR = 9
 const BUSINESS_END_HOUR = 18
