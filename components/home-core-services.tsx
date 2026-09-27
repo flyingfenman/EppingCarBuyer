@@ -4,8 +4,9 @@ import { ArrowRight, Check, ClipboardCheck, ShieldCheck } from "lucide-react"
 const inspectionPoints = [
   "Standard 160-point inspection — £149.99",
   "Premium 260-point inspection — £199.99",
+  "EV battery health check on its own — £100",
   "Petrol, diesel, hybrid & electric vehicles",
-  "Video review, evidence and same-day report in both packages",
+  "Video review, evidence and same-day report in both inspections",
   "Personal call to guide your purchase decision",
 ]
 

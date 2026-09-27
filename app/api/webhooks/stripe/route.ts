@@ -189,19 +189,24 @@ export async function POST(request: NextRequest) {
 
     if (session.metadata?.type === "inspection_booking") {
       const {
-        packageName, includeEvSoh, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
+        packageKey, packageName, includeEvSoh, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
         customerName, customerPhone, customerEmail, notes, trafficSource, trafficDetail, landingPage,
       } = session.metadata
 
       const brand = brandFor(session.metadata)
       const hasEvSoh = includeEvSoh === "yes"
+      // The EV battery health check on its own: no inspection, just the battery test and report.
+      const evOnly = packageKey === "ev"
+      const visitDetails = evOnly
+        ? "Henry will call or message you beforehand to confirm the details. He will then meet you at the car, run the CARA Approved® Autel EV Battery Health Test and talk you through the battery's State of Health before you hand over any money to the seller. Vehicle compatibility will be confirmed from the car details."
+        : "Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller."
       const amountPaid = `£${((session.amount_total || 0) / 100).toFixed(2)}`
       const slotFull = new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })
       const slotEndTime = new Date(slotEnd).toLocaleString("en-GB", { timeZone: "Europe/London", timeStyle: "short" })
       const evSohLine = hasEvSoh ? "\nEV Battery SOH add on: YES. CARA Approved® Autel EV Battery Health Test report required" : ""
 
       const internalEmail = `
-New PAID Vehicle Inspection Booking
+New PAID ${evOnly ? "EV Battery Health Check" : "Vehicle Inspection"} Booking
 
 Package: ${packageName}${evSohLine}
 Slot: ${slotFull} to ${slotEndTime}
@@ -239,24 +244,24 @@ Vehicle: ${registration}
 Where: ${location}
 Amount paid: ${amountPaid}
 
-Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.
+${visitDetails}
 ${hasEvSoh ? "\nYour EV battery health report will be supplied with your inspection findings.\n" : ""}
 Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       `.trim()
 
       const customerHtml = brandedEmail(
-        "Your vehicle inspection is confirmed",
+        evOnly ? "Your EV battery health check is confirmed" : "Your vehicle inspection is confirmed",
         `<div style="font-family:${FONT_STACK};font-size:16px;line-height:1.7;color:#342c38;">Hi ${escapeHtml(customerName.split(" ")[0])},</div>
          <div style="font-family:${FONT_STACK};font-size:16px;line-height:1.7;color:#342c38;margin-top:12px;">Your <strong>${escapeHtml(packageName)}</strong> is booked and paid for. Thank you.</div>
          ${hasEvSoh ? `<div style="font-family:${FONT_STACK};margin:20px 0 0;background:#eef9f5;border:1px solid #bfe8d7;border-radius:12px;padding:15px 16px;color:#145c48;font-size:14px;line-height:1.6;"><strong>EV Battery SOH included</strong><br>Your £49.99 CARA Approved® Autel EV Battery Health Test has been added to the booking. Vehicle compatibility will be confirmed from the car details.</div>` : ""}
          ${infoTable([
-           ["Inspection", packageName],
+           [evOnly ? "Booking" : "Inspection", packageName],
            ["When", slotFull],
            ["Vehicle", registration],
            ["Location", location],
            ["Amount paid", amountPaid],
          ])}
-         <div style="font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:#342c38;">Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller.</div>
+         <div style="font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:#342c38;">${escapeHtml(visitDetails)}</div>
          ${hasEvSoh ? `<div style="font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:#342c38;margin-top:14px;">Your EV battery health report will be supplied with your inspection findings.</div>` : ""}
          ${whatsappButton("WhatsApp Henry", brand)}`,
         brand,
@@ -266,7 +271,7 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
           brand.inbox,
-          `Vehicle inspection request: ${registration} (${packageName}${subjectSuffix}) PAID`,
+          `${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`,
           internalEmail,
           undefined,
           brand,

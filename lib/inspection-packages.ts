@@ -3,6 +3,8 @@ import type { PackageKey } from "@/lib/inspection-slots"
 export type InspectionPackage = {
   key: PackageKey
   name: string
+  // How the booking bar names it: "You've selected a standard inspection".
+  label: string
   price: string
   amount: number
   points: string
@@ -15,6 +17,7 @@ export const INSPECTION_PACKAGES: InspectionPackage[] = [
   {
     key: "standard",
     name: "Standard Inspection",
+    label: "a standard inspection",
     price: "£149.99",
     amount: 149.99,
     points: "160-point inspection",
@@ -24,11 +27,22 @@ export const INSPECTION_PACKAGES: InspectionPackage[] = [
   {
     key: "premium",
     name: "Premium Inspection",
+    label: "a premium inspection",
     price: "£199.99",
     amount: 199.99,
     points: "260-point inspection",
     strapline: "Deeper inspection and vehicle and seller research",
     features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Checks for indicators of undisclosed motor trading"],
     popular: true,
+  },
+  {
+    key: "ev",
+    name: "EV Battery Health Check",
+    label: "an EV battery health check",
+    price: "£100",
+    amount: 100,
+    points: "Battery check only",
+    strapline: "The battery State of Health test and report on their own, without an inspection",
+    features: ["CARA Approved® Autel EV Battery Health Test", "State of Health (SOH) result", "Customer battery health report", "Fully electric and plug-in hybrid cars"],
   },
 ]

@@ -19,7 +19,7 @@ import {
   Wrench,
   CalendarDays,
 } from "lucide-react"
-import { MIN_BOOKING_NOTICE_HOURS, type PackageKey, type Slot } from "@/lib/inspection-slots"
+import { MIN_BOOKING_NOTICE_HOURS, isPackageKey, type PackageKey, type Slot } from "@/lib/inspection-slots"
 import { INSPECTION_PACKAGES as PACKAGES } from "@/lib/inspection-packages"
 import { testimonials } from "@/lib/testimonials"
 import { trackWhatsAppClick } from "@/lib/tracking"
@@ -105,7 +105,7 @@ export function InspectionsBookingCalendar() {
   const bookingFormRef = useRef<HTMLDivElement>(null)
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
   const [includeEvSoh, setIncludeEvSoh] = useState(false)
-  const [slotsByPackage, setSlotsByPackage] = useState<Record<PackageKey, Slot[]>>({ standard: [], premium: [] })
+  const [slotsByPackage, setSlotsByPackage] = useState<Record<PackageKey, Slot[]>>({ standard: [], premium: [], ev: [] })
   const [loadingSlots, setLoadingSlots] = useState(true)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
@@ -133,7 +133,11 @@ export function InspectionsBookingCalendar() {
   const [prefilledReg, setPrefilledReg] = useState("")
 
   useEffect(() => {
-    const registration = new URLSearchParams(window.location.search).get("reg")?.trim().toUpperCase()
+    const params = new URLSearchParams(window.location.search)
+    // Links such as the EV page's can choose the package: /vehicle-inspections?package=ev#book
+    const requestedPackage = params.get("package")
+    if (isPackageKey(requestedPackage)) setPackageKey(requestedPackage)
+    const registration = params.get("reg")?.trim().toUpperCase()
     if (registration) {
       setPrefilledReg(registration)
       setForm((current) => ({ ...current, registration: current.registration || registration }))
@@ -144,7 +148,10 @@ export function InspectionsBookingCalendar() {
   }, [])
 
   const selectedPackage = PACKAGES.find((p) => p.key === packageKey) || PACKAGES[0]
-  const totalPrice = selectedPackage.amount + (includeEvSoh ? EV_SOH_PRICE : 0)
+  // The battery check on its own already is the battery report, so the add-on only goes with an inspection.
+  const evOnly = packageKey === "ev"
+  const withEvSoh = includeEvSoh && !evOnly
+  const totalPrice = selectedPackage.amount + (withEvSoh ? EV_SOH_PRICE : 0)
   const slots = slotsByPackage[packageKey]
 
   const loadAvailability = useCallback(async () => {
@@ -157,6 +164,7 @@ export function InspectionsBookingCalendar() {
       setSlotsByPackage({
         standard: data.slotsByPackage?.standard || [],
         premium: data.slotsByPackage?.premium || [],
+        ev: data.slotsByPackage?.ev || [],
       })
     } catch {
       setError("Couldn't load available times — please WhatsApp us and we'll arrange it with you.")
@@ -287,7 +295,7 @@ export function InspectionsBookingCalendar() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           packageKey,
-          includeEvSoh,
+          includeEvSoh: withEvSoh,
           shortNoticeConfirmed: isShortNotice(selectedSlot, nowMs) && shortNoticeConfirmed,
           slotStart: selectedSlot.start,
           slotEnd: selectedSlot.end,
@@ -339,7 +347,10 @@ export function InspectionsBookingCalendar() {
         </div>
 
         <div className="grid gap-2 border-b border-border bg-emerald-50 px-5 py-4 text-sm sm:grid-cols-2 sm:px-7 lg:grid-cols-4">
-          {["Diagnostic scan", "Road test", "History check", "Same-day report"].map((item) => (
+          {(evOnly
+            ? ["CARA Approved® Autel test", "State of Health result", "Battery health report"]
+            : ["Diagnostic scan", "Road test", "History check", "Same-day report"]
+          ).map((item) => (
             <div key={item} className="flex items-center gap-2 font-semibold text-emerald-950">
               <Check className="h-4 w-4 text-emerald-600" /> {item}
             </div>
@@ -439,7 +450,13 @@ export function InspectionsBookingCalendar() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="font-bold">{selectedPackage.name}</p>
-                <p className="text-xs text-muted-foreground">{includeEvSoh ? "Includes EV Battery State of Health Report (+£49.99)" : "Inspection only — no optional battery State of Health report"}</p>
+                <p className="text-xs text-muted-foreground">
+                  {evOnly
+                    ? "Battery test and State of Health report, without an inspection"
+                    : withEvSoh
+                      ? "Includes EV Battery State of Health Report (+£49.99)"
+                      : "Inspection only — no optional battery State of Health report"}
+                </p>
               </div>
               <p className="text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
             </div>
@@ -449,7 +466,7 @@ export function InspectionsBookingCalendar() {
             {submitting ? (
               <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Opening secure payment...</>
             ) : (
-              <>Reserve My Inspection — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
+              <>Reserve My {evOnly ? "Battery Check" : "Inspection"} — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
             )}
           </Button>
           <p className="text-center text-xs text-muted-foreground">
@@ -497,7 +514,7 @@ export function InspectionsBookingCalendar() {
           <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">1</span>
           <div>
             <h3 className="text-xl font-bold">Choose your inspection</h3>
-            <p className="text-sm text-muted-foreground">Both packages include an in-depth mechanical inspection, video review, evidence and personal buying guidance.</p>
+            <p className="text-sm text-muted-foreground">Both inspections include an in-depth mechanical inspection, video review, evidence and personal buying guidance, or you can book the EV battery check on its own.</p>
           </div>
         </div>
 
@@ -505,7 +522,7 @@ export function InspectionsBookingCalendar() {
           {PACKAGES.map((pkg) => {
             const active = packageKey === pkg.key
             return (
-              <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} aria-pressed={active} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
+              <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} aria-pressed={active} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${pkg.key === "ev" ? "md:col-span-2" : ""} ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
                 {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
                 <p className="text-sm font-semibold text-muted-foreground">{pkg.points}</p>
                 <div className="mt-1 flex items-end gap-3">
@@ -531,38 +548,46 @@ export function InspectionsBookingCalendar() {
         </div>
       </div>
 
-      <div>
-        <div className="mb-4 flex items-center gap-3">
-          <span className="hidden h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground sm:inline-flex">+</span>
-          <div>
-            <h3 className="font-bold">Optional EV battery State of Health report</h3>
-            <p className="text-xs text-muted-foreground">Choose your add-on now. EV-specific inspection checks are already included in both packages.</p>
-          </div>
-        </div>
-        <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
-          <div className="flex items-start gap-3">
-            <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="mt-1 h-5 w-5 rounded border-border accent-emerald-600" />
-            <BatteryCharging className="h-6 w-6 flex-shrink-0 text-emerald-700" />
-            <div className="flex-1">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="font-bold text-foreground">EV Battery State of Health Report</p>
-                <p className="text-lg font-bold text-emerald-800">+£49.99</p>
-              </div>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric and plug-in hybrid vehicles.
-              </p>
-              <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
-                <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
-              </p>
+      {!evOnly && (
+        <div>
+          <div className="mb-4 flex items-center gap-3">
+            <span className="hidden h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground sm:inline-flex">+</span>
+            <div>
+              <h3 className="font-bold">Optional EV battery State of Health report</h3>
+              <p className="text-xs text-muted-foreground">Choose your add-on now. EV-specific inspection checks are already included in both inspections.</p>
             </div>
           </div>
-        </label>
-      </div>
+          <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
+            <div className="flex items-start gap-3">
+              <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="mt-1 h-5 w-5 rounded border-border accent-emerald-600" />
+              <BatteryCharging className="h-6 w-6 flex-shrink-0 text-emerald-700" />
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="font-bold text-foreground">EV Battery State of Health Report</p>
+                  <p className="text-lg font-bold text-emerald-800">+£49.99</p>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric and plug-in hybrid vehicles.
+                </p>
+                <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
+                  <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
+                </p>
+              </div>
+            </div>
+          </label>
+        </div>
+      )}
 
       <div className="my-6 flex items-center justify-between gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-4" aria-live="polite">
         <div>
           <p className="font-bold">{selectedPackage.name}</p>
-          <p className="text-sm text-muted-foreground">{includeEvSoh ? "Includes EV Battery State of Health Report (+£49.99)" : "No optional battery State of Health report selected"}</p>
+          <p className="text-sm text-muted-foreground">
+            {evOnly
+              ? "Battery test and State of Health report, without an inspection"
+              : withEvSoh
+                ? "Includes EV Battery State of Health Report (+£49.99)"
+                : "No optional battery State of Health report selected"}
+          </p>
         </div>
         <p className="shrink-0 text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
       </div>
@@ -761,8 +786,8 @@ export function InspectionsBookingCalendar() {
           <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <div role="status" aria-live="polite" className="min-w-0">
               <p className="text-sm font-semibold leading-relaxed sm:text-base">
-                You&apos;ve selected a {selectedPackage.name.toLowerCase()}
-                {includeEvSoh ? " with an EV battery health check" : ""}
+                You&apos;ve selected {selectedPackage.label}
+                {withEvSoh ? " with an EV battery health check" : ""}
                 {" on "}
                 {new Date(bannerSlot.start).toLocaleDateString("en-GB", {
                   day: "2-digit",

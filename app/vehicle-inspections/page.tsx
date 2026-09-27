@@ -75,7 +75,7 @@ export default function VehicleInspectionsPage() {
                   </span>
                   <span>
                     <span className="block font-bold">EV Battery Health</span>
-                    <span className="block text-xs text-muted-foreground">Learn about the £49.99 SOH report</span>
+                    <span className="block text-xs text-muted-foreground">£100 on its own or +£49.99 with an inspection</span>
                   </span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
@@ -152,7 +152,7 @@ export default function VehicleInspectionsPage() {
                     <BatteryCharging className="h-5 w-5 shrink-0 text-primary" />
                     <span>
                       <span className="block font-bold">EV Battery State of Health</span>
-                      <span className="block text-xs text-muted-foreground sm:text-sm">Optional CARA Approved® Autel SOH report +£49.99</span>
+                      <span className="block text-xs text-muted-foreground sm:text-sm">Autel SOH report: £100 on its own or +£49.99 with an inspection</span>
                     </span>
                   </span>
                   <ChevronDown className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />

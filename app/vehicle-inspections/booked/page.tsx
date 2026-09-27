@@ -38,7 +38,7 @@ export default async function InspectionBookedPage({
         <CheckCircle2 className="w-16 h-16 text-primary mx-auto" />
         <h1 className="text-3xl font-bold">You&apos;re booked in!</h1>
         <p className="text-muted-foreground">
-          Payment received and your inspection is confirmed. You&apos;ll get a confirmation call or message shortly
+          Payment received and your booking is confirmed. You&apos;ll get a confirmation call or message shortly
           to finalise the details.
         </p>
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90">

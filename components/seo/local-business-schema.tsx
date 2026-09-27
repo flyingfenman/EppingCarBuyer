@@ -54,6 +54,18 @@ const localBusinessSchema = {
       url: "https://www.eppingcarbuyer.com/ev-battery-health-check",
       itemOffered: {
         "@type": "Service",
+        name: "EV Battery Health Check",
+        serviceType: "EV traction battery State of Health assessment",
+        description: "The CARA Approved Autel EV Battery Health Test and end-customer battery health report on their own, without a vehicle inspection, on compatible electric and plug-in hybrid vehicles.",
+      },
+      price: "100.00",
+      priceCurrency: "GBP",
+    },
+    {
+      "@type": "Offer",
+      url: "https://www.eppingcarbuyer.com/ev-battery-health-check",
+      itemOffered: {
+        "@type": "Service",
         name: "EV Battery State of Health Report",
         serviceType: "EV traction battery State of Health assessment",
         description: "Optional EV battery SOH assessment using a Battery Health Check CARA Approved Autel EV Battery Health Test, with an end-customer battery health report on compatible electric and plug-in hybrid vehicles.",
@@ -76,6 +88,12 @@ const localBusinessSchema = {
         "@type": "Offer",
         name: "Premium Pre-Purchase Vehicle Inspection",
         price: "199.99",
+        priceCurrency: "GBP",
+      },
+      {
+        "@type": "Offer",
+        name: "EV Battery Health Check",
+        price: "100.00",
         priceCurrency: "GBP",
       },
       {

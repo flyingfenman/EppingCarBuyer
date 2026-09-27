@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { generateAllSlots, rangesOverlap, type PackageKey } from "@/lib/inspection-slots"
+import { PACKAGE_KEYS, generateAllSlots, isPackageKey, rangesOverlap, type PackageKey } from "@/lib/inspection-slots"
 import { getOccupiedRanges } from "@/lib/inspection-bookings-server"
 
 const LOOKBACK_DAYS = 45
@@ -13,7 +13,7 @@ function filterAvailable(packageKey: PackageKey, now: Date, occupied: Awaited<Re
 export async function GET(request: NextRequest) {
   try {
     const packageParam = request.nextUrl.searchParams.get("package")
-    if (packageParam !== "standard" && packageParam !== "premium" && packageParam !== "all") {
+    if (packageParam !== "all" && !isPackageKey(packageParam)) {
       return NextResponse.json({ error: "Invalid package" }, { status: 400 })
     }
 
@@ -22,10 +22,7 @@ export async function GET(request: NextRequest) {
 
     if (packageParam === "all") {
       return NextResponse.json({
-        slotsByPackage: {
-          standard: filterAvailable("standard", now, occupied),
-          premium: filterAvailable("premium", now, occupied),
-        },
+        slotsByPackage: Object.fromEntries(PACKAGE_KEYS.map((key) => [key, filterAvailable(key, now, occupied)])),
       })
     }
 
