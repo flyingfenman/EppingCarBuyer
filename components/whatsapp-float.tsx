@@ -1,16 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
 import { MessageCircle, X } from "lucide-react"
 
 const DISMISSED_KEY = "whatsapp-message-dismissed"
-const PHONE_BUBBLE_MS = 6000
 
 export function WhatsAppFloat() {
   const [showMessage, setShowMessage] = useState(true)
-  const [tucked, setTucked] = useState(false)
-  const pathname = usePathname()
 
   useEffect(() => {
     try {
@@ -19,29 +15,6 @@ export function WhatsAppFloat() {
       // The close button still works when browser storage is unavailable.
     }
   }, [])
-
-  // A phone has no spare room for the speech bubble, so there it greets each page and then tucks away:
-  // after a few seconds, or as soon as the visitor scrolls or starts filling in a form.
-  useEffect(() => {
-    setTucked(false)
-    const tuck = () => setTucked(true)
-    const onScroll = () => {
-      if (window.scrollY > 40) tuck()
-    }
-    const onFocus = (event: FocusEvent) => {
-      if (event.target instanceof Element && event.target.matches("input, textarea, select")) tuck()
-    }
-    const timer = window.setTimeout(tuck, PHONE_BUBBLE_MS)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    document.addEventListener("focusin", onFocus)
-    // A field tapped before the page finished loading already has focus.
-    if (document.activeElement?.matches("input, textarea, select")) tuck()
-    return () => {
-      window.clearTimeout(timer)
-      window.removeEventListener("scroll", onScroll)
-      document.removeEventListener("focusin", onFocus)
-    }
-  }, [pathname])
 
   function dismissMessage() {
     setShowMessage(false)
@@ -64,11 +37,7 @@ export function WhatsAppFloat() {
         <MessageCircle className="w-7 h-7" aria-hidden="true" />
       </a>
       {showMessage && (
-        <div
-          className={`absolute right-full top-1/2 mr-3 w-max max-w-[calc(100vw-7rem)] -translate-y-[66%] px-7 py-6 text-center text-sm leading-snug text-gray-900 drop-shadow-lg transition-[opacity,visibility] duration-500 motion-reduce:transition-none ${
-            tucked ? "max-sm:invisible max-sm:opacity-0" : ""
-          }`}
-        >
+        <div className="absolute right-full top-1/2 mr-3 w-max max-w-[calc(100vw-7rem)] -translate-y-[66%] px-7 py-6 text-center text-sm leading-snug text-gray-900 drop-shadow-lg">
           <svg
             aria-hidden="true"
             className="absolute inset-0 h-full w-full"
