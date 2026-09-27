@@ -30,8 +30,9 @@ const trustBadges = [
 
 type Route = "inspection" | "sell"
 
-// Same colours and edges as the header's Vehicle Inspections and Market & Sell buttons. The labels are
-// large and bold so white text on the teal stays readable.
+// Same colours and edges as the header's Vehicle Inspections and Market & Sell buttons. Market & Sell is
+// blue so it stands apart from the yellow reg plate above it. The labels are large and bold so white text
+// on the teal stays readable.
 const ROUTES: Array<{ value: Route; title: string; href: string; buttonClass: string }> = [
   {
     value: "inspection",
@@ -43,7 +44,7 @@ const ROUTES: Array<{ value: Route; title: string; href: string; buttonClass: st
     value: "sell",
     title: "Market & Sell it",
     href: "/market-and-sell",
-    buttonClass: "border-[#E6B800] bg-[#FFCC00] text-black hover:bg-[#E6B800]",
+    buttonClass: "border-[#1d4ed8] bg-[#2563eb] text-white hover:bg-[#1d4ed8]",
   },
 ]
 
