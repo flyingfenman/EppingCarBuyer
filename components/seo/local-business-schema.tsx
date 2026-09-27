@@ -58,7 +58,7 @@ const localBusinessSchema = {
         serviceType: "EV traction battery State of Health assessment",
         description: "The CARA Approved Autel EV Battery Health Test and end-customer battery health report on their own, without a vehicle inspection, on compatible electric and plug-in hybrid vehicles.",
       },
-      price: "100.00",
+      price: "99.99",
       priceCurrency: "GBP",
     },
     {
@@ -93,7 +93,7 @@ const localBusinessSchema = {
       {
         "@type": "Offer",
         name: "EV Battery Health Check",
-        price: "100.00",
+        price: "99.99",
         priceCurrency: "GBP",
       },
       {
