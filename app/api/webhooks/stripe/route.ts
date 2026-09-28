@@ -19,9 +19,10 @@ type Brand = {
 
 // The Stripe account is shared with Stamford Car Buyer, so this webhook also
 // receives Stamford's bookings. Stamford's checkout marks them
-// brand: "Stamford Car Buyer"; anything unmarked is Epping's. Before this, a
-// Stamford customer was confirmed as an Epping booking, with Epping's number,
-// and Henry's notice went to the Epping inbox and so into Epping's lead tool.
+// brand: "Stamford Car Buyer"; anything unmarked is Epping's, so a Stamford
+// customer is confirmed as Stamford, with Stamford's number. Henry no longer has
+// the Stamford mailbox, so Stamford notices and replies come to the Epping inbox,
+// with the brand in the notice's subject so they stand out.
 const BRANDS: Record<"epping" | "stamford", Brand> = {
   epping: {
     name: "Epping Car Buyer",
@@ -38,8 +39,8 @@ const BRANDS: Record<"epping" | "stamford", Brand> = {
     tagline: "Vehicle inspections and Market & Sell",
     // Stamford's own address first; Epping's is the fallback if Resend refuses it.
     senders: ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@stamfordcarbuyer.com",
-    inbox: "henry@stamfordcarbuyer.com",
+    replyTo: "henry@eppingcarbuyer.com",
+    inbox: "henry@eppingcarbuyer.com",
     whatsappLink: "447376624097",
     whatsappDisplay: "+44 7376 624097",
     site: "www.stamfordcarbuyer.com",
@@ -206,7 +207,7 @@ export async function POST(request: NextRequest) {
       const evSohLine = hasEvSoh ? "\nEV Battery SOH add on: YES. CARA Approved® Autel EV Battery Health Test report required" : ""
 
       const internalEmail = `
-New PAID ${evOnly ? "EV Battery Health Check" : "Vehicle Inspection"} Booking
+New PAID ${evOnly ? "EV Battery Health Check" : "Vehicle Inspection"} Booking (${brand.name})
 
 Package: ${packageName}${evSohLine}
 Slot: ${slotFull} to ${slotEndTime}
@@ -271,7 +272,7 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
           brand.inbox,
-          `${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`,
+          `${brand === BRANDS.stamford ? "Stamford: " : ""}${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`,
           internalEmail,
           undefined,
           brand,

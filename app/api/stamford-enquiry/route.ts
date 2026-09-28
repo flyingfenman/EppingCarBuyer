@@ -2,14 +2,14 @@ import { type NextRequest, NextResponse } from "next/server"
 
 // Stamford Car Buyer's contact and Market & Sell forms send through here when the Stamford site can't
 // send email itself (for example when its own RESEND_API_KEY isn't set), so an enquiry isn't lost.
-// It only ever emails Henry: his Stamford inbox first, then his Epping inbox marked [Stamford] as a last
-// resort. Like the public contact forms, the most it can be used for is a message to Henry.
-const STAMFORD_INBOX = "henry@stamfordcarbuyer.com"
-const EPPING_INBOX = "henry@eppingcarbuyer.com"
+// Henry no longer has the Stamford mailbox, so it goes to his Epping inbox; every Stamford subject
+// starts with "Stamford", so they stand out. Like the public contact forms, the most it can be used
+// for is a message to Henry.
+const INBOX = "henry@eppingcarbuyer.com"
 const SENDERS = ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"]
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-async function send(from: string, to: string, subject: string, text: string, replyTo?: string): Promise<boolean> {
+async function send(from: string, subject: string, text: string, replyTo?: string): Promise<boolean> {
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -17,10 +17,10 @@ async function send(from: string, to: string, subject: string, text: string, rep
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from, to: [to], subject, text, ...(replyTo ? { reply_to: replyTo } : {}) }),
+      body: JSON.stringify({ from, to: [INBOX], subject, text, ...(replyTo ? { reply_to: replyTo } : {}) }),
     })
     if (response.ok) return true
-    console.error(`Stamford enquiry relay: Resend refused ${from} to ${to}:`, await response.text())
+    console.error(`Stamford enquiry relay: Resend refused ${from}:`, await response.text())
   } catch (error) {
     console.error(`Stamford enquiry relay: could not reach Resend as ${from}:`, error)
   }
@@ -45,10 +45,7 @@ export async function POST(request: NextRequest) {
   }
 
   for (const from of SENDERS) {
-    if (await send(from, STAMFORD_INBOX, subject, text, replyTo)) return NextResponse.json({ success: true })
-  }
-  if (await send(SENDERS[1], EPPING_INBOX, `[Stamford] ${subject}`, text, replyTo)) {
-    return NextResponse.json({ success: true })
+    if (await send(from, subject, text, replyTo)) return NextResponse.json({ success: true })
   }
   return NextResponse.json({ error: "Could not send the enquiry" }, { status: 502 })
 }
