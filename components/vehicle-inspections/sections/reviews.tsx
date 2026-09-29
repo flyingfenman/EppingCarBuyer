@@ -6,7 +6,7 @@ import { testimonials } from "@/lib/testimonials"
 // cars, all on show with nothing to click.
 export function Reviews() {
   return (
-    <section id="reviews" className="scroll-mt-20 bg-primary/[0.04] py-12 sm:py-16">
+    <section id="reviews" className="scroll-mt-20 bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Real customers, real cars</p>

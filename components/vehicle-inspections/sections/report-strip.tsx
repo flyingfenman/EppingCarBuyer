@@ -11,7 +11,7 @@ const ITEMS: Array<{ icon: LucideIcon; title: string; text: string }> = [
 // What the customer receives, in four tiles.
 export function ReportStrip() {
   return (
-    <section className="bg-primary/[0.04] py-12 sm:py-16">
+    <section className="border-t bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Your report</p>
@@ -21,7 +21,7 @@ export function ReportStrip() {
         <div className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {ITEMS.map(({ icon: Icon, title, text }) => (
             <div key={title} className="rounded-2xl border border-border bg-white p-4 text-center shadow-sm sm:p-6">
-              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md shadow-primary/25">
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
                 <Icon className="h-7 w-7" />
               </span>
               <h3 className="mt-4 text-lg font-bold leading-snug sm:text-xl">{title}</h3>

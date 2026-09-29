@@ -58,7 +58,7 @@ const PLANS: Plan[] = [
 // The three options side by side, each with everything it includes and its own Book button.
 export function Pricing() {
   return (
-    <section id="prices" className="scroll-mt-20 bg-white py-12 sm:py-16">
+    <section id="prices" className="scroll-mt-20 border-t bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Fixed prices, no quote needed</p>
@@ -71,7 +71,7 @@ export function Pricing() {
             <div
               key={plan.key}
               className={`relative flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
-                plan.featured ? "border-2 border-primary shadow-2xl shadow-primary/15 lg:-mt-4" : "border border-border shadow-sm"
+                plan.featured ? "border-2 border-primary shadow-xl lg:-mt-4" : "border border-border shadow-sm"
               }`}
             >
               {plan.featured && (
@@ -90,7 +90,7 @@ export function Pricing() {
               <Link
                 href={`/vehicle-inspections/book?package=${plan.key}`}
                 className={`mt-6 inline-flex min-h-12 items-center justify-center rounded-xl px-6 text-lg font-bold transition ${
-                  plan.featured ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90" : "bg-primary/10 text-primary hover:bg-primary/15"
+                  plan.featured ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "border-2 border-primary bg-white text-primary hover:bg-primary/5"
                 }`}
               >
                 {plan.cta} <ArrowRight className="ml-2 h-5 w-5" />
@@ -101,8 +101,8 @@ export function Pricing() {
                 <ul className="space-y-3">
                   {plan.items.map((item) => (
                     <li key={item.label} className="flex items-start gap-3">
-                      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${plan.icon === Plus ? "bg-primary/10" : "bg-emerald-100"}`}>
-                        <plan.icon className={`h-3.5 w-3.5 ${plan.icon === Plus ? "text-primary" : "text-emerald-700"}`} strokeWidth={3} />
+                      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${plan.icon === Plus ? "bg-primary" : "bg-emerald-600"}`}>
+                        <plan.icon className="h-3.5 w-3.5 text-white" strokeWidth={3} />
                       </span>
                       <span>
                         <span className="block font-semibold leading-snug">{item.label}</span>
@@ -116,7 +116,7 @@ export function Pricing() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-4 rounded-3xl border border-primary/20 bg-primary/5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-4 rounded-3xl border border-border bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div className="flex items-start gap-3">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
               <BatteryCharging className="h-6 w-6" />

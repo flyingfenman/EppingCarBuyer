@@ -11,7 +11,7 @@ const STEPS: Array<{ icon: LucideIcon; title: string; text: string }> = [
 // Four numbered steps: a row with a connecting line on larger screens, a timeline on phones.
 export function Steps() {
   return (
-    <section className="bg-primary/[0.04] py-12 sm:py-16">
+    <section className="border-t bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">How it works</p>
@@ -19,10 +19,10 @@ export function Steps() {
         </div>
 
         <ol className="relative mx-auto mt-10 grid max-w-6xl gap-6 lg:grid-cols-4 lg:gap-6">
-          <span aria-hidden="true" className="absolute bottom-7 left-7 top-7 w-0.5 bg-primary/20 lg:bottom-auto lg:left-[12.5%] lg:right-[12.5%] lg:top-7 lg:h-0.5 lg:w-auto" />
+          <span aria-hidden="true" className="absolute bottom-7 left-7 top-7 w-0.5 bg-neutral-300 lg:bottom-auto lg:left-[12.5%] lg:right-[12.5%] lg:top-7 lg:h-0.5 lg:w-auto" />
           {STEPS.map(({ icon: Icon, title, text }, i) => (
             <li key={title} className="relative flex gap-4 lg:flex-col lg:items-center lg:text-center">
-              <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 ring-4 ring-white">
+              <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md ring-4 ring-white">
                 <Icon className="h-6 w-6" />
                 <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-sm font-bold text-primary ring-2 ring-primary/30">{i + 1}</span>
               </span>
