@@ -369,7 +369,7 @@ export function InspectionsBookingCalendar() {
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span>
               <div>
                 <h3 className="font-bold">Tell us about the car</h3>
-                <p className="text-xs text-muted-foreground">This lets us prepare before we arrive.</p>
+                <p className="text-sm text-muted-foreground">This lets us prepare before we arrive.</p>
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -394,15 +394,15 @@ export function InspectionsBookingCalendar() {
                 <div className="sm:col-span-2 flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3 sm:flex-row sm:items-center">
                   <div className="flex flex-1 items-start gap-2">
                     <TriangleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-700" />
-                    <p className="text-xs text-amber-900">
+                    <p className="text-sm text-amber-900">
                       Please make sure the seller can give us access to the vehicle at this time before you pay.
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <a href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`} className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 text-xs font-semibold text-amber-900 hover:bg-amber-100 sm:flex-initial">
+                    <a href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`} className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 text-sm font-semibold text-amber-900 hover:bg-amber-100 sm:flex-initial">
                       <Phone className="h-3.5 w-3.5" /> Call seller
                     </a>
-                    <a href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`} target="_blank" rel="noopener noreferrer" className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 text-xs font-semibold text-white hover:bg-[#1da851] sm:flex-initial">
+                    <a href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 text-sm font-semibold text-white hover:bg-[#1da851] sm:flex-initial">
                       <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
                     </a>
                   </div>
@@ -421,7 +421,7 @@ export function InspectionsBookingCalendar() {
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span>
               <div>
                 <h3 className="font-bold">Your details</h3>
-                <p className="text-xs text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
+                <p className="text-sm text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -450,7 +450,7 @@ export function InspectionsBookingCalendar() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="font-bold">{selectedPackage.name}</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {evOnly
                     ? "Battery test and State of Health report, without an inspection"
                     : withEvSoh
@@ -469,7 +469,7 @@ export function InspectionsBookingCalendar() {
               <>Reserve My {evOnly ? "Battery Check" : "Inspection"} — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
             )}
           </Button>
-          <p className="text-center text-xs text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground">
             Secure checkout via Stripe. Your appointment is confirmed once payment is complete.
           </p>
         </form>
@@ -514,7 +514,7 @@ export function InspectionsBookingCalendar() {
           <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">1</span>
           <div>
             <h3 className="text-xl font-bold">Choose your inspection</h3>
-            <p className="text-sm text-muted-foreground">Both inspections include an in-depth mechanical inspection, video review, evidence and personal buying guidance, or you can book the EV battery check on its own.</p>
+            <p className="hidden text-sm text-muted-foreground sm:block">Both inspections include an in-depth mechanical inspection, video review, evidence and personal buying guidance, or you can book the EV battery check on its own.</p>
           </div>
         </div>
 
@@ -538,7 +538,7 @@ export function InspectionsBookingCalendar() {
                 <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   {pkg.features.map((feature, i) => (
-                    <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT ? "hidden sm:flex" : "flex"} items-center gap-2 text-xs font-medium`}><Check className="h-4 w-4 text-emerald-600" /> {feature}</span>
+                    <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT ? "hidden sm:flex" : "flex"} items-center gap-2 text-sm font-medium sm:text-xs`}><Check className="h-4 w-4 shrink-0 text-emerald-600" /> {feature}</span>
                   ))}
                 </div>
                 {active && <div className="mt-4 flex items-center gap-2 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</div>}
@@ -554,7 +554,7 @@ export function InspectionsBookingCalendar() {
             <span className="hidden h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground sm:inline-flex">+</span>
             <div>
               <h3 className="font-bold">Optional EV battery State of Health report</h3>
-              <p className="text-xs text-muted-foreground">Choose your add-on now. EV-specific inspection checks are already included in both inspections.</p>
+              <p className="hidden text-xs text-muted-foreground sm:block">Choose your add-on now. EV-specific inspection checks are already included in both inspections.</p>
             </div>
           </div>
           <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
@@ -566,10 +566,10 @@ export function InspectionsBookingCalendar() {
                   <p className="font-bold text-foreground">EV Battery State of Health Report</p>
                   <p className="text-lg font-bold text-emerald-800">+£49.99</p>
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">
+                <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
                   Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric and plug-in hybrid vehicles.
                 </p>
-                <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
+                <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-800 sm:text-xs">
                   <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
                 </p>
               </div>
@@ -613,7 +613,7 @@ export function InspectionsBookingCalendar() {
           </div>
         </div>
 
-        <div className="mb-4 flex flex-wrap gap-3 text-xs font-semibold">
+        <div className="mb-4 flex flex-wrap gap-3 text-sm font-semibold sm:text-xs">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-primary">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" /> Book online
           </span>
@@ -638,17 +638,17 @@ export function InspectionsBookingCalendar() {
             <div className="grid md:h-[430px] md:grid-cols-[1.25fr_.75fr]">
               <div className="border-b border-border p-5 md:h-full md:overflow-hidden md:border-b-0 md:border-r sm:p-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <button type="button" onClick={() => setViewDate((v) => (v.month === 0 ? { year: v.year - 1, month: 11 } : { year: v.year, month: v.month - 1 }))} className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted" aria-label="Previous month">
+                  <button type="button" onClick={() => setViewDate((v) => (v.month === 0 ? { year: v.year - 1, month: 11 } : { year: v.year, month: v.month - 1 }))} className="flex h-11 w-11 items-center justify-center rounded-lg hover:bg-muted" aria-label="Previous month">
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <p className="font-bold">{monthLabel}</p>
-                  <button type="button" onClick={() => setViewDate((v) => (v.month === 11 ? { year: v.year + 1, month: 0 } : { year: v.year, month: v.month + 1 }))} className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted" aria-label="Next month">
+                  <button type="button" onClick={() => setViewDate((v) => (v.month === 11 ? { year: v.year + 1, month: 0 } : { year: v.year, month: v.month + 1 }))} className="flex h-11 w-11 items-center justify-center rounded-lg hover:bg-muted" aria-label="Next month">
                     <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
 
                 <div className="mb-2 grid grid-cols-7 gap-1">
-                  {WEEKDAY_LABELS.map((w) => <div key={w} className="py-1 text-center text-xs font-semibold text-muted-foreground">{w}</div>)}
+                  {WEEKDAY_LABELS.map((w) => <div key={w} className="py-1 text-center text-sm font-semibold text-muted-foreground sm:text-xs">{w}</div>)}
                 </div>
 
                 <div className="grid grid-cols-7 gap-1">
@@ -665,7 +665,7 @@ export function InspectionsBookingCalendar() {
                         type="button"
                         disabled={!hasSlots}
                         onClick={() => chooseDate(key)}
-                        className={`h-10 rounded-full text-sm font-semibold transition-colors ${
+                        className={`h-11 rounded-full text-sm font-semibold transition-colors ${
                           isSelected
                             ? "bg-primary text-primary-foreground"
                             : onlyShortNotice
@@ -685,7 +685,7 @@ export function InspectionsBookingCalendar() {
               <div className="bg-muted/20 p-5 sm:p-6 md:h-full md:overflow-y-auto md:overscroll-contain">
                 {selectedDate ? (
                   <>
-                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-primary">Available appointments</p>
+                    <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-primary sm:text-xs">Available appointments</p>
                     <p className="mb-4 font-bold">
                       {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
                     </p>
@@ -724,7 +724,7 @@ export function InspectionsBookingCalendar() {
                     {shortNoticeCandidate && dateKey(shortNoticeCandidate.start) === selectedDate && (
                       <div className="mt-4 rounded-2xl border-2 border-primary/20 bg-white p-4">
                         <p className="font-bold text-foreground">Want to book {formatSlotTime(shortNoticeCandidate)}?</p>
-                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                           Message Henry first. If he confirms this exact short-notice slot is available, tick the box below to unlock online booking.
                         </p>
                         <a

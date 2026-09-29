@@ -44,7 +44,7 @@ function InfoSection({ icon: Icon, title, summary, children }: {
           <Icon className="h-5 w-5 shrink-0 text-primary" />
           <span>
             <span className="block font-bold">{title}</span>
-            <span className="block text-xs text-muted-foreground sm:text-sm">{summary}</span>
+            <span className="block text-sm text-muted-foreground">{summary}</span>
           </span>
         </span>
         <ChevronDown className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
@@ -92,7 +92,7 @@ export default function VehicleInspectionsPage() {
               <InfoSection icon={FileText} title="What's in your report?" summary="Findings, photos, a video review and a personal call">
                 <MechanicalReportOverview />
                 <p className="p-4 text-center sm:p-5">
-                  <Link href="/vehicle-inspections/sample-report" className="inline-flex items-center gap-2 font-bold text-primary hover:underline">
+                  <Link href="/vehicle-inspections/sample-report" className="inline-flex min-h-11 items-center gap-2 font-bold text-primary hover:underline">
                     View a sample report <ArrowRight className="h-4 w-4" />
                   </Link>
                 </p>
