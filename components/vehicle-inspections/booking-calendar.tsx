@@ -104,14 +104,14 @@ function formatSlotDateTime(slot: Slot) {
 }
 
 export function InspectionsBookingCalendar() {
-  const bookingFormRef = useRef<HTMLDivElement>(null)
+  const timeRef = useRef<HTMLDivElement>(null)
+  const detailsRef = useRef<HTMLDivElement>(null)
   const [packageKey, setPackageKey] = useState<PackageKey>("standard")
   const [includeEvSoh, setIncludeEvSoh] = useState(false)
   const [slotsByPackage, setSlotsByPackage] = useState<Record<PackageKey, Slot[]>>({ standard: [], premium: [], ev: [] })
   const [loadingSlots, setLoadingSlots] = useState(true)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
-  const [showDetails, setShowDetails] = useState(false)
   const [shortNoticeCandidate, setShortNoticeCandidate] = useState<Slot | null>(null)
   const [shortNoticeConfirmed, setShortNoticeConfirmed] = useState(false)
   const [viewDate, setViewDate] = useState(() => {
@@ -132,6 +132,7 @@ export function InspectionsBookingCalendar() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
+  const [formError, setFormError] = useState("")
   const [prefilledReg, setPrefilledReg] = useState("")
 
   useEffect(() => {
@@ -188,28 +189,6 @@ export function InspectionsBookingCalendar() {
     setViewDate(setViewFromDateKey(firstDate))
   }, [loadingSlots, nowMs, selectedDate, slots])
 
-  useEffect(() => {
-    if (!selectedSlot || !showDetails) return
-
-    // The calendar is replaced by a shorter form. Move to it after the DOM updates
-    // instead of leaving the viewport at the calendar's previous scroll position.
-    const frame = window.requestAnimationFrame(() => {
-      const bookingForm = bookingFormRef.current
-      if (!bookingForm) return
-      bookingForm.focus({ preventScroll: true })
-      bookingForm.scrollIntoView({ behavior: "instant", block: "start" })
-    })
-    return () => window.cancelAnimationFrame(frame)
-  }, [selectedSlot, showDetails])
-
-  // The details form has its own history entry (see openDetails), so the phone's Back button returns to
-  // the calendar and Forward reopens the form.
-  useEffect(() => {
-    const onPopState = (event: PopStateEvent) => setShowDetails(event.state?.inspectionStep === "details")
-    window.addEventListener("popstate", onPopState)
-    return () => window.removeEventListener("popstate", onPopState)
-  }, [])
-
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
     for (const slot of slots) {
@@ -235,7 +214,6 @@ export function InspectionsBookingCalendar() {
   }
 
   const choosePackage = (key: PackageKey) => {
-    setShowDetails(false)
     setPackageKey(key)
     setSelectedDate(null)
     setSelectedSlot(null)
@@ -246,13 +224,12 @@ export function InspectionsBookingCalendar() {
   const chooseDate = (key: string) => {
     setSelectedDate(key)
     setSelectedSlot(null)
-    setShowDetails(false)
     resetShortNotice()
   }
 
   const handleSlotClick = (slot: Slot) => {
     setSelectedSlot(null)
-    setShowDetails(false)
+    setError("")
     if (isShortNotice(slot, nowMs)) {
       setShortNoticeCandidate(slot)
       setShortNoticeConfirmed(false)
@@ -267,29 +244,28 @@ export function InspectionsBookingCalendar() {
     setSelectedSlot(shortNoticeCandidate)
   }
 
-  const openDetails = () => {
-    // Without an entry of its own, Back on the details form would leave the page.
-    if (window.history.state?.inspectionStep !== "details") window.history.pushState({ inspectionStep: "details" }, "")
-    setShowDetails(true)
+  // The details are further down the same page, under the calendar.
+  const goToDetails = () => {
+    const details = detailsRef.current
+    if (!details) return
+    details.scrollIntoView({ behavior: "smooth", block: "start" })
+    details.focus({ preventScroll: true })
   }
 
-  // Leave the details form the way Back does, so its history entry goes too.
-  const closeDetails = () => {
-    if (window.history.state?.inspectionStep === "details") window.history.back()
-    else setShowDetails(false)
-  }
-
-  const changeDateOrTime = () => {
-    closeDetails()
-    setSelectedSlot(null)
-    resetShortNotice()
-  }
+  const showTimes = () => timeRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (!selectedSlot) return
+    if (!selectedSlot) {
+      setError(shortNoticeCandidate
+        ? "That time is within 24 hours. Message Henry first, then tick the box once he's confirmed it."
+        : "Please choose a date and time for your appointment.")
+      showTimes()
+      return
+    }
     setSubmitting(true)
     setError("")
+    setFormError("")
 
     try {
       const res = await fetch("/api/create-inspection-checkout", {
@@ -309,174 +285,19 @@ export function InspectionsBookingCalendar() {
       if (!res.ok) throw new Error(data.error || "Something went wrong")
       window.location.href = data.url
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
-      if (err instanceof Error && (err.message.includes("just booked") || err.message.includes("confirmed"))) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again."
+      // The time has gone meanwhile: refresh the times and send the customer back up to pick another.
+      if (message.includes("just booked") || message.includes("confirmed")) {
         setSelectedSlot(null)
-        closeDetails()
         resetShortNotice()
         await loadAvailability()
+        setError(message)
+        showTimes()
+      } else {
+        setFormError(message)
       }
       setSubmitting(false)
     }
-  }
-
-  if (selectedSlot && showDetails) {
-    const selectedIsShortNotice = isShortNotice(selectedSlot, nowMs)
-
-    return (
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
-        <div className="border-b border-border bg-slate-950 px-5 py-5 text-white sm:px-7">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <button onClick={changeDateOrTime} className="text-sm font-semibold text-emerald-300 hover:underline">
-                ← Change package, add-on or time
-              </button>
-              <p className="mt-2 text-sm text-slate-400">You&apos;re booking</p>
-              <h3 className="text-2xl font-bold">{selectedPackage.name}</h3>
-              <p className="mt-1 text-sm text-slate-300">
-                {new Date(selectedSlot.start).toLocaleString("en-GB", {
-                  dateStyle: "full",
-                  timeStyle: "short",
-                  timeZone: "Europe/London",
-                })}
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white/10 px-5 py-3 sm:text-right">
-              <p className="text-xs uppercase tracking-wide text-slate-400">Current total</p>
-              <p className="text-3xl font-bold">£{totalPrice.toFixed(2)}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid gap-2 border-b border-border bg-emerald-50 px-5 py-4 text-sm sm:grid-cols-2 sm:px-7 lg:grid-cols-4">
-          {(evOnly
-            ? ["CARA Approved® Autel test", "State of Health result", "Battery health report"]
-            : ["Diagnostic scan", "Road test", "History check", "Same-day report"]
-          ).map((item) => (
-            <div key={item} className="flex items-center gap-2 font-semibold text-emerald-950">
-              <Check className="h-4 w-4 text-emerald-600" /> {item}
-            </div>
-          ))}
-        </div>
-
-        {selectedIsShortNotice && shortNoticeConfirmed && (
-          <div className="border-b border-primary/15 bg-primary/5 px-5 py-3 text-sm font-semibold text-primary sm:px-7">
-            <span className="inline-flex items-center gap-2"><Check className="h-4 w-4" /> Short-notice slot confirmed with Henry</span>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-7 p-5 sm:p-7">
-          <div ref={bookingFormRef} tabIndex={-1} aria-label="Tell us about the car" className="scroll-mt-24">
-            <div className="mb-4 flex items-center gap-3">
-              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span>
-              <div>
-                <h3 className="font-bold">Tell us about the car</h3>
-                <p className="text-sm text-muted-foreground">This lets us prepare before we arrive.</p>
-              </div>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="registration">Registration *</Label>
-                <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required autoCapitalize="characters" autoCorrect="off" spellCheck={false} autoComplete="off" className="uk-numberplate text-center tracking-widest" />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="location">Where is the car? *</Label>
-                <Input id="location" value={form.location} onChange={set("location")} placeholder="Postcode or dealer name" required />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="sellerName">Seller&apos;s name</Label>
-                <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership" autoComplete="off" />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="sellerPhone">Seller&apos;s contact number</Label>
-                <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" autoComplete="off" />
-              </div>
-
-              {form.sellerPhone.trim().length >= 10 && (
-                <div className="sm:col-span-2 flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3 sm:flex-row sm:items-center">
-                  <div className="flex flex-1 items-start gap-2">
-                    <TriangleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-700" />
-                    <p className="text-sm text-amber-900">
-                      Please make sure the seller can give us access to the vehicle at this time before you pay.
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <a href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`} className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 text-sm font-semibold text-amber-900 hover:bg-amber-100 sm:flex-initial">
-                      <Phone className="h-3.5 w-3.5" /> Call seller
-                    </a>
-                    <a href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 text-sm font-semibold text-white hover:bg-[#1da851] sm:flex-initial">
-                      <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              <div className="space-y-1.5 sm:col-span-2">
-                <Label htmlFor="advertUrl">Link to the advert</Label>
-                <Input id="advertUrl" type="text" value={form.advertUrl} onChange={set("advertUrl")} placeholder="AutoTrader, eBay, Facebook Marketplace, dealer advert..." />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span>
-              <div>
-                <h3 className="font-bold">Your details</h3>
-                <p className="text-sm text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
-              </div>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="name">Full name *</Label>
-                <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required autoComplete="name" />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="phone">Phone number *</Label>
-                <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required autoComplete="tel" />
-              </div>
-              <div className="space-y-1.5 sm:col-span-2">
-                <Label htmlFor="email">Email address *</Label>
-                <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required autoComplete="email" />
-              </div>
-              <div className="space-y-1.5 sm:col-span-2">
-                <Label htmlFor="notes">Anything you&apos;re already concerned about?</Label>
-                <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Any noises, warning lights, seller comments or access details..." rows={2} maxLength={400} />
-              </div>
-            </div>
-          </div>
-
-          {error && <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
-
-          <div className="rounded-2xl border border-border bg-muted/25 p-4">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="font-bold">{selectedPackage.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {evOnly
-                    ? "Battery test and State of Health report, without an inspection"
-                    : withEvSoh
-                      ? "Includes EV Battery State of Health Report (+£49.99)"
-                      : "Inspection only — no optional battery State of Health report"}
-                </p>
-              </div>
-              <p className="text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
-            </div>
-          </div>
-
-          <Button type="submit" size="lg" disabled={submitting} className="h-14 w-full text-lg font-bold bg-primary hover:bg-primary/90">
-            {submitting ? (
-              <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Opening secure payment...</>
-            ) : (
-              <>Reserve My {evOnly ? "Battery Check" : "Inspection"} — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
-            )}
-          </Button>
-          <p className="text-center text-sm text-muted-foreground">
-            Secure checkout via Stripe. Your appointment is confirmed once payment is complete.
-          </p>
-        </form>
-      </div>
-    )
   }
 
   const daySlots = selectedDate ? slotsByDate.get(selectedDate) || [] : []
@@ -493,7 +314,7 @@ export function InspectionsBookingCalendar() {
           >
             {prefilledReg}
           </span>
-          <p className="text-sm font-semibold text-foreground">Added to your booking. You can change it when you enter your details.</p>
+          <p className="text-sm font-semibold text-foreground">Added to your booking. You can change it below, with the rest of the details.</p>
         </div>
       )}
       <div className="mb-7 hidden gap-3 sm:grid sm:grid-cols-3">
@@ -604,19 +425,21 @@ export function InspectionsBookingCalendar() {
         <p className="shrink-0 text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
       </div>
 
-      <div className="mb-6 space-y-3 sm:hidden">
+      <div className="mb-6 space-y-3">
         <p className="text-sm font-bold uppercase tracking-wide text-primary">What customers say</p>
-        {testimonials.map((t) => (
-          <figure key={t.name} className="rounded-2xl border border-border bg-white p-4">
-            <blockquote className="font-semibold leading-snug text-foreground">&ldquo;{t.headline}&rdquo;</blockquote>
-            <figcaption className="mt-2 text-sm text-muted-foreground">
-              {t.name} · {t.vehicle} · {t.town}
-            </figcaption>
-          </figure>
-        ))}
+        <div className="grid gap-3 sm:grid-cols-2">
+          {testimonials.map((t) => (
+            <figure key={t.name} className="rounded-2xl border border-border bg-white p-4">
+              <blockquote className="font-semibold leading-snug text-foreground">&ldquo;{t.headline}&rdquo;</blockquote>
+              <figcaption className="mt-2 text-sm text-muted-foreground">
+                {t.name} · {t.vehicle} · {t.town}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
 
-      <div>
+      <div ref={timeRef} className="scroll-mt-24">
         <div className="mb-4 flex items-center gap-3">
           <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">2</span>
           <div>
@@ -791,10 +614,10 @@ export function InspectionsBookingCalendar() {
         </div>
       </div>
 
-      {/* On phones the bar sits under the calendar and sticks to the bottom of the screen only while the
-          booking is in view; tablets and laptops pin it to the bottom of the screen. */}
+      {/* The bar sits under the calendar and sticks to the bottom of the screen until the customer scrolls
+          down to the details below it. */}
       {bannerSlot && (
-        <div className="sticky bottom-0 z-[60] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:fixed sm:inset-x-0 sm:mx-0 sm:mt-0">
+        <div className="sticky bottom-0 z-[45] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:mx-0 sm:rounded-2xl sm:border sm:px-6 sm:pb-4">
           <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <div role="status" aria-live="polite" className="min-w-0">
               <p className="text-sm font-semibold leading-relaxed sm:text-base">
@@ -826,13 +649,143 @@ export function InspectionsBookingCalendar() {
                 </a>
               </Button>
             ) : (
-              <Button type="button" size="lg" onClick={openDetails} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
-                Continue <ChevronRight className="ml-2 h-5 w-5" />
+              <Button type="button" size="lg" onClick={goToDetails} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
+                Continue <ChevronDown className="ml-2 h-5 w-5" />
               </Button>
             )}
           </div>
         </div>
       )}
+
+      <form onSubmit={handleSubmit} className="mt-10 space-y-10">
+        <div ref={detailsRef} tabIndex={-1} aria-label="Tell us about the car" className="scroll-mt-24 outline-none">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">3</span>
+            <div>
+              <h3 className="text-xl font-bold">Tell us about the car</h3>
+              <p className="text-sm text-muted-foreground">This lets us prepare before we arrive.</p>
+            </div>
+          </div>
+          <div className="grid gap-4 rounded-3xl border border-border bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-6">
+            <div className="space-y-1.5">
+              <Label htmlFor="registration">Registration *</Label>
+              <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required autoCapitalize="characters" autoCorrect="off" spellCheck={false} autoComplete="off" className="uk-numberplate text-center tracking-widest" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="location">Where is the car? *</Label>
+              <Input id="location" value={form.location} onChange={set("location")} placeholder="Postcode or dealer name" required />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="sellerName">Seller&apos;s name</Label>
+              <Input id="sellerName" value={form.sellerName} onChange={set("sellerName")} placeholder="Private seller or dealership" autoComplete="off" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="sellerPhone">Seller&apos;s contact number</Label>
+              <Input id="sellerPhone" type="tel" value={form.sellerPhone} onChange={set("sellerPhone")} placeholder="07700 900000" autoComplete="off" />
+            </div>
+
+            {form.sellerPhone.trim().length >= 10 && (
+              <div className="sm:col-span-2 flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3 sm:flex-row sm:items-center">
+                <div className="flex flex-1 items-start gap-2">
+                  <TriangleAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-700" />
+                  <p className="text-sm text-amber-900">
+                    Please make sure the seller can give us access to the vehicle at this time before you pay.
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <a href={`tel:${form.sellerPhone.replace(/\s+/g, "")}`} className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 text-sm font-semibold text-amber-900 hover:bg-amber-100 sm:flex-initial">
+                    <Phone className="h-3.5 w-3.5" /> Call seller
+                  </a>
+                  <a href={`https://wa.me/${toWhatsAppNumber(form.sellerPhone)}`} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 text-sm font-semibold text-white hover:bg-[#1da851] sm:flex-initial">
+                    <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
+                  </a>
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label htmlFor="advertUrl">Link to the advert</Label>
+              <Input id="advertUrl" type="text" value={form.advertUrl} onChange={set("advertUrl")} placeholder="AutoTrader, eBay, Facebook Marketplace, dealer advert..." />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="mb-4 flex items-center gap-3">
+            <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">4</span>
+            <div>
+              <h3 className="text-xl font-bold">Your details</h3>
+              <p className="text-sm text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
+            </div>
+          </div>
+          <div className="grid gap-4 rounded-3xl border border-border bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-6">
+            <div className="space-y-1.5">
+              <Label htmlFor="name">Full name *</Label>
+              <Input id="name" value={form.name} onChange={set("name")} placeholder="Your name" required autoComplete="name" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="phone">Phone number *</Label>
+              <Input id="phone" type="tel" value={form.phone} onChange={set("phone")} placeholder="07700 900000" required autoComplete="tel" />
+            </div>
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label htmlFor="email">Email address *</Label>
+              <Input id="email" type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required autoComplete="email" />
+            </div>
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label htmlFor="notes">Anything you&apos;re already concerned about?</Label>
+              <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Any noises, warning lights, seller comments or access details..." rows={2} maxLength={400} />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          {formError && <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{formError}</p>}
+          <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="font-bold">{selectedPackage.name}</p>
+                {selectedSlot ? (
+                  <p className="text-sm font-semibold text-foreground">
+                    {new Date(selectedSlot.start).toLocaleString("en-GB", {
+                      dateStyle: "full",
+                      timeStyle: "short",
+                      timeZone: "Europe/London",
+                    })}
+                  </p>
+                ) : (
+                  <button type="button" onClick={showTimes} className="text-sm font-semibold text-primary underline underline-offset-4">
+                    Choose a date and time above
+                  </button>
+                )}
+                <p className="text-sm text-muted-foreground">
+                  {evOnly
+                    ? "Battery test and State of Health report, without an inspection"
+                    : withEvSoh
+                      ? "Includes EV Battery State of Health Report (+£49.99)"
+                      : "Inspection only — no optional battery State of Health report"}
+                </p>
+                {selectedSlot && shortNoticeConfirmed && isShortNotice(selectedSlot, nowMs) && (
+                  <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                    <Check className="h-4 w-4" /> Short-notice slot confirmed with Henry
+                  </p>
+                )}
+              </div>
+              <p className="shrink-0 text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
+            </div>
+          </div>
+
+          <Button type="submit" size="lg" disabled={submitting} className="h-14 w-full text-lg font-bold bg-primary hover:bg-primary/90">
+            {submitting ? (
+              <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Opening secure payment...</>
+            ) : (
+              <>Reserve My {evOnly ? "Battery Check" : "Inspection"} — £{totalPrice.toFixed(2)} <ChevronRight className="ml-2 h-5 w-5" /></>
+            )}
+          </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            Secure checkout via Stripe. Your appointment is confirmed once payment is complete.
+          </p>
+        </div>
+      </form>
     </div>
   )
 }
