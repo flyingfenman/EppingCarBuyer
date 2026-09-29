@@ -504,7 +504,7 @@ export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel
                         </span>
                       )}
                     </span>
-                    <span className="mt-1 block text-xs leading-relaxed text-muted-foreground sm:text-sm">{section.description}</span>
+                    <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">{section.description}</span>
                   </span>
                   <span className="shrink-0 rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-foreground">
                     {section.items.length}
@@ -550,7 +550,7 @@ export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel
             </div>
             <Link
               href="/ev-battery-health-check"
-              className="inline-flex shrink-0 items-center gap-2 font-bold text-primary hover:underline"
+              className="inline-flex min-h-11 shrink-0 items-center gap-2 font-bold text-primary hover:underline"
             >
               EV Battery Health <ArrowRight className="h-4 w-4" />
             </Link>

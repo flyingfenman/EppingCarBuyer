@@ -25,16 +25,16 @@ export function EvBatterySoh() {
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
+              <Button asChild size="lg" className="h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
                 <Link href="/vehicle-inspections/book">
                   Add EV Battery SOH — £49.99
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
+              <Button asChild size="lg" variant="outline" className="h-12 border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
                 <Link href="/vehicle-inspections/book?package=ev">Battery check only — £99.99</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
+              <Button asChild size="lg" variant="outline" className="h-12 border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
                 <Link href="/ev-battery-health-check">Learn about the battery test</Link>
               </Button>
             </div>
@@ -76,7 +76,7 @@ export function EvBatterySoh() {
               </div>
             </div>
 
-            <p className="mt-6 pt-5 border-t border-border text-xs text-muted-foreground leading-relaxed">
+            <p className="mt-6 pt-5 border-t border-border text-sm text-muted-foreground leading-relaxed">
               The Autel EV Battery Health Test is a diagnostic SOH assessment based on data available from the vehicle/BMS. It is not a full independent charge-and-discharge capacity test.
             </p>
           </div>
