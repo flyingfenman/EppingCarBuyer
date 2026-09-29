@@ -134,7 +134,7 @@ export function InspectionsBookingCalendar() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    // Links such as the EV page's can choose the package: /vehicle-inspections?package=ev#book
+    // Links such as the EV page's can choose the package: /vehicle-inspections/book?package=ev
     const requestedPackage = params.get("package")
     if (isPackageKey(requestedPackage)) setPackageKey(requestedPackage)
     const registration = params.get("reg")?.trim().toUpperCase()
@@ -142,8 +142,8 @@ export function InspectionsBookingCalendar() {
       setPrefilledReg(registration)
       setForm((current) => ({ ...current, registration: current.registration || registration }))
     }
-    // Arriving from the homepage chooser: the browser's own jump to #book gets undone during page load,
-    // so retry briefly until the section is in view.
+    // Arriving on a #book link: the browser's own jump gets undone during page load, so retry briefly
+    // until the section is in view.
     if (window.location.hash === "#book") return scrollToAnchorWhileLoading("book")
   }, [])
 

@@ -84,7 +84,7 @@ export default function InspectionNotesPage() {
               Get it inspected before you hand over your money. Book online and we&apos;ll come to the car.
             </p>
             <Link
-              href="/vehicle-inspections#book"
+              href="/vehicle-inspections/book"
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-bold text-slate-950 transition hover:bg-slate-100"
             >
               <CalendarCheck className="h-5 w-5" aria-hidden="true" /> Book an inspection

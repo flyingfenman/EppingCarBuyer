@@ -91,7 +91,7 @@ export function LocalInspectionPage({
 
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
-                href="/vehicle-inspections#book"
+                href="/vehicle-inspections/book"
                 className="inline-flex h-13 items-center justify-center rounded-xl bg-primary px-7 py-3.5 text-base font-bold text-primary-foreground transition hover:bg-primary/90"
               >
                 Book an Inspection <ArrowRight className="ml-2 h-4 w-4" />
@@ -284,7 +284,7 @@ export function LocalInspectionPage({
             <ShieldCheck className="mx-auto h-9 w-9 text-emerald-400" />
             <h2 className="mt-4 text-3xl font-bold">Inspect it before you buy it.</h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-300">Independent pre-purchase vehicle inspections in {city} from £149.99.</p>
-            <Link href="/vehicle-inspections#book" className="mt-6 inline-flex items-center rounded-xl bg-white px-6 py-3 font-bold text-slate-950 transition hover:bg-slate-100">
+            <Link href="/vehicle-inspections/book" className="mt-6 inline-flex items-center rounded-xl bg-white px-6 py-3 font-bold text-slate-950 transition hover:bg-slate-100">
               Book an Inspection <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>

@@ -144,12 +144,12 @@ export default function EvBatteryHealthCheckPage() {
             </div>
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild size="lg" className="h-14 w-full sm:w-auto px-8 bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
-                <Link href="/vehicle-inspections?package=ev#book">
+                <Link href="/vehicle-inspections/book?package=ev">
                   Book the battery check — £99.99 <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-14 w-full sm:w-auto px-8 bg-white font-bold">
-                <Link href="/vehicle-inspections#book">Book a vehicle inspection</Link>
+                <Link href="/vehicle-inspections/book">Book a vehicle inspection</Link>
               </Button>
             </div>
             <p className="mt-5 flex items-center justify-center gap-2 text-sm text-muted-foreground">
@@ -242,7 +242,7 @@ export default function EvBatteryHealthCheckPage() {
               </p>
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="h-14 px-7 font-bold bg-primary text-primary-foreground hover:bg-primary/90">
-                  <Link href="/vehicle-inspections#book">
+                  <Link href="/vehicle-inspections/book">
                     Book an EV inspection <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
@@ -298,10 +298,10 @@ export default function EvBatteryHealthCheckPage() {
             </p>
             <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild size="lg" className="h-14 w-full sm:w-auto px-8 font-bold bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href="/vehicle-inspections#book">View inspection packages &amp; book</Link>
+                <Link href="/vehicle-inspections/book">View inspection packages &amp; book</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-14 w-full sm:w-auto px-8 font-bold bg-white">
-                <Link href="/vehicle-inspections?package=ev#book">Book the battery check — £99.99</Link>
+                <Link href="/vehicle-inspections/book?package=ev">Book the battery check — £99.99</Link>
               </Button>
             </div>
           </div>

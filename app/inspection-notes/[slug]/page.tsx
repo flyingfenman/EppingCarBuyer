@@ -177,7 +177,7 @@ export default async function InspectionNotePage({ params }: Props) {
                 Find out what&apos;s wrong before you pay, not after. We come to the car, wherever it&apos;s being sold.
               </p>
               <Link
-                href="/vehicle-inspections#book"
+                href="/vehicle-inspections/book"
                 className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-bold text-slate-950 transition hover:bg-slate-100"
               >
                 <CalendarCheck className="h-5 w-5" aria-hidden="true" /> Book an inspection

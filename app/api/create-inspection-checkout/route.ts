@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
         landingPage: cleanText(trafficSource?.landingPage, 120),
       },
       success_url: `${origin}/vehicle-inspections/booked?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/vehicle-inspections?booking=cancelled`,
+      cancel_url: `${origin}/vehicle-inspections/book?booking=cancelled`,
     })
 
     return NextResponse.json({ url: session.url })
