@@ -25,7 +25,7 @@ export default function WhatWeInspectPage() {
             Back to Vehicle Inspections
           </Link>
           <Link
-            href="/vehicle-inspections#book"
+            href="/vehicle-inspections/book"
             className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-primary/90"
           >
             <CalendarCheck className="h-4 w-4" />

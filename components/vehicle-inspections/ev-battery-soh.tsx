@@ -26,14 +26,13 @@ export function EvBatterySoh() {
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
-                <a href="#book">
+                <Link href="/vehicle-inspections/book">
                   Add EV Battery SOH — £49.99
                   <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
+                </Link>
               </Button>
-              {/* A full page load, so the booking calendar opens with the battery check chosen. */}
               <Button asChild size="lg" variant="outline" className="border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
-                <a href="/vehicle-inspections?package=ev#book">Battery check only — £99.99</a>
+                <Link href="/vehicle-inspections/book?package=ev">Battery check only — £99.99</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary/20 bg-white text-foreground hover:bg-primary/5 hover:text-primary">
                 <Link href="/ev-battery-health-check">Learn about the battery test</Link>

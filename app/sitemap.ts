@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: Array<[path: string, priority: number]> = [
     ["/", 1.0],
     ["/vehicle-inspections", 0.95],
+    ["/vehicle-inspections/book", 0.9],
     ["/vehicle-inspections/what-we-inspect", 0.85],
     ["/vehicle-inspection-london", 0.9],
     ["/pre-purchase-car-inspection-essex", 0.9],

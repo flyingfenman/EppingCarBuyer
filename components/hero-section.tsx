@@ -67,7 +67,7 @@ export function HeroSection() {
     }
     const plate = reg.trim().toUpperCase()
     const query = plate ? `?reg=${encodeURIComponent(plate)}` : ""
-    window.location.assign(route === "inspection" ? `/vehicle-inspections${query}#book` : `/market-and-sell${query}#vehicle-details`)
+    window.location.assign(route === "inspection" ? `/vehicle-inspections/book${query}` : `/market-and-sell${query}#vehicle-details`)
   }
 
   return (

@@ -47,7 +47,7 @@ export function HomeCoreServices() {
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <Link
-                    href="/vehicle-inspections"
+                    href="/vehicle-inspections/book"
                     className="inline-flex h-12 items-center justify-center rounded-md border-2 border-[#0b7a70] bg-[#0d9488] px-6 font-bold text-white shadow-md transition-colors hover:bg-[#0b7a70]"
                   >
                     Book a Vehicle Inspection <ArrowRight className="ml-2 h-4 w-4" />
