@@ -16,6 +16,7 @@ import {
   BatteryCharging,
   BadgeCheck,
   Check,
+  ChevronDown,
   Wrench,
   CalendarDays,
 } from "lucide-react"
@@ -25,6 +26,7 @@ import { testimonials } from "@/lib/testimonials"
 import { trackWhatsAppClick } from "@/lib/tracking"
 import { getTrafficSource } from "@/lib/traffic-source"
 import { scrollToAnchorWhileLoading } from "@/lib/scroll-to-anchor"
+import { WhatsIncluded } from "./whats-included"
 
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
@@ -546,6 +548,16 @@ export function InspectionsBookingCalendar() {
             )
           })}
         </div>
+
+        <details className="group mt-4 overflow-hidden rounded-2xl border border-border bg-white">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-bold text-primary [&::-webkit-details-marker]:hidden">
+            Compare what&apos;s included
+            <ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-border bg-slate-50 p-3 sm:p-4">
+            <WhatsIncluded />
+          </div>
+        </details>
       </div>
 
       {!evOnly && (
@@ -566,8 +578,8 @@ export function InspectionsBookingCalendar() {
                   <p className="font-bold text-foreground">EV Battery State of Health Report</p>
                   <p className="text-lg font-bold text-emerald-800">+£49.99</p>
                 </div>
-                <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
-                  Dedicated traction-battery SOH assessment and customer battery health report for compatible fully electric and plug-in hybrid vehicles.
+                <p className="mt-1 text-sm text-muted-foreground">
+                  The battery&apos;s health as a percentage, with its own report. Not included in Standard or Premium.
                 </p>
                 <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-800 sm:text-xs">
                   <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
