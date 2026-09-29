@@ -10,12 +10,11 @@ const IN_BOTH = ["We come to the car", "History check", "Full diagnostics", "Roa
 export function InspectionsHero() {
   const review = testimonials[0]
   return (
-    <section className="relative overflow-hidden border-b bg-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(103,17,164,0.12),transparent_40%)]" />
-      <div className="container relative mx-auto px-4 py-8 sm:py-12 lg:py-16">
+    <section className="border-b bg-white">
+      <div className="container mx-auto px-4 py-8 sm:py-12 lg:py-16">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:gap-14">
           <div>
-            <div className="hidden items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-bold text-primary sm:inline-flex">
+            <div className="hidden items-center gap-2 rounded-full border border-primary/30 bg-white px-4 py-2 text-sm font-bold text-primary sm:inline-flex">
               <ShieldCheck className="h-4 w-4" />
               Independent pre-purchase car inspection service
             </div>
@@ -44,8 +43,11 @@ export function InspectionsHero() {
             </div>
           </div>
 
-          <a href="#reviews" className="group block rounded-3xl border border-primary/15 bg-white p-4 shadow-xl shadow-primary/10 transition hover:shadow-2xl lg:p-5">
-            <p className="mb-3 text-sm font-bold uppercase tracking-wide text-primary">What our customers say</p>
+          <a href="#reviews" className="group block rounded-3xl border border-border bg-white p-4 shadow-lg transition hover:shadow-xl lg:p-5">
+            <p className="mb-3 flex items-center justify-between gap-3 text-sm font-bold uppercase tracking-wide text-primary">
+              <span>What our customers say</span>
+              <span className="normal-case group-hover:underline lg:hidden">Read more ↓</span>
+            </p>
             <div className="flex items-center gap-4 lg:flex-col lg:items-stretch lg:gap-5">
               <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl lg:h-72 lg:w-full">
                 <Image
@@ -58,13 +60,13 @@ export function InspectionsHero() {
                 />
               </div>
               <div>
-                <p className="text-lg font-bold leading-snug lg:text-2xl">&ldquo;{review.headline}&rdquo;</p>
+                <p className="text-base font-bold leading-snug sm:text-lg lg:text-2xl">&ldquo;{review.headline}&rdquo;</p>
                 <p className="mt-2 text-sm font-semibold text-primary">
                   {review.name} · {review.vehicle}
                 </p>
               </div>
             </div>
-            <p className="mt-3 border-t border-border pt-3 text-sm font-bold text-primary group-hover:underline">Read more from our customers ↓</p>
+            <p className="mt-3 hidden border-t border-border pt-3 text-sm font-bold text-primary group-hover:underline lg:block">Read more from our customers ↓</p>
           </a>
         </div>
       </div>

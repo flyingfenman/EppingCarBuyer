@@ -35,7 +35,7 @@ const AREAS: Array<{ icon: LucideIcon; title: string; text: string }> = [
 // The areas every inspection covers, as a grid of icons, with a link to the full checklist.
 export function WhatWeCheck() {
   return (
-    <section className="bg-white py-12 sm:py-16">
+    <section className="border-t bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">What we check</p>
@@ -46,7 +46,7 @@ export function WhatWeCheck() {
         <div className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {AREAS.map(({ icon: Icon, title, text }) => (
             <div key={title} className="rounded-2xl border border-border bg-white p-4 shadow-sm sm:p-5">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                 <Icon className="h-6 w-6" />
               </span>
               <h3 className="mt-3 font-bold leading-snug">{title}</h3>

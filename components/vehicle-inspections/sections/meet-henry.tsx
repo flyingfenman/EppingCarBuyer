@@ -10,13 +10,11 @@ const POINTS = [
 // The person behind the inspection, and how to reach him directly.
 export function MeetHenry() {
   return (
-    <section className="overflow-hidden bg-white py-12 sm:py-16">
+    <section className="overflow-hidden border-t bg-white py-12 sm:py-16">
       <div className="container mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-[0.8fr_1.2fr] lg:gap-14">
-        <div className="relative mx-auto w-full max-w-xs md:max-w-sm">
-          <div className="absolute inset-x-2 bottom-0 top-12 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-primary/5" />
-          {/* The photo has a white background; multiply lets the lavender shape behind show through it. */}
+        <div className="mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border border-border bg-white shadow-md md:max-w-sm">
           {/* eslint-disable-next-line @next/next/no-img-element -- the same photo the home page uses */}
-          <img src="/henry.webp" alt={`Henry from ${SITE.brand}`} width={750} height={1000} loading="lazy" className="relative h-auto w-full object-contain mix-blend-multiply" />
+          <img src="/henry.webp" alt={`Henry from ${SITE.brand}`} width={750} height={1000} loading="lazy" className="h-auto w-full object-contain" />
         </div>
 
         <div>
@@ -28,8 +26,8 @@ export function MeetHenry() {
           <ul className="mt-6 space-y-3">
             {POINTS.map((point) => (
               <li key={point} className="flex items-start gap-3 text-lg font-semibold">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <Check className="h-4 w-4 text-primary" strokeWidth={3} />
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary">
+                  <Check className="h-4 w-4 text-white" strokeWidth={3} />
                 </span>
                 {point}
               </li>

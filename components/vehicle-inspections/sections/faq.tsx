@@ -56,7 +56,7 @@ export function InspectionsFAQ() {
   }
 
   return (
-    <section className="bg-primary/[0.04] py-12 sm:py-16">
+    <section className="border-t bg-white py-12 sm:py-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} suppressHydrationWarning />
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
