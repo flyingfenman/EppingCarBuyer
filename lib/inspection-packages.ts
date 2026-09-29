@@ -22,7 +22,7 @@ export const INSPECTION_PACKAGES: InspectionPackage[] = [
     amount: 149.99,
     points: "160-point inspection",
     strapline: "In-depth mechanical findings and buying guidance",
-    features: ["Engine / drivetrain, brakes, steering and suspension", "Full diagnostic scan and road test", "Vehicle history check", "Easy-to-understand video review", "Photo evidence and same-day mechanical report", "Personal call and buying guidance"],
+    features: ["History check: finance, write-off, stolen and mileage", "Full diagnostic scan and road test", "Engine / drivetrain, brakes, steering and suspension", "Video review, photos and same-day report", "Personal call and buying guidance"],
   },
   {
     key: "premium",
@@ -32,7 +32,7 @@ export const INSPECTION_PACKAGES: InspectionPackage[] = [
     amount: 199.99,
     points: "260-point inspection",
     strapline: "Deeper inspection and vehicle and seller research",
-    features: ["Everything in Standard, including video review", "Deeper bodywork and condition assessment", "Extended road test where safe and permitted", "Available auction, salvage and previous advert searches", "Checks for indicators of undisclosed motor trading"],
+    features: ["Everything in Standard, including history check and video review", "Paint-depth readings and deeper bodywork checks", "Auction, salvage and previous advert searches", "Repair-cost guidance and action plan", "Extended road test where safe and permitted", "Checks for signs of undisclosed motor trading"],
     popular: true,
   },
   {

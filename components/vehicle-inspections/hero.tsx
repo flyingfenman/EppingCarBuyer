@@ -1,8 +1,10 @@
-import { ShieldCheck } from "lucide-react"
+import { Check, ShieldCheck } from "lucide-react"
 import { BookNowButton } from "./book-now-button"
 
-// The title, the prices and the first of the page's two Book Now buttons; the detail sits in the
-// dropdowns below, so the page stays short, especially on phones.
+const IN_BOTH = ["We come to the car", "History check", "Full diagnostics", "Road test", "Video review", "Same-day report"]
+
+// The title, the prices, what both inspections include and the first of the page's two Book Now
+// buttons; the detail sits in the dropdowns below, so the page stays short, especially on phones.
 export function InspectionsHero() {
   return (
     <section className="relative overflow-hidden border-b bg-white">
@@ -22,8 +24,19 @@ export function InspectionsHero() {
             Years of buying cars with our own money shape how we inspect yours. We combine a detailed physical inspection, advanced diagnostics, road testing, vehicle history and clear video evidence so you understand the car before you commit.
           </p>
 
-          <p className="mt-4 text-base font-semibold text-foreground sm:mt-5 sm:text-lg">
-            Standard £149.99 · Premium £199.99 · Same-day report
+          <p className="mt-4 text-lg font-bold text-foreground sm:mt-5">
+            Standard £149.99 · Premium £199.99
+          </p>
+          <p className="mt-3 text-sm font-bold uppercase tracking-wide text-primary">Both inspections include</p>
+          <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2 font-semibold sm:flex sm:flex-wrap sm:gap-x-6">
+            {IN_BOTH.map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <Check className="h-5 w-5 shrink-0 text-emerald-600" /> {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+            EV battery health report: +£49.99 with either inspection, or £99.99 on its own.
           </p>
 
           <div className="mt-6">

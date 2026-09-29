@@ -40,6 +40,16 @@ const inspectionSections: InspectionSection[] = [
     ],
   },
   {
+    title: "Vehicle History Check",
+    description: "Every inspection, Standard and Premium, includes a history check for outstanding finance, theft, insurance write-off and mileage records.",
+    items: [
+      "Outstanding finance check",
+      "Stolen vehicle check",
+      "Insurance write-off / category check",
+      "Mileage-history consistency",
+    ],
+  },
+  {
     title: "Exterior Bodywork",
     description: "A panel-by-panel visual condition review rather than a quick walk around.",
     items: [
@@ -369,16 +379,12 @@ const inspectionSections: InspectionSection[] = [
   },
   {
     title: "Seller & Vehicle Provenance",
-    description: "Premium adds seller and vehicle provenance checks to help identify inconsistencies before money changes hands.",
+    description: "Premium goes beyond the history check with seller, logbook and advert-history checks to help identify inconsistencies before money changes hands.",
     premiumHighlight: true,
     items: [
       "Registration / VIN / history consistency",
       "V5C keeper details reviewed where supplied",
       "Private-seller name / ID consistency where documents and permission are available",
-      "Outstanding finance check",
-      "Stolen vehicle check",
-      "Insurance write-off / category check",
-      "Mileage-history consistency",
       "Available previous advert / auction / salvage searches",
       "Indicators of undisclosed motor trading",
       "Provenance findings and inconsistencies summary",

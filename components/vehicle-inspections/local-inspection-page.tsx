@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { MechanicalReportOverview } from "@/components/vehicle-inspections/mechanical-report-overview"
+import { WhatsIncluded } from "@/components/vehicle-inspections/whats-included"
 import {
   ArrowRight,
   BatteryCharging,
@@ -135,7 +136,7 @@ export function LocalInspectionPage({
                 {[
                   "Full-system diagnostic scan",
                   "Road test where safe and permitted",
-                  "Vehicle history check",
+                  "History check: finance, write-off, stolen and mileage",
                   "Body, chassis, tyres and interior checks",
                   "Powertrain-specific checks for petrol, diesel, hybrid or EV",
                   "Easy-to-understand video review in both packages",
@@ -192,7 +193,7 @@ export function LocalInspectionPage({
                   <div>
                     <h3 className="font-bold">Buying an electric or plug-in hybrid car?</h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Add a dedicated CARA Approved® Autel EV Battery State of Health report for compatible EVs and plug-in hybrids.
+                      Add a CARA Approved® Autel EV Battery State of Health report to either inspection for compatible EVs and plug-in hybrids. It isn&apos;t included in Standard or Premium.
                     </p>
                   </div>
                 </div>
@@ -204,6 +205,16 @@ export function LocalInspectionPage({
                 </div>
               </div>
             </div>
+
+            <details className="group mt-4 overflow-hidden rounded-2xl border border-border bg-white">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-bold text-primary [&::-webkit-details-marker]:hidden">
+                Compare what&apos;s included
+                <ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="border-t border-border bg-slate-50 p-3 sm:p-4">
+                <WhatsIncluded />
+              </div>
+            </details>
           </div>
         </div>
       </section>

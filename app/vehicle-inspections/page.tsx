@@ -6,6 +6,7 @@ import { InspectionsHero } from "@/components/vehicle-inspections/hero"
 import { BookNowButton } from "@/components/vehicle-inspections/book-now-button"
 import { BookingLinkRedirect } from "@/components/vehicle-inspections/booking-link-redirect"
 import { MechanicalReportOverview } from "@/components/vehicle-inspections/mechanical-report-overview"
+import { WhatsIncluded } from "@/components/vehicle-inspections/whats-included"
 import { InspectionsHowItWorks } from "@/components/vehicle-inspections/how-it-works"
 import { InspectionsWhatWeInspect } from "@/components/vehicle-inspections/what-we-inspect"
 import { EvBatterySoh } from "@/components/vehicle-inspections/ev-battery-soh"
@@ -71,21 +72,9 @@ export default function VehicleInspectionsPage() {
             </div>
 
             <div className="space-y-3">
-              <InfoSection icon={ListChecks} title="Packages & prices" summary="Standard £149.99 · Premium £199.99">
-                <div className="p-4 sm:p-6">
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-border p-4">
-                      <p className="text-sm font-bold text-primary">Standard Inspection</p>
-                      <p className="mt-1 text-3xl font-bold">£149.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">An in-depth 160-point mechanical and condition inspection covering the relevant engine and drivetrain, brakes, steering, suspension, diagnostics and road test. Includes vehicle history, a clear video review, photo evidence, same-day report and personal buying guidance.</p>
-                    </div>
-                    <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4">
-                      <p className="text-sm font-bold text-primary">Premium Inspection</p>
-                      <p className="mt-1 text-3xl font-bold">£199.99</p>
-                      <p className="mt-1 text-sm text-muted-foreground">Everything in Standard, including the video review and buying guidance, plus a deeper 260-point assessment, paint-depth assessment, extended road test, repair-cost guidance and additional vehicle and seller provenance searches.</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Premium adds searches of available auction, salvage and previous advert records, including Copart where available, and checks for indicators of undisclosed motor trading. Searches depend on available records. Road tests are subject to safety and permission.</p>
+              <InfoSection icon={ListChecks} title="What's included & prices" summary="Everything you get for £149.99 or £199.99">
+                <div className="bg-slate-50 p-3 sm:p-6">
+                  <WhatsIncluded />
                 </div>
               </InfoSection>
 
@@ -98,7 +87,7 @@ export default function VehicleInspectionsPage() {
                 </p>
               </InfoSection>
 
-              <InfoSection icon={FileSearch} title="What do you inspect?" summary="160-point Standard · 260-point Premium · diagnostics, paint, provenance and road test">
+              <InfoSection icon={FileSearch} title="What do you inspect?" summary="Every point on the checklist, with Premium-only sections marked">
                 <InspectionsWhatWeInspect />
               </InfoSection>
 

@@ -26,9 +26,19 @@ const faqs = [
       "Premium includes everything in Standard, including the video review and personal buying guidance, plus a deeper 260-point assessment with paint-depth checks on suitable panels, repair-cost guidance and an extended road test where safe and permitted. We also search available auction, salvage and previous advert records, including Copart where available, and look for indicators of undisclosed motor trading. We report the evidence found and any limitations; no matching record does not establish that a vehicle has never been auctioned.",
   },
   {
+    question: "Is a history check, like an HPI check, included?",
+    answer:
+      "Yes, in both Standard and Premium. We check for outstanding finance, insurance write-offs, theft and mileage records. Premium goes further with seller and logbook (V5C) checks where documents are available, searches of available auction, salvage and previous advert records, and checks for signs of undisclosed motor trading.",
+  },
+  {
+    question: "Does Premium include the EV battery State of Health report?",
+    answer:
+      "No. The battery State of Health report is an optional £49.99 extra with either inspection, so Standard with the report is £199.98 and Premium with the report is £249.98. Both inspections already include electric and hybrid fault checks, such as high-voltage, charging and battery-management systems, where the car supports them. If you only need the battery checked, it's £99.99 on its own.",
+  },
+  {
     question: "How much does a car inspection cost?",
     answer:
-      "There are two options: the Standard Inspection at £149.99 (a 160-point check) and the Premium Inspection at £199.99 (a 260-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric and plug-in hybrid vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99.",
+      "There are two options: the Standard Inspection at £149.99 (a 160-point check) and the Premium Inspection at £199.99 (a 260-point check). Both are adapted to the vehicle's powertrain, whether petrol, diesel, hybrid or electric. For compatible fully electric and plug-in hybrid vehicles, an EV Battery State of Health Report can be added to either inspection for £49.99, making £199.98 with Standard or £249.98 with Premium.",
   },
   {
     question: "Is it worth paying for an inspection before buying a used car?",
@@ -56,7 +66,7 @@ const faqs = [
       "No. The Autel EV Battery Health Test is a diagnostic SOH assessment based on data available from the vehicle and its battery management system. It is not a full independent charge-and-discharge capacity test.",
   },
   {
-    question: "Where do inspections take place?",
+    question: "Do you come to the car, and which areas do you cover?",
     answer:
       "Wherever the car is. The inspector travels to the vehicle — a dealer forecourt, a private seller's address, or your own home — covering Essex, Hertfordshire, South Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk.",
   },
