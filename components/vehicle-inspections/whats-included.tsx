@@ -3,9 +3,10 @@ import { BatteryCharging, Check, Plus, type LucideIcon } from "lucide-react"
 // What Standard and Premium include, with the battery report shown as a priced extra. It answers what
 // customers ask most: do you come to the car, is the history check in both, is the battery report in
 // Premium, and what's the total. Grouped lists rather than a table, so it reads easily on a phone.
-type Item = { label: string; note?: string }
+export type Item = { label: string; note?: string }
 
-const IN_BOTH: Item[] = [
+// The inspections page's price cards list these too.
+export const IN_BOTH: Item[] = [
   { label: "We come to the car", note: "At the dealer, the seller's home or yours, across Essex, Hertfordshire, London and nearby" },
   { label: "History check", note: "Outstanding finance, insurance write-off, stolen and mileage records" },
   { label: "Full diagnostic scan" },
@@ -16,7 +17,7 @@ const IN_BOTH: Item[] = [
   { label: "Personal call and buying advice" },
 ]
 
-const PREMIUM_ADDS: Item[] = [
+export const PREMIUM_ADDS: Item[] = [
   { label: "Paint-depth readings on suitable panels" },
   { label: "Deeper bodywork and condition assessment" },
   { label: "Repair-cost guidance and an action plan", note: "What to fix now, within three months and later" },
