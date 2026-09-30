@@ -140,6 +140,8 @@ export function InspectionsBookingCalendar() {
     // Links such as the EV page's can choose the package: /vehicle-inspections/book?package=ev
     const requestedPackage = params.get("package")
     if (isPackageKey(requestedPackage)) setPackageKey(requestedPackage)
+    // The battery add-on box on the inspections page comes here with ?battery=1, with the report already ticked.
+    if (params.get("battery") === "1") setIncludeEvSoh(true)
     const registration = params.get("reg")?.trim().toUpperCase()
     if (registration) {
       setPrefilledReg(registration)

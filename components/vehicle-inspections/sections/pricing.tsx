@@ -15,47 +15,169 @@ type Plan = {
   featured?: boolean
 }
 
-const PLANS: Plan[] = [
-  {
-    key: "standard",
-    name: "Standard",
-    price: "£149.99",
-    points: "160-point inspection",
-    forWho: "A thorough mechanical and condition check, with the history check, diagnostics and road test.",
-    items: IN_BOTH,
-    icon: Check,
-    cta: "Book Standard",
-  },
-  {
-    key: "premium",
-    name: "Premium",
-    price: "£199.99",
-    points: "260-point inspection",
-    forWho: "Our deepest inspection, with paint readings, repair costs and research into the car and seller.",
-    lead: "Everything in Standard, plus:",
-    items: PREMIUM_ADDS,
-    icon: Plus,
-    cta: "Book Premium",
-    featured: true,
-  },
-  {
-    key: "ev",
-    name: "EV Battery Health Check",
-    price: "£99.99",
-    points: "Battery check on its own",
-    forWho: "Just need an electric car's battery checked? The battery test and report, without an inspection.",
-    items: [
-      { label: "CARA Approved® Autel EV Battery Health Test" },
-      { label: "Battery State of Health as a percentage" },
-      { label: "Customer battery health report" },
-      { label: "Fully electric and plug-in hybrid cars", note: "Compatibility varies by make and model" },
-    ],
-    icon: Check,
-    cta: "Book the battery check",
-  },
+// What the battery report is, for the add-on box and the battery check on its own.
+const BATTERY_ITEMS: Item[] = [
+  { label: "CARA Approved® Autel EV Battery Health Test" },
+  { label: "Battery State of Health as a percentage" },
+  { label: "Customer battery health report" },
+  { label: "Fully electric and plug-in hybrid cars", note: "Compatibility varies by make and model" },
 ]
 
-// The three options side by side, each with everything it includes and its own Book button.
+// The battery report added to either inspection, with the totals.
+const BATTERY_OPTIONS = [
+  { key: "standard", name: "Standard", sum: "£149.99 + £49.99", total: "£199.98", featured: false },
+  { key: "premium", name: "Premium", sum: "£199.99 + £49.99", total: "£249.98", featured: true },
+] as const
+
+const STANDARD: Plan = {
+  key: "standard",
+  name: "Standard",
+  price: "£149.99",
+  points: "160-point inspection",
+  forWho: "A thorough mechanical and condition check, with the history check, diagnostics and road test.",
+  items: IN_BOTH,
+  icon: Check,
+  cta: "Book Standard",
+}
+
+const PREMIUM: Plan = {
+  key: "premium",
+  name: "Premium",
+  price: "£199.99",
+  points: "260-point inspection",
+  forWho: "Our deepest inspection, with paint readings, repair costs and research into the car and seller.",
+  lead: "Everything in Standard, plus:",
+  items: PREMIUM_ADDS,
+  icon: Plus,
+  cta: "Book Premium",
+  featured: true,
+}
+
+const EV_ONLY: Plan = {
+  key: "ev",
+  name: "EV Battery Health Check",
+  price: "£99.99",
+  points: "Battery check on its own",
+  forWho: "Just need an electric car's battery checked? The battery test and report, without an inspection.",
+  items: BATTERY_ITEMS,
+  icon: Check,
+  cta: "Book the battery check",
+}
+
+function Bullets({ items, icon: Icon = Check }: { items: Item[]; icon?: typeof Check }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item.label} className="flex items-start gap-3">
+          <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${Icon === Plus ? "bg-primary" : "bg-emerald-600"}`}>
+            <Icon className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+          </span>
+          <span>
+            <span className="block font-semibold leading-snug">{item.label}</span>
+            {item.note && <span className="mt-0.5 block text-sm text-muted-foreground">{item.note}</span>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function PlanCard({ plan, className = "" }: { plan: Plan; className?: string }) {
+  return (
+    <div
+      className={`relative flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
+        plan.featured ? "border-2 border-primary shadow-xl lg:-mt-4" : "border border-border shadow-sm"
+      } ${className}`}
+    >
+      {plan.featured && (
+        <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-4 py-1.5 text-sm font-bold text-primary-foreground shadow-md">
+          <BadgeCheck className="h-4 w-4" /> Most thorough
+        </span>
+      )}
+      <div className="flex items-center gap-2">
+        {plan.key === "ev" && <BatteryCharging className="h-5 w-5 text-primary" />}
+        <h3 className="text-2xl font-bold">{plan.name}</h3>
+      </div>
+      <p className="mt-1 text-sm font-semibold text-primary">{plan.points}</p>
+      <p className="mt-4 text-5xl font-bold tracking-tight">{plan.price}</p>
+      <p className="mt-3 text-muted-foreground">{plan.forWho}</p>
+
+      <Link
+        href={`/vehicle-inspections/book?package=${plan.key}`}
+        className={`mt-6 inline-flex min-h-12 items-center justify-center rounded-xl px-6 text-lg font-bold transition ${
+          plan.featured ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "border-2 border-primary bg-white text-primary hover:bg-primary/5"
+        }`}
+      >
+        {plan.cta} <ArrowRight className="ml-2 h-5 w-5" />
+      </Link>
+
+      <div className="mt-6 border-t border-border pt-5">
+        {plan.lead && <p className="mb-3 font-bold">{plan.lead}</p>}
+        <Bullets items={plan.items} icon={plan.icon} />
+      </div>
+    </div>
+  )
+}
+
+// Sits directly under the Standard and Premium boxes: the battery report added to either one, with the totals
+// and a Book button for each. The buttons open the booking page with the report already ticked.
+function BatteryAddOn() {
+  return (
+    <div id="battery-report" className="relative scroll-mt-24 rounded-3xl border border-border bg-white p-6 pt-8 shadow-sm sm:p-7 sm:pt-9 lg:col-span-2">
+      <span className="absolute -top-3.5 left-6 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-4 py-1.5 text-sm font-bold text-primary-foreground shadow-md sm:left-7">
+        <Plus className="h-4 w-4" strokeWidth={3} /> Add-on for either inspection
+      </span>
+
+      <div className="flex items-start gap-4">
+        <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground sm:flex">
+          <BatteryCharging className="h-8 w-8" />
+        </span>
+        <div>
+          <h3 className="text-2xl font-bold leading-tight sm:text-3xl">Buying an electric or plug-in hybrid?</h3>
+          <p className="mt-2 text-xl font-bold sm:text-2xl">
+            Add the battery report for <span className="whitespace-nowrap text-primary">+£49.99</span>
+          </p>
+          <p className="mt-1 text-muted-foreground">It isn&apos;t included in either inspection, so add it when you book.</p>
+        </div>
+      </div>
+
+      <div className="mt-6 border-t border-border pt-5">
+        <p className="mb-3 font-bold">The battery report includes:</p>
+        <Bullets items={BATTERY_ITEMS} />
+      </div>
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        {BATTERY_OPTIONS.map((option) => (
+          <div key={option.key} className="flex flex-col rounded-2xl border border-border bg-white p-5">
+            <p className="font-bold">{option.name} + battery report</p>
+            <p className="mt-1 text-4xl font-bold tracking-tight">{option.total}</p>
+            <p className="text-sm text-muted-foreground">{option.sum}</p>
+            <Link
+              href={`/vehicle-inspections/book?package=${option.key}&battery=1`}
+              className={`mt-4 inline-flex min-h-12 items-center justify-center rounded-xl px-3 py-2 text-center text-base font-bold leading-tight transition sm:px-4 sm:text-lg ${
+                option.featured ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "border-2 border-primary bg-white text-primary hover:bg-primary/5"
+              }`}
+            >
+              Book {option.name} + battery <ArrowRight className="ml-2 h-5 w-5 shrink-0" />
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 flex flex-col gap-1 sm:flex-row sm:gap-6">
+        <Link href="/ev-battery-health-check" className="inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4">
+          How the battery test works
+        </Link>
+        <Link href="/vehicle-inspections/what-we-inspect" className="inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4">
+          See all 260 checklist points
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+// Standard and Premium side by side, the battery add-on directly under them, and the battery check on its own
+// beside them (it follows the reader down the page on desktop). On phones they stack in that order.
 export function Pricing() {
   return (
     <section id="prices" className="scroll-mt-20 border-t bg-white py-12 sm:py-16">
@@ -66,76 +188,11 @@ export function Pricing() {
           <p className="mt-4 text-lg text-muted-foreground">Everything each one includes is listed below. Pick your exact time when you book.</p>
         </div>
 
-        <div className="mx-auto mt-10 grid max-w-6xl items-start gap-5 lg:grid-cols-3">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.key}
-              className={`relative flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
-                plan.featured ? "border-2 border-primary shadow-xl lg:-mt-4" : "border border-border shadow-sm"
-              }`}
-            >
-              {plan.featured && (
-                <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-4 py-1.5 text-sm font-bold text-primary-foreground shadow-md">
-                  <BadgeCheck className="h-4 w-4" /> Most thorough
-                </span>
-              )}
-              <div className="flex items-center gap-2">
-                {plan.key === "ev" && <BatteryCharging className="h-5 w-5 text-primary" />}
-                <h3 className="text-2xl font-bold">{plan.name}</h3>
-              </div>
-              <p className="mt-1 text-sm font-semibold text-primary">{plan.points}</p>
-              <p className="mt-4 text-5xl font-bold tracking-tight">{plan.price}</p>
-              <p className="mt-3 text-muted-foreground">{plan.forWho}</p>
-
-              <Link
-                href={`/vehicle-inspections/book?package=${plan.key}`}
-                className={`mt-6 inline-flex min-h-12 items-center justify-center rounded-xl px-6 text-lg font-bold transition ${
-                  plan.featured ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "border-2 border-primary bg-white text-primary hover:bg-primary/5"
-                }`}
-              >
-                {plan.cta} <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-
-              <div className="mt-6 border-t border-border pt-5">
-                {plan.lead && <p className="mb-3 font-bold">{plan.lead}</p>}
-                <ul className="space-y-3">
-                  {plan.items.map((item) => (
-                    <li key={item.label} className="flex items-start gap-3">
-                      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${plan.icon === Plus ? "bg-primary" : "bg-emerald-600"}`}>
-                        <plan.icon className="h-3.5 w-3.5 text-white" strokeWidth={3} />
-                      </span>
-                      <span>
-                        <span className="block font-semibold leading-snug">{item.label}</span>
-                        {item.note && <span className="mt-0.5 block text-sm text-muted-foreground">{item.note}</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-4 rounded-3xl border border-border bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <div className="flex items-start gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-              <BatteryCharging className="h-6 w-6" />
-            </span>
-            <div>
-              <p className="text-lg font-bold">Buying an electric or plug-in hybrid? Add the battery report for +£49.99</p>
-              <p className="text-muted-foreground">
-                It isn&apos;t included in either inspection. With it, Standard is <strong className="text-foreground">£199.98</strong> and Premium is <strong className="text-foreground">£249.98</strong>.
-              </p>
-            </div>
-          </div>
-          <div className="flex shrink-0 flex-col gap-1">
-            <Link href="/ev-battery-health-check" className="inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4">
-              How the battery test works
-            </Link>
-            <Link href="/vehicle-inspections/what-we-inspect" className="inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4">
-              See all 260 checklist points
-            </Link>
-          </div>
+        <div className="mx-auto mt-10 grid max-w-6xl gap-x-5 gap-y-8 lg:grid-cols-3">
+          <PlanCard plan={STANDARD} />
+          <PlanCard plan={PREMIUM} />
+          <BatteryAddOn />
+          <PlanCard plan={EV_ONLY} className="lg:sticky lg:top-24 lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:self-start" />
         </div>
       </div>
     </section>
