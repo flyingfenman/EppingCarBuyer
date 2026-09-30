@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ArrowRight, Camera, FileText, PhoneCall, Video, type LucideIcon } from "lucide-react"
 
 const ITEMS: Array<{ icon: LucideIcon; title: string; text: string }> = [
-  { icon: Camera, title: "30–40+ photos", text: "Every area of the car, so you see what we saw." },
+  { icon: Camera, title: "Comprehensive photos", text: "Every area of the car, so you see what we saw." },
   { icon: Video, title: "A video review", text: "The findings explained in plain English." },
   { icon: FileText, title: "A written report", text: "Sent the same day, to keep and to show the seller." },
   { icon: PhoneCall, title: "A call with Henry", text: "Talk through what it means before you decide." },
