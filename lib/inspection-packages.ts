@@ -22,7 +22,7 @@ export const INSPECTION_PACKAGES: InspectionPackage[] = [
     amount: 149.99,
     points: "160-point inspection",
     strapline: "In-depth mechanical findings and buying guidance",
-    features: ["History check: finance, write-off, stolen and mileage", "Full diagnostic scan and road test", "Engine / drivetrain, brakes, steering and suspension", "Video review, photos and same-day report", "Personal call and buying guidance"],
+    features: ["History check: finance, write-off, stolen and mileage", "Full diagnostic scan and road test where safe and permitted", "Engine / drivetrain, brakes, steering and suspension", "Video review, photos and same-day report", "Personal call and buying guidance"],
   },
   {
     key: "premium",
