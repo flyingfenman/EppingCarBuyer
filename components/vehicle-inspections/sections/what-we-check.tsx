@@ -3,7 +3,7 @@ import { ArrowRight, Info } from "lucide-react"
 
 type CheckItem = {
   title: string
-  icon: number
+  icon: string
 }
 
 type CheckGroup = {
@@ -12,90 +12,84 @@ type CheckGroup = {
   items: CheckItem[]
 }
 
-const SPRITE_COLS = 8
-const SPRITE_ROWS = 6
-
 const GROUPS: CheckGroup[] = [
   {
     title: "Mechanical",
     subtitle: "Mechanical, running gear and under-bonnet checks",
     items: [
-      { title: "Battery", icon: 0 },
-      { title: "Fuel system operation", icon: 1 },
-      { title: "CV Joint / boots, drive-shaft and universal joints", icon: 2 },
-      { title: "Ball joint and tie rod ends", icon: 3 },
-      { title: "Coolant recovery tank", icon: 5 },
-      { title: "Engine & transmission leaks and faults", icon: 6 },
-      { title: "Brake pad and rotor condition", icon: 7 },
-      { title: "Brake caliper leakage", icon: 8 },
-      { title: "Power steering", icon: 9 },
-      { title: "Engine / transmission mount condition", icon: 10 },
-      { title: "AC compressor operation", icon: 11 },
-      { title: "Tyre condition", icon: 12 },
-      { title: "Suspension", icon: 13 },
-      { title: "A/C condenser", icon: 14 },
-      { title: "Bushing condition", icon: 15 },
-      { title: "Alternator", icon: 38 },
-      { title: "Engine valve noise", icon: 39 },
-      { title: "Cooling fan operation", icon: 40 },
-      { title: "Transfer case condition", icon: 41 },
+      { title: "Battery", icon: "battery" },
+      { title: "Fuel system operation", icon: "fuel-system" },
+      { title: "CV Joint / boots, drive-shaft and universal joints", icon: "cv-joints" },
+      { title: "Ball joint and tie rod ends", icon: "ball-joint" },
+      { title: "Coolant recovery tank", icon: "coolant-recovery" },
+      { title: "Engine & transmission leaks and faults", icon: "engine-transmission-leaks" },
+      { title: "Brake pad and rotor condition", icon: "brake-pad-rotor" },
+      { title: "Brake caliper leakage", icon: "brake-caliper" },
+      { title: "Power steering", icon: "power-steering" },
+      { title: "Engine / transmission mount condition", icon: "engine-transmission-mount" },
+      { title: "AC compressor operation", icon: "ac-compressor" },
+      { title: "Tyre condition", icon: "tyre-condition" },
+      { title: "Suspension", icon: "suspension" },
+      { title: "A/C condenser", icon: "ac-condenser" },
+      { title: "Bushing condition", icon: "bushing-condition" },
+      { title: "Alternator", icon: "alternator" },
+      { title: "Engine valve noise", icon: "engine-valve-noise" },
+      { title: "Cooling fan operation", icon: "cooling-fan" },
+      { title: "Transfer case condition", icon: "transfer-case" },
     ],
   },
   {
     title: "Exterior",
     subtitle: "Bodywork, paint, lighting and exterior equipment",
     items: [
-      { title: "Major body repairs", icon: 16 },
-      { title: "Reverse Lights", icon: 17 },
-      { title: "Number plate lights", icon: 18 },
-      { title: "Scratches and Dints", icon: 19 },
-      { title: "Hazard", icon: 20 },
-      { title: "Headlights", icon: 21 },
-      { title: "Paint depth testing to all panels", icon: 22 },
-      { title: "Fog Lamp condition and operation", icon: 23 },
-      { title: "Tail Lights", icon: 4 },
-      { title: "Door operations", icon: 24 },
-      { title: "Turn signals operation", icon: 25 },
+      { title: "Major body repairs", icon: "major-body-repairs" },
+      { title: "Reverse Lights", icon: "reverse-lights" },
+      { title: "Number plate lights", icon: "number-plate-lights" },
+      { title: "Scratches and Dints", icon: "scratches-dints" },
+      { title: "Hazard", icon: "hazard" },
+      { title: "Headlights", icon: "headlights" },
+      { title: "Paint depth testing to all panels", icon: "paint-depth" },
+      { title: "Fog Lamp condition and operation", icon: "fog-lamp" },
+      { title: "Tail Lights", icon: "tail-lights" },
+      { title: "Door operations", icon: "door-operations" },
+      { title: "Turn signals operation", icon: "turn-signals" },
     ],
   },
   {
     title: "Interior",
     subtitle: "Cabin condition, controls and safety equipment",
     items: [
-      { title: "Interior lights", icon: 26 },
-      { title: "Seat belts", icon: 27 },
-      { title: "Wipers", icon: 28 },
-      { title: "Horn", icon: 29 },
-      { title: "Exterior mirrors", icon: 30 },
-      { title: "Dash board condition", icon: 31 },
-      { title: "A/C operation", icon: 32 },
-      { title: "Heater operation", icon: 33 },
-      { title: "Carpet condition", icon: 34 },
-      { title: "Steering wheel condition", icon: 35 },
-      { title: "Air vents", icon: 36 },
-      { title: "Electric windows", icon: 37 },
-      { title: "Fuel & temperature gauges", icon: 42 },
-      { title: "Park brake", icon: 43 },
+      { title: "Interior lights", icon: "interior-lights" },
+      { title: "Seat belts", icon: "seat-belts" },
+      { title: "Wipers", icon: "wipers" },
+      { title: "Horn", icon: "horn" },
+      { title: "Exterior mirrors", icon: "exterior-mirrors" },
+      { title: "Dash board condition", icon: "dashboard" },
+      { title: "A/C operation", icon: "ac-operation" },
+      { title: "Heater operation", icon: "heater-operation" },
+      { title: "Carpet condition", icon: "carpet-condition" },
+      { title: "Steering wheel condition", icon: "steering-wheel" },
+      { title: "Air vents", icon: "air-vents" },
+      { title: "Electric windows", icon: "electric-windows" },
+      { title: "Fuel & temperature gauges", icon: "fuel-temperature-gauges" },
+      { title: "Park brake", icon: "park-brake" },
     ],
   },
 ]
 
 function InspectionIcon({ item }: { item: CheckItem }) {
-  const col = item.icon % SPRITE_COLS
-  const row = Math.floor(item.icon / SPRITE_COLS)
-  const x = SPRITE_COLS === 1 ? 0 : (col / (SPRITE_COLS - 1)) * 100
-  const y = SPRITE_ROWS === 1 ? 0 : (row / (SPRITE_ROWS - 1)) * 100
-
   return (
     <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-      <span
-        aria-hidden="true"
-        className="h-16 w-16 shrink-0 bg-no-repeat sm:h-[72px] sm:w-[72px]"
-        style={{
-          backgroundImage: "url('/images/inspection-icons-full.webp')",
-          backgroundSize: `${SPRITE_COLS * 100}% ${SPRITE_ROWS * 100}%`,
-          backgroundPosition: `${x}% ${y}%`,
-        }}
+      {/* Individual 140px+ source artwork renders at roughly half-size for crisp HiDPI edges. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`/images/inspection-icons/${item.icon}.png`}
+        alt=""
+        width={72}
+        height={72}
+        loading="lazy"
+        decoding="async"
+        className="h-16 w-16 shrink-0 object-contain sm:h-[72px] sm:w-[72px]"
       />
       <p className="min-w-0 text-[13px] font-bold leading-[1.2] text-foreground sm:text-sm">{item.title}</p>
     </div>
