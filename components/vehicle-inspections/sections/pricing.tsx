@@ -34,7 +34,7 @@ const STANDARD: Plan = {
   name: "Standard",
   price: "£149.99",
   points: "160-point inspection",
-  forWho: "A thorough mechanical and condition check, with the history check, diagnostics and road test.",
+  forWho: "A thorough mechanical and condition check, with the history check, diagnostics and a road test where safe and permitted.",
   items: IN_BOTH,
   icon: Check,
   cta: "Book Standard",
