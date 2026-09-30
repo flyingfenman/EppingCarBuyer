@@ -26,7 +26,6 @@ import { testimonials } from "@/lib/testimonials"
 import { trackWhatsAppClick } from "@/lib/tracking"
 import { getTrafficSource } from "@/lib/traffic-source"
 import { scrollToAnchorWhileLoading } from "@/lib/scroll-to-anchor"
-import { WhatsIncluded } from "./whats-included"
 
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
@@ -371,44 +370,51 @@ export function InspectionsBookingCalendar() {
             )
           })}
         </div>
-
-        <details className="group mt-4 overflow-hidden rounded-2xl border border-border bg-white">
-          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-bold text-primary [&::-webkit-details-marker]:hidden">
-            Compare what&apos;s included
-            <ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" />
-          </summary>
-          <div className="border-t border-border bg-slate-50 p-3 sm:p-4">
-            <WhatsIncluded />
-          </div>
-        </details>
       </div>
 
       {!evOnly && (
-        <div>
-          <div className="mb-4 flex items-center gap-3">
-            <span className="hidden h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground sm:inline-flex">+</span>
+        <div className="rounded-3xl border border-border bg-white p-4 shadow-sm sm:p-6">
+          <div className="flex items-start gap-3 sm:gap-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground sm:h-12 sm:w-12">
+              <BatteryCharging className="h-6 w-6" />
+            </span>
             <div>
-              <h3 className="font-bold">Optional EV battery State of Health report</h3>
-              <p className="hidden text-xs text-muted-foreground sm:block">Choose your add-on now. EV-specific inspection checks are already included in both inspections.</p>
+              <h3 className="text-xl font-bold leading-tight sm:text-2xl">Buying an electric or plug-in hybrid?</h3>
+              <p className="mt-1 text-lg font-bold sm:text-xl">
+                Add the battery report for <span className="whitespace-nowrap text-primary">+£49.99</span>
+              </p>
             </div>
           </div>
-          <label htmlFor="includeEvSoh" className={`block cursor-pointer rounded-2xl border-2 p-4 transition-all ${includeEvSoh ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-border bg-background hover:border-emerald-300"}`}>
-            <div className="flex items-start gap-3">
-              <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="mt-1 h-5 w-5 rounded border-border accent-emerald-600" />
-              <BatteryCharging className="h-6 w-6 flex-shrink-0 text-emerald-700" />
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="font-bold text-foreground">EV Battery State of Health Report</p>
-                  <p className="text-lg font-bold text-emerald-800">+£49.99</p>
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  The battery&apos;s health as a percentage, with its own report. Not included in Standard or Premium.
-                </p>
-                <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-800 sm:text-xs">
-                  <BadgeCheck className="h-4 w-4" /> CARA Approved® Autel EV Battery Health Test
-                </p>
-              </div>
-            </div>
+
+          <ul className="mt-4 space-y-2">
+            <li className="flex items-start gap-2.5 font-semibold">
+              <Check className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" strokeWidth={3} />
+              The battery&apos;s State of Health as a percentage, with its own report
+            </li>
+            <li className="flex items-start gap-2.5 font-semibold">
+              <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+              CARA Approved® Autel EV Battery Health Test
+            </li>
+          </ul>
+          <p className="mt-3 font-semibold">Not included in Standard or Premium.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Both inspections already include electric and hybrid fault checks; this adds the battery health test. For fully electric and plug-in hybrid cars only, and compatibility varies by make and model.
+          </p>
+
+          <label
+            htmlFor="includeEvSoh"
+            className={`mt-4 flex min-h-16 cursor-pointer items-center gap-4 rounded-2xl border-2 bg-white p-4 transition ${includeEvSoh ? "border-primary shadow-md" : "border-border hover:border-primary/50"}`}
+          >
+            <input id="includeEvSoh" type="checkbox" checked={includeEvSoh} onChange={(e) => setIncludeEvSoh(e.target.checked)} className="h-6 w-6 shrink-0 rounded border-border accent-primary" />
+            <span className="flex-1">
+              <span className="block text-lg font-bold leading-tight">{includeEvSoh ? "Battery report added" : "Add the battery report"}</span>
+              <span className="block text-sm text-muted-foreground">
+                {includeEvSoh
+                  ? `Your total is now £${totalPrice.toFixed(2)}`
+                  : `${selectedPackage.name} £${selectedPackage.amount.toFixed(2)}, or £${(selectedPackage.amount + EV_SOH_PRICE).toFixed(2)} with the report`}
+              </span>
+            </span>
+            <span className="text-xl font-bold text-primary">+£49.99</span>
           </label>
         </div>
       )}
