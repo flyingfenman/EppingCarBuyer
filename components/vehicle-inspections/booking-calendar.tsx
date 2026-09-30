@@ -16,13 +16,11 @@ import {
   BatteryCharging,
   BadgeCheck,
   Check,
-  ChevronDown,
   Wrench,
   CalendarDays,
 } from "lucide-react"
 import { MIN_BOOKING_NOTICE_HOURS, isPackageKey, type PackageKey, type Slot } from "@/lib/inspection-slots"
 import { INSPECTION_PACKAGES as PACKAGES } from "@/lib/inspection-packages"
-import { testimonials } from "@/lib/testimonials"
 import { trackWhatsAppClick } from "@/lib/tracking"
 import { getTrafficSource } from "@/lib/traffic-source"
 import { scrollToAnchorWhileLoading } from "@/lib/scroll-to-anchor"
@@ -91,17 +89,6 @@ function formatSlotTime(slot: Slot) {
   })
 }
 
-function formatSlotDateTime(slot: Slot) {
-  return new Date(slot.start).toLocaleString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Europe/London",
-  })
-}
-
 export function InspectionsBookingCalendar() {
   const timeRef = useRef<HTMLDivElement>(null)
   const detailsRef = useRef<HTMLDivElement>(null)
@@ -113,6 +100,8 @@ export function InspectionsBookingCalendar() {
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
   const [shortNoticeCandidate, setShortNoticeCandidate] = useState<Slot | null>(null)
   const [shortNoticeConfirmed, setShortNoticeConfirmed] = useState(false)
+  const [packageChoicesOpen, setPackageChoicesOpen] = useState(true)
+  const [detailsUnlocked, setDetailsUnlocked] = useState(false)
   const [viewDate, setViewDate] = useState(() => {
     const d = new Date()
     return { year: d.getFullYear(), month: d.getMonth() }
@@ -138,7 +127,10 @@ export function InspectionsBookingCalendar() {
     const params = new URLSearchParams(window.location.search)
     // Links such as the EV page's can choose the package: /vehicle-inspections/book?package=ev
     const requestedPackage = params.get("package")
-    if (isPackageKey(requestedPackage)) setPackageKey(requestedPackage)
+    if (isPackageKey(requestedPackage)) {
+      setPackageKey(requestedPackage)
+      setPackageChoicesOpen(false)
+    }
     // The battery add-on box on the inspections page comes here with ?battery=1, with the report already ticked.
     if (params.get("battery") === "1") setIncludeEvSoh(true)
     const registration = params.get("reg")?.trim().toUpperCase()
@@ -216,8 +208,10 @@ export function InspectionsBookingCalendar() {
 
   const choosePackage = (key: PackageKey) => {
     setPackageKey(key)
+    setPackageChoicesOpen(false)
     setSelectedDate(null)
     setSelectedSlot(null)
+    setDetailsUnlocked(false)
     resetShortNotice()
     setError("")
   }
@@ -225,11 +219,13 @@ export function InspectionsBookingCalendar() {
   const chooseDate = (key: string) => {
     setSelectedDate(key)
     setSelectedSlot(null)
+    setDetailsUnlocked(false)
     resetShortNotice()
   }
 
   const handleSlotClick = (slot: Slot) => {
     setSelectedSlot(null)
+    setDetailsUnlocked(false)
     setError("")
     if (isShortNotice(slot, nowMs)) {
       setShortNoticeCandidate(slot)
@@ -240,17 +236,16 @@ export function InspectionsBookingCalendar() {
     setSelectedSlot(slot)
   }
 
-  const bookConfirmedShortNotice = () => {
-    if (!shortNoticeCandidate || !shortNoticeConfirmed) return
-    setSelectedSlot(shortNoticeCandidate)
-  }
-
-  // The details are further down the same page, under the calendar.
+  // The details stay hidden until the customer has chosen a valid appointment and presses Continue.
   const goToDetails = () => {
-    const details = detailsRef.current
-    if (!details) return
-    details.scrollIntoView({ behavior: "smooth", block: "start" })
-    details.focus({ preventScroll: true })
+    if (!selectedSlot) return
+    setDetailsUnlocked(true)
+    requestAnimationFrame(() => {
+      const details = detailsRef.current
+      if (!details) return
+      details.scrollIntoView({ behavior: "smooth", block: "start" })
+      details.focus({ preventScroll: true })
+    })
   }
 
   const showTimes = () => timeRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -302,8 +297,6 @@ export function InspectionsBookingCalendar() {
   }
 
   const daySlots = selectedDate ? slotsByDate.get(selectedDate) || [] : []
-  const bannerSlot = selectedSlot || shortNoticeCandidate
-  const needsWhatsAppConfirmation = !selectedSlot && !!shortNoticeCandidate
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -335,41 +328,53 @@ export function InspectionsBookingCalendar() {
 
       <div className="mb-8">
         <div className="mb-4 flex items-center gap-3">
-          <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">1</span>
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">1</span>
           <div>
-            <h3 className="text-xl font-bold">Choose your inspection</h3>
+            <h3 className="text-xl font-bold">Your inspection</h3>
             <p className="hidden text-sm text-muted-foreground sm:block">Both inspections include an in-depth mechanical inspection, video review, evidence and personal buying guidance, or you can book the EV battery check on its own.</p>
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {PACKAGES.map((pkg) => {
-            const active = packageKey === pkg.key
-            return (
-              <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} aria-pressed={active} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${pkg.key === "ev" ? "md:col-span-2" : ""} ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
-                {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
-                <p className="text-sm font-semibold text-muted-foreground">{pkg.points}</p>
-                <div className="mt-1 flex items-end gap-3">
-                  <div className="flex items-center gap-2.5">
-                    {/* Radio-style circle, filled on the chosen package. */}
-                    <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 bg-white ${active ? "border-primary" : "border-muted-foreground/40"}`}>
-                      {active && <span className="h-3 w-3 rounded-full bg-primary" />}
-                    </span>
-                    <h4 className="text-xl font-bold">{pkg.name}</h4>
+        {packageChoicesOpen ? (
+          <div className="grid gap-4 md:grid-cols-2">
+            {PACKAGES.map((pkg) => {
+              const active = packageKey === pkg.key
+              return (
+                <button key={pkg.key} type="button" onClick={() => choosePackage(pkg.key)} aria-pressed={active} className={`relative rounded-2xl border-2 p-5 text-left transition-all ${pkg.key === "ev" ? "md:col-span-2" : ""} ${active ? "border-primary bg-primary/5 shadow-md" : "border-border bg-white hover:border-primary/40 hover:shadow-sm"}`}>
+                  {pkg.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">Most thorough</span>}
+                  <p className="text-sm font-semibold text-muted-foreground">{pkg.points}</p>
+                  <div className="mt-1 flex items-end gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 bg-white ${active ? "border-primary" : "border-muted-foreground/40"}`}>
+                        {active && <span className="h-3 w-3 rounded-full bg-primary" />}
+                      </span>
+                      <h4 className="text-xl font-bold">{pkg.name}</h4>
+                    </div>
+                    <p className="ml-auto text-3xl font-bold">{pkg.price}</p>
                   </div>
-                  <p className="ml-auto text-3xl font-bold">{pkg.price}</p>
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
-                <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                  {pkg.features.map((feature, i) => (
-                    <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT ? "hidden sm:flex" : "flex"} items-center gap-2 text-sm font-medium sm:text-xs`}><Check className="h-4 w-4 shrink-0 text-emerald-600" /> {feature}</span>
-                  ))}
-                </div>
-                {active && <div className="mt-4 flex items-center gap-2 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</div>}
-              </button>
-            )
-          })}
-        </div>
+                  <p className="mt-2 text-sm text-muted-foreground">{pkg.strapline}</p>
+                  <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                    {pkg.features.map((feature, i) => (
+                      <span key={feature} className={`${i >= PHONE_FEATURE_LIMIT ? "hidden sm:flex" : "flex"} items-center gap-2 text-sm font-medium sm:text-xs`}><Check className="h-4 w-4 shrink-0 text-emerald-600" /> {feature}</span>
+                    ))}
+                  </div>
+                  {active && <div className="mt-4 flex items-center gap-2 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</div>}
+                </button>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-4 rounded-2xl border-2 border-primary bg-primary/5 p-4 sm:p-5">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-muted-foreground">{selectedPackage.points}</p>
+              <p className="text-lg font-bold sm:text-xl">{selectedPackage.name} — {selectedPackage.price}</p>
+              <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-bold text-primary"><Check className="h-4 w-4" /> Selected</p>
+            </div>
+            <button type="button" onClick={() => setPackageChoicesOpen(true)} className="shrink-0 text-sm font-bold text-primary underline underline-offset-4">
+              Change inspection
+            </button>
+          </div>
+        )}
       </div>
 
       {!evOnly && (
@@ -419,7 +424,7 @@ export function InspectionsBookingCalendar() {
         </div>
       )}
 
-      <div className="my-6 flex items-center justify-between gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-4" aria-live="polite">
+      <div className="my-6 hidden items-center justify-between gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:flex" aria-live="polite">
         <div>
           <p className="font-bold">{selectedPackage.name}</p>
           <p className="text-sm text-muted-foreground">
@@ -433,25 +438,11 @@ export function InspectionsBookingCalendar() {
         <p className="shrink-0 text-2xl font-bold">£{totalPrice.toFixed(2)}</p>
       </div>
 
-      <div className="mb-6 space-y-3">
-        <p className="text-sm font-bold uppercase tracking-wide text-primary">What customers say</p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {testimonials.map((t) => (
-            <figure key={t.name} className="rounded-2xl border border-border bg-white p-4">
-              <blockquote className="font-semibold leading-snug text-foreground">&ldquo;{t.headline}&rdquo;</blockquote>
-              <figcaption className="mt-2 text-sm text-muted-foreground">
-                {t.name} · {t.vehicle} · {t.town}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-
       <div ref={timeRef} className="scroll-mt-24">
         <div className="mb-4 flex items-center gap-3">
-          <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">2</span>
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">2</span>
           <div>
-            <h3 className="text-xl font-bold">Choose a convenient time</h3>
+            <h3 className="text-xl font-bold">Choose your appointment</h3>
             <p className="text-sm text-muted-foreground">All open times are shown. If it&apos;s within 24 hours, message us first so we can confirm travel and access.</p>
           </div>
         </div>
@@ -563,40 +554,31 @@ export function InspectionsBookingCalendar() {
                         )
                       })}
                     </div>
-
                     {shortNoticeCandidate && dateKey(shortNoticeCandidate.start) === selectedDate && (
                       <div className="mt-4 rounded-2xl border-2 border-primary/20 bg-white p-4">
-                        <p className="font-bold text-foreground">Want to book {formatSlotTime(shortNoticeCandidate)}?</p>
+                        <p className="font-bold text-foreground">This appointment is within 24 hours</p>
                         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                          Message Henry first. If he confirms this exact short-notice slot is available, tick the box below to unlock online booking.
+                          Please WhatsApp Henry to confirm availability before paying.
                         </p>
-                        <a
-                          href={shortNoticeWhatsAppUrl(shortNoticeCandidate, selectedPackage.name)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
-                        >
-                          <MessageCircle className="h-4 w-4" /> Message Henry about this slot
-                        </a>
+                        <Button asChild className="mt-3 w-full bg-[#25D366] font-bold text-white hover:bg-[#1da851]">
+                          <a href={shortNoticeWhatsAppUrl(shortNoticeCandidate, selectedPackage.name)} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick("short_notice_slot")}>
+                            <MessageCircle className="mr-2 h-4 w-4" /> Message Henry on WhatsApp
+                          </a>
+                        </Button>
                         <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-primary/15 bg-primary/5 p-3">
                           <input
                             type="checkbox"
                             checked={shortNoticeConfirmed}
-                            onChange={(e) => setShortNoticeConfirmed(e.target.checked)}
+                            onChange={(e) => {
+                              const confirmed = e.target.checked
+                              setShortNoticeConfirmed(confirmed)
+                              setSelectedSlot(confirmed ? shortNoticeCandidate : null)
+                              setDetailsUnlocked(false)
+                            }}
                             className="mt-0.5 h-5 w-5 rounded border-border accent-primary"
                           />
-                          <span className="text-sm font-semibold text-foreground">
-                            Henry has confirmed {formatSlotDateTime(shortNoticeCandidate)} is available for me.
-                          </span>
+                          <span className="text-sm font-semibold text-foreground">Henry has confirmed this appointment.</span>
                         </label>
-                        <Button
-                          type="button"
-                          onClick={bookConfirmedShortNotice}
-                          disabled={!shortNoticeConfirmed}
-                          className="mt-3 w-full font-bold"
-                        >
-                          Book confirmed {formatSlotTime(shortNoticeCandidate)} slot
-                        </Button>
                       </div>
                     )}
                   </>
@@ -609,66 +591,34 @@ export function InspectionsBookingCalendar() {
         )}
 
         {error && <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
-
-        {/* Phones already get the short-notice steps when they pick a time inside 24 hours. */}
-        <div className="mt-5 hidden flex-col items-center justify-between gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:flex sm:flex-row">
-          <div>
-            <p className="font-bold text-foreground">Short-notice appointments are still shown.</p>
-            <p className="text-sm text-muted-foreground">Inside 24 hours, message Henry first. Once he confirms your exact slot, tick the confirmation box and book online as normal.</p>
-          </div>
-          <a href="https://wa.me/441992367909" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 flex-shrink-0 items-center justify-center gap-2 rounded-xl border border-primary/20 bg-white px-5 text-sm font-bold text-primary hover:bg-primary/5">
-            <MessageCircle className="h-4 w-4" /> Message Henry
-          </a>
-        </div>
       </div>
-
-      {/* The bar sits under the calendar and sticks to the bottom of the screen until the customer scrolls
-          down to the details below it. */}
-      {bannerSlot && (
-        <div className="sticky bottom-0 z-[45] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:mx-0 sm:rounded-2xl sm:border sm:px-6 sm:pb-4">
-          <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+      {/* Keep the selected appointment visible until the customer continues to their details. */}
+      {selectedSlot && !detailsUnlocked && (
+        <div className="sticky bottom-0 z-[45] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 py-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:mx-0 sm:rounded-2xl sm:border sm:px-6 sm:py-4">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 sm:gap-6">
             <div role="status" aria-live="polite" className="min-w-0">
-              <p className="text-sm font-semibold leading-relaxed sm:text-base">
-                You&apos;ve selected {selectedPackage.label}
-                {withEvSoh ? " with an EV battery health check" : ""}
-                {" on "}
-                {new Date(bannerSlot.start).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  timeZone: "Europe/London",
-                })}
-                {" at "}{formatSlotTime(bannerSlot)}.
+              <p className="truncate text-sm font-bold sm:hidden">
+                {selectedPackage.name.replace(" Inspection", "")} · {new Date(selectedSlot.start).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "Europe/London" })} · {formatSlotTime(selectedSlot)} · £{totalPrice.toFixed(2)}
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Total: <span className="font-bold text-foreground">£{totalPrice.toFixed(2)}</span>
-                {" · "}{needsWhatsAppConfirmation ? "Availability needs confirming." : "Booking confirmed after payment."}
-              </p>
-              {needsWhatsAppConfirmation && (
-                <p className="mt-1 text-sm text-muted-foreground">
-                  This appointment is within 24 hours. Continue to WhatsApp to message Henry and confirm availability.
+              <div className="hidden sm:block">
+                <p className="font-semibold">
+                  {selectedPackage.name} · {new Date(selectedSlot.start).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "Europe/London" })} · {formatSlotTime(selectedSlot)}
                 </p>
-              )}
+                <p className="text-sm text-muted-foreground">£{totalPrice.toFixed(2)} · Booking confirmed after payment.</p>
+              </div>
             </div>
-            {needsWhatsAppConfirmation ? (
-              <Button asChild size="lg" className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
-                <a href={shortNoticeWhatsAppUrl(bannerSlot, selectedPackage.name)} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick("short_notice_slot")}>
-                  Continue to WhatsApp <MessageCircle className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-            ) : (
-              <Button type="button" size="lg" onClick={goToDetails} className="h-12 w-full shrink-0 bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto sm:min-w-40">
-                Continue <ChevronDown className="ml-2 h-5 w-5" />
-              </Button>
-            )}
+            <Button type="button" onClick={goToDetails} className="h-11 shrink-0 bg-primary px-4 font-bold text-primary-foreground hover:bg-primary/90 sm:min-w-40">
+              Continue <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
           </div>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="mt-10 space-y-10">
+      {detailsUnlocked && selectedSlot && (
+        <form onSubmit={handleSubmit} className="mt-10 space-y-10">
         <div ref={detailsRef} tabIndex={-1} aria-label="Tell us about the car" className="scroll-mt-24 outline-none">
           <div className="mb-4 flex items-center gap-3">
-            <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">3</span>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">3</span>
             <div>
               <h3 className="text-xl font-bold">Tell us about the car</h3>
               <p className="text-sm text-muted-foreground">This lets us prepare before we arrive.</p>
@@ -720,7 +670,7 @@ export function InspectionsBookingCalendar() {
 
         <div>
           <div className="mb-4 flex items-center gap-3">
-            <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground sm:inline-flex">4</span>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">4</span>
             <div>
               <h3 className="text-xl font-bold">Your details</h3>
               <p className="text-sm text-muted-foreground">We&apos;ll send the booking confirmation and report here.</p>
@@ -793,7 +743,8 @@ export function InspectionsBookingCalendar() {
             Secure checkout via Stripe. Your appointment is confirmed once payment is complete.
           </p>
         </div>
-      </form>
+        </form>
+      )}
     </div>
   )
 }
