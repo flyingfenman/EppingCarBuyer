@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Info } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 type CheckItem = {
   title: string
@@ -111,7 +111,7 @@ export function WhatWeCheck() {
             Swipe left or right: Mechanical · Exterior · Interior
           </p>
 
-          <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible md:pb-0">
+          <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 touch-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible md:pb-0">
             {GROUPS.map((group) => (
               <article
                 key={group.title}
@@ -132,11 +132,7 @@ export function WhatWeCheck() {
           </div>
         </div>
 
-        <div className="mx-auto mt-7 flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex items-start gap-2 text-sm text-muted-foreground">
-            <Info className="mt-0.5 h-4 w-4 shrink-0" />
-            These are examples from the full inspection. Checks are adapted to the car and the parts we can reach.
-          </p>
+        <div className="mx-auto mt-7 flex max-w-7xl justify-end">
           <Link href="/vehicle-inspections/what-we-inspect" className="inline-flex min-h-11 shrink-0 items-center font-bold text-primary hover:underline">
             See all 260 points <ArrowRight className="ml-1.5 h-4 w-4" />
           </Link>
