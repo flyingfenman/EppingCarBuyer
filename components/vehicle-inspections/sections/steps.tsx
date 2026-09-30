@@ -4,7 +4,7 @@ import { SITE } from "./site"
 const STEPS: Array<{ icon: LucideIcon; title: string; text: string }> = [
   { icon: CalendarCheck, title: "Book online in minutes", text: "Choose Standard, Premium or the battery check, then pick an exact time from the live calendar." },
   { icon: MapPin, title: "We go to the car", text: `At the dealer, the seller's home or yours, across ${SITE.area}.` },
-  { icon: ClipboardCheck, title: "We inspect and test it", text: "Diagnostics, history check, a thorough physical inspection and a road test where safe and permitted." },
+  { icon: ClipboardCheck, title: "We inspect and test it", text: "Diagnostics, history check, a thorough physical inspection and a road test." },
   { icon: PhoneCall, title: "Same-day report and a call", text: "Photos, a video review and your written report, then Henry talks you through what it means." },
 ]
 
