@@ -1,4 +1,4 @@
-import { Check, MessageCircle, Phone } from "lucide-react"
+import { Check, MessageCircle } from "lucide-react"
 import { SITE } from "./site"
 
 const POINTS = [
@@ -36,9 +36,6 @@ export function MeetHenry() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 text-lg font-bold text-white transition hover:bg-[#1da851]">
               <MessageCircle className="h-5 w-5" /> Message Henry
-            </a>
-            <a href={SITE.phoneHref} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-primary/30 px-6 text-lg font-bold text-primary transition hover:bg-primary/5">
-              <Phone className="h-5 w-5" /> {SITE.phoneDisplay}
             </a>
           </div>
         </div>

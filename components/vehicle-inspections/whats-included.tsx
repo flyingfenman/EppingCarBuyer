@@ -12,7 +12,7 @@ export const IN_BOTH: Item[] = [
   { label: "Full diagnostic scan" },
   { label: "Engine, gearbox, brakes, steering, suspension and tyres" },
   { label: "Electric and hybrid fault checks", note: "High-voltage, charging and battery-management systems, where supported" },
-  { label: "Road test, where safe and permitted", note: "Extended in Premium" },
+  { label: "Road test", note: "Extended in Premium" },
   { label: "Video review, photos and a same-day report" },
   { label: "Personal call and buying advice" },
 ]

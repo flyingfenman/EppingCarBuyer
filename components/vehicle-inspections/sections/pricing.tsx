@@ -23,12 +23,6 @@ const BATTERY_ITEMS: Item[] = [
   { label: "Fully electric and plug-in hybrid cars", note: "Compatibility varies by make and model" },
 ]
 
-// The battery report added to either inspection, with the totals.
-const BATTERY_OPTIONS = [
-  { key: "standard", name: "Standard", sum: "£149.99 + £49.99", total: "£199.98", featured: false },
-  { key: "premium", name: "Premium", sum: "£199.99 + £49.99", total: "£249.98", featured: true },
-] as const
-
 const STANDARD: Plan = {
   key: "standard",
   name: "Standard",
@@ -119,8 +113,7 @@ function PlanCard({ plan, className = "" }: { plan: Plan; className?: string }) 
   )
 }
 
-// Sits directly under the Standard and Premium boxes: the battery report added to either one, with the totals
-// and a Book button for each. The buttons open the booking page with the report already ticked.
+// A small box directly under Standard and Premium: the battery report can be added to either inspection.
 function BatteryAddOn() {
   return (
     <div id="battery-report" className="relative scroll-mt-24 rounded-3xl border border-border bg-white p-6 pt-8 shadow-sm sm:p-7 sm:pt-9 lg:col-span-2">
@@ -134,34 +127,10 @@ function BatteryAddOn() {
         </span>
         <div>
           <h3 className="text-2xl font-bold leading-tight sm:text-3xl">Buying an electric or plug-in hybrid?</h3>
-          <p className="mt-2 text-xl font-bold sm:text-2xl">
-            Add the battery report for <span className="whitespace-nowrap text-primary">+£49.99</span>
-          </p>
+          <p className="mt-2 text-xl font-bold sm:text-2xl">Add the battery report for</p>
+          <p className="text-5xl font-bold tracking-tight text-primary sm:text-6xl">+£49.99</p>
           <p className="mt-1 text-muted-foreground">It isn&apos;t included in either inspection, so add it when you book.</p>
         </div>
-      </div>
-
-      <div className="mt-6 border-t border-border pt-5">
-        <p className="mb-3 font-bold">The battery report includes:</p>
-        <Bullets items={BATTERY_ITEMS} />
-      </div>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        {BATTERY_OPTIONS.map((option) => (
-          <div key={option.key} className="flex flex-col rounded-2xl border border-border bg-white p-5">
-            <p className="font-bold">{option.name} + battery report</p>
-            <p className="mt-1 text-4xl font-bold tracking-tight">{option.total}</p>
-            <p className="text-sm text-muted-foreground">{option.sum}</p>
-            <Link
-              href={`/vehicle-inspections/book?package=${option.key}&battery=1`}
-              className={`mt-4 inline-flex min-h-12 items-center justify-center rounded-xl px-3 py-2 text-center text-base font-bold leading-tight transition sm:px-4 sm:text-lg ${
-                option.featured ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "border-2 border-primary bg-white text-primary hover:bg-primary/5"
-              }`}
-            >
-              Book {option.name} + battery <ArrowRight className="ml-2 h-5 w-5 shrink-0" />
-            </Link>
-          </div>
-        ))}
       </div>
 
       <div className="mt-5 flex flex-col gap-1 sm:flex-row sm:gap-6">
@@ -177,14 +146,13 @@ function BatteryAddOn() {
 }
 
 // Standard and Premium side by side, the battery add-on directly under them, and the battery check on its own
-// beside them (it follows the reader down the page on desktop). On phones they stack in that order.
+// beside them. On phones they stack in that order.
 export function Pricing() {
   return (
     <section id="prices" className="scroll-mt-20 border-t bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Fixed prices, no quote needed</p>
-          <h2 className="mt-3 text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">Choose your inspection</h2>
+          <h2 className="text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">Choose your inspection</h2>
           <p className="mt-4 text-lg text-muted-foreground">Everything each one includes is listed below. Pick your exact time when you book.</p>
         </div>
 
@@ -192,7 +160,7 @@ export function Pricing() {
           <PlanCard plan={STANDARD} />
           <PlanCard plan={PREMIUM} />
           <BatteryAddOn />
-          <PlanCard plan={EV_ONLY} className="lg:sticky lg:top-24 lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:self-start" />
+          <PlanCard plan={EV_ONLY} className="lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:self-start" />
         </div>
       </div>
     </section>

@@ -135,7 +135,7 @@ export function LocalInspectionPage({
               <div className="mt-4 space-y-3 text-sm">
                 {[
                   "Full-system diagnostic scan",
-                  "Road test where safe and permitted",
+                  "Road test",
                   "History check: finance, write-off, stolen and mileage",
                   "Body, chassis, tyres and interior checks",
                   "Powertrain-specific checks for petrol, diesel, hybrid or EV",
