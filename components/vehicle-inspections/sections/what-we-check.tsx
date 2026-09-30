@@ -28,7 +28,7 @@ const AREAS: Array<{ icon: LucideIcon; title: string; text: string }> = [
   { icon: SprayCan, title: "Bodywork and paint", text: "Panel by panel; paint readings with Premium" },
   { icon: Armchair, title: "Interior and equipment", text: "Controls, safety kit and features" },
   { icon: CarFront, title: "Underbody", text: "Corrosion, damage and leaks where accessible" },
-  { icon: Route, title: "Road test", text: "How it drives, where safe and permitted" },
+  { icon: Route, title: "Road test", text: "How it drives on the road" },
   { icon: BatteryCharging, title: "Electric and hybrid", text: "High-voltage, charging and battery faults" },
 ]
 
@@ -40,7 +40,7 @@ export function WhatWeCheck() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">What we check</p>
           <h2 className="mt-3 text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">Bumper to bumper, and underneath</h2>
-          <p className="mt-4 text-lg text-muted-foreground">Up to 260 points, adapted to petrol, diesel, hybrid and electric cars.</p>
+          <p className="mt-4 text-lg text-muted-foreground">260 points, adapted to petrol, diesel, hybrid and electric cars.</p>
         </div>
 
         <div className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
