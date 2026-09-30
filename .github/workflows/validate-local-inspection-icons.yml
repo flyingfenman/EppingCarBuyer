@@ -1,0 +1,19 @@
+name: Validate local inspection icons
+
+on:
+  push:
+    branches:
+      - "chatgpt/local-inspection-icons-20260930"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      STRIPE_SECRET_KEY: sk_test_placeholder_for_build_only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run build
