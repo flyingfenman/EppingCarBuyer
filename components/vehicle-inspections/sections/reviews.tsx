@@ -9,8 +9,7 @@ export function Reviews() {
     <section id="reviews" className="scroll-mt-20 bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Real customers, real cars</p>
-          <h2 className="mt-3 text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">What our customers say about us</h2>
+          <h2 className="text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">What our customers say about us</h2>
         </div>
 
         <div className="mx-auto mt-8 grid max-w-5xl gap-5 sm:mt-10 sm:gap-6">
