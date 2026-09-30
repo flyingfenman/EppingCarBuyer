@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import {
   ArrowRight,
@@ -8,7 +7,6 @@ import {
   BatteryCharging,
   CheckCircle2,
   FileSearch,
-  FileText,
   Gauge,
   ScanLine,
   ShieldCheck,
@@ -450,26 +448,6 @@ export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel
           </div>
         </div>
 
-        <div className="mx-auto mt-7 max-w-4xl overflow-hidden rounded-2xl border border-primary/15 bg-primary/5">
-          <div className="grid gap-4 p-5 sm:grid-cols-[220px_1fr] sm:items-center sm:p-6">
-            <div className="relative aspect-[1600/629] overflow-hidden rounded-xl bg-white">
-              <Image
-                src="/images/inspection-car.jpg"
-                alt="Vehicle undergoing a pre-purchase inspection"
-                fill
-                className="object-contain p-2"
-                sizes="220px"
-              />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold">The point count is the checklist, not the limit of the inspection</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Vehicle diagnostics can involve dozens of control modules and many individual fault records or live-data values. Those are investigated and reported where relevant, but we keep the headline at a clear {premiumTotal} defined inspection points rather than artificially inflating the number.
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div className="mx-auto mt-7 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {differentiators.map(({ icon: Icon, title, text }) => (
             <div key={title} className="rounded-2xl border border-border bg-white p-4 shadow-sm">
@@ -563,16 +541,6 @@ export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel
           </div>
         </div>
 
-        <div className="mt-7 text-center">
-          <Link
-            href="/vehicle-inspections/sample-report"
-            className="inline-flex items-center gap-2 rounded-xl border-2 border-primary/20 bg-primary/5 px-5 py-3 font-bold text-primary transition-all hover:border-primary/40 hover:bg-primary/10"
-          >
-            <FileText className="h-5 w-5" />
-            See a sample inspection report
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
       </div>
     </section>
   )
