@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, BadgeCheck, BatteryCharging, Check, Plus } from "lucide-react"
+import { ArrowRight, BatteryCharging, Check, Plus } from "lucide-react"
 import { IN_BOTH, PREMIUM_ADDS, type Item } from "../whats-included"
 
 type Plan = {
@@ -12,7 +12,6 @@ type Plan = {
   items: Item[]
   icon: typeof Check
   cta: string
-  featured?: boolean
 }
 
 // What the battery report is, for the add-on box and the battery check on its own.
@@ -45,7 +44,6 @@ const PREMIUM: Plan = {
   items: PREMIUM_ADDS,
   icon: Plus,
   cta: "Book Premium",
-  featured: true,
 }
 
 const EV_ONLY: Plan = {
@@ -79,16 +77,7 @@ function Bullets({ items, icon: Icon = Check }: { items: Item[]; icon?: typeof C
 
 function PlanCard({ plan, className = "" }: { plan: Plan; className?: string }) {
   return (
-    <div
-      className={`relative flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
-        plan.featured ? "border-2 border-primary shadow-xl lg:-mt-4" : "border border-border shadow-sm"
-      } ${className}`}
-    >
-      {plan.featured && (
-        <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-4 py-1.5 text-sm font-bold text-primary-foreground shadow-md">
-          <BadgeCheck className="h-4 w-4" /> Most thorough
-        </span>
-      )}
+    <div className={`relative flex flex-col rounded-3xl border border-border bg-white p-6 shadow-sm sm:p-7 ${className}`}>
       <div className="flex items-center gap-2">
         {plan.key === "ev" && <BatteryCharging className="h-5 w-5 text-primary" />}
         <h3 className="text-2xl font-bold">{plan.name}</h3>
@@ -99,9 +88,7 @@ function PlanCard({ plan, className = "" }: { plan: Plan; className?: string }) 
 
       <Link
         href={`/vehicle-inspections/book?package=${plan.key}`}
-        className={`mt-6 inline-flex min-h-12 items-center justify-center rounded-xl px-6 text-lg font-bold transition ${
-          plan.featured ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "border-2 border-primary bg-white text-primary hover:bg-primary/5"
-        }`}
+        className="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-primary px-6 text-lg font-bold text-primary-foreground shadow-md transition hover:bg-primary/90"
       >
         {plan.cta} <ArrowRight className="ml-2 h-5 w-5" />
       </Link>
