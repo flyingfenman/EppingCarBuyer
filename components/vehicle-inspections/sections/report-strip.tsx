@@ -1,5 +1,4 @@
-import Link from "next/link"
-import { ArrowRight, Camera, FileText, PhoneCall, Video, type LucideIcon } from "lucide-react"
+import { Camera, FileText, PhoneCall, Video, type LucideIcon } from "lucide-react"
 
 const ITEMS: Array<{ icon: LucideIcon; title: string; text: string }> = [
   { icon: Camera, title: "Comprehensive photos", text: "Every area of the car, so you see what we saw." },
@@ -30,11 +29,6 @@ export function ReportStrip() {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Link href="/vehicle-inspections/sample-report" className="inline-flex min-h-12 items-center rounded-xl border-2 border-primary/30 bg-white px-6 text-lg font-bold text-primary transition hover:bg-primary/5">
-            View a sample report <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </div>
       </div>
     </section>
   )
