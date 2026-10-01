@@ -4,7 +4,6 @@ import { LocalAreaLinks } from "@/components/vehicle-inspections/local-area-link
 import { InspectionsHero } from "@/components/vehicle-inspections/sections/hero"
 import { Reviews } from "@/components/vehicle-inspections/sections/reviews"
 import { Pricing } from "@/components/vehicle-inspections/sections/pricing"
-import { Steps } from "@/components/vehicle-inspections/sections/steps"
 import { WhatWeCheck } from "@/components/vehicle-inspections/sections/what-we-check"
 import { ReportStrip } from "@/components/vehicle-inspections/sections/report-strip"
 import { MeetHenry } from "@/components/vehicle-inspections/sections/meet-henry"
@@ -36,7 +35,6 @@ export default function VehicleInspectionsPage() {
       <InspectionsHero />
       <Reviews />
       <Pricing />
-      <Steps />
       <WhatWeCheck />
       <ReportStrip />
       <MeetHenry />
