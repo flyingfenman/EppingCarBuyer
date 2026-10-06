@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
+import { getStripe } from "@/lib/stripe"
 import { createClient } from "@/lib/supabase/server"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 
 // Shop is offline for now — see app/shop/page.tsx for the matching flag.
 const SHOP_ENABLED = false
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const origin = request.nextUrl.origin
     const firstPhoto = product.photos && product.photos.length > 0 ? product.photos[0] : undefined
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
       shipping_address_collection: { allowed_countries: ["GB"] },

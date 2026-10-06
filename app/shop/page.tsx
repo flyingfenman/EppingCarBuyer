@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   description: "Car accessories and products, delivered to your door.",
 }
 
-export const revalidate = 60
+// Always fresh: on Cloudflare pages are not regenerated on a timer, so a page showing the current stock is rendered on request.
+export const dynamic = "force-dynamic"
 
 // Shop is taken offline for now — nav link removed and this route redirects home.
 // Everything below is left in place so it's a one-line change to bring back.

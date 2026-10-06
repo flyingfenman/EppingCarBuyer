@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
+import { getStripe } from "@/lib/stripe"
 import {
   MIN_BOOKING_NOTICE_HOURS,
   PACKAGE_DURATIONS_MIN,
@@ -9,7 +10,6 @@ import {
 } from "@/lib/inspection-slots"
 import { getOccupiedRanges } from "@/lib/inspection-bookings-server"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 const LOOKBACK_DAYS = 45
 const EV_SOH_AMOUNT_PENCE = 4999
 
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
       customer_email: email,

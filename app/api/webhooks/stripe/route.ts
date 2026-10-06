@@ -1,8 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
+import { getStripe } from "@/lib/stripe"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
 const WHATSAPP_ICON = "https://cdn.simpleicons.org/whatsapp/FFFFFF"
 const FONT_STACK = "'Fredoka','Trebuchet MS',Arial,Helvetica,sans-serif"
 
@@ -172,6 +171,7 @@ export async function POST(request: NextRequest) {
   const body = await request.text()
   const signature = request.headers.get("stripe-signature")
 
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
   if (!signature || !webhookSecret) {
     console.error("Stripe webhook: missing signature or webhook secret")
     return NextResponse.json({ error: "Webhook not configured" }, { status: 400 })
@@ -179,7 +179,8 @@ export async function POST(request: NextRequest) {
 
   let event: Stripe.Event
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+    // The asynchronous check uses the web-standard crypto available on Cloudflare as well as on Node.
+    event = await getStripe().webhooks.constructEventAsync(body, signature, webhookSecret, undefined, Stripe.createSubtleCryptoProvider())
   } catch (error) {
     console.error("Stripe webhook signature verification failed:", error)
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 })

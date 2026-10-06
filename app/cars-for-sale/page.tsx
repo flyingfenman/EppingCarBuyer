@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 60
+// Always fresh: on Cloudflare pages are not regenerated on a timer, so a page showing the current stock is rendered on request.
+export const dynamic = "force-dynamic"
 
 export default async function CarsForSalePage() {
   const cars = await getPublicCars()
