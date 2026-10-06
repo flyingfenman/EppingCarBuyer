@@ -1,16 +1,15 @@
-import Stripe from "stripe"
+import { getStripe } from "@/lib/stripe"
 import { CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { BookingConversion } from "@/components/tracking/booking-conversion"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 
 // Only a genuinely paid inspection session counts as a conversion, so a made-up or reloaded URL can't inflate the numbers.
 async function getPaidBooking(sessionId?: string) {
   if (!sessionId || !sessionId.startsWith("cs_")) return null
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    const session = await getStripe().checkout.sessions.retrieve(sessionId)
     if (session.payment_status !== "paid" || session.metadata?.type !== "inspection_booking") return null
     return {
       transactionId: session.id,

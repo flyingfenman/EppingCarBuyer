@@ -1,7 +1,7 @@
 import "server-only"
-import Stripe from "stripe"
+import type Stripe from "stripe"
+import { getStripe } from "@/lib/stripe"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "")
 
 export interface OccupiedRange {
   start: string
@@ -20,7 +20,7 @@ export async function getOccupiedRanges(lookbackDays: number): Promise<OccupiedR
   for (let page = 0; page < 20; page++) {
     // 20 pages (2,000 sessions) is a generous ceiling for a small business — stops a runaway loop if
     // something upstream ever misbehaves, without silently truncating any realistic volume of bookings.
-    const response: Stripe.ApiList<Stripe.Checkout.Session> = await stripe.checkout.sessions.list({
+    const response: Stripe.ApiList<Stripe.Checkout.Session> = await getStripe().checkout.sessions.list({
       created: { gte: windowStart },
       limit: 100,
       starting_after: startingAfter,

@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local Cloudflare previews (npm run cf:preview). Never commit real keys.
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+DVSA_CLIENT_SECRET=
+RESEND_API_KEY=
