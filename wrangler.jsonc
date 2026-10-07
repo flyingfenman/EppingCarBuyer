@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "epping-car-buyer",
+  // Must match the Worker's name in the Cloudflare dashboard, or Cloudflare's build fails.
+  "name": "eppingcarbuyer",
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-06-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -11,7 +12,7 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "epping-car-buyer"
+      "service": "eppingcarbuyer"
     }
   ],
   // Car and valuation photos. Create this bucket once in the Cloudflare dashboard (R2 > Create bucket).
@@ -21,6 +22,8 @@
       "bucket_name": "epping-car-buyer-photos"
     }
   ],
+  // Keep variables added in the Cloudflare dashboard when Cloudflare deploys (otherwise each deploy wipes them).
+  "keep_vars": true,
   "observability": {
     "enabled": true
   }
