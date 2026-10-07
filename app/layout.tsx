@@ -1,6 +1,5 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Fredoka } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import { LayoutWrapper } from "@/components/layout-wrapper"
@@ -9,9 +8,16 @@ import Script from "next/script"
 import { SiteTracking } from "@/components/tracking/site-tracking"
 import { CookieConsentPrompt } from "@/components/tracking/cookie-consent-prompt"
 
-const fredoka = Fredoka({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+// Fredoka (SIL Open Font License, see public/fonts/Fredoka-OFL.txt), served from this site instead of fetched from Google
+// during every build: a failed Google Fonts download used to break deploys at random. It is the same latin variable
+// file Google served, declared for the same three weights as before so every heading and button renders unchanged.
+const fredoka = localFont({
+  src: [
+    { path: "../public/fonts/fredoka-latin.woff2", weight: "400", style: "normal" },
+    { path: "../public/fonts/fredoka-latin.woff2", weight: "500", style: "normal" },
+    { path: "../public/fonts/fredoka-latin.woff2", weight: "700", style: "normal" },
+  ],
+  display: "swap",
 })
 
 // Number-plate font, cut down to the basic Latin characters a registration can contain.
