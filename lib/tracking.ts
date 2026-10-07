@@ -1,7 +1,8 @@
 // Analytics and advertising tags (Google Analytics 4, Google Ads, Meta pixel) run through Cloudflare Zaraz, not in the
 // page: Zaraz loads them at Cloudflare's edge, only after the visitor agrees in the cookie banner. The IDs, the Ads
 // conversion labels (booking, WhatsApp click) and which tool fires on which event below are configured in the
-// Cloudflare dashboard (Zaraz > Tools / Triggers). This file only sends the events.
+// Cloudflare dashboard (Zaraz > Tools / Triggers). This file only sends the events: "purchase" (booking confirmed)
+// and "contact" (WhatsApp click), the same event names Google Analytics already used.
 
 type ZarazWindow = Window & {
   zaraz?: { track?: (eventName: string, eventProperties?: Record<string, unknown>) => unknown }
@@ -34,7 +35,7 @@ export function trackBookingComplete(booking: BookingConversionData) {
     // Storage blocked: still report the booking once for this page view.
   }
 
-  track("booking_complete", {
+  track("purchase", {
     transaction_id: booking.transactionId,
     value: booking.value,
     currency: booking.currency,
@@ -45,5 +46,5 @@ export function trackBookingComplete(booking: BookingConversionData) {
 }
 
 export function trackWhatsAppClick(clickLocation: string) {
-  track("whatsapp_click", { method: "whatsapp", click_location: clickLocation })
+  track("contact", { method: "whatsapp", click_location: clickLocation })
 }
