@@ -65,6 +65,8 @@ for visitors until the domain is pointed at Cloudflare, so Vercel can stay live 
   & Pages > Configure > Repository access).
 - Connecting an existing Worker to a repository does not start a build by itself. Push a commit to `main` (or retry
   the build) to start the first one.
+- To start a build by hand: Deployments > View build history > open the top build > Retry build. It builds the latest
+  commit on `main` with the current settings.
 
 ## Local preview of the Cloudflare build
 
