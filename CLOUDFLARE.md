@@ -5,7 +5,8 @@ for visitors until the domain is pointed at Cloudflare, so Vercel can stay live 
 
 ## What is in the code
 
-- `wrangler.jsonc`: the Cloudflare settings. The Worker is called **epping-car-buyer**; the photo bucket is **epping-car-buyer-photos**.
+- `wrangler.jsonc`: the Cloudflare settings. The Worker is called **eppingcarbuyer** (the name Cloudflare suggests for
+  this repository; it must match the Worker's name in the dashboard); the photo bucket is **epping-car-buyer-photos**.
 - `open-next.config.ts`: tells the adapter to serve pre-built pages from the deployed files.
 - `lib/photo-storage.ts` and `app/api/photos/[...key]/route.ts`: photo uploads go to the R2 bucket and are served back
   from `/api/photos/...`. When the site runs on Vercel instead, uploads still go to Vercel Blob (nothing to do).
@@ -16,20 +17,29 @@ for visitors until the domain is pointed at Cloudflare, so Vercel can stay live 
 ## One-time setup in Cloudflare
 
 1. **Create the photo bucket.** Cloudflare dashboard > R2 > Create bucket, named exactly `epping-car-buyer-photos`.
-2. **Connect GitHub.** Workers & Pages > Create > Import a repository, pick this repository.
-   - Worker name: `epping-car-buyer` (it must match `wrangler.jsonc`)
+2. **Connect GitHub.** Workers & Pages > Create application > Import a repository, pick this repository.
+   - Worker name: keep `eppingcarbuyer` (it must match `wrangler.jsonc`)
    - Production branch: `main`
-   - Build command: `pnpm run cf:build`
-   - Deploy command: `pnpm run cf:deploy`
-3. **Build variables** (the build settings page, *Variables and secrets*). These are baked into the pages when it builds:
+   - Build command: `pnpm run cf:build` (Cloudflare pre-fills `pnpm run build`; **change it**)
+   - Deploy command: `pnpm run cf:deploy` (Cloudflare pre-fills `npx wrangler deploy`; **change it**)
+   - If a build already ran with the pre-filled commands it fails with "Could not find compiled Open Next config".
+     Fix the two commands under Settings > Build, then retry the build.
+3. **Build variables** (Settings > Build > *Variables and secrets*). These are baked into the pages when it builds
+   (only the admin and dealer pages use them, but add them so those work):
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. **Runtime secrets** (the Worker's Settings > Variables and secrets). Copy the values from Vercel:
+
+   The Node version (22, the one this site was tested on) is set by the `.nvmrc` file, so there is no Node variable to add.
+4. **Runtime secrets** (the Worker's Settings > Variables and secrets). Choose the type **Secret** for each one.
+   Copy the values from Vercel:
    - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
    - `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`
    - `RESEND_API_KEY`
    - `DVSA_CLIENT_SECRET`
-5. Push to the branch. Cloudflare builds and gives you an address like `https://epping-car-buyer.<your-account>.workers.dev`.
+5. **Turn off preview builds** (Settings > Build > Branch control > untick *Enable Preview Builds*). Otherwise every
+   branch push builds a preview that has none of the keys.
+6. Push to `main` (or retry the build). Cloudflare builds and gives you an address like
+   `https://eppingcarbuyer.<your-account>.workers.dev`.
    Open it and try: the home page, a booking all the way to the Stripe test page (use Stripe test mode first),
    the contact form, and (admin) a photo upload.
 
@@ -54,6 +64,9 @@ pnpm run cf:preview
 
 ## Good to know
 
-- Cloudflare's free plan allows a 3 MB (compressed) site. This one is about 2.2 MB, so it fits, but check the current
-  limits and CPU allowance when you pick a plan; the paid Workers plan is about $5 a month.
+- Cloudflare's free plan allows only 10 ms of processing time per request, and rendering a page typically takes 10 to
+  20 ms, so use the paid Workers plan (about $5 a month) for the live site. The old 3 MB size limit has been removed
+  (it is now 64 MiB uncompressed on every plan); this site is about 2.3 MB compressed, well within it.
+- `wrangler.jsonc` sets `keep_vars`, so variables added in the Cloudflare dashboard are kept when Cloudflare deploys.
+  Keys should still be added as the **Secret** type.
 - Email is sent with Resend. Its DNS records live wherever the domain's DNS is hosted.
