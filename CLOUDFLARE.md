@@ -55,6 +55,17 @@ for visitors until the domain is pointed at Cloudflare, so Vercel can stay live 
 4. When you are happy: remove the project from Vercel. Photos already uploaded to Vercel Blob keep working by their
    address until the Blob store is deleted, so copy them to R2 first (ask Claude to write the copy script).
 
+## If a build fails
+
+- **"Could not find compiled Open Next config"**: the Build command is still Cloudflare's pre-filled `pnpm run build`.
+  It must be `pnpm run cf:build` (and the Deploy command `pnpm run cf:deploy`).
+- **"The project is linked to a repository that no longer exists"** (the build stops straight away): Cloudflare has lost
+  its connection to GitHub. Settings > Builds > Disconnect, then Connect and pick the repository again. If the repository
+  is not in the list, give the Cloudflare GitHub app access to it (GitHub > Settings > Applications > Cloudflare Workers
+  & Pages > Configure > Repository access).
+- Connecting an existing Worker to a repository does not start a build by itself. Push a commit to `main` (or retry
+  the build) to start the first one.
+
 ## Local preview of the Cloudflare build
 
 ```
