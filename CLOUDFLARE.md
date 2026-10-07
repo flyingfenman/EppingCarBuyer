@@ -83,3 +83,17 @@ pnpm run cf:preview
 - `wrangler.jsonc` sets `keep_vars`, so variables added in the Cloudflare dashboard are kept when Cloudflare deploys.
   Keys should still be added as the **Secret** type.
 - Email is sent with Resend. Its DNS records live wherever the domain's DNS is hosted.
+
+## Status after go-live (2026-10-08)
+
+- `eppingcarbuyer.com` and `www.eppingcarbuyer.com` are served by this Worker (custom domains); the bare domain is a
+  proxied placeholder record plus a 301 redirect rule to `www`. Email records (Zoho MX/SPF/DKIM, Resend, SES) are untouched.
+- The old Vercel CNAMEs are saved in `DNS-ROLLBACK-eppingcarbuyer.com.md` (kept outside git) for rollback.
+- Analytics and ad tags (Google Analytics 4, Google Ads, Meta pixel) and the cookie banner run in Cloudflare Zaraz, not in
+  the code. Tools, triggers, Ads conversion labels and consent purposes are configured in the dashboard (Web tag management).
+  Cloudflare cannot auto-inject Zaraz into Worker-generated pages, so `app/layout.tsx` loads `/cdn-cgi/zaraz/i.js` itself,
+  and `components/tracking/cookie-consent-prompt.tsx` opens the banner after hydration (Zaraz's own "show on page load"
+  is switched off because React hydration removes it).
+- Deploys: if pushes to `main` do not trigger a Cloudflare build, reconnect GitHub under Worker > Settings > Build > Git
+  repository, or start a build by hand (Worker > Deployments).
+
