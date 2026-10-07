@@ -62,6 +62,10 @@ export default function RootLayout({
     <html lang="en" className={charlesWright.variable}>
       <head>
         <LocalBusinessSchema />
+        {/* Cloudflare Zaraz runs the analytics/ads tags and the cookie banner. Cloudflare cannot auto-inject it into pages
+            a Worker generates, so it is loaded here, as Cloudflare documents. Left blocking on purpose so the zaraz
+            object exists before the booking conversion fires. It is a few KB from our own domain. */}
+        <script src="/cdn-cgi/zaraz/i.js" referrerPolicy="origin" />
       </head>
       <body className={fredoka.className}>
         <SiteTracking />
