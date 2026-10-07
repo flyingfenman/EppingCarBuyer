@@ -94,6 +94,9 @@ pnpm run cf:preview
   Cloudflare cannot auto-inject Zaraz into Worker-generated pages, so `app/layout.tsx` loads `/cdn-cgi/zaraz/i.js` itself,
   and `components/tracking/cookie-consent-prompt.tsx` opens the banner after hydration (Zaraz's own "show on page load"
   is switched off because React hydration removes it).
+- Build variables (Worker > Settings > Build > Variables and secrets) must contain exactly `NEXT_PUBLIC_SUPABASE_URL` and
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY` (public values). Disconnecting and reconnecting the Git repository deletes them, so re-add
+  them straight away; do not put real secrets in build variables (runtime secrets live on the Worker itself).
 - Deploys: if pushes to `main` do not trigger a Cloudflare build, reconnect GitHub under Worker > Settings > Build > Git
   repository, or start a build by hand (Worker > Deployments).
 
