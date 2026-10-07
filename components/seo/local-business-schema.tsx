@@ -1,8 +1,10 @@
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "AutomotiveBusiness",
+  "@id": "https://www.eppingcarbuyer.com/#business",
   name: "Epping Car Buyer",
   url: "https://www.eppingcarbuyer.com",
+  logo: "https://www.eppingcarbuyer.com/apple-touch-icon.png",
   telephone: "+441992367909",
   email: "henry@eppingcarbuyer.com",
   image: "https://www.eppingcarbuyer.com/images/inspection-car.jpg",
@@ -106,12 +108,29 @@ const localBusinessSchema = {
   },
 }
 
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.eppingcarbuyer.com/#website",
+  name: "Epping Car Buyer",
+  url: "https://www.eppingcarbuyer.com",
+  inLanguage: "en-GB",
+  publisher: { "@id": "https://www.eppingcarbuyer.com/#business" },
+}
+
 export function LocalBusinessSchema() {
   return (
-    <script
-      type="application/ld+json"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+      />
+    </>
   )
 }

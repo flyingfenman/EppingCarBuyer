@@ -4,7 +4,7 @@ import { LocalInspectionPage } from "@/components/vehicle-inspections/local-insp
 const canonicalPath = "/vehicle-inspection-london"
 
 export const metadata: Metadata = {
-  title: "Vehicle Inspection London | Pre-Purchase Car Inspection | Epping Car Buyer",
+  title: "Pre-Purchase Vehicle Inspection London | Epping Car Buyer",
   description:
     "Independent mobile vehicle inspections in London from £149.99. Diagnostic scan, road test, history check, same-day report and optional EV battery SOH testing.",
   alternates: { canonical: canonicalPath },
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description: "Independent pre-purchase car inspections in London from £149.99.",
     url: canonicalPath,
     type: "website",
+    images: ["/images/inspection-car.jpg"],
   },
 }
 

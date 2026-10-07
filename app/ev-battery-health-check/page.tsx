@@ -16,6 +16,7 @@ export const metadata: Metadata = {
       "Check a used EV's high-voltage traction battery before you buy. CARA Approved® Autel EV Battery Health Test: £99.99 on its own or a £49.99 inspection add-on.",
     url: "/ev-battery-health-check",
     type: "website",
+    images: ["/images/inspection-car.jpg"],
   },
 }
 

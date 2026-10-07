@@ -16,6 +16,12 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // The old static home page used to live at public/index.html; keep any indexed copy pointing at the real home page.
+      {
+        source: '/index.html',
+        destination: '/',
+        permanent: true,
+      },
       {
         source: '/sell-for-me',
         destination: '/market-and-sell',

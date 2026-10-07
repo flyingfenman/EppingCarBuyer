@@ -11,9 +11,9 @@ import { InspectionsFAQ } from "@/components/vehicle-inspections/sections/faq"
 import { FinalCta } from "@/components/vehicle-inspections/sections/final-cta"
 
 export const metadata: Metadata = {
-  title: "Car Inspection Service | Pre-Purchase Vehicle Inspections | Epping Car Buyer",
+  title: "Pre-Purchase Car Inspection Service | Epping Car Buyer",
   description:
-    "Independent mobile car inspection service from £149.99. In-depth pre-purchase inspections with diagnostics, road test, video review and personal buying guidance across Essex, Herts and London.",
+    "Independent mobile pre-purchase car inspections from £149.99. Diagnostics, road test, video review and buying advice across Essex, Herts and London.",
   alternates: {
     canonical: "/vehicle-inspections",
   },
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
       "Understand the car before you commit. Both packages include a video review, documented findings and personal buying guidance. Inspections from £149.99.",
     url: "/vehicle-inspections",
     type: "website",
+    images: ["/images/inspection-car.jpg"],
   },
 }
 
