@@ -10,12 +10,27 @@ type ZarazWindow = Window & {
 
 function track(eventName: string, eventProperties: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return
-  try {
-    // zaraz is missing on previews and local development; there is nothing to send to then.
-    void Promise.resolve((window as ZarazWindow).zaraz?.track?.(eventName, eventProperties)).catch(() => {})
-  } catch {
-    // Never let tracking break the page.
+  const send = () => {
+    try {
+      void Promise.resolve((window as ZarazWindow).zaraz?.track?.(eventName, eventProperties)).catch(() => {})
+    } catch {
+      // Never let tracking break the page.
+    }
   }
+
+  if ((window as ZarazWindow).zaraz?.track) return send()
+
+  // Zaraz loads after the page has hydrated, so on a fast page (the booking confirmation) it may not be there yet:
+  // retry for up to 10 seconds. On previews and local development it never appears, and the event is simply dropped.
+  let tries = 0
+  const timer = window.setInterval(() => {
+    if ((window as ZarazWindow).zaraz?.track) {
+      window.clearInterval(timer)
+      send()
+    } else if (++tries >= 100) {
+      window.clearInterval(timer)
+    }
+  }, 100)
 }
 
 export interface BookingConversionData {
