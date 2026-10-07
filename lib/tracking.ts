@@ -1,22 +1,20 @@
-export const GA_TRACKING_ID = "G-0VZ6KTHLBW"
-export const GOOGLE_ADS_ID = "AW-18442938327"
+// Analytics and advertising tags (Google Analytics 4, Google Ads, Meta pixel) run through Cloudflare Zaraz, not in the
+// page: Zaraz loads them at Cloudflare's edge, only after the visitor agrees in the cookie banner. The IDs, the Ads
+// conversion labels (booking, WhatsApp click) and which tool fires on which event below are configured in the
+// Cloudflare dashboard (Zaraz > Tools / Triggers). This file only sends the events.
 
-// Labels come from Google Ads > Goals > Conversions > (the action) > Tag setup.
-// An empty label skips the Ads event, so GA4 still receives it on its own.
-const ADS_CONVERSION_LABELS = {
-  booking: "FjCkCNGZ3_8cENfPo9pE", // "Inspection booked"
-  whatsapp: "h60CCNSZ3_8cENfPo9pE", // "WhatsApp click"
+type ZarazWindow = Window & {
+  zaraz?: { track?: (eventName: string, eventProperties?: Record<string, unknown>) => unknown }
 }
 
-function gtag(...args: unknown[]) {
+function track(eventName: string, eventProperties: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return
-  const send = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag
-  if (typeof send === "function") send(...args)
-}
-
-function sendAdsConversion(label: string, params: Record<string, unknown> = {}) {
-  if (!label) return
-  gtag("event", "conversion", { send_to: `${GOOGLE_ADS_ID}/${label}`, ...params })
+  try {
+    // zaraz is missing on previews and local development; there is nothing to send to then.
+    void Promise.resolve((window as ZarazWindow).zaraz?.track?.(eventName, eventProperties)).catch(() => {})
+  } catch {
+    // Never let tracking break the page.
+  }
 }
 
 export interface BookingConversionData {
@@ -36,27 +34,16 @@ export function trackBookingComplete(booking: BookingConversionData) {
     // Storage blocked: still report the booking once for this page view.
   }
 
-  gtag("event", "purchase", {
-    send_to: GA_TRACKING_ID,
+  track("booking_complete", {
     transaction_id: booking.transactionId,
     value: booking.value,
     currency: booking.currency,
-    items: [
-      {
-        item_name: booking.includeEvSoh ? `${booking.packageName} + EV Battery SOH` : booking.packageName,
-        price: booking.value,
-        quantity: 1,
-      },
-    ],
-  })
-  sendAdsConversion(ADS_CONVERSION_LABELS.booking, {
-    value: booking.value,
-    currency: booking.currency,
-    transaction_id: booking.transactionId,
+    item_name: booking.includeEvSoh ? `${booking.packageName} + EV Battery SOH` : booking.packageName,
+    price: booking.value,
+    quantity: 1,
   })
 }
 
 export function trackWhatsAppClick(clickLocation: string) {
-  gtag("event", "contact", { send_to: GA_TRACKING_ID, method: "whatsapp", click_location: clickLocation })
-  sendAdsConversion(ADS_CONVERSION_LABELS.whatsapp)
+  track("whatsapp_click", { method: "whatsapp", click_location: clickLocation })
 }

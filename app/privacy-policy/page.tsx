@@ -119,9 +119,20 @@ export default function PrivacyPolicyPage() {
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p>
-              Our website may use cookies to enhance user experience. Cookies are small files stored on your device that
-              help us analyze web traffic and remember your preferences. You can choose to disable cookies through your
-              browser settings.
+              Cookies are small files stored on your device. When you first visit, a banner asks whether you agree to
+              analytics and advertising cookies. Until you agree, none of them are loaded.
+            </p>
+            <p>If you agree, we use:</p>
+            <ul>
+              <li>Google Analytics, to understand how visitors use the site.</li>
+              <li>
+                Google Ads and the Meta (Facebook) pixel, to measure whether our adverts lead to bookings and enquiries.
+              </li>
+            </ul>
+            <p>
+              These tools are loaded through Cloudflare Zaraz. You can change or withdraw your choice at any time using
+              &ldquo;Cookie settings&rdquo; at the bottom of any page, and you can also block cookies in your browser
+              settings.
             </p>
           </CardContent>
         </Card>

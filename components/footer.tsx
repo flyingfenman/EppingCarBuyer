@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { CookieSettingsButton } from "@/components/cookie-settings-button"
 
 export function Footer() {
   return (
@@ -27,6 +28,7 @@ export function Footer() {
             <Link href="/terms-of-service" className="inline-flex min-h-11 items-center text-sm hover:underline">
               Terms of Service
             </Link>
+            <CookieSettingsButton className="inline-flex min-h-11 items-center text-sm hover:underline" />
             <Link href="/admin/login" rel="nofollow" className="inline-flex min-h-11 items-center text-sm hover:underline text-muted-foreground">
               Admin
             </Link>
