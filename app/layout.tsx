@@ -6,6 +6,7 @@ import "./globals.css"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema"
 import { SiteTracking } from "@/components/tracking/site-tracking"
+import { CookieConsentPrompt } from "@/components/tracking/cookie-consent-prompt"
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -69,6 +70,7 @@ export default function RootLayout({
       </head>
       <body className={fredoka.className}>
         <SiteTracking />
+        <CookieConsentPrompt />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
