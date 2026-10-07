@@ -5,6 +5,7 @@ import localFont from "next/font/local"
 import "./globals.css"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema"
+import Script from "next/script"
 import { SiteTracking } from "@/components/tracking/site-tracking"
 import { CookieConsentPrompt } from "@/components/tracking/cookie-consent-prompt"
 
@@ -63,14 +64,14 @@ export default function RootLayout({
     <html lang="en" className={charlesWright.variable}>
       <head>
         <LocalBusinessSchema />
-        {/* Cloudflare Zaraz runs the analytics/ads tags and the cookie banner. Cloudflare cannot auto-inject it into pages
-            a Worker generates, so it is loaded here, as Cloudflare documents. Left blocking on purpose so the zaraz
-            object exists before the booking conversion fires. It is a few KB from our own domain. */}
-        <script src="/cdn-cgi/zaraz/i.js" referrerPolicy="origin" />
       </head>
       <body className={fredoka.className}>
         <SiteTracking />
         <CookieConsentPrompt />
+        {/* Cloudflare Zaraz runs the analytics/ads tags and the cookie banner. Cloudflare cannot auto-inject it into pages a
+            Worker generates, so it is loaded here. It loads after hydration on purpose: as a blocking tag in <head> it
+            changed the page before React hydrated, which caused hydration error #418 and a full client re-render. */}
+        <Script src="/cdn-cgi/zaraz/i.js" strategy="afterInteractive" referrerPolicy="origin" />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
