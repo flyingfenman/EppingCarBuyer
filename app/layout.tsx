@@ -72,6 +72,13 @@ export default function RootLayout({
             Worker generates, so it is loaded here. It loads after hydration on purpose: as a blocking tag in <head> it
             changed the page before React hydrated, which caused hydration error #418 and a full client re-render. */}
         <Script src="/cdn-cgi/zaraz/i.js" strategy="afterInteractive" referrerPolicy="origin" />
+        {/* Cloudflare Web Analytics: free, cookie-less real-visitor speed (Core Web Vitals) and traffic data. Cloudflare cannot
+            auto-inject it into Worker-generated pages, so it is added here. Token is public by design. */}
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          strategy="lazyOnload"
+          data-cf-beacon='{"token": "495a6b145e1c4de78d8fbc2371f52080"}'
+        />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
