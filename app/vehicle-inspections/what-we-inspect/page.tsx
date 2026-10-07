@@ -4,9 +4,9 @@ import { ArrowLeft, CalendarCheck } from "lucide-react"
 import { InspectionsWhatWeInspect } from "@/components/vehicle-inspections/what-we-inspect"
 
 export const metadata: Metadata = {
-  title: "What We Inspect | 260-Point Premium Vehicle Inspection | Epping Car Buyer",
+  title: "What We Inspect: 260-Point Checklist | Epping Car Buyer",
   description:
-    "See the full 260-point Premium pre-purchase vehicle inspection checklist, including diagnostics, paint-depth assessment, underbody, road test, repair-cost guidance and seller and vehicle provenance checks.",
+    "The full 260-point Premium pre-purchase inspection checklist: diagnostics, paint depth, underbody, road test, repair-cost guidance and provenance checks.",
   alternates: {
     canonical: "/vehicle-inspections/what-we-inspect",
   },

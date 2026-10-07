@@ -15,14 +15,26 @@ const PRIVATE_PATHS = [
   "/shop/",
 ]
 
+// AI search, assistant and training crawlers are welcome: the business is found through ChatGPT, Perplexity, Claude
+// and Google. A crawler with its own group ignores the "*" group, so each one repeats the private paths.
+const AI_CRAWLERS = [
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "GPTBot",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Claude-SearchBot",
+  "Claude-User",
+  "ClaudeBot",
+  "Google-Extended",
+  "Applebot",
+  "Applebot-Extended",
+]
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      {
-        userAgent: "OAI-SearchBot",
-        allow: "/",
-        disallow: PRIVATE_PATHS,
-      },
+      ...AI_CRAWLERS.map((userAgent) => ({ userAgent, allow: "/", disallow: PRIVATE_PATHS })),
       {
         userAgent: "*",
         allow: "/",
