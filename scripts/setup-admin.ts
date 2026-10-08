@@ -16,8 +16,12 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey, {
 })
 
 async function createAdminUser() {
-  const email = "henry@eppingcarbuyer.com"
-  const password = "Boston7530*"
+  const email = process.env.ADMIN_EMAIL
+  const password = process.env.ADMIN_PASSWORD
+  if (!email || !password) {
+    console.error("Set ADMIN_EMAIL and ADMIN_PASSWORD before running this script")
+    process.exit(1)
+  }
 
   console.log("Creating admin user:", email)
 
