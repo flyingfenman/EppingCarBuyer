@@ -2,7 +2,7 @@ import "server-only"
 
 // The Friday newsletter list. People join it only by asking to, and only once they click the link in the
 // confirmation email, so every address on the list has a record of saying yes (UK GDPR and PECR).
-// Contacts live in Resend's "Newsletter" segment; broadcasts sent from Resend carry its
+// Contacts live in Resend's "Epping & Stamford Database" segment; broadcasts sent from Resend carry its
 // own unsubscribe link ({{{RESEND_UNSUBSCRIBE_URL}}}), which updates the contact there.
 
 const NEWSLETTER_SEGMENT_ID = process.env.RESEND_NEWSLETTER_SEGMENT_ID || "4a2023ec-5a07-4db5-9817-775951af74ff"
@@ -92,7 +92,7 @@ ${SITE}`
   return response.ok
 }
 
-// Called from the confirmation link: adds them to the Newsletter segment, or re-subscribes them if they left before.
+// Called from the confirmation link: adds them to the Epping & Stamford Database segment, or re-subscribes them if they left before.
 export async function confirmSubscription(email: string, name: string): Promise<boolean> {
   const [firstName, ...rest] = name.trim().split(/\s+/)
   const created = await resend("/contacts", "POST", {
