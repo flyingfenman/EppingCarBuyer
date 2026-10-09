@@ -1,11 +1,13 @@
 import Link from "next/link"
 import { CookieSettingsButton } from "@/components/cookie-settings-button"
+import { NewsletterSignup } from "@/components/newsletter-signup"
 
 export function Footer() {
   return (
     <footer className="border-t bg-muted/50 px-4 pt-8 pb-24 sm:pb-8">
       <div className="container mx-auto">
         <div className="flex flex-col items-center text-center space-y-4">
+          <NewsletterSignup compact />
           <nav className="flex flex-wrap justify-center gap-x-6">
             <Link href="/market-and-sell" className="inline-flex min-h-11 items-center text-sm hover:underline">
               Market &amp; Sell

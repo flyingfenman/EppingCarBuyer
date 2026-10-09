@@ -118,6 +118,7 @@ export function InspectionsBookingCalendar() {
     email: "",
     notes: "",
   })
+  const [newsletter, setNewsletter] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
   const [formError, setFormError] = useState("")
@@ -274,6 +275,7 @@ export function InspectionsBookingCalendar() {
           slotStart: selectedSlot.start,
           slotEnd: selectedSlot.end,
           trafficSource: getTrafficSource(),
+          newsletter,
           ...form,
         }),
       })
@@ -693,6 +695,10 @@ export function InspectionsBookingCalendar() {
               <Label htmlFor="notes">Anything you&apos;re already concerned about?</Label>
               <Textarea id="notes" value={form.notes} onChange={set("notes")} placeholder="Any noises, warning lights, seller comments or access details..." rows={2} maxLength={400} />
             </div>
+            <label htmlFor="newsletter" className="flex cursor-pointer items-start gap-3 text-sm text-foreground sm:col-span-2">
+              <input id="newsletter" type="checkbox" checked={newsletter} onChange={(e) => setNewsletter(e.target.checked)} className="mt-0.5 h-5 w-5 shrink-0 accent-primary" />
+              <span>Also send me the Friday newsletter (optional, we&apos;ll email you a link to confirm)</span>
+            </label>
           </div>
         </div>
 

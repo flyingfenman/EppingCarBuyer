@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { getStripe } from "@/lib/stripe"
+import { normaliseEmail, requestSubscription } from "@/lib/newsletter"
 
 const WHATSAPP_ICON = "https://cdn.simpleicons.org/whatsapp/FFFFFF"
 const FONT_STACK = "'Fredoka','Trebuchet MS',Arial,Helvetica,sans-serif"
@@ -286,6 +287,15 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
           brand,
         ),
       ])
+
+      // Ticked the newsletter box when booking: send the confirm link. Only once the booking emails went out, so a
+      // Stripe retry after a failed send doesn't send a second confirm link.
+      const newsletterEmail = session.metadata.newsletter === "yes" && brand === BRANDS.epping ? normaliseEmail(customerEmail) : null
+      if (newsletterEmail && internalOk && customerOk) {
+        await requestSubscription(newsletterEmail, customerName || "", "booking").catch((error) =>
+          console.error("Newsletter signup from a booking failed:", error),
+        )
+      }
 
       if (!internalOk || !customerOk) {
         return NextResponse.json({ error: "Failed to send confirmation email" }, { status: 502 })

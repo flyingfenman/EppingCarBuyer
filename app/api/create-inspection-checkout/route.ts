@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const {
       packageKey, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
-      name, phone, email, notes, includeEvSoh, shortNoticeConfirmed, trafficSource,
+      name, phone, email, notes, includeEvSoh, shortNoticeConfirmed, trafficSource, newsletter,
     } = body as {
       packageKey: unknown
       slotStart: string
@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
       includeEvSoh?: boolean
       shortNoticeConfirmed?: boolean
       trafficSource?: { label?: unknown; detail?: unknown; landingPage?: unknown } | null
+      newsletter?: boolean
     }
 
     if (!isPackageKey(packageKey) || !slotStart || !slotEnd || !registration || !location || !name || !phone || !email) {
@@ -141,6 +142,7 @@ export async function POST(request: NextRequest) {
         trafficSource: cleanText(trafficSource?.label, 60),
         trafficDetail: cleanText(trafficSource?.detail, 120),
         landingPage: cleanText(trafficSource?.landingPage, 120),
+        newsletter: newsletter === true ? "yes" : "no",
       },
       success_url: `${origin}/vehicle-inspections/booked?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/vehicle-inspections/book?booking=cancelled`,
