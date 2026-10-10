@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { NewsletterSignup } from "@/components/newsletter-signup"
+import { newsletterReady } from "@/lib/newsletter"
 
 const title = "Newsletter | Epping Car Buyer"
 const description = "A short email from Henry at Epping Car Buyer each Friday about buying and selling used cars."
@@ -22,7 +23,9 @@ const MESSAGES: Record<string, { heading: string; body: string }> = {
 
 export default async function NewsletterPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const { status } = await searchParams
-  const message = status ? MESSAGES[status] : undefined
+  const message = newsletterReady()
+    ? status ? MESSAGES[status] : undefined
+    : { heading: "The Friday newsletter", body: "Signups open soon. Check back shortly." }
 
   return (
     <div className="container mx-auto px-4 py-10 sm:py-14">
@@ -31,7 +34,7 @@ export default async function NewsletterPage({ searchParams }: { searchParams: P
         <p className="mt-4 text-lg text-foreground">
           {message?.body ?? "A short email from Henry each Friday about buying and selling used cars. Free, and easy to leave."}
         </p>
-        {status !== "confirmed" && (
+        {newsletterReady() && status !== "confirmed" && (
           <div className="mt-8 w-full">
             <NewsletterSignup source="newsletter-page" />
           </div>

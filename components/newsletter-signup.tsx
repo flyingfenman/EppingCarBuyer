@@ -3,9 +3,11 @@
 import { useId, useState, type FormEvent } from "react"
 import Link from "next/link"
 import { Loader2, Mail } from "lucide-react"
+import { useNewsletterReady } from "@/lib/use-newsletter-ready"
 
 export function NewsletterSignup({ source = "footer", compact = false }: { source?: "footer" | "newsletter-page"; compact?: boolean }) {
   const uid = useId()
+  const ready = useNewsletterReady()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [website, setWebsite] = useState("")
@@ -31,6 +33,8 @@ export function NewsletterSignup({ source = "footer", compact = false }: { sourc
       setStatus("failed")
     }
   }
+
+  if (!ready) return null
 
   if (status === "sent") {
     return (

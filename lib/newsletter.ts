@@ -12,6 +12,12 @@ const SITE = "https://www.eppingcarbuyer.com"
 // A confirmation link older than this is refused, so a stale or forwarded email can't sign someone up later.
 const CONFIRM_LINK_DAYS = 7
 
+// Adding contacts needs a Resend key with full access; the site's RESEND_API_KEY only sends email. Until both
+// secrets are set the signup stays hidden, so nobody gets a confirmation link that can't work.
+export function newsletterReady(): boolean {
+  return Boolean(process.env.NEWSLETTER_SECRET && process.env.RESEND_CONTACTS_API_KEY)
+}
+
 export type SignupSource = "footer" | "newsletter-page" | "contact-form" | "booking"
 
 export function normaliseEmail(value: unknown): string | null {
@@ -52,15 +58,17 @@ export async function verifyConfirm(params: URLSearchParams) {
 }
 
 async function resend(path: string, method: string, body?: unknown) {
+  const key = path.startsWith("/contacts") ? process.env.RESEND_CONTACTS_API_KEY : process.env.RESEND_API_KEY
   return fetch(`https://api.resend.com${path}`, {
     method,
-    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
   })
 }
 
 // Sends the "please confirm" email. Nothing is added to the list here.
 export async function requestSubscription(email: string, name: string, source: SignupSource): Promise<boolean> {
+  if (!newsletterReady()) return false
   const issued = Date.now()
   const cleanName = name.trim().slice(0, 100)
   const params = new URLSearchParams({ e: email, n: cleanName, s: source, d: String(issued) })

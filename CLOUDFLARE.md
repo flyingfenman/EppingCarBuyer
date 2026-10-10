@@ -37,7 +37,9 @@ for visitors until the domain is pointed at Cloudflare, so Vercel can stay live 
    - `RESEND_API_KEY`
    - `DVSA_CLIENT_SECRET`
    - `NEWSLETTER_SECRET`: any long random string (for example from `openssl rand -base64 32`). It signs the
-     newsletter confirmation links; without it the signup form shows an error. It is new, so it is not in Vercel.
+     newsletter confirmation links. It is new, so it is not in Vercel.
+   - `RESEND_CONTACTS_API_KEY`: a Resend API key with **Full access** (the sending-only `RESEND_API_KEY` can't add
+     contacts). The newsletter signup stays hidden until this and `NEWSLETTER_SECRET` are both set.
 5. **Turn off preview builds** (Settings > Build > Branch control > untick *Enable Preview Builds*). Otherwise every
    branch push builds a preview that has none of the keys.
 6. Push to `main` (or retry the build). Cloudflare builds and gives you an address like
