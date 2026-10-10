@@ -5,6 +5,7 @@ import Link from "next/link"
 import { CheckCircle2, Loader2, MessageCircle, Send } from "lucide-react"
 import { parseContactDetail } from "@/lib/contact"
 import { getTrafficSource } from "@/lib/traffic-source"
+import { useNewsletterReady } from "@/lib/use-newsletter-ready"
 
 const WHATSAPP_URL = "https://wa.me/441992367909"
 
@@ -18,6 +19,8 @@ export function ContactForm({ headingLevel = "h2" }: { headingLevel?: "h2" | "h3
   const [contact, setContact] = useState("")
   const [message, setMessage] = useState("")
   const [website, setWebsite] = useState("")
+  const [newsletter, setNewsletter] = useState(false)
+  const newsletterReady = useNewsletterReady()
   const [errors, setErrors] = useState<{ name?: string; contact?: string }>({})
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle")
 
@@ -41,7 +44,7 @@ export function ContactForm({ headingLevel = "h2" }: { headingLevel?: "h2" | "h3
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, message, website, trafficSource: getTrafficSource() }),
+        body: JSON.stringify({ name, contact, message, website, newsletter: newsletterReady && newsletter, trafficSource: getTrafficSource() }),
       })
       setStatus(res.ok ? "sent" : "failed")
     } catch {
@@ -131,6 +134,19 @@ export function ContactForm({ headingLevel = "h2" }: { headingLevel?: "h2" | "h3
         />
       </div>
 
+      {newsletterReady && parseContactDetail(contact)?.kind === "email" && (
+        <label htmlFor={`${uid}-newsletter`} className="mt-5 flex cursor-pointer items-start gap-3 text-base text-foreground">
+          <input
+            id={`${uid}-newsletter`}
+            type="checkbox"
+            checked={newsletter}
+            onChange={(e) => setNewsletter(e.target.checked)}
+            className="mt-1 h-5 w-5 shrink-0 accent-primary"
+          />
+          <span>Also send me the Friday newsletter (we&apos;ll email you a link to confirm)</span>
+        </label>
+      )}
+
       <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor={`${uid}-website`}>Leave this empty</label>
         <input
@@ -170,7 +186,7 @@ export function ContactForm({ headingLevel = "h2" }: { headingLevel?: "h2" | "h3
       </button>
 
       <p className="mt-4 text-sm text-muted-foreground">
-        We only use your details to reply to you. See our{" "}
+        We only use your details to reply to you, unless you ask for the newsletter. See our{" "}
         <Link href="/privacy-policy" className="underline hover:text-foreground">
           privacy policy
         </Link>

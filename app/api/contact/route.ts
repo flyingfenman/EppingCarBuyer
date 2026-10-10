@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { parseContactDetail } from "@/lib/contact"
+import { normaliseEmail, requestSubscription } from "@/lib/newsletter"
 
 function clean(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : ""
@@ -68,6 +69,14 @@ Sent: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
   if (!resendResponse.ok) {
     console.error("Resend error sending contact form message:", await resendResponse.text())
     return NextResponse.json({ error: "Your message didn't send." }, { status: 502 })
+  }
+
+  // Ticked "also send me the newsletter": they still have to confirm from the email before they're added.
+  const newsletterEmail = contact.kind === "email" && body.newsletter === true ? normaliseEmail(contact.email) : null
+  if (newsletterEmail) {
+    await requestSubscription(newsletterEmail, name, "contact-form").catch((error) =>
+      console.error("Newsletter signup from the contact form failed:", error),
+    )
   }
 
   return NextResponse.json({ success: true })

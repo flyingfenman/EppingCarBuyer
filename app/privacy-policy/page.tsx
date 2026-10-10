@@ -69,6 +69,20 @@ export default function PrivacyPolicyPage() {
 
         <Card className="mb-6">
           <CardHeader>
+            <CardTitle>Newsletter</CardTitle>
+          </CardHeader>
+          <CardContent className="prose prose-sm max-w-none">
+            <p>
+              If you ask for our Friday newsletter, we keep your email address and first name to send it to you. We only
+              add you once you click the link in the confirmation email we send. We use Resend to store the list and send
+              the emails. You can unsubscribe at any time using the link in every newsletter, or by emailing
+              henry@eppingcarbuyer.com, and we never share or sell the list.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="mb-6">
+          <CardHeader>
             <CardTitle>Data Security</CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
