@@ -84,7 +84,7 @@ function InspectionIcon({ item }: { item: CheckItem }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`/images/inspection-icons/${item.icon}.png`}
-        alt=""
+        alt={`${item.title} check`}
         width={72}
         height={72}
         loading="lazy"
