@@ -38,6 +38,12 @@ export const metadata: Metadata = {
   },
     generator: 'v0.app',
   metadataBase: new URL("https://www.eppingcarbuyer.com"),
+  // Bing Webmaster Tools site ownership check.
+  verification: {
+    other: {
+      "msvalidate.01": "C49612DCE98D24204C4B5666666350A2",
+    },
+  },
   openGraph: {
     type: "website",
     siteName: "Epping Car Buyer",
