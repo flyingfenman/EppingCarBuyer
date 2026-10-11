@@ -122,3 +122,31 @@ export async function confirmSubscription(email: string, name: string): Promise<
   if (!segment.ok && segment.status !== 409) console.error(`Newsletter: could not add ${email} to the segment:`, await segment.text())
   return true
 }
+
+export type Subscriber = {
+  id: string
+  email: string
+  first_name: string | null
+  last_name: string | null
+  created_at: string
+  unsubscribed: boolean
+}
+
+// Everyone in the newsletter segment, newest first, for the admin page. Null when the contacts key isn't set.
+export async function listSubscribers(): Promise<Subscriber[] | null> {
+  if (!process.env.RESEND_CONTACTS_API_KEY) return null
+  const all: Subscriber[] = []
+  let after: string | undefined
+  // 50 pages of 100 is far beyond this list's size; the cap only stops a runaway loop.
+  for (let page = 0; page < 50; page++) {
+    const params = new URLSearchParams({ segment_id: NEWSLETTER_SEGMENT_ID, limit: "100" })
+    if (after) params.set("after", after)
+    const response = await resend(`/contacts?${params}`, "GET")
+    if (!response.ok) throw new Error(`Resend refused the contact list: ${await response.text()}`)
+    const body = (await response.json()) as { data: Subscriber[]; has_more?: boolean }
+    all.push(...body.data)
+    if (!body.has_more || body.data.length === 0) break
+    after = body.data[body.data.length - 1].id
+  }
+  return all.sort((a, b) => b.created_at.localeCompare(a.created_at))
+}

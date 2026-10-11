@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
-import { Car, Users, Banknote, MessageSquare, LayoutDashboard, LogOut, Package } from 'lucide-react'
+import { Car, Users, Banknote, MessageSquare, LayoutDashboard, LogOut, Package, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/admin/dealers', label: 'Dealers', icon: Users },
   { href: '/admin/bids', label: 'Bids', icon: Banknote },
   { href: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare },
+  { href: '/admin/newsletter', label: 'Newsletter', icon: Mail },
 ]
 
 export function AdminNav() {
