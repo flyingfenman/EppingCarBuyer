@@ -66,8 +66,8 @@ export default function ContactPage() {
                 <CalendarDays className="mt-0.5 h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
                 <div>
                   <p className="font-bold">Opening hours</p>
-                  <p className="text-base text-muted-foreground">Monday to Saturday, 9am to 6pm</p>
-                  <p className="text-base text-muted-foreground">Sunday by appointment</p>
+                  <p className="text-base text-muted-foreground">Monday to Friday, 8am to 6pm</p>
+                  <p className="text-base text-muted-foreground">Saturday and Sunday, 10am to 4pm</p>
                 </div>
               </li>
               <li className="flex gap-3">
