@@ -125,6 +125,9 @@ export function InspectionsBookingCalendar() {
   const [error, setError] = useState("")
   const [formError, setFormError] = useState("")
   const [prefilledReg, setPrefilledReg] = useState("")
+  // A link Henry sends for one appointment: ?date=2026-10-13&time=09:00 (London time).
+  const scrollToDetailsOnOpen = useRef(false)
+  const [requestedSlot, setRequestedSlot] = useState<{ date: string; time: string } | null>(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -136,6 +139,11 @@ export function InspectionsBookingCalendar() {
     }
     // The battery add-on box on the inspections page comes here with ?battery=1, with the report already ticked.
     if (params.get("battery") === "1") setIncludeEvSoh(true)
+    const requestedDate = params.get("date")
+    const requestedTime = params.get("time")
+    if (requestedDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate) && requestedTime && /^\d{1,2}:\d{2}$/.test(requestedTime)) {
+      setRequestedSlot({ date: requestedDate, time: requestedTime.padStart(5, "0") })
+    }
     const registration = params.get("reg")?.trim().toUpperCase()
     if (registration) {
       setPrefilledReg(registration)
@@ -177,13 +185,13 @@ export function InspectionsBookingCalendar() {
   }, [loadAvailability])
 
   useEffect(() => {
-    if (loadingSlots || selectedDate || slots.length === 0) return
+    if (loadingSlots || requestedSlot || selectedDate || slots.length === 0) return
     const defaultStartMs = nowMs + DEFAULT_CALENDAR_START_HOURS * 60 * 60 * 1000
     const firstDefaultSlot = slots.find((slot) => new Date(slot.start).getTime() >= defaultStartMs) || slots[0]
     const firstDate = dateKey(firstDefaultSlot.start)
     setSelectedDate(firstDate)
     setViewDate(setViewFromDateKey(firstDate))
-  }, [loadingSlots, nowMs, selectedDate, slots])
+  }, [loadingSlots, nowMs, requestedSlot, selectedDate, slots])
 
   const slotsByDate = useMemo(() => {
     const map = new Map<string, Slot[]>()
@@ -250,6 +258,37 @@ export function InspectionsBookingCalendar() {
       details.focus({ preventScroll: true })
     })
   }
+
+  // A link for one appointment opens with that time chosen and the details form showing. Henry sends
+  // these himself, so a time inside 24 hours counts as already confirmed with him.
+  useEffect(() => {
+    if (loadingSlots || !requestedSlot) return
+    setRequestedSlot(null)
+    const match = slots.find((slot) => dateKey(slot.start) === requestedSlot.date && formatSlotTime(slot) === requestedSlot.time)
+    if (!match) {
+      if (slots.some((slot) => dateKey(slot.start) === requestedSlot.date)) {
+        setSelectedDate(requestedSlot.date)
+        setViewDate(setViewFromDateKey(requestedSlot.date))
+      }
+      setError("Sorry, that time isn't available any more. Please pick another below, or WhatsApp us.")
+      return
+    }
+    setSelectedDate(requestedSlot.date)
+    setViewDate(setViewFromDateKey(requestedSlot.date))
+    if (isShortNotice(match, nowMs)) {
+      setShortNoticeCandidate(match)
+      setShortNoticeConfirmed(true)
+    }
+    setSelectedSlot(match)
+    setDetailsUnlocked(true)
+    scrollToDetailsOnOpen.current = true
+  }, [loadingSlots, requestedSlot, slots, nowMs])
+
+  useEffect(() => {
+    if (!detailsUnlocked || !scrollToDetailsOnOpen.current) return
+    scrollToDetailsOnOpen.current = false
+    detailsRef.current?.scrollIntoView({ block: "start" })
+  }, [detailsUnlocked])
 
   const showTimes = () => timeRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
 
