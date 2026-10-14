@@ -16,11 +16,11 @@ export const metadata: Metadata = {
     url: "/vehicle-inspections/book",
     type: "website",
     // A small square logo, so a booking link sent on WhatsApp shows a small thumbnail rather than a big photo.
-    images: [{ url: "/images/share-logo.png", width: 300, height: 300, alt: "Epping Car Buyer" }],
+    images: [{ url: "/images/share-logo-purple.png", width: 300, height: 300, alt: "Epping Car Buyer Vehicle Inspections" }],
   },
   twitter: {
     card: "summary",
-    images: ["/images/share-logo.png"],
+    images: ["/images/share-logo-purple.png"],
   },
 }
 
