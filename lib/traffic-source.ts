@@ -21,6 +21,7 @@ const REFERRER_SOURCES: Array<[RegExp, string]> = [
   [/(^|\.)yahoo\.com$/, "Yahoo"],
   [/(^|\.)ecosia\.org$/, "Ecosia"],
   [/(^|\.)(facebook|instagram)\.com$/, "Facebook / Instagram"],
+  [/(^|\.)reddit\.com$/, "Reddit"],
 ]
 
 export function classifyVisit(referrer: string, search: string): { label: string; detail: string } | null {
@@ -32,6 +33,9 @@ export function classifyVisit(referrer: string, search: string): { label: string
   }
   if (params.get("fbclid")) {
     return { label: "Facebook / Instagram", detail: params.get("utm_campaign") || "ad click" }
+  }
+  if (params.get("rdt_cid") || /^reddit$/i.test(params.get("utm_source") || "")) {
+    return { label: "Reddit Ads", detail: params.get("utm_campaign") || "ad click" }
   }
 
   const utmSource = params.get("utm_source")
