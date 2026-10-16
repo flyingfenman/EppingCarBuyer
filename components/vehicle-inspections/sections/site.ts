@@ -5,6 +5,4 @@ export const SITE = {
   area: "Essex, Hertfordshire, South Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk",
   serves: "Essex, Hertfordshire, South Cambridgeshire, Greater London, and parts of Bedfordshire and Suffolk",
   whatsapp: "https://wa.me/441992367909",
-  phoneHref: "tel:01992367909",
-  phoneDisplay: "01992 367909",
 }
