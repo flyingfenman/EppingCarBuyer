@@ -140,13 +140,26 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>Google Analytics, to understand how visitors use the site.</li>
               <li>
-                Google Ads and the Meta (Facebook) pixel, to measure whether our adverts lead to bookings and enquiries.
+                Google Ads and the Meta (Facebook) pixel, to measure whether our adverts lead to bookings and enquiries
+                and to show our adverts to people who have visited this site. Google and Meta may also use this to
+                personalise the ads you see.
               </li>
             </ul>
             <p>
               These tools are loaded through Cloudflare Zaraz. You can change or withdraw your choice at any time using
               &ldquo;Cookie settings&rdquo; at the bottom of any page, and you can also block cookies in your browser
               settings.
+            </p>
+            <p>
+              Whatever you choose, we use Cloudflare Web Analytics to count visits and check how fast pages load. It
+              does not use cookies or identify you.
+            </p>
+            <p>
+              The site notes how you arrived on each visit (for example from a Google advert, a search or another
+              website). It is added to bookings and enquiries you send us, and to the start of WhatsApp messages you
+              start from this site, where you can see it and delete it before sending (WhatsApp is run by Meta). We only
+              use it to see which of our adverts work. If you agree to analytics or advertising cookies, your browser
+              also remembers it for 30 days, so we still know if you come back later to book. Saying no removes it.
             </p>
           </CardContent>
         </Card>
@@ -191,7 +204,7 @@ export default function PrivacyPolicyPage() {
                 </a>
               </li>
             </ul>
-            <p className="mt-4 text-sm text-muted-foreground">Last updated: January 2025</p>
+            <p className="mt-4 text-sm text-muted-foreground">Last updated: October 2026</p>
           </CardContent>
         </Card>
       </div>

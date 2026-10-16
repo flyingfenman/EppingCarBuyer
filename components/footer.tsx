@@ -2,9 +2,11 @@ import Link from "next/link"
 import { CookieSettingsButton } from "@/components/cookie-settings-button"
 import { NewsletterSignup } from "@/components/newsletter-signup"
 
+// The bottom padding grows while the cookie banner is open (it sets --cookie-banner-space), so the footer can still be
+// scrolled clear of it.
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/50 px-4 pt-8 pb-24 sm:pb-8">
+    <footer className="border-t bg-muted/50 px-4 pt-8 pb-[calc(6rem+var(--cookie-banner-space,0px))] sm:pb-[calc(2rem+var(--cookie-banner-space,0px))]">
       <div className="container mx-auto">
         <div className="flex flex-col items-center text-center space-y-4">
           <NewsletterSignup compact />

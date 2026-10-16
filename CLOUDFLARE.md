@@ -93,11 +93,15 @@ pnpm run cf:preview
 - `eppingcarbuyer.com` and `www.eppingcarbuyer.com` are served by this Worker (custom domains); the bare domain is a
   proxied placeholder record plus a 301 redirect rule to `www`. Email records (Zoho MX/SPF/DKIM, Resend, SES) are untouched.
 - The old Vercel CNAMEs are saved in `DNS-ROLLBACK-eppingcarbuyer.com.md` (kept outside git) for rollback.
-- Analytics and ad tags (Google Analytics 4, Google Ads, Meta pixel) and the cookie banner run in Cloudflare Zaraz, not in
-  the code. Tools, triggers, Ads conversion labels and consent purposes are configured in the dashboard (Web tag management).
-  Cloudflare cannot auto-inject Zaraz into Worker-generated pages, so `app/layout.tsx` loads `/cdn-cgi/zaraz/i.js` itself,
-  and `components/tracking/cookie-consent-prompt.tsx` opens the banner after hydration (Zaraz's own "show on page load"
-  is switched off because React hydration removes it).
+- Analytics and ad tags (Google Analytics 4, Google Ads, Meta pixel) run in Cloudflare Zaraz, not in the code. Tools,
+  triggers, Ads conversion labels and consent purposes are configured in the dashboard (Web tag management). Cloudflare
+  cannot auto-inject Zaraz into Worker-generated pages, so `app/layout.tsx` loads `/cdn-cgi/zaraz/i.js` itself.
+- The cookie banner is the site's own: `components/tracking/cookie-banner.tsx`, with every call to Zaraz's consent API in
+  `lib/cookie-consent.ts`. Zaraz only stores the choice (cookie `zaraz-consent`) and switches its tools on or off; the
+  banner code also passes the choice to Google Consent Mode, which Zaraz does not do. This relies on these Zaraz >
+  Consent settings: "Hide modal" on (otherwise visitors get Zaraz's window as well), purpose ids exactly `analytics` and
+  `advertising`, and every tool assigned to one of them (a tool with no purpose runs without consent). The purpose names
+  and wording shown to visitors are in the banner file, not Zaraz.
 - Build variables (Worker > Settings > Build > Variables and secrets) must contain exactly `NEXT_PUBLIC_SUPABASE_URL` and
   `NEXT_PUBLIC_SUPABASE_ANON_KEY` (public values). Disconnecting and reconnecting the Git repository deletes them, so re-add
   them straight away; do not put real secrets in build variables (runtime secrets live on the Worker itself).
