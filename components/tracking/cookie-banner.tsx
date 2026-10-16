@@ -26,15 +26,16 @@ const PURPOSES = [
 const ALL_ON: ConsentChoices = { analytics: true, advertising: true }
 const ALL_OFF: ConsentChoices = { analytics: false, advertising: false }
 
-// Accept all and Reject all look exactly the same, so neither is pushed (UK cookie rules).
 const button = "inline-flex h-11 items-center justify-center rounded-xl px-4 text-base font-bold transition"
 const solidButton = `${button} bg-primary text-primary-foreground hover:bg-primary/90`
 const outlineButton = `${button} border-2 border-primary/30 bg-white text-primary hover:bg-primary/5`
 const textLink = "inline-flex min-h-11 items-center rounded-lg text-sm font-semibold text-primary underline underline-offset-4"
 
 // A small card at the bottom of the screen (bottom right on bigger screens), in place of Zaraz's full-screen consent
-// window. The page stays usable behind it, and ignoring it counts as no: nothing optional runs until Accept all, or
-// Save choices with a switch on. Confirm choices opens the switches, which start off.
+// window. Henry chose two buttons, Accept all and Confirm choices, with no Reject all on this first screen (2026-10-16).
+// Confirm choices opens the switches, which start off, so Save choices with nothing switched on is the way to say no.
+// The page stays usable behind the card, and ignoring it counts as no: nothing optional runs until Accept all, or Save
+// choices with a switch on.
 export function CookieBanner() {
   const [view, setView] = useState<"hidden" | "banner" | "settings">("hidden")
   const [choices, setChoices] = useState<ConsentChoices>(ALL_OFF)
@@ -138,22 +139,19 @@ export function CookieBanner() {
             <button type="button" className={solidButton} onClick={() => save(ALL_ON)}>
               Accept all
             </button>
-            <button type="button" className={solidButton} onClick={() => save(ALL_OFF)}>
-              Reject all
+            <button
+              ref={chooseButton}
+              type="button"
+              className={outlineButton}
+              onClick={() => {
+                returnFocus.current = null
+                setChoices(currentChoices())
+                setView("settings")
+              }}
+            >
+              Confirm choices
             </button>
           </div>
-          <button
-            ref={chooseButton}
-            type="button"
-            className={`${outlineButton} mt-2 w-full`}
-            onClick={() => {
-              returnFocus.current = null
-              setChoices(currentChoices())
-              setView("settings")
-            }}
-          >
-            Confirm choices
-          </button>
           <Link href="/privacy-policy" className={`${textLink} mt-1`}>
             Privacy policy
           </Link>
