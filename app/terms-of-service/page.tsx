@@ -169,12 +169,6 @@ export default function TermsOfServicePage() {
             <p>If you have any questions about these Terms of Service, please contact us:</p>
             <ul className="list-none space-y-2">
               <li>
-                <strong>Phone:</strong>{" "}
-                <a href="tel:+441992367909" className="text-primary hover:underline">
-                  01992 367909
-                </a>
-              </li>
-              <li>
                 <strong>WhatsApp:</strong>{" "}
                 <a
                   href="https://wa.me/441992367909"
@@ -182,8 +176,9 @@ export default function TermsOfServicePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Message us
-                </a>
+                  01992 367909
+                </a>{" "}
+                (messages only, this number doesn&apos;t take calls)
               </li>
             </ul>
             <p className="mt-4 text-sm text-muted-foreground">Last updated: January 2025</p>

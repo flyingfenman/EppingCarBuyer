@@ -75,7 +75,6 @@ const serviceSchema = {
     "@type": "AutomotiveBusiness",
     name: "Epping Car Buyer",
     url: "https://www.eppingcarbuyer.com",
-    telephone: "+441992367909",
   },
   areaServed: ["Essex", "Hertfordshire", "Greater London", "South Cambridgeshire", "Bedfordshire", "Suffolk"],
   offers: [
