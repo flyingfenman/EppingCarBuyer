@@ -203,7 +203,7 @@ export default function EvBatteryHealthCheckPage() {
               <p className="text-sm uppercase tracking-wider font-bold text-primary">Why it matters</p>
               <h2 className="text-3xl sm:text-4xl font-bold mt-2">A normal diagnostic scan and an EV battery SOH test are not the same thing.</h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">
-                Every inspection includes diagnostic checks appropriate to the vehicle. The EV Battery State of Health test goes further by running the dedicated Autel battery-health procedure and producing a specific traction-battery SOH report. Book it on its own for £100, or add it to an inspection for £49.99.
+                Every inspection includes diagnostic checks appropriate to the vehicle. The EV Battery State of Health test goes further by running the dedicated Autel battery-health procedure and producing a specific traction-battery SOH report. Book it on its own for £99.99, or add it to an inspection for £49.99.
               </p>
               <p className="mt-4 text-muted-foreground leading-relaxed">
                 That gives a used-EV buyer another useful piece of evidence when deciding whether the car is worth buying and whether the asking price reflects the battery condition.
