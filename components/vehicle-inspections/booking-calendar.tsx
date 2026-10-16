@@ -635,9 +635,10 @@ export function InspectionsBookingCalendar() {
 
         {error && <p className="mt-4 rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>}
       </div>
-      {/* Keep the selected appointment visible until the customer continues to their details. */}
+      {/* Keep the selected appointment visible until the customer continues to their details. While the cookie banner is
+          open it sets --cookie-banner-space, so this bar sits just above it instead of underneath. */}
       {selectedSlot && !detailsUnlocked && (
-        <div className="sticky bottom-0 z-[45] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 py-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:mx-0 sm:rounded-2xl sm:border sm:px-6 sm:py-4">
+        <div className="sticky bottom-[var(--cookie-banner-space,0px)] z-[45] -mx-4 mt-5 border-t border-primary/20 bg-white px-4 py-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(0,0,0,0.10)] sm:mx-0 sm:rounded-2xl sm:border sm:px-6 sm:py-4">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 sm:gap-6">
             <div role="status" aria-live="polite" className="min-w-0">
               <p className="truncate text-sm font-bold sm:hidden">

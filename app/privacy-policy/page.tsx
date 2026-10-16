@@ -140,13 +140,19 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>Google Analytics, to understand how visitors use the site.</li>
               <li>
-                Google Ads and the Meta (Facebook) pixel, to measure whether our adverts lead to bookings and enquiries.
+                Google Ads and the Meta (Facebook) pixel, to measure whether our adverts lead to bookings and enquiries
+                and to show our adverts to people who have visited this site. Google and Meta may also use this to
+                personalise the ads you see.
               </li>
             </ul>
             <p>
               These tools are loaded through Cloudflare Zaraz. You can change or withdraw your choice at any time using
               &ldquo;Cookie settings&rdquo; at the bottom of any page, and you can also block cookies in your browser
               settings.
+            </p>
+            <p>
+              Whatever you choose, we use Cloudflare Web Analytics to count visits and check how fast pages load. It
+              does not use cookies or identify you.
             </p>
           </CardContent>
         </Card>
@@ -191,7 +197,7 @@ export default function PrivacyPolicyPage() {
                 </a>
               </li>
             </ul>
-            <p className="mt-4 text-sm text-muted-foreground">Last updated: January 2025</p>
+            <p className="mt-4 text-sm text-muted-foreground">Last updated: October 2026</p>
           </CardContent>
         </Card>
       </div>
