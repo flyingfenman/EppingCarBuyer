@@ -25,6 +25,7 @@ const PURPOSES = [
 
 const ALL_ON: ConsentChoices = { analytics: true, advertising: true }
 const ALL_OFF: ConsentChoices = { analytics: false, advertising: false }
+const startingChoices = () => (hasChosen() ? currentChoices() : ALL_ON)
 
 const button = "inline-flex h-11 items-center justify-center rounded-xl px-4 text-base font-bold transition"
 const solidButton = `${button} bg-primary text-primary-foreground hover:bg-primary/90`
@@ -33,9 +34,10 @@ const textLink = "inline-flex min-h-11 items-center rounded-lg text-sm font-semi
 
 // A small card at the bottom of the screen (bottom right on bigger screens), in place of Zaraz's full-screen consent
 // window. Henry chose two buttons, Accept all and Confirm choices, with no Reject all on this first screen (2026-10-16).
-// Confirm choices opens the switches, which start off, so Save choices with nothing switched on is the way to say no.
-// The page stays usable behind the card, and ignoring it counts as no: nothing optional runs until Accept all, or Save
-// choices with a switch on.
+// Confirm choices opens the switches. Henry wants them on to start with for someone who hasn't chosen yet (2026-10-16);
+// after a choice they show that choice. Switching both off and pressing Save choices is the way to say no. The page
+// stays usable behind the card, and ignoring it counts as no: nothing optional runs until Accept all, or Save choices
+// with a switch on.
 export function CookieBanner() {
   const [view, setView] = useState<"hidden" | "banner" | "settings">("hidden")
   const [choices, setChoices] = useState<ConsentChoices>(ALL_OFF)
@@ -65,7 +67,7 @@ export function CookieBanner() {
       stopWaiting()
       stopWaiting = onConsentReady(() => {
         returnFocus.current = opener
-        setChoices(currentChoices())
+        setChoices(startingChoices())
         setView("settings")
       })
     })
@@ -145,7 +147,7 @@ export function CookieBanner() {
               className={outlineButton}
               onClick={() => {
                 returnFocus.current = null
-                setChoices(currentChoices())
+                setChoices(startingChoices())
                 setView("settings")
               }}
             >
@@ -172,8 +174,8 @@ export function CookieBanner() {
             </button>
           </div>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Everything is off unless you switch it on. You can change your mind any time using Cookie settings at the
-            bottom of any page. See our{" "}
+            Switch off anything you would rather not allow, then press Save choices. You can change your mind any time
+            using Cookie settings at the bottom of any page. See our{" "}
             <Link href="/privacy-policy" className="rounded font-semibold text-primary underline underline-offset-4">
               privacy policy
             </Link>
