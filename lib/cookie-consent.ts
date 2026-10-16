@@ -1,3 +1,5 @@
+import { syncTrafficSourceConsent } from "@/lib/traffic-source"
+
 // The cookie banner (components/tracking/cookie-banner.tsx) is the site's own. Cloudflare Zaraz only stores the choice
 // and switches its tools on or off: Zaraz's own consent window is never shown (Zaraz > Consent has "hide modal" on).
 
@@ -82,14 +84,16 @@ export function saveChoices(choices: ConsentChoices) {
   updateGoogleConsent(choices) // First, so the page view sent below already carries it.
   try {
     consent.set({ analytics: choices.analytics, advertising: choices.advertising }) // Writes the cookie, kept for a year.
+    syncTrafficSourceConsent(choices.analytics || choices.advertising, true)
+    // Also clears cookies the tags left before the site asked first (they ran without asking until 8 October 2026).
+    for (const purpose of ["analytics", "advertising"] as const) if (!choices[purpose]) clearCookies(TOOL_COOKIES[purpose])
     if (!withdrawn.length) {
       // Sends this page's page view to the tools just allowed. After a first reject they stay off.
       consent.sendQueuedEvents()
       return
     }
     // Switching something off: tags already running on this page (the Meta pixel counts page changes by itself) only
-    // stop when the page reloads, so clear what they stored and reload.
-    withdrawn.forEach((purpose) => clearCookies(TOOL_COOKIES[purpose]))
+    // stop when the page reloads.
     window.location.reload()
   } catch {
     // Never let tracking break the page.

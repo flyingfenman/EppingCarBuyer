@@ -154,6 +154,13 @@ export default function PrivacyPolicyPage() {
               Whatever you choose, we use Cloudflare Web Analytics to count visits and check how fast pages load. It
               does not use cookies or identify you.
             </p>
+            <p>
+              The site notes how you arrived on each visit (for example from a Google advert, a search or another
+              website). It is added to bookings and enquiries you send us, and to the start of WhatsApp messages you
+              start from this site, where you can see it and delete it before sending (WhatsApp is run by Meta). We only
+              use it to see which of our adverts work. If you agree to analytics or advertising cookies, your browser
+              also remembers it for 30 days, so we still know if you come back later to book. Saying no removes it.
+            </p>
           </CardContent>
         </Card>
 

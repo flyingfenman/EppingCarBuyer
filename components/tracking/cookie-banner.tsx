@@ -15,7 +15,7 @@ import {
 
 // The ids are the purpose ids in Cloudflare Zaraz > Consent > Purposes. Zaraz's own wording there is no longer shown.
 const PURPOSES = [
-  { id: "analytics", name: "Analytics", description: "Helps us understand how visitors use the site (Google Analytics)." },
+  { id: "analytics", name: "Analytics", description: "Helps us understand how visitors find and use the site (Google Analytics)." },
   {
     id: "advertising",
     name: "Advertising",
@@ -131,8 +131,8 @@ export function CookieBanner() {
             <Cookie className="h-5 w-5 text-primary" aria-hidden="true" /> Can we use cookies?
           </p>
           <p className="mt-1 text-sm leading-snug text-muted-foreground">
-            Cookies from Google and Meta help us see how the site is used, measure our adverts and show them to past
-            visitors. None of them are on unless you say yes.
+            Cookies from us, Google and Meta help us see how people find and use the site, measure our adverts and
+            show them to past visitors. None of them are on unless you say yes.
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <button type="button" className={solidButton} onClick={() => save(ALL_ON)}>
