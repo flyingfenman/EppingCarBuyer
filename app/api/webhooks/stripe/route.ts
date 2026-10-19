@@ -23,7 +23,10 @@ type Brand = {
 // customer is confirmed as Stamford, with Stamford's number. Henry no longer has
 // the Stamford mailbox, so Stamford notices and replies come to the Epping inbox,
 // with the brand in the notice's subject so they stand out.
-const BRANDS: Record<"epping" | "stamford", Brand> = {
+// Pro Vehicle Inspections (www.provehicleinspections.com) shares the account too and marks its bookings
+// brand: "Pro Vehicle Inspections". It has no Resend sending domain yet, so it sends from Epping's address under its
+// own name.
+const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
   epping: {
     name: "Epping Car Buyer",
     tagline: "Independent vehicle buying, selling and inspections",
@@ -45,10 +48,22 @@ const BRANDS: Record<"epping" | "stamford", Brand> = {
     whatsappDisplay: "+44 7376 624097",
     site: "www.stamfordcarbuyer.com",
   },
+  pvi: {
+    name: "Pro Vehicle Inspections",
+    tagline: "Independent mobile pre-purchase car inspections",
+    senders: ["Pro Vehicle Inspections <noreply@eppingcarbuyer.com>"],
+    replyTo: "henry@eppingcarbuyer.com",
+    inbox: "henry@eppingcarbuyer.com",
+    whatsappLink: "441992367909",
+    whatsappDisplay: "+44 1992 367909",
+    site: "www.provehicleinspections.com",
+  },
 }
 
 function brandFor(metadata: Stripe.Metadata | null | undefined): Brand {
-  return metadata?.brand === "Stamford Car Buyer" ? BRANDS.stamford : BRANDS.epping
+  if (metadata?.brand === "Stamford Car Buyer") return BRANDS.stamford
+  if (metadata?.brand === "Pro Vehicle Inspections") return BRANDS.pvi
+  return BRANDS.epping
 }
 
 function escapeHtml(value: unknown) {
@@ -274,7 +289,7 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
           brand.inbox,
-          `${brand === BRANDS.stamford ? "Stamford: " : ""}${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`,
+          `${brand === BRANDS.stamford ? "Stamford: " : brand === BRANDS.pvi ? "Pro Vehicle Inspections: " : ""}${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`,
           internalEmail,
           undefined,
           brand,
