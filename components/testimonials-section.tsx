@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { ChevronDown, ChevronLeft, ChevronRight, MapPin, Quote } from "lucide-react"
 import { testimonials } from "@/lib/testimonials"
+import { TestimonialMedia } from "@/components/testimonial-media"
 
 export function TestimonialsSection({ className = "bg-gray-50" }: { className?: string }) {
   const [index, setIndex] = useState(0)
@@ -24,22 +24,13 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
           <div role="region" aria-roledescription="carousel" aria-label="Customer testimonials">
             {testimonials.map((t, i) => (
               <figure
-                key={t.name + t.vehicle}
+                key={t.name + t.headline}
                 hidden={i !== index}
                 aria-roledescription="slide"
                 aria-label={`${i + 1} of ${count}: ${t.name}`}
                 className="grid overflow-hidden rounded-3xl border border-border bg-white shadow-sm motion-safe:animate-in motion-safe:fade-in motion-safe:duration-500 md:grid-cols-[2fr_3fr]"
               >
-                <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[420px]">
-                  <Image
-                    src={t.image}
-                    alt={t.imageAlt}
-                    fill
-                    sizes="(min-width: 768px) 40vw, 100vw"
-                    className="object-cover"
-                    style={{ objectPosition: t.imagePosition ?? "center" }}
-                  />
-                </div>
+                <TestimonialMedia t={t} className="md:min-h-[420px]" sizes="(min-width: 768px) 40vw, 100vw" />
                 <div className="flex flex-col justify-center gap-6 p-6 sm:p-8 lg:p-10">
                   <Quote className="h-10 w-10 text-primary" aria-hidden="true" />
                   <blockquote
@@ -52,12 +43,14 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
                   <figcaption>
                     <p className="text-lg font-bold text-primary">{t.name}</p>
                     <p className="text-sm text-muted-foreground">
-                      {t.vehicle} · {t.service}
+                      {[t.vehicle, t.service].filter(Boolean).join(" · ")}
                     </p>
-                    <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
-                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                      Inspected at {t.location}
-                    </p>
+                    {t.location && (
+                      <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
+                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                        Inspected at {t.location}
+                      </p>
+                    )}
                   </figcaption>
                   {t.fullReview && (
                     <details className="group rounded-2xl border border-border bg-gray-50">
@@ -89,7 +82,7 @@ export function TestimonialsSection({ className = "bg-gray-50" }: { className?: 
                 <div className="flex">
                   {testimonials.map((t, i) => (
                     <button
-                      key={t.name + t.vehicle}
+                      key={t.name + t.headline}
                       type="button"
                       onClick={() => go(i)}
                       aria-label={`Show ${t.name}'s review`}
