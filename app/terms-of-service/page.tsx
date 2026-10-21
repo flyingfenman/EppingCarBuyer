@@ -96,6 +96,30 @@ export default function TermsOfServicePage() {
 
         <Card className="mb-6">
           <CardHeader>
+            <CardTitle>Inspection Cancellations and Refunds</CardTitle>
+          </CardHeader>
+          <CardContent className="prose prose-sm max-w-none">
+            <ul className="list-disc pl-6 space-y-2">
+              <li>You can cancel your inspection free of charge up to 48 hours before the appointment, and we will refund you in full</li>
+              <li>
+                If you cancel less than 48 hours before the appointment, no refund is given. This includes when the inspection
+                cannot go ahead because the car has been sold or withdrawn, or the seller cannot be reached. By then we have
+                planned the day, bought the vehicle history check and started your report
+              </li>
+              <li>Instead of cancelling, you can ask us to move your booking to another date or another car, subject to availability</li>
+              <li>To cancel or move a booking, message us on WhatsApp before the 48 hour cut-off. The time of your message counts</li>
+              <li>If we have to cancel, we will offer you a new appointment or a full refund</li>
+              <li>
+                By booking, you ask us to start preparing your inspection straight away. Your 14 day right to cancel under the
+                Consumer Contracts Regulations ends once the inspection has been carried out. Nothing in this section affects
+                your statutory rights
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="mb-6">
+          <CardHeader>
             <CardTitle>Your Responsibilities</CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
@@ -186,7 +210,7 @@ export default function TermsOfServicePage() {
                 </a>
               </li>
             </ul>
-            <p className="mt-4 text-sm text-muted-foreground">Last updated: January 2025</p>
+            <p className="mt-4 text-sm text-muted-foreground">Last updated: October 2026</p>
           </CardContent>
         </Card>
       </div>
