@@ -183,6 +183,25 @@ async function sendEmail(to: string, subject: string, text: string, html?: strin
   return false
 }
 
+// The lead tool's inbound address (Lead Tool > Settings > Your inbound address), saved in Cloudflare as the secret
+// LEAD_TOOL_INBOUND_URL. Not set means bookings only go by email, as before.
+async function sendToLeadTool(subject: string, text: string) {
+  const url = process.env.LEAD_TOOL_INBOUND_URL
+  if (!url) return
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ subject, text, from: "stripe-webhook" }),
+      signal: AbortSignal.timeout(15000),
+    })
+    console.log(`Lead tool booking "${subject}": ${res.status} ${(await res.text()).slice(0, 300)}`)
+  } catch (error) {
+    // Never hold up the booking emails: the job can still be added by hand.
+    console.error(`Lead tool booking "${subject}" failed:`, error)
+  }
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.text()
   const signature = request.headers.get("stripe-signature")
@@ -286,10 +305,11 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       )
 
       const subjectSuffix = hasEvSoh ? " + EV Battery SOH" : ""
+      const internalSubject = `${brand === BRANDS.stamford ? "Stamford: " : brand === BRANDS.pvi ? "Pro Vehicle Inspections: " : ""}${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
           brand.inbox,
-          `${brand === BRANDS.stamford ? "Stamford: " : brand === BRANDS.pvi ? "Pro Vehicle Inspections: " : ""}${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`,
+          internalSubject,
           internalEmail,
           undefined,
           brand,
@@ -302,6 +322,10 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
           brand,
         ),
       ])
+
+      // Put the job straight into the lead tool, filled in from the booking, so it is ready on arrival. The lead tool
+      // reads the same text as the email and ignores a repeat (Stripe retries), so this needs no state of its own.
+      await sendToLeadTool(internalSubject, internalEmail)
 
       // Ticked the newsletter box when booking: send the confirm link. Only once the booking emails went out, so a
       // Stripe retry after a failed send doesn't send a second confirm link.
