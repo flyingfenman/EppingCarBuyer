@@ -1,6 +1,6 @@
-import Image from "next/image"
 import { Quote } from "lucide-react"
 import { testimonials } from "@/lib/testimonials"
+import { TestimonialMedia } from "@/components/testimonial-media"
 
 // "What our customers say about us", straight after the hero: real customers, with photos of their own
 // cars, all on show with nothing to click.
@@ -15,23 +15,14 @@ export function Reviews() {
         <div className="mx-auto mt-8 grid max-w-5xl gap-5 sm:mt-10 sm:gap-6">
           {testimonials.map((t) => (
             <figure key={t.name} className="grid overflow-hidden rounded-3xl border border-border bg-white shadow-md md:grid-cols-[2fr_3fr]">
-              <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[320px]">
-                <Image
-                  src={t.image}
-                  alt={t.imageAlt}
-                  fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
-                  className="object-cover"
-                  style={{ objectPosition: t.imagePosition ?? "center" }}
-                />
-              </div>
+              <TestimonialMedia t={t} className="md:min-h-[320px]" sizes="(min-width: 768px) 40vw, 100vw" />
               <div className="flex flex-col justify-center p-6 sm:p-8">
                 <Quote className="h-9 w-9 text-primary" aria-hidden="true" />
                 <blockquote className="mt-3 text-xl font-bold leading-snug sm:text-2xl">&ldquo;{t.quote}&rdquo;</blockquote>
                 <figcaption className="mt-4">
                   <p className="text-lg font-bold text-primary">{t.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {t.vehicle} · {t.service}
+                    {[t.vehicle, t.service].filter(Boolean).join(" · ")}
                   </p>
                 </figcaption>
               </div>

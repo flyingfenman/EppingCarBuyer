@@ -1,19 +1,39 @@
 export type Testimonial = {
   name: string
-  vehicle: string
+  vehicle?: string
   service: string
-  town: string
-  location: string
+  town?: string
+  /** Where the car was inspected, shown as "Inspected at ...". */
+  location?: string
+  /** Where a review was posted online, e.g. "Google review", shown when there is no photo. */
+  source?: string
+  rating?: number
   /** One sentence, word for word from the customer, for short review snippets. */
   headline: string
   quote: string
   fullReview?: string[]
-  image: string
-  imageAlt: string
+  image?: string
+  imageAlt?: string
   imagePosition?: string
 }
 
 export const testimonials: Testimonial[] = [
+  {
+    // Posted on the Epping Car Buyer Google profile, 21 October 2026, word for word.
+    name: "H",
+    service: "Pre-purchase inspection",
+    source: "Google review",
+    rating: 5,
+    headline: "I genuinely feel the £199 inspection was some of the best money I’ve ever spent.",
+    quote:
+      "I can’t recommend Henry highly enough. He was incredibly thorough and took the time to explain everything clearly … I genuinely feel the £199 inspection was some of the best money I’ve ever spent.",
+    fullReview: [
+      "I can’t recommend Henry highly enough. He was incredibly thorough and took the time to explain everything clearly, including both the positives and the negatives of the car rather than just giving me a list of faults. I really appreciated that, because it gave me a much more balanced idea of what I was actually buying.",
+      "He checked the car properly, talked me through what would likely need doing over the next year, what was minor, and what genuinely mattered. He also reassured me about the things that were good about the car, which helped me make a sensible decision rather than just worrying about every little issue.",
+      "He was friendly, honest and clearly very knowledgeable. I genuinely feel the £199 inspection was some of the best money I’ve ever spent. It gave me the confidence to walk away from paying too much initially and then negotiate a better price, and I now feel much more informed about the car I’ve bought.",
+      "I would absolutely use him again and would recommend him to anyone buying a used car.",
+    ],
+  },
   {
     name: "Lina",
     vehicle: "Toyota Yaris",
