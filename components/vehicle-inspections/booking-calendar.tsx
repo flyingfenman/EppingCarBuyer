@@ -792,6 +792,12 @@ export function InspectionsBookingCalendar() {
           <p className="text-center text-sm text-muted-foreground">
             Secure checkout via Stripe. Your appointment is confirmed once payment is complete.
           </p>
+          <p className="text-center text-sm text-muted-foreground">
+            Free cancellation up to 48 hours before your appointment. No refunds after that.{" "}
+            <a href="/terms-of-service" className="text-primary underline">
+              Terms
+            </a>
+          </p>
         </div>
         </form>
       )}
