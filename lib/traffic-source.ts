@@ -46,7 +46,8 @@ export function classifyVisit(referrer: string, search: string): { label: string
   } catch {
     return null
   }
-  if (!host || host.endsWith("eppingcarbuyer.com")) return null
+  // Coming back from paying (or cancelling) on Stripe is part of the same visit, not a new source.
+  if (!host || host.endsWith("eppingcarbuyer.com") || /(^|\.)stripe\.com$/.test(host)) return null
 
   const known = REFERRER_SOURCES.find(([pattern]) => pattern.test(host))
   return { label: known ? known[1] : host, detail: known ? "referral" : "link from another site" }
@@ -75,7 +76,8 @@ export function syncTrafficSourceConsent(allowed: boolean, chosen: boolean) {
   mayStore = allowed
   try {
     if (allowed && thisVisit) localStorage.setItem(STORAGE_KEY, JSON.stringify(thisVisit))
-    else if (!allowed && chosen) localStorage.removeItem(STORAGE_KEY)
+    else if (allowed) rememberedTrafficSource() // Deletes it once it is more than 30 days old.
+    else if (chosen) localStorage.removeItem(STORAGE_KEY)
   } catch {
     // Storage blocked: only this visit's source is known.
   }

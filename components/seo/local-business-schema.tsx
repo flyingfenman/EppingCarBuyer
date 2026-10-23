@@ -5,7 +5,6 @@ const localBusinessSchema = {
   name: "Epping Car Buyer",
   url: "https://www.eppingcarbuyer.com",
   logo: "https://www.eppingcarbuyer.com/apple-touch-icon.png",
-  telephone: "+441992367909",
   email: "henry@eppingcarbuyer.com",
   image: "https://www.eppingcarbuyer.com/images/inspection-car.jpg",
   description:
