@@ -28,13 +28,13 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const {
-      packageKey, slotStart, slotEnd, registration, location, sellerName, sellerPhone, advertUrl,
+      packageKey, slotStart, slotEnd, registration: rawRegistration, location, sellerName, sellerPhone, advertUrl,
       name, phone, email, notes, includeEvSoh, shortNoticeConfirmed, trafficSource, newsletter,
     } = body as {
       packageKey: unknown
       slotStart: string
       slotEnd: string
-      registration: string
+      registration?: unknown
       location: string
       sellerName?: string
       sellerPhone?: string
@@ -49,9 +49,11 @@ export async function POST(request: NextRequest) {
       newsletter?: boolean
     }
 
-    if (!isPackageKey(packageKey) || !slotStart || !slotEnd || !registration || !location || !name || !phone || !email) {
+    if (!isPackageKey(packageKey) || !slotStart || !slotEnd || !location || !name || !phone || !email) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
+    // The reg is never required: imports, foreign or private plates and cars with no plate yet must still book.
+    const registration = (typeof rawRegistration === "string" ? rawRegistration.trim().replace(/\s+/g, " ").slice(0, 30) : "") || "No reg given"
 
     const start = new Date(slotStart)
     const end = new Date(slotEnd)

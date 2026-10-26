@@ -670,8 +670,9 @@ export function InspectionsBookingCalendar() {
           </div>
           <div className="grid gap-4 rounded-3xl border border-border bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-6">
             <div className="space-y-1.5">
-              <Label htmlFor="registration">Registration *</Label>
-              <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" required autoCapitalize="characters" autoCorrect="off" spellCheck={false} autoComplete="off" className="uk-numberplate text-center tracking-widest" />
+              <Label htmlFor="registration">Registration</Label>
+              <Input id="registration" value={form.registration} onChange={set("registration")} placeholder="e.g. AB12 CDE" autoCapitalize="characters" autoCorrect="off" spellCheck={false} autoComplete="off" className="uk-numberplate text-center tracking-widest" />
+              <p className="text-xs text-muted-foreground">Imported, foreign or private plate? Type it as it is, or leave it blank if the car has no plate yet.</p>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="location">Where is the car? *</Label>
