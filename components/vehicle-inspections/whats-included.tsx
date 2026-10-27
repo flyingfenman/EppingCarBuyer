@@ -48,12 +48,12 @@ export function WhatsIncluded() {
       <div className="grid grid-cols-2 gap-3">
         <div className="rounded-2xl border border-border bg-white p-3 text-center sm:p-4">
           <p className="font-bold">Standard</p>
-          <p className="text-2xl font-bold">£149.99</p>
+          <p className="text-2xl font-bold">£199.99</p>
           <p className="text-sm text-muted-foreground">160-point inspection</p>
         </div>
         <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-3 text-center sm:p-4">
           <p className="font-bold text-primary">Premium</p>
-          <p className="text-2xl font-bold">£199.99</p>
+          <p className="text-2xl font-bold">£249.99</p>
           <p className="text-sm text-muted-foreground">260-point inspection</p>
         </div>
       </div>
@@ -83,11 +83,11 @@ export function WhatsIncluded() {
         <div className="mt-3 grid grid-cols-2 gap-3 text-center">
           <p className="rounded-xl bg-white p-2">
             <span className="block text-sm text-muted-foreground">Standard + report</span>
-            <span className="text-lg font-bold">£199.98</span>
+            <span className="text-lg font-bold">£249.98</span>
           </p>
           <p className="rounded-xl bg-white p-2">
             <span className="block text-sm text-muted-foreground">Premium + report</span>
-            <span className="text-lg font-bold">£249.98</span>
+            <span className="text-lg font-bold">£299.98</span>
           </p>
         </div>
         <p className="mt-3 text-sm">

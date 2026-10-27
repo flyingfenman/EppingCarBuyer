@@ -20,7 +20,7 @@ export function FinalCta() {
               <MessageCircle className="h-5 w-5" /> Ask Henry a question
             </a>
           </div>
-          <p className="mt-6 font-semibold text-muted-foreground">Standard £149.99 · Premium £199.99 · EV battery check £99.99</p>
+          <p className="mt-6 font-semibold text-muted-foreground">Standard £199.99 · Premium £249.99 · EV battery check £99.99</p>
         </div>
       </div>
     </section>

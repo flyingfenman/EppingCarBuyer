@@ -7,11 +7,11 @@ const canonicalPath = "/pre-purchase-car-inspection-essex"
 export const metadata: Metadata = {
   title: "Pre Purchase Car Inspection Essex | Epping Car Buyer",
   description:
-    "Pre-purchase car inspections across Essex from £149.99. Diagnostic scan, road test, history check, same-day report and optional EV battery SOH testing.",
+    "Pre-purchase car inspections across Essex from £199.99. Diagnostic scan, road test, history check, same-day report and optional EV battery SOH testing.",
   alternates: { canonical: canonicalPath },
   openGraph: {
     title: "Pre Purchase Car Inspection Essex | Epping Car Buyer",
-    description: "Independent mobile used-car inspections across Essex from £149.99.",
+    description: "Independent mobile used-car inspections across Essex from £199.99.",
     url: canonicalPath,
     type: "website",
     images: ["/images/inspection-car.jpg"],

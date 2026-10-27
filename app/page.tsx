@@ -7,7 +7,7 @@ import { ContactSection } from "@/components/contact-section"
 
 const title = "Mobile Car Inspection Service | Epping Car Buyer"
 const description =
-  "Book an independent pre-purchase car inspection from £149.99, or let us market and sell your car for you with our managed Market & Sell service."
+  "Book an independent pre-purchase car inspection from £199.99, or let us market and sell your car for you with our managed Market & Sell service."
 
 export const metadata: Metadata = {
   title,

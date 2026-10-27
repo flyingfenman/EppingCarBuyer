@@ -13,14 +13,14 @@ import { FinalCta } from "@/components/vehicle-inspections/sections/final-cta"
 export const metadata: Metadata = {
   title: "Pre-Purchase Car Inspection Service | Epping Car Buyer",
   description:
-    "Independent mobile pre-purchase car inspections from £149.99. Diagnostics, road test, video review and buying advice across Essex, Herts and London.",
+    "Independent mobile pre-purchase car inspections from £199.99. Diagnostics, road test, video review and buying advice across Essex, Herts and London.",
   alternates: {
     canonical: "/vehicle-inspections",
   },
   openGraph: {
     title: "Car Inspection Service | Pre-Purchase Vehicle Inspections",
     description:
-      "Understand the car before you commit. Both packages include a video review, documented findings and personal buying guidance. Inspections from £149.99.",
+      "Understand the car before you commit. Both packages include a video review, documented findings and personal buying guidance. Inspections from £199.99.",
     url: "/vehicle-inspections",
     type: "website",
     images: ["/images/inspection-car.jpg"],

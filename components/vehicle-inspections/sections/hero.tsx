@@ -23,7 +23,7 @@ export function InspectionsHero() {
               Years of buying cars with our own money shape how we inspect yours. We combine a detailed physical inspection, advanced diagnostics, road testing, vehicle history and clear video evidence so you understand the car before you commit.
             </p>
 
-            <p className="mt-4 text-lg font-bold text-foreground sm:mt-5">Standard £149.99 · Premium £199.99</p>
+            <p className="mt-4 text-lg font-bold text-foreground sm:mt-5">Standard £199.99 · Premium £249.99</p>
             <p className="mt-3 text-sm font-bold uppercase tracking-wide text-primary">Both inspections include</p>
             <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2 font-semibold sm:flex sm:flex-wrap sm:gap-x-6">
               {IN_BOTH.map((item) => (

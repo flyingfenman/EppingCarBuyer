@@ -6,7 +6,7 @@ Epping Car Buyer is run by Henry, who travels to the car, wherever it is for sal
 
 ## Services
 
-- [Vehicle inspections](https://www.eppingcarbuyer.com/vehicle-inspections): Standard (from £149.99, 160-point) and Premium (£199.99, 260-point) pre-purchase inspections with diagnostics, road test, history check, video review, photo evidence, same-day report and personal buying guidance.
+- [Vehicle inspections](https://www.eppingcarbuyer.com/vehicle-inspections): Standard (from £199.99, 160-point) and Premium (£249.99, 260-point) pre-purchase inspections with diagnostics, road test, history check, video review, photo evidence, same-day report and personal buying guidance.
 - [What we inspect](https://www.eppingcarbuyer.com/vehicle-inspections/what-we-inspect): the full 260-point Premium checklist.
 - [EV and hybrid battery health check](https://www.eppingcarbuyer.com/ev-battery-health-check): CARA Approved Autel State of Health report for compatible electric and plug-in hybrid cars, £99.99 on its own or £49.99 with an inspection.
 - [Market & Sell](https://www.eppingcarbuyer.com/market-and-sell): we market and sell your car for you, aiming closer to retail value than a trade sale. No upfront cost, no sale, no fee.
