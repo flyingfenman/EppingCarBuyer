@@ -94,7 +94,7 @@ export function WhatsIncluded() {
           Only need the battery checked?{" "}
           {/* A full page load, so the booking calendar picks the battery check up from the link. */}
           <a href="/vehicle-inspections/book?package=ev" className="font-bold text-primary underline underline-offset-4">
-            The battery health check on its own is £99.99.
+            The battery health check on its own is £149.99.
           </a>
         </p>
       </section>

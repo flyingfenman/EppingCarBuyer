@@ -17,7 +17,7 @@ const EV_SOH_AMOUNT_PENCE = 4999
 const PACKAGE_INFO: Record<PackageKey, { name: string; amountPence: number }> = {
   standard: { name: "Standard Inspection", amountPence: 19999 },
   premium: { name: "Premium Inspection", amountPence: 24999 },
-  ev: { name: "EV Battery Health Check", amountPence: 9999 },
+  ev: { name: "EV Battery Health Check", amountPence: 14999 },
 }
 
 function cleanText(value: unknown, maxLength: number): string {

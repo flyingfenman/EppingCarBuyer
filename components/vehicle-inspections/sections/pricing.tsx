@@ -49,7 +49,7 @@ const PREMIUM: Plan = {
 const EV_ONLY: Plan = {
   key: "ev",
   name: "EV Battery Health Check",
-  price: "£99.99",
+  price: "£149.99",
   points: "Battery check on its own",
   forWho: "Just need an electric car's battery checked? The battery test and report, without an inspection.",
   items: BATTERY_ITEMS,

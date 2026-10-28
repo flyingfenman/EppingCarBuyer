@@ -32,7 +32,7 @@ export function InspectionsHero() {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">EV battery health report: +£49.99 with either inspection, or £99.99 on its own.</p>
+            <p className="mt-3 text-sm text-muted-foreground sm:text-base">EV battery health report: +£49.99 with either inspection, or £149.99 on its own.</p>
 
             <div className="mt-6">
               <BookNowButton />

@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "How much does a car inspection cost?",
     answer:
-      "Standard is £199.99 (160 points) and Premium is £249.99 (260 points). For electric and plug-in hybrid cars you can add the battery report for £49.99, or book the battery check on its own for £99.99.",
+      "Standard is £199.99 (160 points) and Premium is £249.99 (260 points). For electric and plug-in hybrid cars you can add the battery report for £49.99, or book the battery check on its own for £149.99.",
   },
   {
     question: "Is a history check, like an HPI check, included?",
