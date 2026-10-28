@@ -26,7 +26,7 @@ const BATTERY_ITEMS: Item[] = [
 const STANDARD: Plan = {
   key: "standard",
   name: "Standard",
-  price: "£149.99",
+  price: "£199.99",
   points: "160-point inspection",
   forWho: "A thorough mechanical and condition check, with the history check, diagnostics and road test.",
   items: IN_BOTH,
@@ -37,7 +37,7 @@ const STANDARD: Plan = {
 const PREMIUM: Plan = {
   key: "premium",
   name: "Premium",
-  price: "£199.99",
+  price: "£249.99",
   points: "260-point inspection",
   forWho: "Our deepest inspection, with paint readings, repair costs and research into the car and seller.",
   lead: "Everything in Standard, plus:",
@@ -49,7 +49,7 @@ const PREMIUM: Plan = {
 const EV_ONLY: Plan = {
   key: "ev",
   name: "EV Battery Health Check",
-  price: "£99.99",
+  price: "£149.99",
   points: "Battery check on its own",
   forWho: "Just need an electric car's battery checked? The battery test and report, without an inspection.",
   items: BATTERY_ITEMS,

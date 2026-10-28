@@ -2,9 +2,9 @@ import Link from "next/link"
 import { ArrowRight, Check, ClipboardCheck, ShieldCheck } from "lucide-react"
 
 const inspectionPoints = [
-  "Standard 160-point inspection — £149.99",
-  "Premium 260-point inspection — £199.99",
-  "EV battery health check on its own — £99.99",
+  "Standard 160-point inspection — £199.99",
+  "Premium 260-point inspection — £249.99",
+  "EV battery health check on its own — £149.99",
   "Petrol, diesel, hybrid & electric vehicles",
   "Video review, evidence and same-day report in both inspections",
   "Personal call to guide your purchase decision",
@@ -33,7 +33,7 @@ export function HomeCoreServices() {
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-2 rounded-full bg-[#0d9488] px-3 py-1.5 text-sm font-bold text-white">
-                    <ClipboardCheck className="h-4 w-4" /> Inspections from £149.99
+                    <ClipboardCheck className="h-4 w-4" /> Inspections from £199.99
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full bg-[#6711a4]/10 px-3 py-1.5 text-sm font-semibold text-[#6711a4]">
                     160 or 260 points

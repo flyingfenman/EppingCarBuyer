@@ -430,7 +430,7 @@ export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel
 
         <div className="mx-auto mt-7 grid max-w-4xl gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-border bg-slate-50 p-5">
-            <p className="text-sm font-bold text-primary">Standard · £149.99</p>
+            <p className="text-sm font-bold text-primary">Standard · £199.99</p>
             <p className="mt-1 text-3xl font-bold">160 points</p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               The essential mechanical, diagnostic, safety, condition and road-test checks, with history, video, photos, report and buying guidance.
@@ -439,7 +439,7 @@ export function InspectionsWhatWeInspect({ headingLevel = "h2" }: { headingLevel
           <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-5 shadow-sm">
             <div className="flex items-center gap-2">
               <BadgeCheck className="h-5 w-5 text-primary" />
-              <p className="text-sm font-bold text-primary">Premium · £199.99</p>
+              <p className="text-sm font-bold text-primary">Premium · £249.99</p>
             </div>
             <p className="mt-1 text-3xl font-bold">{premiumTotal} points</p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
