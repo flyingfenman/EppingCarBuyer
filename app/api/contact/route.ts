@@ -59,7 +59,7 @@ Sent: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
     },
     body: JSON.stringify({
       from: "Epping Car Buyer <noreply@eppingcarbuyer.com>",
-      to: ["henry@eppingcarbuyer.com"],
+      to: ["henry@provehicleinspections.com"],
       ...(contact.kind === "email" ? { reply_to: contact.email } : {}),
       subject: `Website message from ${name}`,
       text,

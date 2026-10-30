@@ -31,8 +31,8 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     name: "Epping Car Buyer",
     tagline: "Independent vehicle buying, selling and inspections",
     senders: ["Epping Car Buyer <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@eppingcarbuyer.com",
-    inbox: "henry@eppingcarbuyer.com",
+    replyTo: "henry@provehicleinspections.com",
+    inbox: "henry@provehicleinspections.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",
     site: "www.eppingcarbuyer.com",
@@ -42,8 +42,8 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     tagline: "Vehicle inspections and Market & Sell",
     // Stamford's own address first; Epping's is the fallback if Resend refuses it.
     senders: ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@eppingcarbuyer.com",
-    inbox: "henry@eppingcarbuyer.com",
+    replyTo: "henry@provehicleinspections.com",
+    inbox: "henry@provehicleinspections.com",
     whatsappLink: "447376624097",
     whatsappDisplay: "+44 7376 624097",
     site: "www.stamfordcarbuyer.com",
@@ -52,8 +52,8 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     name: "Pro Vehicle Inspections",
     tagline: "Independent mobile pre-purchase car inspections",
     senders: ["Pro Vehicle Inspections <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@eppingcarbuyer.com",
-    inbox: "henry@eppingcarbuyer.com",
+    replyTo: "henry@provehicleinspections.com",
+    inbox: "henry@provehicleinspections.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",
     site: "www.provehicleinspections.com",
@@ -402,7 +402,7 @@ Questions? WhatsApp us on +44 1992 367909.
       )
 
       const emailTasks = [
-        sendEmail("henry@eppingcarbuyer.com", `Shop order: ${productName}. PAID, needs fulfilling`, internalEmail),
+        sendEmail("henry@provehicleinspections.com", `Shop order: ${productName}. PAID, needs fulfilling`, internalEmail),
       ]
       if (customerEmail) {
         emailTasks.push(sendEmail(customerEmail, `Order confirmed: ${productName}`, customerEmailBody, customerHtml))

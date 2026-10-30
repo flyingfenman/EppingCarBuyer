@@ -45,12 +45,12 @@ export default function ContactPage() {
                   <MessageCircle className="h-5 w-5" aria-hidden="true" /> WhatsApp us
                 </a>
                 <a
-                  href="mailto:henry@eppingcarbuyer.com"
+                  href="mailto:henry@provehicleinspections.com"
                   className="flex h-14 w-full items-center justify-center gap-2 rounded-xl border-2 border-primary/20 bg-white px-5 text-lg font-bold text-primary transition hover:bg-primary/5"
                 >
                   <Mail className="h-5 w-5" aria-hidden="true" /> Email Henry
                 </a>
-                <p className="text-center text-base text-muted-foreground">henry@eppingcarbuyer.com</p>
+                <p className="text-center text-base text-muted-foreground">henry@provehicleinspections.com</p>
               </div>
             </div>
 
