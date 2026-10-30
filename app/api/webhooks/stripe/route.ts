@@ -186,7 +186,9 @@ async function sendEmail(to: string, subject: string, text: string, html?: strin
 // The lead tool's inbound address (Lead Tool > Settings > Your inbound address), saved in Cloudflare as the secret
 // LEAD_TOOL_INBOUND_URL. Not set means bookings only go by email, as before.
 async function sendToLeadTool(subject: string, text: string) {
-  const url = process.env.LEAD_TOOL_INBOUND_URL
+  // Saved while the lead tool ran on Render; Render is suspended (30 Oct 2026) and answers 503, so an onrender.com
+  // address goes to the live site instead. The /inbound/<token> path is the same.
+  const url = process.env.LEAD_TOOL_INBOUND_URL?.replace(/^https?:\/\/lead-tool-[a-z0-9]+\.onrender\.com/i, "https://www.carsalesleadtool.com")
   if (!url) return
   try {
     const res = await fetch(url, {
