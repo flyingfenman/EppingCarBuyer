@@ -7,7 +7,7 @@ import "server-only"
 
 const NEWSLETTER_SEGMENT_ID = process.env.RESEND_NEWSLETTER_SEGMENT_ID || "4a2023ec-5a07-4db5-9817-775951af74ff"
 const FROM = "Henry at Epping Car Buyer <noreply@eppingcarbuyer.com>"
-const REPLY_TO = "henry@eppingcarbuyer.com"
+const REPLY_TO = "henry@provehicleinspections.com"
 const SITE = "https://www.eppingcarbuyer.com"
 // A confirmation link older than this is refused, so a stale or forwarded email can't sign someone up later.
 const CONFIRM_LINK_DAYS = 7

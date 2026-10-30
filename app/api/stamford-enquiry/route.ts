@@ -5,7 +5,7 @@ import { type NextRequest, NextResponse } from "next/server"
 // Henry no longer has the Stamford mailbox, so it goes to his Epping inbox; every Stamford subject
 // starts with "Stamford", so they stand out. Like the public contact forms, the most it can be used
 // for is a message to Henry.
-const INBOX = "henry@eppingcarbuyer.com"
+const INBOX = "henry@provehicleinspections.com"
 const SENDERS = ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"]
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
