@@ -35,6 +35,20 @@ export function rangesOverlap(aStart: string, aEnd: string, bStart: string, bEnd
   return new Date(aStart).getTime() < new Date(bEnd).getTime() && new Date(bStart).getTime() < new Date(aEnd).getTime()
 }
 
+// Henry is one person driving between jobs, so every booking keeps this much time clear after it (and a new booking
+// has to end this long before an existing one starts). Starts stay on the hour: with a 90 minute gap, a 10am standard
+// inspection (10 to 11) leaves 1pm as the next free start.
+export const GAP_BETWEEN_BOOKINGS_MIN = 90
+
+// True when a slot would clash with a booking, counting the travel gap on either side.
+export function clashesWithBooking(slotStart: string, slotEnd: string, bookingStart: string, bookingEnd: string): boolean {
+  const gap = GAP_BETWEEN_BOOKINGS_MIN * 60000
+  return (
+    new Date(slotStart).getTime() < new Date(bookingEnd).getTime() + gap &&
+    new Date(bookingStart).getTime() < new Date(slotEnd).getTime() + gap
+  )
+}
+
 function londonOffsetMinutes(instant: Date): number {
   const asUTC = new Date(instant.toLocaleString("en-US", { timeZone: "UTC" }))
   const asLondon = new Date(instant.toLocaleString("en-US", { timeZone: LONDON_TZ }))
