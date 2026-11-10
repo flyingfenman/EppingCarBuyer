@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { PACKAGE_KEYS, generateAllSlots, isPackageKey, rangesOverlap, type PackageKey } from "@/lib/inspection-slots"
+import { PACKAGE_KEYS, generateAllSlots, isPackageKey, clashesWithBooking, type PackageKey } from "@/lib/inspection-slots"
 import { getOccupiedRanges } from "@/lib/inspection-bookings-server"
 import { fetchOtherDiaries, onlyFreeEverywhere, type OtherDiary } from "@/lib/other-diaries"
 
@@ -7,7 +7,7 @@ const LOOKBACK_DAYS = 45
 
 function filterAvailable(packageKey: PackageKey, now: Date, occupied: Awaited<ReturnType<typeof getOccupiedRanges>>) {
   return generateAllSlots(packageKey, now).filter(
-    (slot) => !occupied.some((range) => rangesOverlap(slot.start, slot.end, range.start, range.end)),
+    (slot) => !occupied.some((range) => clashesWithBooking(slot.start, slot.end, range.start, range.end)),
   )
 }
 

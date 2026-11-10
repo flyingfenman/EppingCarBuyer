@@ -5,7 +5,7 @@ import {
   MIN_BOOKING_NOTICE_HOURS,
   PACKAGE_DURATIONS_MIN,
   isPackageKey,
-  rangesOverlap,
+  clashesWithBooking,
   type PackageKey,
 } from "@/lib/inspection-slots"
 import { getOccupiedRanges } from "@/lib/inspection-bookings-server"
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     // Taken here, or taken on one of Henry's other inspection sites, which book into their own Stripe account.
     const [occupied, otherDiaries] = await Promise.all([getOccupiedRanges(LOOKBACK_DAYS), fetchOtherDiaries()])
     const alreadyTaken =
-      occupied.some((range) => rangesOverlap(slotStart, slotEnd, range.start, range.end)) ||
+      occupied.some((range) => clashesWithBooking(slotStart, slotEnd, range.start, range.end)) ||
       !isFreeElsewhere(otherDiaries, packageKey, { start: slotStart, end: slotEnd })
     if (alreadyTaken) {
       return NextResponse.json({ error: "That slot was just booked by someone else — please pick another." }, { status: 409 })
