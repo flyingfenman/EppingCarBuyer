@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { SENDERS } from "@/lib/email-sender"
 
 // Stamford Car Buyer's contact and Market & Sell forms send through here when the Stamford site can't
 // send email itself (for example when its own RESEND_API_KEY isn't set), so an enquiry isn't lost.
@@ -6,7 +7,6 @@ import { type NextRequest, NextResponse } from "next/server"
 // starts with "Stamford", so they stand out. Like the public contact forms, the most it can be used
 // for is a message to Henry.
 const INBOX = "henry@eppingcarbuyer.com"
-const SENDERS = ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"]
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 async function send(from: string, subject: string, text: string, replyTo?: string): Promise<boolean> {
