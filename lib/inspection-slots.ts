@@ -26,6 +26,13 @@ const LOOKAHEAD_DAYS = 30
 const SLOT_INTERVAL_MIN = 60
 const LONDON_TZ = "Europe/London"
 
+// Sunday appointments are by request. They are shown to customers like any other time, but have to be agreed with
+// Henry by message before they can be paid for, the same as a time inside MIN_BOOKING_NOTICE_HOURS. The checkout API
+// enforces it too.
+export function isSundaySlot(slotStart: string): boolean {
+  return new Intl.DateTimeFormat("en-GB", { timeZone: LONDON_TZ, weekday: "short" }).format(new Date(slotStart)) === "Sun"
+}
+
 export interface Slot {
   start: string
   end: string
