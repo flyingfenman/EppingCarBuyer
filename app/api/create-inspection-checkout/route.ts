@@ -5,6 +5,7 @@ import {
   MIN_BOOKING_NOTICE_HOURS,
   PACKAGE_DURATIONS_MIN,
   isPackageKey,
+  isSundaySlot,
   clashesWithBooking,
   type PackageKey,
 } from "@/lib/inspection-slots"
@@ -76,6 +77,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Sundays are by request: the booking page asks for a WhatsApp to Henry first, and sends the same confirmation
+    // once the customer says he has agreed the time. This stops a Sunday being paid for any other way.
+    const isSunday = isSundaySlot(slotStart)
+    if (isSunday && !hasShortNoticeConfirmation) {
+      return NextResponse.json(
+        { error: "Sunday appointments need to be agreed with Henry before you pay. Please WhatsApp him, or pick another day." },
+        { status: 400 },
+      )
+    }
+
     // Taken here, or taken on one of Henry's other inspection sites, which book into their own Stripe account.
     const [occupied, otherDiaries] = await Promise.all([getOccupiedRanges(LOOKBACK_DAYS), fetchOtherDiaries()])
     const alreadyTaken =
@@ -131,7 +142,7 @@ export async function POST(request: NextRequest) {
         packageKey,
         packageName,
         includeEvSoh: wantsEvSoh ? "yes" : "no",
-        shortNoticeConfirmed: isShortNotice && hasShortNoticeConfirmation ? "yes" : "no",
+        shortNoticeConfirmed: (isShortNotice || isSunday) && hasShortNoticeConfirmation ? "yes" : "no",
         slotStart,
         slotEnd,
         registration,
