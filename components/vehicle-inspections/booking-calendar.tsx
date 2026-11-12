@@ -619,18 +619,16 @@ export function InspectionsBookingCalendar() {
                         )
                       })}
                     </div>
+                    {/* One slim line under the times, the same for a Sunday and for a time inside 24 hours: message Henry, then
+                        tick once he has confirmed. No heading or card, so it doesn't push the page down on a phone. */}
                     {shortNoticeCandidate && dateKey(shortNoticeCandidate.start) === selectedDate && (
-                      <div className="mt-4 rounded-2xl border-2 border-primary/20 bg-white p-4">
-                        <p className="font-bold text-foreground">{candidateReason === "sunday" ? "Sunday appointments are by request" : "This appointment is within 24 hours"}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                          Please WhatsApp Henry to confirm availability before paying.
-                        </p>
-                        <Button asChild className="mt-3 w-full bg-[#25D366] font-bold text-white hover:bg-[#1da851]">
+                      <div className="mt-3 grid grid-cols-2 gap-2">
+                        <Button asChild className="h-11 bg-[#25D366] px-2 text-sm font-bold text-white hover:bg-[#1da851]">
                           <a href={shortNoticeWhatsAppUrl(shortNoticeCandidate, selectedPackage.name, candidateReason)} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick(candidateReason === "sunday" ? "sunday_slot" : "short_notice_slot")}>
-                            <MessageCircle className="mr-2 h-4 w-4" /> Message Henry on WhatsApp
+                            <MessageCircle className="mr-1.5 h-4 w-4 shrink-0" /> Message Henry
                           </a>
                         </Button>
-                        <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-primary/15 bg-primary/5 p-3">
+                        <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-primary/25 bg-white px-2.5 text-sm font-semibold leading-tight text-foreground">
                           <input
                             type="checkbox"
                             checked={shortNoticeConfirmed}
@@ -640,9 +638,9 @@ export function InspectionsBookingCalendar() {
                               setSelectedSlot(confirmed ? shortNoticeCandidate : null)
                               setDetailsUnlocked(false)
                             }}
-                            className="mt-0.5 h-5 w-5 rounded border-border accent-primary"
+                            className="h-5 w-5 shrink-0 rounded border-border accent-primary"
                           />
-                          <span className="text-sm font-semibold text-foreground">Henry has confirmed this appointment.</span>
+                          Henry has confirmed
                         </label>
                       </div>
                     )}
