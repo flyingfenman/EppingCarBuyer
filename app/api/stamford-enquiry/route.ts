@@ -6,6 +6,8 @@ import { SENDERS } from "@/lib/email-sender"
 // Henry no longer has the Stamford mailbox, so it goes to his Epping inbox; every Stamford subject
 // starts with "Stamford", so they stand out. Like the public contact forms, the most it can be used
 // for is a message to Henry.
+// The Pro Vehicle Inspections contact form uses it the same way when that site's Resend key is refused;
+// its subjects start with "Pro Vehicle Inspections: ".
 const INBOX = "henry@eppingcarbuyer.com"
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -39,8 +41,8 @@ export async function POST(request: NextRequest) {
   const text = typeof body.text === "string" ? body.text.trim().slice(0, 8000) : ""
   const replyTo = typeof body.replyTo === "string" && EMAIL_PATTERN.test(body.replyTo.trim()) ? body.replyTo.trim() : undefined
 
-  // Every Stamford enquiry subject starts this way.
-  if (!subject.startsWith("Stamford ") || !text) {
+  // Every Stamford and Pro Vehicle Inspections enquiry subject starts one of these ways.
+  if (!(subject.startsWith("Stamford ") || subject.startsWith("Pro Vehicle Inspections: ")) || !text) {
     return NextResponse.json({ error: "Invalid enquiry" }, { status: 400 })
   }
 
