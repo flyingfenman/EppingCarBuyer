@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { getStripe } from "@/lib/stripe"
 import { normaliseEmail, requestSubscription } from "@/lib/newsletter"
+import { REPLY_TO, SENDERS } from "@/lib/email-sender"
 
 const WHATSAPP_ICON = "https://cdn.simpleicons.org/whatsapp/FFFFFF"
 const FONT_STACK = "'Fredoka','Trebuchet MS',Arial,Helvetica,sans-serif"
@@ -24,14 +25,14 @@ type Brand = {
 // the Stamford mailbox, so Stamford notices and replies come to the Epping inbox,
 // with the brand in the notice's subject so they stand out.
 // Pro Vehicle Inspections (www.provehicleinspections.com) shares the account too and marks its bookings
-// brand: "Pro Vehicle Inspections". It has no Resend sending domain yet, so it sends from Epping's address under its
-// own name.
+// brand: "Pro Vehicle Inspections".
+// Every brand's emails go from Henry's Pro Vehicle Inspections address, and customers reply to it (lib/email-sender).
 const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
   epping: {
     name: "Epping Car Buyer",
     tagline: "Independent vehicle buying, selling and inspections",
-    senders: ["Epping Car Buyer <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@eppingcarbuyer.com",
+    senders: SENDERS,
+    replyTo: REPLY_TO,
     inbox: "henry@eppingcarbuyer.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",
@@ -40,9 +41,8 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
   stamford: {
     name: "Stamford Car Buyer",
     tagline: "Vehicle inspections and Market & Sell",
-    // Stamford's own address first; Epping's is the fallback if Resend refuses it.
-    senders: ["Stamford Car Buyer <noreply@stamfordcarbuyer.com>", "Stamford Car Buyer <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@eppingcarbuyer.com",
+    senders: SENDERS,
+    replyTo: REPLY_TO,
     inbox: "henry@eppingcarbuyer.com",
     whatsappLink: "447376624097",
     whatsappDisplay: "+44 7376 624097",
@@ -51,8 +51,8 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
   pvi: {
     name: "Pro Vehicle Inspections",
     tagline: "Independent mobile pre-purchase car inspections",
-    senders: ["Pro Vehicle Inspections <noreply@eppingcarbuyer.com>"],
-    replyTo: "henry@eppingcarbuyer.com",
+    senders: SENDERS,
+    replyTo: REPLY_TO,
     inbox: "henry@eppingcarbuyer.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",

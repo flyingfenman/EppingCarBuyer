@@ -1,4 +1,5 @@
 import "server-only"
+import { REPLY_TO, sendEmail } from "@/lib/email-sender"
 
 // The Friday newsletter list. People join it only by asking to, and only once they click the link in the
 // confirmation email, so every address on the list has a record of saying yes (UK GDPR and PECR).
@@ -6,8 +7,6 @@ import "server-only"
 // own unsubscribe link ({{{RESEND_UNSUBSCRIBE_URL}}}), which updates the contact there.
 
 const NEWSLETTER_SEGMENT_ID = process.env.RESEND_NEWSLETTER_SEGMENT_ID || "4a2023ec-5a07-4db5-9817-775951af74ff"
-const FROM = "Henry at Epping Car Buyer <noreply@eppingcarbuyer.com>"
-const REPLY_TO = "henry@eppingcarbuyer.com"
 const SITE = "https://www.eppingcarbuyer.com"
 // A confirmation link older than this is refused, so a stale or forwarded email can't sign someone up later.
 const CONFIRM_LINK_DAYS = 7
@@ -89,8 +88,7 @@ Henry
 Epping Car Buyer
 ${SITE}`
 
-  const response = await resend("/emails", "POST", {
-    from: FROM,
+  const response = await sendEmail({
     reply_to: REPLY_TO,
     to: [email],
     subject: "Confirm your Epping Car Buyer newsletter",

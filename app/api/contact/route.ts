@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { parseContactDetail } from "@/lib/contact"
 import { normaliseEmail, requestSubscription } from "@/lib/newsletter"
+import { sendEmail } from "@/lib/email-sender"
 
 function clean(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : ""
@@ -51,19 +52,11 @@ Landing page: ${landingPage || "Unknown"}
 Sent: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
   `.trim()
 
-  const resendResponse = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "Epping Car Buyer <noreply@eppingcarbuyer.com>",
-      to: ["henry@eppingcarbuyer.com"],
-      ...(contact.kind === "email" ? { reply_to: contact.email } : {}),
-      subject: `Website message from ${name}`,
-      text,
-    }),
+  const resendResponse = await sendEmail({
+    to: ["henry@eppingcarbuyer.com"],
+    ...(contact.kind === "email" ? { reply_to: contact.email } : {}),
+    subject: `Website message from ${name}`,
+    text,
   })
 
   if (!resendResponse.ok) {
