@@ -241,8 +241,8 @@ export async function POST(request: NextRequest) {
       // The EV battery health check on its own: no inspection, just the battery test and report.
       const evOnly = packageKey === "ev"
       const visitDetails = evOnly
-        ? "Henry will call or message you beforehand to confirm the details. He will then meet you at the car, run the CARA Approved® Autel EV Battery Health Test and talk you through the battery's State of Health before you hand over any money to the seller. Vehicle compatibility will be confirmed from the car details."
-        : "Henry will call or message you beforehand to confirm the details. He will then meet you at the car, complete the full inspection and talk you through everything found before you hand over any money to the seller."
+        ? "Henry will call or message you beforehand to confirm the details. You don't need to be there. He will go to the car, run the CARA Approved® Autel EV Battery Health Test, send you the battery health report and talk you through the battery's State of Health before you hand over any money to the seller. Vehicle compatibility will be confirmed from the car details."
+        : "Henry will call or message you beforehand to confirm the details. You don't need to be there. He will go to the car, complete the full inspection, send you the video, photos and written report, and talk you through everything found before you hand over any money to the seller."
       const amountPaid = `£${((session.amount_total || 0) / 100).toFixed(2)}`
       const slotFull = new Date(slotStart).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "full", timeStyle: "short" })
       const slotEndTime = new Date(slotEnd).toLocaleString("en-GB", { timeZone: "Europe/London", timeStyle: "short" })
