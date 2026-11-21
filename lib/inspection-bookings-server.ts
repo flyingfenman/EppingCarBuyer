@@ -1,6 +1,7 @@
 import "server-only"
 import type Stripe from "stripe"
 import { getStripe } from "@/lib/stripe"
+import { applyBookingMoves, fetchBookingMoves, type DiaryBooking } from "@/lib/booking-moves"
 
 
 export interface OccupiedRange {
@@ -14,7 +15,10 @@ export interface OccupiedRange {
 // finish. Paginates fully rather than trusting a single page, since Stripe caps each page at 100.
 export async function getOccupiedRanges(lookbackDays: number): Promise<OccupiedRange[]> {
   const windowStart = Math.floor(Date.now() / 1000) - 60 * 60 * 24 * lookbackDays
-  const ranges: OccupiedRange[] = []
+  const bookings: DiaryBooking[] = []
+  // Bookings moved in the lead tool, read while Stripe is paged through. Never fails: an empty list holds every
+  // booking at the time it was paid for.
+  const moves = fetchBookingMoves()
 
   let startingAfter: string | undefined
   for (let page = 0; page < 20; page++) {
@@ -30,12 +34,13 @@ export async function getOccupiedRanges(lookbackDays: number): Promise<OccupiedR
       if (session.status === "expired") continue
       if (session.metadata?.type !== "inspection_booking") continue
       if (typeof session.metadata?.slotStart !== "string" || typeof session.metadata?.slotEnd !== "string") continue
-      ranges.push({ start: session.metadata.slotStart, end: session.metadata.slotEnd })
+      bookings.push({ start: session.metadata.slotStart, end: session.metadata.slotEnd, created: session.created })
     }
 
     if (!response.has_more || response.data.length === 0) break
     startingAfter = response.data[response.data.length - 1].id
   }
 
-  return ranges
+  // A booking moved in the lead tool frees the time it was paid for and holds its new time instead.
+  return applyBookingMoves(bookings, await moves)
 }
