@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import { LayoutWrapper } from "@/components/layout-wrapper"
+import { AwayNotice } from "@/components/away-notice"
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema"
 import Script from "next/script"
 import { SiteTracking } from "@/components/tracking/site-tracking"
@@ -92,7 +93,7 @@ export default function RootLayout({
           strategy="lazyOnload"
           data-cf-beacon='{"token": "495a6b145e1c4de78d8fbc2371f52080"}'
         />
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <LayoutWrapper notice={<AwayNotice />}>{children}</LayoutWrapper>
       </body>
     </html>
   )
