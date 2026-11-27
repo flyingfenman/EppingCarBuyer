@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { parseContactDetail } from "@/lib/contact"
 import { normaliseEmail, requestSubscription } from "@/lib/newsletter"
-import { sendEmail } from "@/lib/email-sender"
+import { NOTICE_TO, sendEmail } from "@/lib/email-sender"
 
 function clean(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : ""
@@ -53,7 +53,7 @@ Sent: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
   `.trim()
 
   const resendResponse = await sendEmail({
-    to: ["henry@eppingcarbuyer.com"],
+    to: NOTICE_TO,
     ...(contact.kind === "email" ? { reply_to: contact.email } : {}),
     subject: `Website message from ${name}`,
     text,

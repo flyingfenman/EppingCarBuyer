@@ -1,14 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { SENDERS } from "@/lib/email-sender"
+import { NOTICE_TO, SENDERS } from "@/lib/email-sender"
 
 // Stamford Car Buyer's contact and Market & Sell forms send through here when the Stamford site can't
 // send email itself (for example when its own RESEND_API_KEY isn't set), so an enquiry isn't lost.
-// Henry no longer has the Stamford mailbox, so it goes to his Epping inbox; every Stamford subject
-// starts with "Stamford", so they stand out. Like the public contact forms, the most it can be used
-// for is a message to Henry.
+// Henry no longer has the Stamford mailbox, so it goes to his Pro Vehicle Inspections inbox, with a copy to the
+// Epping inbox as a backup (NOTICE_TO); every Stamford subject starts with "Stamford", so they stand out. Like the
+// public contact forms, the most it can be used for is a message to Henry.
 // The Pro Vehicle Inspections contact form uses it the same way when that site's Resend key is refused;
 // its subjects start with "Pro Vehicle Inspections: ".
-const INBOX = "henry@eppingcarbuyer.com"
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 async function send(from: string, subject: string, text: string, replyTo?: string): Promise<boolean> {
@@ -19,7 +18,7 @@ async function send(from: string, subject: string, text: string, replyTo?: strin
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from, to: [INBOX], subject, text, ...(replyTo ? { reply_to: replyTo } : {}) }),
+      body: JSON.stringify({ from, to: NOTICE_TO, subject, text, ...(replyTo ? { reply_to: replyTo } : {}) }),
     })
     if (response.ok) return true
     console.error(`Stamford enquiry relay: Resend refused ${from}:`, await response.text())
