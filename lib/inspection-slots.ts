@@ -26,11 +26,39 @@ const LOOKAHEAD_DAYS = 30
 const SLOT_INTERVAL_MIN = 60
 const LONDON_TZ = "Europe/London"
 
+// One London clock for the whole file. Building a formatter is the slow part of reading a UK time, and this file used
+// to build two for every slot it worked out, about 2,000 a calendar load, which was most of the time the free times
+// took to work out (27 Nov 2026).
+const londonClock = new Intl.DateTimeFormat("en-CA", {
+  timeZone: LONDON_TZ,
+  hourCycle: "h23",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  weekday: "short",
+})
+
+// The date and time in the UK at an instant. `month` counts from 0, as Date.UTC does.
+function londonClockParts(instant: Date) {
+  const values: Record<string, string> = {}
+  for (const part of londonClock.formatToParts(instant)) values[part.type] = part.value
+  return {
+    year: Number(values.year),
+    month: Number(values.month) - 1,
+    day: Number(values.day),
+    hour: Number(values.hour),
+    minute: Number(values.minute),
+    weekday: values.weekday,
+  }
+}
+
 // Sunday appointments are by request. They are shown to customers like any other time, but have to be agreed with
 // Henry by message before they can be paid for, the same as a time inside MIN_BOOKING_NOTICE_HOURS. The checkout API
 // enforces it too.
 export function isSundaySlot(slotStart: string): boolean {
-  return new Intl.DateTimeFormat("en-GB", { timeZone: LONDON_TZ, weekday: "short" }).format(new Date(slotStart)) === "Sun"
+  return londonClockParts(new Date(slotStart)).weekday === "Sun"
 }
 
 export interface Slot {
@@ -56,10 +84,11 @@ export function clashesWithBooking(slotStart: string, slotEnd: string, bookingSt
   )
 }
 
+// How far UK time is ahead of UTC at an instant, in minutes: 0 in winter, 60 in British Summer Time.
 function londonOffsetMinutes(instant: Date): number {
-  const asUTC = new Date(instant.toLocaleString("en-US", { timeZone: "UTC" }))
-  const asLondon = new Date(instant.toLocaleString("en-US", { timeZone: LONDON_TZ }))
-  return Math.round((asLondon.getTime() - asUTC.getTime()) / 60000)
+  const { year, month, day, hour, minute } = londonClockParts(instant)
+  const wholeMinute = Math.floor(instant.getTime() / 60000) * 60000
+  return Math.round((Date.UTC(year, month, day, hour, minute) - wholeMinute) / 60000)
 }
 
 function londonWallTimeToUTC(year: number, month: number, day: number, hour: number, minute: number): Date {
@@ -69,21 +98,9 @@ function londonWallTimeToUTC(year: number, month: number, day: number, hour: num
 }
 
 function londonDateParts(instant: Date) {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: LONDON_TZ,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    weekday: "short",
-  }).formatToParts(instant)
-  const get = (type: string) => parts.find((p) => p.type === type)?.value || ""
+  const { year, month, day, weekday } = londonClockParts(instant)
   const weekdayMap: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }
-  return {
-    year: Number(get("year")),
-    month: Number(get("month")) - 1,
-    day: Number(get("day")),
-    weekday: weekdayMap[get("weekday")] ?? -1,
-  }
+  return { year, month, day, weekday: weekdayMap[weekday] ?? -1 }
 }
 
 export function generateAllSlots(packageKey: PackageKey, fromDate: Date = new Date()): Slot[] {

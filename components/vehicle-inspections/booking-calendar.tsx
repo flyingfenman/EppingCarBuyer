@@ -25,6 +25,7 @@ import { trackWhatsAppClick } from "@/lib/tracking"
 import { getTrafficSource } from "@/lib/traffic-source"
 import { useNewsletterReady } from "@/lib/use-newsletter-ready"
 import { scrollToAnchorWhileLoading } from "@/lib/scroll-to-anchor"
+import { SLOTS_URL, takeEarlySlots } from "@/lib/early-slots"
 
 function toWhatsAppNumber(phone: string): string {
   const cleaned = phone.replace(/[^\d+]/g, "")
@@ -181,9 +182,15 @@ export function InspectionsBookingCalendar() {
     setLoadingSlots(true)
     setError("")
     try {
-      const res = await fetch("/api/inspection-slots?package=all", { cache: "no-store" })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || "Couldn't load availability")
+      // The page asks for the times as soon as its HTML arrives (lib/early-slots.ts), so on a first load the answer is
+      // usually here already. Otherwise, and on every refresh after that, ask now.
+      let answer = await takeEarlySlots()
+      if (!answer) {
+        const res = await fetch(SLOTS_URL, { cache: "no-store" })
+        answer = { ok: res.ok, data: await res.json(), at: Date.now() }
+      }
+      const data = answer.data as { error?: string; slotsByPackage?: Partial<Record<PackageKey, Slot[]>> }
+      if (!answer.ok) throw new Error(data.error || "Couldn't load availability")
       setSlotsByPackage({
         standard: data.slotsByPackage?.standard || [],
         premium: data.slotsByPackage?.premium || [],
@@ -522,9 +529,36 @@ export function InspectionsBookingCalendar() {
         </div>
 
         {loadingSlots ? (
-          <div className="grid gap-4 md:grid-cols-[1.25fr_.75fr]">
-            <div className="h-80 animate-pulse rounded-2xl border bg-muted/40" />
-            <div className="h-80 animate-pulse rounded-2xl border bg-muted/30" />
+          // The calendar's own outline while the times load, in the same card and at the same size, so the page shows a
+          // calendar straight away and nothing jumps when the real one takes its place. It has no dates in it, so it
+          // is the same whatever day the page was built on.
+          <div role="status" aria-label="Loading available times" className="overflow-hidden rounded-3xl border border-border bg-white shadow-sm">
+            <div className="grid md:h-[430px] md:grid-cols-[1.25fr_.75fr]">
+              <div className="border-b border-border p-5 md:h-full md:overflow-hidden md:border-b-0 md:border-r sm:p-6">
+                {/* Where the month's name goes. Said here rather than beside the times, which sit below the dates on a phone. */}
+                <p className="mb-4 flex h-11 items-center justify-center gap-2 text-sm font-semibold text-primary">
+                  <Loader2 className="h-4 w-4 animate-spin" /> Loading available times
+                </p>
+                <div className="mb-2 grid grid-cols-7 gap-1">
+                  {WEEKDAY_LABELS.map((w) => <div key={w} className="py-1 text-center text-sm font-semibold text-muted-foreground sm:text-xs">{w}</div>)}
+                </div>
+                <div className="grid grid-cols-7 gap-1">
+                  {Array.from({ length: 35 }, (_, i) => (
+                    <div key={i} className="flex h-11 items-center justify-center">
+                      <span className="h-8 w-8 animate-pulse rounded-full bg-primary/10" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-muted/20 p-5 sm:p-6 md:h-full">
+                <div className="mb-4 h-4 w-40 animate-pulse rounded-full bg-primary/10" />
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-1">
+                  {Array.from({ length: 6 }, (_, i) => (
+                    <div key={i} className="h-12 animate-pulse rounded-xl border border-primary/15 bg-white md:h-[62px]" />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         ) : slots.length === 0 ? (
           <div className="rounded-2xl border bg-white p-8 text-center">
