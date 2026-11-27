@@ -53,7 +53,8 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     tagline: "Independent mobile pre-purchase car inspections",
     senders: SENDERS,
     replyTo: REPLY_TO,
-    inbox: "henry@eppingcarbuyer.com",
+    // Pro Vehicle Inspections notices go to that business's own mailbox (Henry, 27 Nov 2026).
+    inbox: "henry@provehicleinspections.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",
     site: "www.provehicleinspections.com",
