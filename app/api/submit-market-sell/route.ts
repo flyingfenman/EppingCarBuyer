@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { sendEmail } from "@/lib/email-sender"
+import { NOTICE_TO, sendEmail } from "@/lib/email-sender"
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,7 +39,7 @@ Submitted: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}
     `.trim()
 
     const resendResponse = await sendEmail({
-      to: ["henry@eppingcarbuyer.com"],
+      to: NOTICE_TO,
       subject: `New Market & Sell Enquiry: ${make} ${model} (${registration})`,
       text: emailContent,
     })

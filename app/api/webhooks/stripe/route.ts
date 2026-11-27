@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { getStripe } from "@/lib/stripe"
 import { normaliseEmail, requestSubscription } from "@/lib/newsletter"
-import { REPLY_TO, SENDERS } from "@/lib/email-sender"
+import { NOTICE_TO, REPLY_TO, SENDERS } from "@/lib/email-sender"
 
 const WHATSAPP_ICON = "https://cdn.simpleicons.org/whatsapp/FFFFFF"
 const FONT_STACK = "'Fredoka','Trebuchet MS',Arial,Helvetica,sans-serif"
@@ -12,7 +12,6 @@ type Brand = {
   tagline: string
   senders: string[]
   replyTo: string
-  inbox: string
   whatsappLink: string
   whatsappDisplay: string
   site: string
@@ -22,8 +21,8 @@ type Brand = {
 // receives Stamford's bookings. Stamford's checkout marks them
 // brand: "Stamford Car Buyer"; anything unmarked is Epping's, so a Stamford
 // customer is confirmed as Stamford, with Stamford's number. Henry no longer has
-// the Stamford mailbox, so Stamford notices and replies come to the Epping inbox,
-// with the brand in the notice's subject so they stand out.
+// the Stamford mailbox, so Stamford notices and replies come to the same place as the
+// others (NOTICE_TO in lib/email-sender), with the brand in the notice's subject so they stand out.
 // Pro Vehicle Inspections (www.provehicleinspections.com) shares the account too and marks its bookings
 // brand: "Pro Vehicle Inspections".
 // Every brand's emails go from Henry's Pro Vehicle Inspections address, and customers reply to it (lib/email-sender).
@@ -33,7 +32,6 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     tagline: "Independent vehicle buying, selling and inspections",
     senders: SENDERS,
     replyTo: REPLY_TO,
-    inbox: "henry@eppingcarbuyer.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",
     site: "www.eppingcarbuyer.com",
@@ -43,7 +41,6 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     tagline: "Vehicle inspections and Market & Sell",
     senders: SENDERS,
     replyTo: REPLY_TO,
-    inbox: "henry@eppingcarbuyer.com",
     whatsappLink: "447376624097",
     whatsappDisplay: "+44 7376 624097",
     site: "www.stamfordcarbuyer.com",
@@ -53,8 +50,6 @@ const BRANDS: Record<"epping" | "stamford" | "pvi", Brand> = {
     tagline: "Independent mobile pre-purchase car inspections",
     senders: SENDERS,
     replyTo: REPLY_TO,
-    // Pro Vehicle Inspections notices go to that business's own mailbox (Henry, 27 Nov 2026).
-    inbox: "henry@provehicleinspections.com",
     whatsappLink: "441992367909",
     whatsappDisplay: "+44 1992 367909",
     site: "www.provehicleinspections.com",
@@ -160,7 +155,7 @@ function infoTable(rows: Array<[string, string]>) {
   </table>`
 }
 
-async function sendEmail(to: string, subject: string, text: string, html?: string,
+async function sendEmail(to: string | string[], subject: string, text: string, html?: string,
                          brand: Brand = BRANDS.epping): Promise<boolean> {
   for (const from of brand.senders) {
     const resendResponse = await fetch("https://api.resend.com/emails", {
@@ -172,14 +167,14 @@ async function sendEmail(to: string, subject: string, text: string, html?: strin
       body: JSON.stringify({
         from,
         reply_to: brand.replyTo,
-        to: [to],
+        to: Array.isArray(to) ? to : [to],
         subject,
         text,
         html: html || brandedEmail(subject, textToHtml(text), brand),
       }),
     })
     if (resendResponse.ok) return true
-    console.error(`Resend error sending "${subject}" to ${to} as ${from}:`, await resendResponse.text())
+    console.error(`Resend error sending "${subject}" to ${[to].flat().join(", ")} as ${from}:`, await resendResponse.text())
   }
   return false
 }
@@ -315,7 +310,7 @@ Questions in the meantime? WhatsApp Henry directly on ${brand.whatsappDisplay}.
       const internalSubject = `${brand === BRANDS.stamford ? "Stamford: " : brand === BRANDS.pvi ? "Pro Vehicle Inspections: " : ""}${evOnly ? "EV battery health check" : "Vehicle inspection"} request: ${registration} (${packageName}${subjectSuffix}) PAID`
       const [internalOk, customerOk] = await Promise.all([
         sendEmail(
-          brand.inbox,
+          NOTICE_TO,
           internalSubject,
           internalEmail,
           undefined,
@@ -403,7 +398,7 @@ Questions? WhatsApp us on +44 1992 367909.
       )
 
       const emailTasks = [
-        sendEmail("henry@eppingcarbuyer.com", `Shop order: ${productName}. PAID, needs fulfilling`, internalEmail),
+        sendEmail(NOTICE_TO, `Shop order: ${productName}. PAID, needs fulfilling`, internalEmail),
       ]
       if (customerEmail) {
         emailTasks.push(sendEmail(customerEmail, `Order confirmed: ${productName}`, customerEmailBody, customerHtml))
